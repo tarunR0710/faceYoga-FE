@@ -61,7 +61,7 @@ export function ResearchStats() {
   const [activeCategory, setActiveCategory] = useState('Health')
 
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-16 md:py-20 bg-white">
       <div className="container-main">
         {/* Header */}
         <motion.div
@@ -117,7 +117,7 @@ export function ResearchStats() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-[#fafafa] rounded-xl p-6 flex flex-col"
+                className="bg-[#fafafa] rounded-xl p-4 md:p-5 flex flex-col"
               >
                 <h3 className="text-[18px] text-[#111] mb-3" style={{ fontWeight: 450 }}>
                   {item.title} <span className="text-black/40">{item.highlight}</span>

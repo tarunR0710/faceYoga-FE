@@ -20,7 +20,7 @@ const newWay = [
 
 export function OldVsNew() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 md:py-16 bg-white">
       <div className="container-main">
         {/* Header */}
         <motion.div
