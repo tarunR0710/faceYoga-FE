@@ -1,49 +1,73 @@
-import { Metadata } from 'next'
+'use client'
+
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { ArrowLeft, Shield, Clock, CheckCircle } from 'lucide-react'
 import { LeadForm } from '@/components/forms/lead-form'
 import { SITE_CONFIG } from '@/lib/constants'
 
-export const metadata: Metadata = {
-  title: `Get Started - ${SITE_CONFIG.name}`,
-  description: 'Start your face yoga journey with a personalized plan.',
-}
-
 export default function FormPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <div className="min-h-screen bg-[#fafafa]">
       {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm">
+      <header className="border-b border-[#eee] bg-white/80 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-14 items-center justify-between">
             <Link
               href="/"
-              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+              className="flex items-center gap-2 text-[#888] hover:text-[#111] transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm">Back to home</span>
+              <span className="text-[13px]">Back</span>
             </Link>
-            <Link href="/" className="text-xl font-bold text-primary">
+            <Link
+              href="/"
+              className="text-[17px] text-[#111]"
+              style={{ fontWeight: 500 }}
+            >
               {SITE_CONFIG.name}
             </Link>
-            <div className="w-24" /> {/* Spacer for centering */}
+            <div className="w-16" />
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center px-4 py-12 lg:py-20">
-        <div className="w-full max-w-lg">
+      <main className="flex-1 flex items-center justify-center px-4 py-12 lg:py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="w-full max-w-md"
+        >
           {/* Card */}
-          <div className="bg-white rounded-2xl shadow-xl border p-8 lg:p-10">
+          <div
+            className="rounded-2xl p-8 lg:p-10"
+            style={{
+              background: 'linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(250,250,250,0.95) 100%)',
+              border: '1px solid #eee',
+              backdropFilter: 'blur(10px)',
+            }}
+          >
             {/* Header */}
             <div className="text-center mb-8">
-              <h1 className="text-2xl lg:text-3xl font-bold text-primary">
+              <motion.h1
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}
+                className="text-[1.5rem] md:text-[1.75rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-2"
+                style={{ fontWeight: 450 }}
+              >
                 Start Your Journey
-              </h1>
-              <p className="text-muted-foreground mt-2">
-                Enter your details to get your personalized face yoga plan
-              </p>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-[14px] text-[#666]"
+              >
+                Enter your details to get your personalized plan
+              </motion.p>
             </div>
 
             {/* Form */}
@@ -51,27 +75,26 @@ export default function FormPage() {
           </div>
 
           {/* Trust badges */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="mt-6 flex flex-wrap items-center justify-center gap-5 text-[12px] text-[#999]"
+          >
+            <div className="flex items-center gap-1.5">
+              <Shield className="w-4 h-4 text-emerald-500" />
               <span>Secure & Private</span>
             </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            <div className="flex items-center gap-1.5">
+              <Clock className="w-4 h-4 text-emerald-500" />
               <span>Takes 2 minutes</span>
             </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+            <div className="flex items-center gap-1.5">
+              <CheckCircle className="w-4 h-4 text-emerald-500" />
               <span>No spam, ever</span>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </main>
     </div>
   )
