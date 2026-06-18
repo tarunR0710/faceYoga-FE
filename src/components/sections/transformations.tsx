@@ -50,6 +50,7 @@ function BeforeAfterSlider({
           src={afterImage}
           alt="After"
           fill
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover"
           draggable={false}
         />
@@ -64,6 +65,7 @@ function BeforeAfterSlider({
           src={beforeImage}
           alt="Before"
           fill
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover"
           draggable={false}
         />

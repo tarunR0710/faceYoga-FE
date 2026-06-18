@@ -67,6 +67,7 @@ export function FacialAnalysis() {
               src="/woman-analysis.png"
               alt="Facial analysis demonstration"
               fill
+              sizes="(max-width: 768px) 100vw, 448px"
               className="object-contain object-bottom"
               priority
             />

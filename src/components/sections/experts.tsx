@@ -74,6 +74,7 @@ export function Experts() {
                   src={expert.image}
                   alt={expert.name}
                   fill
+                  sizes="80px"
                   className="object-cover"
                 />
               </div>

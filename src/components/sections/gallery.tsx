@@ -67,6 +67,7 @@ export function Gallery() {
                       src={item.before}
                       alt="Before"
                       fill
+                      sizes="(max-width: 768px) 70px, 100px"
                       className="object-cover"
                     />
                     <span className="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 rounded bg-white/80 text-[9px] font-medium text-[#666]">
@@ -79,6 +80,7 @@ export function Gallery() {
                       src={item.after}
                       alt="After"
                       fill
+                      sizes="(max-width: 768px) 70px, 100px"
                       className="object-cover"
                     />
                     <span className="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 rounded bg-emerald-500 text-[9px] font-medium text-white">
