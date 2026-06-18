@@ -21,7 +21,7 @@ export interface AdminSession {
 }
 
 export async function createToken(payload: AdminSession): Promise<string> {
-  return await new SignJWT(payload)
+  return await new SignJWT({ ...payload })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('7d')
