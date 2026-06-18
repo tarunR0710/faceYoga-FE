@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Check, Loader2, Shield, Sparkles } from 'lucide-react'
+import { ChevronLeft, Check, Loader2, Shield, Sparkles } from 'lucide-react'
 import { useRazorpay } from '@/hooks/use-razorpay'
 import { PRICING_PLANS, SITE_CONFIG, type PlanId } from '@/lib/constants'
 import { trackInitiateCheckout, trackPurchase } from '@/lib/meta-pixel'
@@ -147,7 +147,7 @@ export default function PaymentPage() {
               href="/form"
               className="flex items-center gap-2 text-[#888] hover:text-[#111] transition-colors"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ChevronLeft className="w-5 h-5" />
               <span className="text-[13px]">Back</span>
             </Link>
             <Link

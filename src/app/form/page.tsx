@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Shield, Clock, CheckCircle } from 'lucide-react'
+import { ChevronLeft, Shield, Clock, CheckCircle } from 'lucide-react'
 import { LeadForm } from '@/components/forms/lead-form'
 import { SITE_CONFIG } from '@/lib/constants'
 
@@ -17,7 +17,7 @@ export default function FormPage() {
               href="/"
               className="flex items-center gap-2 text-[#888] hover:text-[#111] transition-colors"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ChevronLeft className="w-5 h-5" />
               <span className="text-[13px]">Back</span>
             </Link>
             <Link
