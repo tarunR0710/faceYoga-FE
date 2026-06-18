@@ -158,7 +158,7 @@ export function LeadForm() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-5"
+            className="space-y-4"
           >
             {/* Name */}
             <div>

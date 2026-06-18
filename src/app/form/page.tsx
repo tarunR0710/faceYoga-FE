@@ -8,9 +8,9 @@ import { SITE_CONFIG } from '@/lib/constants'
 
 export default function FormPage() {
   return (
-    <div className="min-h-screen bg-[#fafafa]">
+    <div className="h-screen flex flex-col bg-[#fafafa] overflow-hidden">
       {/* Header */}
-      <header className="border-b border-[#eee] bg-white/80 backdrop-blur-sm">
+      <header className="flex-shrink-0 border-b border-[#eee] bg-white/80 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-14 items-center justify-between">
             <Link
@@ -33,7 +33,7 @@ export default function FormPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center px-4 py-12 lg:py-16">
+      <main className="flex-1 flex items-center justify-center px-4 py-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ export default function FormPage() {
         >
           {/* Card */}
           <div
-            className="rounded-2xl p-8 lg:p-10"
+            className="rounded-2xl p-6 lg:p-8"
             style={{
               background: 'linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(250,250,250,0.95) 100%)',
               border: '1px solid #eee',
@@ -50,7 +50,7 @@ export default function FormPage() {
             }}
           >
             {/* Header */}
-            <div className="text-center mb-8">
+            <div className="text-center mb-6">
               <motion.h1
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -79,7 +79,7 @@ export default function FormPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="mt-6 flex flex-wrap items-center justify-center gap-5 text-[12px] text-[#999]"
+            className="mt-4 flex flex-wrap items-center justify-center gap-4 text-[11px] text-[#999]"
           >
             <div className="flex items-center gap-1.5">
               <Shield className="w-4 h-4 text-emerald-500" />
