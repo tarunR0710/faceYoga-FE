@@ -38,7 +38,7 @@ export function Footer() {
           {/* Company */}
           <div>
             <p className="text-[11px] font-semibold text-[#999] uppercase tracking-[0.15em] mb-4">Company</p>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href} className="text-[13px] text-[#666] hover:text-[#111] transition-colors duration-150">
@@ -52,7 +52,7 @@ export function Footer() {
           {/* Legal */}
           <div>
             <p className="text-[11px] font-semibold text-[#999] uppercase tracking-[0.15em] mb-4">Legal</p>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href} className="text-[13px] text-[#666] hover:text-[#111] transition-colors duration-150">
@@ -69,7 +69,7 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-[#f5f5f5] flex items-center justify-center text-[#888] hover:bg-[#eee] hover:text-[#111] transition-all duration-150"
+                className="w-8 h-8 rounded-full bg-[#f5f5f5] flex items-center justify-center text-[#888] hover:bg-[#eee] hover:text-[#111] transition-all duration-150"
                 aria-label="Instagram"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -78,7 +78,7 @@ export function Footer() {
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-[#f5f5f5] flex items-center justify-center text-[#888] hover:bg-[#eee] hover:text-[#111] transition-all duration-150"
+                className="w-8 h-8 rounded-full bg-[#f5f5f5] flex items-center justify-center text-[#888] hover:bg-[#eee] hover:text-[#111] transition-all duration-150"
                 aria-label="YouTube"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -87,7 +87,7 @@ export function Footer() {
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-[#f5f5f5] flex items-center justify-center text-[#888] hover:bg-[#eee] hover:text-[#111] transition-all duration-150"
+                className="w-8 h-8 rounded-full bg-[#f5f5f5] flex items-center justify-center text-[#888] hover:bg-[#eee] hover:text-[#111] transition-all duration-150"
                 aria-label="LinkedIn"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

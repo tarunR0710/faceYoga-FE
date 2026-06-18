@@ -47,7 +47,7 @@ function FAQItem({ question, answer, isOpen, onToggle }: {
         <span className="text-[14px] font-medium text-[#111] group-hover:text-[#555] transition-colors pr-4">
           {question}
         </span>
-        <span className="flex-shrink-0 w-9 h-9 rounded-full bg-[#f5f5f5] flex items-center justify-center">
+        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#f5f5f5] flex items-center justify-center">
           {isOpen ? (
             <Minus className="w-3 h-3 text-[#666]" strokeWidth={2} />
           ) : (

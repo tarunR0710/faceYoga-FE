@@ -61,7 +61,7 @@ export function PricingPreview() {
             {/* Features */}
             <div className="mb-6">
               <p className="text-[12px] text-[#999] uppercase tracking-[0.05em] mb-4">What's included</p>
-              <ul className="space-y-3">
+              <ul className="space-y-2.5">
                 {features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
                     <div className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center mt-0.5">

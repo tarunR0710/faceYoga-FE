@@ -146,7 +146,7 @@ export function Features() {
 
                   {/* Chevron */}
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                       isExpanded ? 'bg-black/5 rotate-180' : 'bg-white'
                     }`}
                   >
