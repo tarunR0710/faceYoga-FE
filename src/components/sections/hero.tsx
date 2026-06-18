@@ -20,7 +20,21 @@ export function Hero() {
             objectPosition: 'center top',
           }}
         >
-          <source src="/hero-video.mp4" type="video/mp4" />
+          {/* Responsive video sources from Cloudinary */}
+          <source
+            src="https://res.cloudinary.com/dm2wlbavc/video/upload/w_640,q_auto/v1781777236/faceyoga_jtmpun.mp4"
+            type="video/mp4"
+            media="(max-width: 640px)"
+          />
+          <source
+            src="https://res.cloudinary.com/dm2wlbavc/video/upload/w_1280,q_auto/v1781777236/faceyoga_jtmpun.mp4"
+            type="video/mp4"
+            media="(max-width: 1280px)"
+          />
+          <source
+            src="https://res.cloudinary.com/dm2wlbavc/video/upload/q_auto/v1781777236/faceyoga_jtmpun.mp4"
+            type="video/mp4"
+          />
         </video>
         {/* Gradient overlay for text readability */}
         <div
