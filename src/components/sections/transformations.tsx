@@ -108,7 +108,7 @@ const benefits = [
 
 export function Transformations() {
   return (
-    <section className="py-20 md:py-28 bg-[#f7f7f7]">
+    <section className="pt-24 md:pt-28 pb-14 md:pb-20 bg-[#f7f7f7]">
       <div className="container-main">
         {/* Grid: Text left, Images right on desktop */}
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -158,7 +158,7 @@ export function Transformations() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-5"
           >
             <BeforeAfterSlider
               beforeImage="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&h=800&fit=crop&crop=face"

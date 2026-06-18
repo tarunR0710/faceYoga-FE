@@ -28,14 +28,14 @@ const transformations = [
 
 export function Gallery() {
   return (
-    <section className="py-20 bg-[#fafafa]">
+    <section className="py-14 md:py-16 bg-[#fafafa]">
       <div className="container-main">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-2xl mx-auto mb-14"
+          className="text-center max-w-2xl mx-auto mb-10"
         >
           <p className="text-[12px] text-[#999] uppercase tracking-[0.15em] mb-3">
             Real results
