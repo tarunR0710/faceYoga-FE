@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { formatDateTime, formatPrice } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -19,7 +19,7 @@ interface Transaction {
   createdAt: string
 }
 
-export default function AdminPaymentsPage() {
+function TransactionsContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [transactions, setTransactions] = useState<Transaction[]>([])
@@ -189,5 +189,17 @@ export default function AdminPaymentsPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function AdminPaymentsPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    }>
+      <TransactionsContent />
+    </Suspense>
   )
 }
