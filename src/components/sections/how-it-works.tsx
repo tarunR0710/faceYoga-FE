@@ -29,7 +29,7 @@ export function HowItWorks() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-xl mx-auto mb-14"
+          className="text-center max-w-xl mx-auto mb-10"
         >
           <p className="text-[12px] text-[#999] uppercase tracking-[0.1em] mb-3">
             Simple process
@@ -43,7 +43,7 @@ export function HowItWorks() {
         </motion.div>
 
         {/* Steps */}
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-3 gap-4 lg:gap-6">
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
@@ -51,7 +51,7 @@ export function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="relative bg-white rounded-xl p-6 md:p-8 border border-[#eee] hover:border-[#ddd] hover:shadow-sm transition-all duration-200"
+              className="relative bg-white rounded-xl p-5 md:p-6 border border-[#eee] hover:border-[#ddd] hover:shadow-sm transition-all duration-200"
             >
               {/* Number */}
               <span className="text-[11px] font-medium text-[#bbb] tracking-wider mb-4 block">

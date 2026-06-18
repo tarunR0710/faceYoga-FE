@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 export function FacialAnalysis() {
   return (
     <section
-      className="relative pt-16 md:pt-24 pb-0 overflow-hidden"
+      className="relative pt-10 md:pt-16 pb-0 overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #8a8580 0%, #6b6560 50%, #5a5550 100%)',
       }}

@@ -20,7 +20,7 @@ const newWay = [
 
 export function OldVsNew() {
   return (
-    <section className="py-12 md:py-16 bg-white">
+    <section className="pt-6 md:pt-10 pb-12 md:pb-16 bg-white">
       <div className="container-main">
         {/* Header */}
         <motion.div
@@ -29,7 +29,7 @@ export function OldVsNew() {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-14"
         >
-          <p className="text-[14px] md:text-[15px] text-black/40 leading-relaxed mb-6">
+          <p className="text-[14px] md:text-[15px] text-black/40 leading-relaxed mb-10">
             The beauty industry is broken, with companies and influencers giving "one size fits all" advice, and many people undergoing unnecessary procedures they don't need.
           </p>
           <h2 className="text-[1.75rem] md:text-[2.25rem] leading-[1.15] tracking-[-0.02em] text-[#111]" style={{ fontWeight: 450 }}>
