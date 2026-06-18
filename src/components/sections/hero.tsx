@@ -14,25 +14,27 @@ export function Hero() {
           muted
           loop
           playsInline
+          preload="auto"
+          poster="https://res.cloudinary.com/dm2wlbavc/video/upload/w_1280,q_auto,f_jpg,so_0/v1781777236/faceyoga_jtmpun.jpg"
           className="absolute inset-0 w-full h-full"
           style={{
             objectFit: 'cover',
             objectPosition: 'center top',
           }}
         >
-          {/* Responsive video sources from Cloudinary */}
+          {/* Responsive video sources from Cloudinary - f_auto serves WebM to Chrome, MP4 to Safari */}
           <source
-            src="https://res.cloudinary.com/dm2wlbavc/video/upload/w_640,q_auto/v1781777236/faceyoga_jtmpun.mp4"
+            src="https://res.cloudinary.com/dm2wlbavc/video/upload/w_640,q_auto,f_auto/v1781777236/faceyoga_jtmpun"
             type="video/mp4"
             media="(max-width: 640px)"
           />
           <source
-            src="https://res.cloudinary.com/dm2wlbavc/video/upload/w_1280,q_auto/v1781777236/faceyoga_jtmpun.mp4"
+            src="https://res.cloudinary.com/dm2wlbavc/video/upload/w_1280,q_auto,f_auto/v1781777236/faceyoga_jtmpun"
             type="video/mp4"
             media="(max-width: 1280px)"
           />
           <source
-            src="https://res.cloudinary.com/dm2wlbavc/video/upload/q_auto/v1781777236/faceyoga_jtmpun.mp4"
+            src="https://res.cloudinary.com/dm2wlbavc/video/upload/q_auto,f_auto/v1781777236/faceyoga_jtmpun"
             type="video/mp4"
           />
         </video>
