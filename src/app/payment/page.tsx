@@ -5,8 +5,6 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Check, Loader2, Shield, Sparkles } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { useRazorpay } from '@/hooks/use-razorpay'
 import { PRICING_PLANS, SITE_CONFIG, type PlanId } from '@/lib/constants'
 import { trackInitiateCheckout, trackPurchase } from '@/lib/meta-pixel'
@@ -14,9 +12,8 @@ import { cn } from '@/lib/utils'
 
 const API_URL = SITE_CONFIG.apiUrl
 
-// Package IDs from the backend (will be fetched or hardcoded based on plan)
 const PACKAGE_IDS: Record<PlanId, string> = {
-  one_time: '', // Will be set after fetching packages or use a default
+  one_time: '',
   monthly: '',
   yearly: '',
 }
@@ -31,13 +28,11 @@ interface CheckoutData {
 export default function PaymentPage() {
   const router = useRouter()
   const [checkoutData, setCheckoutData] = useState<CheckoutData | null>(null)
-  const [packages, setPackages] = useState<Array<{ id: string; name: string; amount: number }>>([])
   const [selectedPlan, setSelectedPlan] = useState<PlanId>('yearly')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const { isLoaded: razorpayLoaded, openPayment } = useRazorpay()
 
-  // Load checkout data from sessionStorage
   useEffect(() => {
     const stored = sessionStorage.getItem('checkoutData')
     if (stored) {
@@ -52,22 +47,6 @@ export default function PaymentPage() {
     }
   }, [router])
 
-  // Fetch packages from backend (optional - can use hardcoded IDs if known)
-  useEffect(() => {
-    async function fetchPackages() {
-      try {
-        const response = await fetch(`${API_URL}/health`)
-        if (response.ok) {
-          // Backend is available - packages will be looked up by name during order creation
-          // For now, we'll pass the plan name and let backend match it
-        }
-      } catch {
-        // Backend not available - will show error during payment
-      }
-    }
-    fetchPackages()
-  }, [])
-
   const handlePayment = async () => {
     if (!checkoutData) {
       router.push('/form')
@@ -77,7 +56,6 @@ export default function PaymentPage() {
     setIsLoading(true)
     setError('')
 
-    // Meta Pixel: user started checkout
     trackInitiateCheckout({
       value: PRICING_PLANS[selectedPlan].price,
       currency: 'INR',
@@ -85,8 +63,6 @@ export default function PaymentPage() {
     })
 
     try {
-      // Create order via Railway API
-      // The backend will look up the package by name and create the order
       const response = await fetch(`${API_URL}/api/order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -95,8 +71,7 @@ export default function PaymentPage() {
           email: checkoutData.email,
           phone: checkoutData.phone,
           phoneToken: checkoutData.phoneToken,
-          // Pass plan info - backend will match to package
-          packageId: PACKAGE_IDS[selectedPlan] || selectedPlan, // Use plan name if no ID
+          packageId: PACKAGE_IDS[selectedPlan] || selectedPlan,
           planName: PRICING_PLANS[selectedPlan].name,
         }),
       })
@@ -107,14 +82,12 @@ export default function PaymentPage() {
         throw new Error(data.error || 'Failed to create order')
       }
 
-      // Open Razorpay
       openPayment({
         orderId: data.orderId,
         amount: data.amount,
         description: `${PRICING_PLANS[selectedPlan].name} - ${SITE_CONFIG.name}`,
         prefill: data.prefill,
         onSuccess: async (razorpayResponse) => {
-          // Verify payment via Railway API
           try {
             const verifyResponse = await fetch(`${API_URL}/api/webhook/verify`, {
               method: 'POST',
@@ -128,7 +101,6 @@ export default function PaymentPage() {
               throw new Error(verifyData.error || 'Payment verification failed')
             }
 
-            // Meta Pixel: payment verified
             trackPurchase({
               value: PRICING_PLANS[selectedPlan].price,
               currency: 'INR',
@@ -136,14 +108,9 @@ export default function PaymentPage() {
               contentName: PRICING_PLANS[selectedPlan].name,
             })
 
-            // Clear checkout data
             sessionStorage.removeItem('checkoutData')
-
-            // Redirect to success
             router.push('/success')
-          } catch (err) {
-            // Even if verification fails, the webhook will handle it
-            // Show success anyway since Razorpay payment went through
+          } catch {
             sessionStorage.removeItem('checkoutData')
             router.push('/success')
           }
@@ -164,26 +131,30 @@ export default function PaymentPage() {
 
   if (!checkoutData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      <div className="min-h-screen flex items-center justify-center bg-[#fafafa]">
+        <Loader2 className="w-8 h-8 animate-spin text-[#666]" />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <div className="min-h-screen bg-[#fafafa]">
       {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm">
+      <header className="border-b border-[#eee] bg-white/80 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-14 items-center justify-between">
             <Link
               href="/form"
-              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+              className="flex items-center gap-2 text-[#888] hover:text-[#111] transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm">Back</span>
+              <span className="text-[13px]">Back</span>
             </Link>
-            <Link href="/" className="text-xl font-bold text-primary">
+            <Link
+              href="/"
+              className="text-[17px] text-[#111]"
+              style={{ fontWeight: 500 }}
+            >
               {SITE_CONFIG.name}
             </Link>
             <div className="w-16" />
@@ -192,158 +163,173 @@ export default function PaymentPage() {
       </header>
 
       {/* Main Content */}
-      <main className="py-12 lg:py-20 px-4">
+      <main className="py-12 lg:py-16 px-4">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-3xl lg:text-4xl font-bold text-primary">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-10"
+          >
+            <h1
+              className="text-[1.75rem] md:text-[2rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-2"
+              style={{ fontWeight: 450 }}
+            >
               Choose Your Plan
             </h1>
-            <p className="text-muted-foreground mt-2">
-              Select the plan that best fits your transformation goals
+            <p className="text-[15px] text-[#666]">
+              Welcome back, {checkoutData.name}
             </p>
-            <p className="text-sm text-muted-foreground mt-1">
-              Welcome, {checkoutData.name}!
-            </p>
-          </div>
+          </motion.div>
 
           {/* Pricing Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            {Object.values(PRICING_PLANS).map((plan) => (
-              <motion.div
-                key={plan.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={cn(
-                  'relative rounded-2xl p-6 cursor-pointer transition-all duration-200',
-                  selectedPlan === plan.id
-                    ? 'bg-primary text-primary-foreground shadow-xl ring-2 ring-primary'
-                    : 'bg-white border shadow-sm hover:shadow-md'
-                )}
-                onClick={() => setSelectedPlan(plan.id as PlanId)}
-              >
-                {/* Popular badge */}
-                {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-yellow-950">
-                    <Sparkles className="w-3 h-3 mr-1" />
-                    Best Value
-                  </Badge>
-                )}
+          <div className="grid md:grid-cols-3 gap-4 mb-10">
+            {Object.values(PRICING_PLANS).map((plan, index) => {
+              const isSelected = selectedPlan === plan.id
+              const isPopular = plan.popular
 
-                {/* Selection indicator */}
-                <div
+              return (
+                <motion.div
+                  key={plan.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => setSelectedPlan(plan.id as PlanId)}
                   className={cn(
-                    'absolute top-4 right-4 w-6 h-6 rounded-full border-2 flex items-center justify-center',
-                    selectedPlan === plan.id
-                      ? 'bg-white border-white'
-                      : 'border-gray-300'
+                    'relative rounded-2xl p-5 cursor-pointer transition-all duration-300',
+                    isSelected
+                      ? 'ring-2 ring-[#111] shadow-lg'
+                      : 'ring-1 ring-[#e5e5e5] hover:ring-[#ccc]'
                   )}
+                  style={{
+                    background: isSelected
+                      ? 'linear-gradient(145deg, rgba(17,17,17,0.03) 0%, rgba(17,17,17,0.08) 100%)'
+                      : 'linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(250,250,250,0.9) 100%)',
+                    backdropFilter: 'blur(10px)',
+                  }}
                 >
-                  {selectedPlan === plan.id && (
-                    <Check className="w-4 h-4 text-primary" />
-                  )}
-                </div>
-
-                {/* Plan details */}
-                <div className="mb-4">
-                  <h3
-                    className={cn(
-                      'font-semibold',
-                      selectedPlan === plan.id ? '' : 'text-primary'
-                    )}
-                  >
-                    {plan.name}
-                  </h3>
-                  <p
-                    className={cn(
-                      'text-sm mt-1',
-                      selectedPlan === plan.id
-                        ? 'text-primary-foreground/80'
-                        : 'text-muted-foreground'
-                    )}
-                  >
-                    {plan.description}
-                  </p>
-                </div>
-
-                {/* Price */}
-                <div className="mb-4">
-                  {'originalPriceDisplay' in plan && (
+                  {/* Popular badge */}
+                  {isPopular && (
                     <div
-                      className={cn(
-                        'text-sm line-through',
-                        selectedPlan === plan.id
-                          ? 'text-primary-foreground/60'
-                          : 'text-muted-foreground'
-                      )}
+                      className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[10px] font-medium tracking-wide uppercase flex items-center gap-1"
+                      style={{
+                        background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+                        color: '#78350f',
+                      }}
                     >
-                      {plan.originalPriceDisplay}
+                      <Sparkles className="w-3 h-3" />
+                      Best Value
                     </div>
                   )}
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-bold">{plan.priceDisplay}</span>
-                    {plan.period && (
+
+                  {/* Selection indicator */}
+                  <div
+                    className={cn(
+                      'absolute top-4 right-4 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all',
+                      isSelected
+                        ? 'bg-[#111] border-[#111]'
+                        : 'border-[#ddd] bg-white'
+                    )}
+                  >
+                    {isSelected && <Check className="w-3 h-3 text-white" />}
+                  </div>
+
+                  {/* Plan details */}
+                  <div className="mb-4 pr-8">
+                    <h3
+                      className="text-[15px] text-[#111] mb-1"
+                      style={{ fontWeight: 500 }}
+                    >
+                      {plan.name}
+                    </h3>
+                    <p className="text-[13px] text-[#888] leading-relaxed">
+                      {plan.description}
+                    </p>
+                  </div>
+
+                  {/* Price */}
+                  <div className="mb-4">
+                    {'originalPriceDisplay' in plan && (
+                      <div className="text-[13px] text-[#999] line-through">
+                        {plan.originalPriceDisplay}
+                      </div>
+                    )}
+                    <div className="flex items-baseline gap-1">
                       <span
-                        className={cn(
-                          'text-sm',
-                          selectedPlan === plan.id
-                            ? 'text-primary-foreground/80'
-                            : 'text-muted-foreground'
-                        )}
+                        className="text-[1.75rem] text-[#111]"
+                        style={{ fontWeight: 500 }}
                       >
-                        {plan.period}
+                        {plan.priceDisplay}
+                      </span>
+                      {plan.period && (
+                        <span className="text-[13px] text-[#888]">
+                          {plan.period}
+                        </span>
+                      )}
+                    </div>
+                    {'savings' in plan && (
+                      <span
+                        className="inline-block mt-2 px-2 py-0.5 rounded text-[11px] font-medium"
+                        style={{
+                          background: 'rgba(16, 185, 129, 0.1)',
+                          color: '#059669',
+                        }}
+                      >
+                        {plan.savings}
                       </span>
                     )}
                   </div>
-                  {'savings' in plan && (
-                    <Badge variant="success" className="mt-2">
-                      {plan.savings}
-                    </Badge>
-                  )}
-                </div>
 
-                {/* Features */}
-                <ul className="space-y-2">
-                  {plan.features.slice(0, 3).map((feature) => (
-                    <li key={feature} className="flex items-start gap-2 text-sm">
-                      <Check
-                        className={cn(
-                          'w-4 h-4 flex-shrink-0 mt-0.5',
-                          selectedPlan === plan.id
-                            ? 'text-green-400'
-                            : 'text-green-500'
-                        )}
-                      />
-                      <span
-                        className={cn(
-                          selectedPlan === plan.id
-                            ? 'text-primary-foreground/90'
-                            : 'text-muted-foreground'
-                        )}
+                  {/* Features */}
+                  <ul className="space-y-2">
+                    {plan.features.slice(0, 3).map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-2 text-[13px] text-[#666]"
                       >
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
+                        <Check className="w-4 h-4 flex-shrink-0 mt-0.5 text-emerald-500" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )
+            })}
           </div>
 
           {/* Error message */}
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 p-4 rounded-xl text-[14px] text-center"
+              style={{
+                background: 'rgba(239, 68, 68, 0.08)',
+                color: '#dc2626',
+                border: '1px solid rgba(239, 68, 68, 0.2)',
+              }}
+            >
               {error}
-            </div>
+            </motion.div>
           )}
 
           {/* Pay Button */}
-          <div className="text-center">
-            <Button
-              size="xl"
-              className="min-w-[200px]"
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-center"
+          >
+            <button
               onClick={handlePayment}
               disabled={isLoading || !razorpayLoaded}
+              className={cn(
+                'inline-flex items-center justify-center h-14 px-12 rounded-full text-[15px] font-medium transition-all',
+                isLoading || !razorpayLoaded
+                  ? 'bg-[#999] cursor-not-allowed'
+                  : 'bg-[#111] hover:bg-[#333]'
+              )}
+              style={{ color: 'white' }}
             >
               {isLoading ? (
                 <>
@@ -351,28 +337,28 @@ export default function PaymentPage() {
                   Processing...
                 </>
               ) : (
-                <>
-                  Pay {PRICING_PLANS[selectedPlan].priceDisplay}
-                </>
+                <>Pay {PRICING_PLANS[selectedPlan].priceDisplay}</>
               )}
-            </Button>
+            </button>
 
             {/* Trust badges */}
-            <div className="mt-6 flex items-center justify-center gap-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-1">
+            <div className="mt-6 flex items-center justify-center gap-4 text-[13px] text-[#888]">
+              <div className="flex items-center gap-1.5">
                 <Shield className="w-4 h-4" />
                 <span>Secure Payment</span>
               </div>
-              <span>|</span>
+              <span className="text-[#ddd]">|</span>
               <span>7-day money-back guarantee</span>
             </div>
 
             {/* Payment logos */}
             <div className="mt-4">
-              <p className="text-xs text-muted-foreground mb-2">Powered by</p>
-              <span className="text-sm font-semibold text-gray-400">Razorpay</span>
+              <p className="text-[11px] text-[#bbb] mb-1">Powered by</p>
+              <span className="text-[13px] text-[#999]" style={{ fontWeight: 500 }}>
+                Razorpay
+              </span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </main>
     </div>
