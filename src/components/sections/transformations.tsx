@@ -111,7 +111,7 @@ export function Transformations() {
     <section className="py-20 md:py-28 bg-[#f7f7f7]">
       <div className="container-main">
         {/* Grid: Text left, Images right on desktop */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left - Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -135,7 +135,7 @@ export function Transformations() {
             </p>
 
             {/* Benefits List */}
-            <div className="space-y-3 pl-6 md:pl-10">
+            <div className="space-y-3 pl-0 md:pl-10">
               {benefits.map((benefit, index) => (
                 <motion.div
                   key={index}

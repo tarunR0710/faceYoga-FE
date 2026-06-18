@@ -106,7 +106,7 @@ export function Header() {
             <div className="flex md:hidden items-center gap-2">
               <Link
                 href="/form"
-                className="h-9 px-4 inline-flex items-center text-white text-[13px] font-medium rounded-full transition-all duration-200"
+                className="h-10 px-4 inline-flex items-center text-white text-[13px] font-medium rounded-full transition-all duration-200"
                 style={{
                   backgroundColor: 'rgba(255, 255, 255, 0.15)',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -115,7 +115,7 @@ export function Header() {
                 Start my plan
               </Link>
               <button
-                className="p-2 text-white rounded-full hover:bg-white/10 transition-colors"
+                className="p-2.5 text-white rounded-full hover:bg-white/10 transition-colors"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Toggle menu"
               >

@@ -47,7 +47,7 @@ export function Hero() {
       </div>
 
       {/* Content - positioned at bottom */}
-      <div className="relative h-full flex flex-col justify-end px-6 md:px-12 lg:px-20 pb-8 md:pb-12">
+      <div className="relative h-full flex flex-col justify-end px-6 md:px-12 lg:px-20 pb-12 md:pb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
