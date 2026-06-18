@@ -61,7 +61,7 @@ export function ResearchStats() {
   const [activeCategory, setActiveCategory] = useState('Health')
 
   return (
-    <section className="py-16 md:py-20 bg-white">
+    <section className="pt-16 md:pt-20 pb-10 md:pb-12 bg-white">
       <div className="container-main">
         {/* Header */}
         <motion.div
