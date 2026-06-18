@@ -1,70 +1,96 @@
-import { redirect } from 'next/navigation'
-import { getAdminSession } from '@/lib/auth'
-import { supabaseAdmin } from '@/lib/db'
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { formatDateTime, formatPrice } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
+import { SITE_CONFIG } from '@/lib/constants'
 
-interface SearchParams {
-  page?: string
-  status?: string
+interface Transaction {
+  id: string
+  name: string
+  email: string
+  phone: string
+  amount: number
+  status: string
+  razorpayOrderId: string
+  razorpayPaymentId?: string
+  failureReason?: string
+  createdAt: string
 }
 
-async function getPayments(page: number, status: string) {
+export default function AdminPaymentsPage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [total, setTotal] = useState(0)
+  const [loading, setLoading] = useState(true)
+
+  const page = parseInt(searchParams.get('page') || '1')
+  const status = searchParams.get('status') || 'all'
   const pageSize = 20
-  const offset = (page - 1) * pageSize
+  const totalPages = Math.ceil(total / pageSize)
 
-  let query = supabaseAdmin
-    .from('payments')
-    .select('*, user:users(name, email, phone)', { count: 'exact' })
+  useEffect(() => {
+    const token = localStorage.getItem('admin_token')
+    if (!token) {
+      router.push('/admin/login')
+      return
+    }
 
-  if (status && status !== 'all') {
-    query = query.eq('status', status)
+    fetchTransactions(token)
+  }, [page, status, router])
+
+  async function fetchTransactions(token: string) {
+    setLoading(true)
+    try {
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: pageSize.toString(),
+        ...(status !== 'all' && { status }),
+      })
+
+      const res = await fetch(`${SITE_CONFIG.apiUrl}/api/admin/transactions?${params}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+
+      if (!res.ok) {
+        if (res.status === 401) {
+          localStorage.removeItem('admin_token')
+          router.push('/admin/login')
+          return
+        }
+        throw new Error('Failed to fetch')
+      }
+
+      const data = await res.json()
+      setTransactions(data.transactions || [])
+      setTotal(data.total || 0)
+    } catch (error) {
+      console.error('Failed to fetch transactions:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const { data, count, error } = await query
-    .order('created_at', { ascending: false })
-    .range(offset, offset + pageSize - 1)
+  const statusFilters = ['all', 'paid', 'created', 'failed', 'expired']
 
-  if (error) throw error
-
-  return {
-    payments: data || [],
-    total: count || 0,
-    totalPages: Math.ceil((count || 0) / pageSize),
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
   }
-}
-
-export default async function AdminPaymentsPage({
-  searchParams,
-}: {
-  searchParams: Promise<SearchParams>
-}) {
-  const session = await getAdminSession()
-
-  if (!session) {
-    redirect('/admin/login')
-  }
-
-  const params = await searchParams
-  const page = parseInt(params.page || '1')
-  const status = params.status || 'all'
-
-  const { payments, total, totalPages } = await getPayments(page, status)
-
-  const statusFilters = ['all', 'paid', 'created', 'failed']
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Payments</h1>
-          <p className="text-muted-foreground">
-            {total.toLocaleString()} total payments
-          </p>
+          <h1 className="text-2xl font-bold text-primary">Transactions</h1>
+          <p className="text-muted-foreground">{total.toLocaleString()} total</p>
         </div>
 
-        {/* Status Filter */}
         <div className="flex gap-2">
           {statusFilters.map((s) => (
             <a
@@ -82,82 +108,55 @@ export default async function AdminPaymentsPage({
         </div>
       </div>
 
-      {/* Table */}
       <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  User
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Order ID
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Amount
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Plan
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Date
-                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">User</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">Order ID</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">Amount</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">Date</th>
               </tr>
             </thead>
             <tbody className="divide-y">
-              {payments.map((payment: any) => (
-                <tr key={payment.id} className="hover:bg-gray-50">
+              {transactions.map((txn) => (
+                <tr key={txn.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div>
-                      <p className="font-medium text-sm">{payment.user?.name || 'N/A'}</p>
-                      <p className="text-xs text-muted-foreground">{payment.user?.email}</p>
+                      <p className="font-medium text-sm">{txn.name}</p>
+                      <p className="text-xs text-muted-foreground">{txn.email}</p>
+                      <p className="text-xs text-muted-foreground">{txn.phone}</p>
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <p className="text-sm font-mono">{payment.razorpay_order_id}</p>
-                    {payment.razorpay_payment_id && (
-                      <p className="text-xs text-muted-foreground font-mono">
-                        {payment.razorpay_payment_id}
-                      </p>
+                    <p className="text-sm font-mono">{txn.razorpayOrderId}</p>
+                    {txn.razorpayPaymentId && (
+                      <p className="text-xs text-muted-foreground font-mono">{txn.razorpayPaymentId}</p>
                     )}
                   </td>
-                  <td className="px-6 py-4 text-sm font-medium">
-                    {formatPrice(payment.amount / 100)}
-                  </td>
-                  <td className="px-6 py-4 text-sm capitalize">
-                    {payment.plan_type.replace('_', ' ')}
-                  </td>
+                  <td className="px-6 py-4 text-sm font-medium">{formatPrice(txn.amount / 100)}</td>
                   <td className="px-6 py-4">
                     <Badge
                       variant={
-                        payment.status === 'paid'
-                          ? 'success'
-                          : payment.status === 'failed'
-                          ? 'destructive'
-                          : 'secondary'
+                        txn.status === 'paid' ? 'success' :
+                        txn.status === 'failed' ? 'destructive' : 'secondary'
                       }
                     >
-                      {payment.status}
+                      {txn.status}
                     </Badge>
-                    {payment.error_description && (
-                      <p className="text-xs text-red-500 mt-1 max-w-[200px] truncate">
-                        {payment.error_description}
-                      </p>
+                    {txn.failureReason && (
+                      <p className="text-xs text-red-500 mt-1 max-w-[200px] truncate">{txn.failureReason}</p>
                     )}
                   </td>
-                  <td className="px-6 py-4 text-sm text-muted-foreground">
-                    {formatDateTime(payment.created_at)}
-                  </td>
+                  <td className="px-6 py-4 text-sm text-muted-foreground">{formatDateTime(txn.createdAt)}</td>
                 </tr>
               ))}
-              {payments.length === 0 && (
+              {transactions.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-6 py-8 text-center text-muted-foreground">
-                    No payments found
+                  <td colSpan={5} className="px-6 py-8 text-center text-muted-foreground">
+                    No transactions found
                   </td>
                 </tr>
               )}
@@ -165,12 +164,9 @@ export default async function AdminPaymentsPage({
           </table>
         </div>
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <div className="px-6 py-4 border-t flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">
-              Page {page} of {totalPages}
-            </p>
+            <p className="text-sm text-muted-foreground">Page {page} of {totalPages}</p>
             <div className="flex gap-2">
               {page > 1 && (
                 <a

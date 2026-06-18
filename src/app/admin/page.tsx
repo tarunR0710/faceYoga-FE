@@ -1,94 +1,107 @@
-import { redirect } from 'next/navigation'
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Users, CreditCard, IndianRupee, TrendingUp } from 'lucide-react'
-import { getAdminSession } from '@/lib/auth'
 import { StatsCard } from '@/components/admin/stats-card'
-import { supabaseAdmin } from '@/lib/db'
 import { formatPrice, formatDateTime } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
+import { SITE_CONFIG } from '@/lib/constants'
 
-async function getDashboardStats() {
-  const now = new Date()
-  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-
-  // Get total users
-  const { count: totalUsers } = await supabaseAdmin
-    .from('users')
-    .select('*', { count: 'exact', head: true })
-
-  // Get today's signups
-  const { count: todaySignups } = await supabaseAdmin
-    .from('users')
-    .select('*', { count: 'exact', head: true })
-    .gte('created_at', startOfToday.toISOString())
-
-  // Get total paid payments
-  const { count: totalPayments } = await supabaseAdmin
-    .from('payments')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'paid')
-
-  // Get total revenue
-  const { data: revenueData } = await supabaseAdmin
-    .from('payments')
-    .select('amount')
-    .eq('status', 'paid')
-
-  const totalRevenue = revenueData?.reduce((sum, p) => sum + p.amount, 0) || 0
-
-  // Get success rate
-  const { count: totalAttempts } = await supabaseAdmin
-    .from('payments')
-    .select('*', { count: 'exact', head: true })
-
-  const successRate = totalAttempts ? ((totalPayments || 0) / totalAttempts * 100).toFixed(1) : '0'
-
-  // Get recent payments
-  const { data: recentPayments } = await supabaseAdmin
-    .from('payments')
-    .select('*, user:users(name, email, phone)')
-    .order('created_at', { ascending: false })
-    .limit(5)
-
-  return {
-    totalUsers: totalUsers || 0,
-    todaySignups: todaySignups || 0,
-    totalPayments: totalPayments || 0,
-    totalRevenue,
-    successRate,
-    recentPayments: recentPayments || [],
-  }
+interface Stats {
+  totalTransactions: number
+  totalPaid: number
+  totalRevenue: number
+  successRate: string
+  recentTransactions: any[]
 }
 
-export default async function AdminDashboard() {
-  const session = await getAdminSession()
+export default function AdminDashboard() {
+  const router = useRouter()
+  const [stats, setStats] = useState<Stats | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  if (!session) {
-    redirect('/admin/login')
+  useEffect(() => {
+    const token = localStorage.getItem('admin_token')
+    if (!token) {
+      router.push('/admin/login')
+      return
+    }
+
+    fetchStats(token)
+  }, [router])
+
+  async function fetchStats(token: string) {
+    try {
+      const [statsRes, txnRes] = await Promise.all([
+        fetch(`${SITE_CONFIG.apiUrl}/api/admin/stats`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch(`${SITE_CONFIG.apiUrl}/api/admin/transactions?limit=5`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+      ])
+
+      if (!statsRes.ok || !txnRes.ok) {
+        if (statsRes.status === 401 || txnRes.status === 401) {
+          localStorage.removeItem('admin_token')
+          router.push('/admin/login')
+          return
+        }
+        throw new Error('Failed to fetch')
+      }
+
+      const statsData = await statsRes.json()
+      const txnData = await txnRes.json()
+
+      setStats({
+        totalTransactions: statsData.totalAttempts || 0,
+        totalPaid: statsData.totalPaid || 0,
+        totalRevenue: statsData.totalRevenue || 0,
+        successRate: statsData.totalAttempts
+          ? ((statsData.totalPaid / statsData.totalAttempts) * 100).toFixed(1)
+          : '0',
+        recentTransactions: txnData.transactions || [],
+      })
+    } catch (error) {
+      console.error('Failed to fetch stats:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const stats = await getDashboardStats()
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
+  if (!stats) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-muted-foreground">Failed to load dashboard</p>
+      </div>
+    )
+  }
 
   return (
     <div>
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-primary">Dashboard</h1>
-        <p className="text-muted-foreground">
-          Welcome back, {session.name || session.email}
-        </p>
+        <p className="text-muted-foreground">Overview of your FaceYoga transactions</p>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatsCard
-          title="Total Users"
-          value={stats.totalUsers.toLocaleString()}
-          subtitle={`${stats.todaySignups} today`}
+          title="Total Transactions"
+          value={stats.totalTransactions.toLocaleString()}
           icon={Users}
         />
         <StatsCard
-          title="Total Payments"
-          value={stats.totalPayments.toLocaleString()}
+          title="Paid"
+          value={stats.totalPaid.toLocaleString()}
           icon={CreditCard}
         />
         <StatsCard
@@ -103,69 +116,49 @@ export default async function AdminDashboard() {
         />
       </div>
 
-      {/* Recent Payments */}
       <div className="bg-white rounded-xl shadow-sm border">
         <div className="p-6 border-b">
-          <h2 className="text-lg font-semibold">Recent Payments</h2>
+          <h2 className="text-lg font-semibold">Recent Transactions</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  User
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Amount
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Plan
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Date
-                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">User</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">Amount</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">Date</th>
               </tr>
             </thead>
             <tbody className="divide-y">
-              {stats.recentPayments.map((payment: any) => (
-                <tr key={payment.id} className="hover:bg-gray-50">
+              {stats.recentTransactions.map((txn: any) => (
+                <tr key={txn.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div>
-                      <p className="font-medium text-sm">{payment.user?.name || 'N/A'}</p>
-                      <p className="text-xs text-muted-foreground">{payment.user?.email}</p>
+                      <p className="font-medium text-sm">{txn.name}</p>
+                      <p className="text-xs text-muted-foreground">{txn.email}</p>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm">
-                    {formatPrice(payment.amount / 100)}
-                  </td>
-                  <td className="px-6 py-4 text-sm capitalize">
-                    {payment.plan_type.replace('_', ' ')}
-                  </td>
+                  <td className="px-6 py-4 text-sm">{formatPrice(txn.amount / 100)}</td>
                   <td className="px-6 py-4">
                     <Badge
                       variant={
-                        payment.status === 'paid'
-                          ? 'success'
-                          : payment.status === 'failed'
-                          ? 'destructive'
-                          : 'secondary'
+                        txn.status === 'paid' ? 'success' :
+                        txn.status === 'failed' ? 'destructive' : 'secondary'
                       }
                     >
-                      {payment.status}
+                      {txn.status}
                     </Badge>
                   </td>
                   <td className="px-6 py-4 text-sm text-muted-foreground">
-                    {formatDateTime(payment.created_at)}
+                    {formatDateTime(txn.createdAt)}
                   </td>
                 </tr>
               ))}
-              {stats.recentPayments.length === 0 && (
+              {stats.recentTransactions.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-6 py-8 text-center text-muted-foreground">
-                    No payments yet
+                  <td colSpan={4} className="px-6 py-8 text-center text-muted-foreground">
+                    No transactions yet
                   </td>
                 </tr>
               )}

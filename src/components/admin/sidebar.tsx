@@ -2,24 +2,22 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, Users, CreditCard, LogOut } from 'lucide-react'
+import { LayoutDashboard, CreditCard, LogOut } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SITE_CONFIG } from '@/lib/constants'
 
 const navItems = [
   { href: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
-  { href: '/admin/users', icon: Users, label: 'Users' },
-  { href: '/admin/payments', icon: CreditCard, label: 'Payments' },
+  { href: '/admin/payments', icon: CreditCard, label: 'Transactions' },
 ]
 
 export function AdminSidebar() {
   const pathname = usePathname()
   const router = useRouter()
 
-  const handleLogout = async () => {
-    await fetch('/api/admin/logout', { method: 'POST' })
+  const handleLogout = () => {
+    localStorage.removeItem('admin_token')
     router.push('/admin/login')
-    router.refresh()
   }
 
   return (

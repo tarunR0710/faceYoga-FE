@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
     setError('')
 
     try {
-      const response = await fetch('/api/admin/login', {
+      const response = await fetch(`${SITE_CONFIG.apiUrl}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -41,8 +41,9 @@ export default function AdminLoginPage() {
         throw new Error(result.error || 'Login failed')
       }
 
+      // Store token in localStorage
+      localStorage.setItem('admin_token', result.token)
       router.push('/admin')
-      router.refresh()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed')
     } finally {

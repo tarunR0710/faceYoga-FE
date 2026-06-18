@@ -1,18 +1,18 @@
-import { redirect } from 'next/navigation'
-import { getAdminSession } from '@/lib/auth'
+'use client'
+
+import { usePathname } from 'next/navigation'
 import { AdminSidebar } from '@/components/admin/sidebar'
 
-export default async function AdminLayout({
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const session = await getAdminSession()
+  const pathname = usePathname()
+  const isLoginPage = pathname === '/admin/login'
 
-  // Redirect to login if not authenticated
-  // Skip redirect for login page
-  if (!session) {
-    // Check if we're already on login page to avoid redirect loop
+  // Don't show sidebar on login page
+  if (isLoginPage) {
     return <>{children}</>
   }
 
