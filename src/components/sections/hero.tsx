@@ -86,22 +86,22 @@ export function Hero() {
             Get your personalized facial analysis and transformation plan based on your unique features.
           </motion.p>
 
-          {/* CTA Buttons - Centered */}
+          {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
-            className="flex flex-wrap justify-center md:justify-start gap-3"
+            className="flex flex-row gap-3"
           >
             <Link
               href="/form"
-              className="h-14 px-10 inline-flex items-center justify-center bg-white text-[#111] text-[15px] font-medium rounded-full hover:bg-white/90 transition-all duration-200"
+              className="h-12 sm:h-14 px-6 sm:px-10 inline-flex items-center justify-center bg-white text-[#111] text-[14px] sm:text-[15px] font-medium rounded-full hover:bg-white/90 transition-all duration-200"
             >
               Start my plan
             </Link>
             <Link
               href="#how-it-works"
-              className="h-14 px-10 inline-flex items-center justify-center text-white text-[15px] font-medium rounded-full border border-white/30 hover:bg-white/10 transition-all duration-200"
+              className="h-12 sm:h-14 px-6 sm:px-10 inline-flex items-center justify-center text-white text-[14px] sm:text-[15px] font-medium rounded-full border border-white/30 hover:bg-white/10 transition-all duration-200"
             >
               How it works
             </Link>
