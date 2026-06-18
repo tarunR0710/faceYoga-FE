@@ -2,9 +2,11 @@
 
 import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { formatDateTime, formatPrice } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { SITE_CONFIG } from '@/lib/constants'
+import { cn } from '@/lib/utils'
 
 interface Transaction {
   id: string
@@ -19,17 +21,22 @@ interface Transaction {
   createdAt: string
 }
 
+interface Pagination {
+  page: number
+  limit: number
+  total: number
+  totalPages: number
+}
+
 function TransactionsContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [transactions, setTransactions] = useState<Transaction[]>([])
-  const [total, setTotal] = useState(0)
+  const [pagination, setPagination] = useState<Pagination>({ page: 1, limit: 20, total: 0, totalPages: 0 })
   const [loading, setLoading] = useState(true)
 
   const page = parseInt(searchParams.get('page') || '1')
   const status = searchParams.get('status') || 'all'
-  const pageSize = 20
-  const totalPages = Math.ceil(total / pageSize)
 
   useEffect(() => {
     const token = localStorage.getItem('admin_token')
@@ -46,7 +53,7 @@ function TransactionsContent() {
     try {
       const params = new URLSearchParams({
         page: page.toString(),
-        limit: pageSize.toString(),
+        limit: '20',
         ...(status !== 'all' && { status }),
       })
 
@@ -65,7 +72,7 @@ function TransactionsContent() {
 
       const data = await res.json()
       setTransactions(data.transactions || [])
-      setTotal(data.total || 0)
+      setPagination(data.pagination || { page: 1, limit: 20, total: 0, totalPages: 0 })
     } catch (error) {
       console.error('Failed to fetch transactions:', error)
     } finally {
@@ -85,22 +92,26 @@ function TransactionsContent() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-primary">Transactions</h1>
-          <p className="text-muted-foreground">{total.toLocaleString()} total</p>
+          <h1 className="text-[1.25rem] text-[#111]" style={{ fontWeight: 500 }}>
+            Transactions
+          </h1>
+          <p className="text-[13px] text-[#888]">{pagination.total.toLocaleString()} total</p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-1.5">
           {statusFilters.map((s) => (
             <a
               key={s}
               href={`/admin/payments?status=${s}`}
-              className={`px-4 py-2 text-sm rounded-lg border transition-colors ${
+              className={cn(
+                'px-3 py-1.5 text-[12px] rounded-full transition-colors',
                 status === s
-                  ? 'bg-primary text-primary-foreground border-primary'
-                  : 'bg-white hover:bg-gray-50'
-              }`}
+                  ? 'bg-[#111] text-white'
+                  : 'bg-[#f5f5f5] text-[#666] hover:bg-[#eee]'
+              )}
             >
               {s.charAt(0).toUpperCase() + s.slice(1)}
             </a>
@@ -108,36 +119,36 @@ function TransactionsContent() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
+      {/* Table */}
+      <div className="bg-white rounded-xl border border-[#eee] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">User</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">Order ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">Amount</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase">Date</th>
+            <thead>
+              <tr className="border-b border-[#eee] bg-[#fafafa]">
+                <th className="px-4 py-2.5 text-left text-[11px] font-medium text-[#888] uppercase tracking-wide">Name</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-medium text-[#888] uppercase tracking-wide">Email</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-medium text-[#888] uppercase tracking-wide">Mobile</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-medium text-[#888] uppercase tracking-wide">Amount</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-medium text-[#888] uppercase tracking-wide">Status</th>
+                <th className="px-4 py-2.5 text-left text-[11px] font-medium text-[#888] uppercase tracking-wide">Date</th>
               </tr>
             </thead>
-            <tbody className="divide-y">
+            <tbody>
               {transactions.map((txn) => (
-                <tr key={txn.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <div>
-                      <p className="font-medium text-sm">{txn.name}</p>
-                      <p className="text-xs text-muted-foreground">{txn.email}</p>
-                      <p className="text-xs text-muted-foreground">{txn.phone}</p>
-                    </div>
+                <tr key={txn.id} className="border-b border-[#f5f5f5] hover:bg-[#fafafa]">
+                  <td className="px-4 py-3">
+                    <p className="text-[13px] text-[#111]" style={{ fontWeight: 450 }}>{txn.name}</p>
                   </td>
-                  <td className="px-6 py-4">
-                    <p className="text-sm font-mono">{txn.razorpayOrderId}</p>
-                    {txn.razorpayPaymentId && (
-                      <p className="text-xs text-muted-foreground font-mono">{txn.razorpayPaymentId}</p>
-                    )}
+                  <td className="px-4 py-3">
+                    <p className="text-[13px] text-[#666]">{txn.email}</p>
                   </td>
-                  <td className="px-6 py-4 text-sm font-medium">{formatPrice(txn.amount / 100)}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 py-3">
+                    <p className="text-[13px] text-[#666]">+91 {txn.phone}</p>
+                  </td>
+                  <td className="px-4 py-3">
+                    <p className="text-[13px] text-[#111]" style={{ fontWeight: 500 }}>{formatPrice(txn.amount / 100)}</p>
+                  </td>
+                  <td className="px-4 py-3">
                     <Badge
                       variant={
                         txn.status === 'paid' ? 'success' :
@@ -146,16 +157,15 @@ function TransactionsContent() {
                     >
                       {txn.status}
                     </Badge>
-                    {txn.failureReason && (
-                      <p className="text-xs text-red-500 mt-1 max-w-[200px] truncate">{txn.failureReason}</p>
-                    )}
                   </td>
-                  <td className="px-6 py-4 text-sm text-muted-foreground">{formatDateTime(txn.createdAt)}</td>
+                  <td className="px-4 py-3">
+                    <p className="text-[12px] text-[#888]">{formatDateTime(txn.createdAt)}</p>
+                  </td>
                 </tr>
               ))}
               {transactions.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-6 py-8 text-center text-muted-foreground">
+                  <td colSpan={6} className="px-4 py-12 text-center text-[14px] text-[#999]">
                     No transactions found
                   </td>
                 </tr>
@@ -164,26 +174,35 @@ function TransactionsContent() {
           </table>
         </div>
 
-        {totalPages > 1 && (
-          <div className="px-6 py-4 border-t flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">Page {page} of {totalPages}</p>
-            <div className="flex gap-2">
-              {page > 1 && (
-                <a
-                  href={`/admin/payments?page=${page - 1}&status=${status}`}
-                  className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-50"
-                >
-                  Previous
-                </a>
-              )}
-              {page < totalPages && (
-                <a
-                  href={`/admin/payments?page=${page + 1}&status=${status}`}
-                  className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-50"
-                >
-                  Next
-                </a>
-              )}
+        {/* Pagination */}
+        {pagination.totalPages > 1 && (
+          <div className="px-4 py-3 border-t border-[#eee] flex items-center justify-between">
+            <p className="text-[12px] text-[#888]">
+              Page {pagination.page} of {pagination.totalPages} ({pagination.total} results)
+            </p>
+            <div className="flex gap-1">
+              <a
+                href={page > 1 ? `/admin/payments?page=${page - 1}&status=${status}` : '#'}
+                className={cn(
+                  'w-8 h-8 flex items-center justify-center rounded-lg border transition-colors',
+                  page > 1
+                    ? 'border-[#eee] hover:bg-[#f5f5f5] text-[#666]'
+                    : 'border-[#f5f5f5] text-[#ccc] cursor-not-allowed'
+                )}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </a>
+              <a
+                href={page < pagination.totalPages ? `/admin/payments?page=${page + 1}&status=${status}` : '#'}
+                className={cn(
+                  'w-8 h-8 flex items-center justify-center rounded-lg border transition-colors',
+                  page < pagination.totalPages
+                    ? 'border-[#eee] hover:bg-[#f5f5f5] text-[#666]'
+                    : 'border-[#f5f5f5] text-[#ccc] cursor-not-allowed'
+                )}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </a>
             </div>
           </div>
         )}
@@ -195,8 +214,8 @@ function TransactionsContent() {
 export default function AdminPaymentsPage() {
   return (
     <Suspense fallback={
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#666]"></div>
       </div>
     }>
       <TransactionsContent />
