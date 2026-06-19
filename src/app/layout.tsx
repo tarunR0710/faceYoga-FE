@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { MetaPixel } from '@/components/analytics/meta-pixel'
 import './globals.css'
 
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <MetaPixel />
         {children}
+        <SpeedInsights />
       </body>
     </html>
   )
