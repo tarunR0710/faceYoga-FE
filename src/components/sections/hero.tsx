@@ -15,6 +15,7 @@ export function Hero() {
           loop
           playsInline
           preload="auto"
+          poster="https://res.cloudinary.com/dm2wlbavc/video/upload/w_1280,q_auto/v1781777236/faceyoga_jtmpun.jpg"
           className="absolute inset-0 w-full h-full"
           style={{
             objectFit: 'cover',
