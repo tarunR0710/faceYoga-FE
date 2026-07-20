@@ -26,17 +26,9 @@ export function Hero() {
             objectPosition: 'center top',
           }}
         >
-          {/* Responsive video sources from Cloudflare R2 */}
-          <source
-            src={`${ASSET_BASE_URL}/faceyoga-640.mp4`}
-            type="video/mp4"
-            media="(max-width: 640px)"
-          />
-          <source
-            src={`${ASSET_BASE_URL}/faceyoga-1280.mp4`}
-            type="video/mp4"
-            media="(max-width: 1280px)"
-          />
+          {/* Hero video from Cloudflare R2 — single 1080p source so it stays crisp
+              on high-DPR phones (the 640/720 encodes looked soft scaled to full screen).
+              The 57 KB poster is the LCP; the video streams in via faststart. */}
           <source
             src={`${ASSET_BASE_URL}/faceyoga-1920.mp4`}
             type="video/mp4"
