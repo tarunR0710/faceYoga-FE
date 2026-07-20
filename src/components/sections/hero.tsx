@@ -3,6 +3,10 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
+// Hero video assets on Cloudflare R2 (public dev URL).
+// To move to a custom domain later, change only this base — the paths stay the same.
+const ASSET_BASE_URL = 'https://pub-276f99bee0ca472b8c097bf6b9fc7e52.r2.dev'
+
 export function Hero() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -15,26 +19,26 @@ export function Hero() {
           loop
           playsInline
           preload="auto"
-          poster="https://res.cloudinary.com/dm2wlbavc/video/upload/w_1280,q_auto/v1781777236/faceyoga_jtmpun.jpg"
+          poster={`${ASSET_BASE_URL}/faceyoga-poster.jpg`}
           className="absolute inset-0 w-full h-full"
           style={{
             objectFit: 'cover',
             objectPosition: 'center top',
           }}
         >
-          {/* Responsive video sources from Cloudinary */}
+          {/* Responsive video sources from Cloudflare R2 */}
           <source
-            src="https://res.cloudinary.com/dm2wlbavc/video/upload/w_640,q_auto/v1781777236/faceyoga_jtmpun.mp4"
+            src={`${ASSET_BASE_URL}/faceyoga-640.mp4`}
             type="video/mp4"
             media="(max-width: 640px)"
           />
           <source
-            src="https://res.cloudinary.com/dm2wlbavc/video/upload/w_1280,q_auto/v1781777236/faceyoga_jtmpun.mp4"
+            src={`${ASSET_BASE_URL}/faceyoga-1280.mp4`}
             type="video/mp4"
             media="(max-width: 1280px)"
           />
           <source
-            src="https://res.cloudinary.com/dm2wlbavc/video/upload/q_auto/v1781777236/faceyoga_jtmpun.mp4"
+            src={`${ASSET_BASE_URL}/faceyoga-1920.mp4`}
             type="video/mp4"
           />
         </video>
@@ -45,6 +49,7 @@ export function Hero() {
             background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 60%, transparent 100%)',
           }}
         />
+
       </div>
 
       {/* Content - positioned at bottom */}
