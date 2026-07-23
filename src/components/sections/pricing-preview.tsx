@@ -3,71 +3,73 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Check, ArrowRight } from 'lucide-react'
-
-const features = [
-  'Comprehensive facial analysis',
-  'Personalized face yoga routine',
-  '160+ exercise video tutorials',
-  'Progress tracking tools',
-  'Before-and-after visualizations',
-  'Direct access to support team',
-  'Annual updates and re-analysis',
-]
+import { FACE_MAP_CORE, FACE_MAP_ADDONS } from '@/lib/constants'
 
 export function PricingPreview() {
   return (
-    <section id="pricing" className="section bg-white">
+    <section id="pricing" className="section bg-ivory">
       <div className="container-narrow">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-center mb-10"
         >
-          <p className="text-[12px] text-[#999] uppercase tracking-[0.1em] mb-3">
+          <p className="text-[12px] text-analysis-teal uppercase tracking-[0.14em] mb-3">
             Pricing
           </p>
-          <h2 className="text-[1.75rem] md:text-[2.25rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-4" style={{ fontWeight: 450 }}>
-            Start your transformation
+          <h2 className="text-[1.75rem] md:text-[2.5rem] leading-[1.12] tracking-[-0.02em] text-ink" style={{ fontWeight: 400 }}>
+            Your personal Face Map{' '}
+            <span className="text-ink/40">starts here.</span>
           </h2>
-          <p className="text-[15px] md:text-base text-[#666] leading-relaxed">
-            What could cost thousands at a clinic is available for a fraction of the price
-          </p>
         </motion.div>
 
-        {/* Pricing Card */}
+        {/* Core plan card */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="max-w-md mx-auto"
         >
-          <div className="bg-white rounded-xl border border-[#eee] p-6 md:p-8">
+          <div className="bg-white rounded-[24px] border border-ink/10 p-6 md:p-8 shadow-[0_1px_2px_rgba(21,36,33,0.04),0_16px_40px_-28px_rgba(21,36,33,0.25)]">
             {/* Price */}
-            <div className="text-center mb-6 pb-6 border-b border-[#eee]">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[11px] font-medium mb-4">
-                Best Value
+            <div className="text-center mb-6 pb-6 border-b border-ink/10">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sand text-analysis-teal text-[11px] font-medium mb-4">
+                {FACE_MAP_CORE.label}
               </div>
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-[2.5rem] md:text-[3rem] font-medium text-[#111] tracking-tight">₹1,999</span>
-                <span className="text-[14px] text-[#999]">/ year</span>
+                <span className="text-[2.75rem] md:text-[3rem] text-ink tracking-tight" style={{ fontWeight: 500 }}>{FACE_MAP_CORE.priceDisplay}</span>
               </div>
-              <p className="text-[13px] text-[#888] mt-2">
-                One-time payment, lifetime access
-              </p>
+              <p className="text-[14px] text-ink mt-2" style={{ fontWeight: 500 }}>{FACE_MAP_CORE.name}</p>
+              <p className="text-[13px] text-analysis-teal mt-1">One payment. No subscription.</p>
             </div>
 
-            {/* Features */}
+            {/* Includes */}
             <div className="mb-6">
-              <p className="text-[12px] text-[#999] uppercase tracking-[0.05em] mb-4">What's included</p>
+              <p className="text-[12px] text-analysis-teal uppercase tracking-[0.08em] mb-4">What&apos;s included</p>
               <ul className="space-y-2.5">
-                {features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center mt-0.5">
-                      <Check className="w-3 h-3 text-emerald-600" strokeWidth={2} />
+                {FACE_MAP_CORE.includes.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-teal/20 flex items-center justify-center mt-0.5">
+                      <Check className="w-3 h-3 text-analysis-teal" strokeWidth={2} />
                     </div>
-                    <span className="text-[14px] text-[#555]">{feature}</span>
+                    <span className="text-[14px] text-ink/80">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Add-ons */}
+            <div className="mb-6 pt-5 border-t border-ink/10">
+              <p className="text-[12px] text-analysis-teal uppercase tracking-[0.08em] mb-3">Optional specialist maps</p>
+              <ul className="space-y-2">
+                {FACE_MAP_ADDONS.map((addon) => (
+                  <li key={addon.id} className="flex items-center justify-between">
+                    <span className="text-[14px] text-ink/80">{addon.name}</span>
+                    <span className="text-[13px] text-ink" style={{ fontWeight: 500 }}>Add for {addon.priceDisplay}</span>
                   </li>
                 ))}
               </ul>
@@ -76,21 +78,21 @@ export function PricingPreview() {
             {/* CTA */}
             <Link
               href="/form"
-              className="w-full h-12 inline-flex items-center justify-center bg-[#111] text-white text-[14px] font-medium rounded-lg hover:bg-[#222] transition-colors duration-150 group"
+              className="w-full h-14 inline-flex items-center justify-center bg-ink text-ivory text-[15px] font-semibold rounded-full hover:bg-[#24413b] transition-colors duration-300 group"
             >
-              Get Access
-              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2} />
+              Start My Face Map
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2} />
             </Link>
 
             {/* Trust */}
-            <div className="mt-5 flex items-center justify-center gap-4 text-[11px] text-[#999]">
+            <div className="mt-5 flex items-center justify-center gap-4 text-[11px] text-analysis-teal">
               <span className="flex items-center gap-1">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
                 Secure payment
               </span>
-              <span>14-day guarantee</span>
+              <span>0 surgery, ever</span>
             </div>
           </div>
         </motion.div>
@@ -102,10 +104,10 @@ export function PricingPreview() {
           viewport={{ once: true }}
           className="mt-8 text-center"
         >
-          <p className="text-[11px] text-[#bbb] mb-3">Accepted payments</p>
+          <p className="text-[11px] text-analysis-teal/70 mb-3">Accepted payments</p>
           <div className="flex items-center justify-center gap-3">
             {['Visa', 'Mastercard', 'UPI', 'Net Banking'].map((method) => (
-              <span key={method} className="h-6 px-2.5 bg-[#f5f5f5] rounded text-[11px] text-[#888] flex items-center">
+              <span key={method} className="h-6 px-2.5 bg-mist rounded text-[11px] text-analysis-teal flex items-center">
                 {method}
               </span>
             ))}

@@ -1,59 +1,40 @@
-export const PRICING_PLANS = {
-  one_time: {
-    id: 'one_time',
-    name: 'One-Time Analysis',
-    price: 1999,
-    priceInPaise: 199900,
-    priceDisplay: '₹1,999',
-    period: '',
-    description: 'Single comprehensive facial analysis',
-    features: [
-      'Complete facial structure analysis',
-      'Personalized face yoga routine',
-      '30-day exercise plan',
-      'Video tutorials access',
-      'Progress tracking guide',
-    ],
-    popular: false,
-  },
-  monthly: {
-    id: 'monthly',
-    name: 'Monthly Plan',
-    price: 499,
-    priceInPaise: 49900,
-    priceDisplay: '₹499',
-    period: '/month',
-    description: 'Ongoing support and monthly updates',
-    features: [
-      'Everything in One-Time',
-      'Monthly progress tracking',
-      'Updated routines each month',
-      'Priority email support',
-      'Access to community',
-    ],
-    popular: false,
-  },
-  yearly: {
-    id: 'yearly',
-    name: 'Yearly Plan',
-    price: 2999,
-    priceInPaise: 299900,
-    priceDisplay: '₹2,999',
-    period: '/year',
-    description: 'Best value for ongoing support',
-    features: [
-      'Everything in Monthly',
-      'Annual facial re-analysis',
-      'Exclusive masterclass content',
-      'Direct expert consultation',
-      '1-on-1 video call (quarterly)',
-      'Cancel anytime',
-    ],
-    popular: true,
-  },
+// MapMyFace offer: ONE core plan (Founding Client Price) + two optional add-ons.
+export const FACE_MAP_CORE = {
+  id: 'complete_face_map',
+  name: 'Complete Face Map',
+  price: 2699,
+  priceInPaise: 269900,
+  priceDisplay: '₹2,699',
+  label: 'Founding Client Price',
+  includes: [
+    'Live Face Mapping Session (45–60 min) with a real expert',
+    'Expert Mapping Review by the specialist panel',
+    'Your personalised Face Map',
+    'Appearance Protocol — what to start, stop, continue and do first',
+    'Clarification support after delivery',
+  ],
 } as const
 
-export type PlanId = keyof typeof PRICING_PLANS
+export const FACE_MAP_ADDONS = [
+  {
+    id: 'hair_map',
+    name: 'Hair Map',
+    price: 699,
+    priceInPaise: 69900,
+    priceDisplay: '₹699',
+    description: 'Haircut structure, length, parting, volume, hairstyle and facial-hair direction.',
+  },
+  {
+    id: 'style_colour_map',
+    name: 'Style & Colour Map',
+    price: 699,
+    priceInPaise: 69900,
+    priceDisplay: '₹699',
+    description: 'Colours, clothing direction, silhouettes, necklines, accessories and personal presentation.',
+  },
+] as const
+
+export type AddOnId = (typeof FACE_MAP_ADDONS)[number]['id']
 
 export const SITE_CONFIG = {
   name: 'MapMyFace',
