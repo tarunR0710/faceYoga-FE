@@ -6,7 +6,6 @@ import { HowItWorks } from '@/components/sections/how-it-works'
 import { PersonalizationFactors } from '@/components/sections/personalization-factors'
 import { FacialAnalysis } from '@/components/sections/facial-analysis'
 import { Experts } from '@/components/sections/experts'
-import { AddOns } from '@/components/sections/add-ons'
 import { Community } from '@/components/sections/community'
 import { PricingPreview } from '@/components/sections/pricing-preview'
 import { FAQ } from '@/components/sections/faq'
@@ -27,9 +26,9 @@ export default function HomePage() {
         <HowItWorks />             {/* 03 Method */}
         <PersonalizationFactors /> {/* 04 Human Difference */}
         <FacialAnalysis />         {/* 05 Face Map (rewrite in 3B) */}
-        <Experts />                {/* 06 Experts (rewrite in 3B) */}
-        <AddOns />                 {/* 07 Add-ons */}
-        <Community />              {/* 08 Proof (rewrite in 3B) */}
+        <Experts />                {/* 06 Experts */}
+        {/* Add-ons are a funnel order bump on /payment (after form, before payment) — not a homepage section. */}
+        <Community />              {/* 08 Proof */}
         <PricingPreview />         {/* 09 Pricing (rewrite in 3B) */}
         <FAQ />                    {/* 10 FAQ / Privacy (rewrite in 3B) */}
         <CTA />                    {/* 11 Final CTA */}
