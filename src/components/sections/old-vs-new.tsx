@@ -20,7 +20,7 @@ const newWay = [
 
 export function OldVsNew() {
   return (
-    <section className="pt-6 md:pt-10 pb-12 md:pb-16 bg-white">
+    <section id="why" className="pt-6 md:pt-10 pb-12 md:pb-16 bg-white">
       <div className="container-main">
         {/* Header */}
         <motion.div

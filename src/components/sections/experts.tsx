@@ -38,7 +38,7 @@ const experts = [
 
 export function Experts() {
   return (
-    <section className="py-20 bg-white">
+    <section id="experts" className="py-20 bg-white">
       <div className="container-main">
         {/* Header */}
         <motion.div

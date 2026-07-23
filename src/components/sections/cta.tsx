@@ -25,7 +25,7 @@ export function CTA() {
             href="/form"
             className="inline-flex items-center justify-center h-12 px-8 bg-[#111] text-white text-[15px] font-medium rounded-full hover:bg-[#222] transition-all duration-200 group"
           >
-            Start my plan
+            Start My Face Map
             <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2} />
           </Link>
 

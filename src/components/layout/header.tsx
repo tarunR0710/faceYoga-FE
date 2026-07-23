@@ -7,7 +7,9 @@ import { Menu, X } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/constants'
 
 const navLinks = [
+  { label: 'Why MapMyFace', href: '#why' },
   { label: 'How it works', href: '#how-it-works' },
+  { label: 'Experts', href: '#experts' },
   { label: 'FAQ', href: '#faq' },
 ]
 
@@ -41,7 +43,7 @@ export function Header() {
             width: isScrolled ? '98%' : '100%',
             maxWidth: isScrolled ? '1400px' : '100%',
             backgroundColor: isScrolled
-              ? 'rgba(55, 55, 55, 0.65)'
+              ? 'rgba(21, 36, 33, 0.72)'
               : 'transparent',
             backdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
             WebkitBackdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
@@ -91,11 +93,11 @@ export function Header() {
                   border: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent',
                 }}
               >
-                Start my plan
+                Start My Face Map
               </Link>
             </div>
 
-            {/* Mobile: Start my plan + Menu Button */}
+            {/* Mobile: Start My Face Map + Menu Button */}
             <div className="flex md:hidden items-center gap-2">
               <Link
                 href="/form"
@@ -105,7 +107,7 @@ export function Header() {
                   border: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent',
                 }}
               >
-                Start my plan
+                Start My Face Map
               </Link>
               <button
                 className="p-2.5 text-white rounded-full hover:bg-white/10 transition-colors"
@@ -170,7 +172,7 @@ export function Header() {
                   }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Start my plan
+                  Start My Face Map
                 </Link>
               </motion.div>
             </div>

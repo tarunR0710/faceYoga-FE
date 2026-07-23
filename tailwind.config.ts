@@ -10,79 +10,76 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // QOVES-inspired color palette
-        background: '#ffffff',
-        foreground: '#0a0a0a',
+        // MapMyFace mineral-teal system (Brand Bible — FINAL)
+        background: '#f7f4ef', // Warm Ivory
+        foreground: '#152421', // Deep Ink
 
-        // Primary - Dark charcoal/black for buttons
         primary: {
-          DEFAULT: '#0a0a0a',
-          foreground: '#ffffff',
+          DEFAULT: '#152421', // Deep Ink
+          foreground: '#f7f4ef',
         },
-
-        // Secondary - Light gray
         secondary: {
-          DEFAULT: '#f5f5f5',
-          foreground: '#0a0a0a',
+          DEFAULT: '#dce7e4', // Map Mist
+          foreground: '#152421',
         },
-
-        // Muted text colors
         muted: {
-          DEFAULT: '#f5f5f5',
-          foreground: '#737373',
+          DEFAULT: '#e8ded5', // Soft Sand
+          foreground: '#55766f', // Analysis Teal
         },
-
-        // Accent
         accent: {
-          DEFAULT: '#f5f5f5',
-          foreground: '#0a0a0a',
+          DEFAULT: '#8fa9a3', // Map Teal
+          foreground: '#152421',
         },
-
-        // Card backgrounds
         card: {
           DEFAULT: '#ffffff',
-          foreground: '#0a0a0a',
+          foreground: '#152421',
         },
 
-        // Border colors
-        border: '#e5e5e5',
-        input: '#e5e5e5',
-        ring: '#0a0a0a',
+        border: 'rgba(21, 36, 33, 0.12)',
+        input: 'rgba(21, 36, 33, 0.12)',
+        ring: '#55766f',
 
-        // Destructive/Error
         destructive: {
-          DEFAULT: '#dc2626',
-          foreground: '#ffffff',
+          DEFAULT: '#c0492f',
+          foreground: '#f7f4ef',
         },
-
-        // Success
         success: {
-          DEFAULT: '#16a34a',
-          foreground: '#ffffff',
+          DEFAULT: '#55766f',
+          foreground: '#f7f4ef',
+        },
+        navy: {
+          DEFAULT: '#152421',
+          foreground: '#f7f4ef',
         },
 
-        // Navy for footer
-        navy: {
-          DEFAULT: '#1a1a2e',
-          foreground: '#ffffff',
-        },
+        // Named MapMyFace tokens
+        ivory: '#f7f4ef',
+        ink: '#152421',
+        teal: '#8fa9a3',
+        'analysis-teal': '#55766f',
+        mist: '#dce7e4',
+        taupe: '#b9a89e',
+        sand: '#e8ded5',
       },
 
       fontFamily: {
         sans: [
-          'var(--font-inter)',
-          'Inter',
-          'PP Neue Montreal',
+          'var(--font-manrope)',
+          'Manrope',
           '-apple-system',
           'BlinkMacSystemFont',
           'Segoe UI',
           'Roboto',
           'sans-serif',
         ],
+        serif: [
+          'var(--font-newsreader)',
+          'Georgia',
+          'serif',
+        ],
         display: [
-          'PP Neue Montreal',
-          'var(--font-inter)',
-          'Inter',
+          'var(--font-manrope)',
+          'Manrope',
           '-apple-system',
           'sans-serif',
         ],
@@ -195,7 +192,6 @@ const config: Config = {
 
       transitionTimingFunction: {
         'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
-        'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
       },
     },
   },

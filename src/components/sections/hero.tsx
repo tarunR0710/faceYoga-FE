@@ -111,7 +111,7 @@ export function Hero() {
               href="/form"
               className="h-12 sm:h-14 px-6 sm:px-10 inline-flex items-center justify-center bg-white text-[#111] text-[14px] sm:text-[15px] font-medium rounded-full hover:bg-white/90 transition-all duration-200"
             >
-              Start my plan
+              Start My Face Map
             </Link>
             <Link
               href="#how-it-works"

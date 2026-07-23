@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { SITE_CONFIG } from '@/lib/constants'
+import { SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants'
 
 const footerLinks = {
   company: [
@@ -17,31 +17,31 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-white border-t border-[#f0f0f0]">
+    <footer className="bg-[#152421] text-white/70">
       <div className="container-main py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-block">
-              <span className="text-[16px] font-semibold text-[#111] tracking-[-0.01em]">
+              <span className="text-[16px] font-semibold text-[#f7f4ef] tracking-[-0.01em]">
                 {SITE_CONFIG.name}
               </span>
             </Link>
-            <p className="mt-3 text-[13px] text-[#888] max-w-[200px] leading-relaxed">
-              Transform your face naturally with personalized yoga routines.
+            <p className="mt-3 text-[13px] text-white/60 max-w-[220px] leading-relaxed">
+              Your complete appearance plan, mapped around you. Human-led, research-informed, personally mapped.
             </p>
-            <p className="mt-3 text-[12px] text-[#bbb]">
+            <p className="mt-3 text-[12px] text-white/40">
               {SITE_CONFIG.email}
             </p>
           </div>
 
           {/* Company */}
           <div>
-            <p className="text-[11px] font-semibold text-[#999] uppercase tracking-[0.15em] mb-4">Company</p>
+            <p className="text-[11px] font-medium text-[#8fa9a3] uppercase tracking-[0.15em] mb-4">Company</p>
             <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-[13px] text-[#666] hover:text-[#111] transition-colors duration-150">
+                  <Link href={link.href} className="text-[13px] text-white/70 hover:text-[#f7f4ef] transition-colors duration-150">
                     {link.label}
                   </Link>
                 </li>
@@ -51,11 +51,11 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <p className="text-[11px] font-semibold text-[#999] uppercase tracking-[0.15em] mb-4">Legal</p>
+            <p className="text-[11px] font-medium text-[#8fa9a3] uppercase tracking-[0.15em] mb-4">Legal</p>
             <ul className="space-y-2.5">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-[13px] text-[#666] hover:text-[#111] transition-colors duration-150">
+                  <Link href={link.href} className="text-[13px] text-white/70 hover:text-[#f7f4ef] transition-colors duration-150">
                     {link.label}
                   </Link>
                 </li>
@@ -65,11 +65,13 @@ export function Footer() {
 
           {/* Social */}
           <div>
-            <p className="text-[11px] font-semibold text-[#999] uppercase tracking-[0.15em] mb-4">Connect</p>
+            <p className="text-[11px] font-medium text-[#8fa9a3] uppercase tracking-[0.15em] mb-4">Connect</p>
             <div className="flex items-center gap-3">
               <a
-                href="#"
-                className="w-8 h-8 rounded-full bg-[#f5f5f5] flex items-center justify-center text-[#888] hover:bg-[#eee] hover:text-[#111] transition-all duration-150"
+                href={SOCIAL_LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-[#f7f4ef] transition-all duration-150"
                 aria-label="Instagram"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -77,8 +79,10 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
-                className="w-8 h-8 rounded-full bg-[#f5f5f5] flex items-center justify-center text-[#888] hover:bg-[#eee] hover:text-[#111] transition-all duration-150"
+                href={SOCIAL_LINKS.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-[#f7f4ef] transition-all duration-150"
                 aria-label="YouTube"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -86,8 +90,10 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
-                className="w-8 h-8 rounded-full bg-[#f5f5f5] flex items-center justify-center text-[#888] hover:bg-[#eee] hover:text-[#111] transition-all duration-150"
+                href={SOCIAL_LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-[#f7f4ef] transition-all duration-150"
                 aria-label="LinkedIn"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -99,12 +105,12 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-10 pt-6 border-t border-[#f0f0f0]">
+        <div className="mt-10 pt-6 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[12px] text-[#bbb]">
+            <p className="text-[12px] text-white/40">
               &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
             </p>
-            <div className="flex items-center gap-4 text-[11px] text-[#bbb]">
+            <div className="flex items-center gap-4 text-[11px] text-white/40">
               <span>Payments secured by Razorpay</span>
             </div>
           </div>

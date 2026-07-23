@@ -56,24 +56,26 @@ export const PRICING_PLANS = {
 export type PlanId = keyof typeof PRICING_PLANS
 
 export const SITE_CONFIG = {
-  name: 'FaceYoga',
-  description: 'Transform Your Face Naturally',
+  name: 'MapMyFace',
+  description: 'Understand your face. Know what suits you.',
   url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
   apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001',
-  email: 'support@faceyoga.com',
+  email: 'support@mapmyface.com',
   phone: '+91 9876543210',
 }
 
 export const NAV_LINKS = [
+  { href: '#why', label: 'Why MapMyFace' },
   { href: '#how-it-works', label: 'How it works' },
+  { href: '#experts', label: 'Experts' },
   { href: '#pricing', label: 'Pricing' },
   { href: '#faq', label: 'FAQ' },
 ]
 
 export const SOCIAL_LINKS = {
-  instagram: 'https://instagram.com/faceyoga',
-  youtube: 'https://youtube.com/faceyoga',
-  twitter: 'https://twitter.com/faceyoga',
+  instagram: 'https://instagram.com/mapmyfaceofficial',
+  youtube: 'https://youtube.com/@mapmyfaceofficial',
+  twitter: 'https://twitter.com/mapmyface',
 }
 
 export const FAQ_CATEGORIES = [
