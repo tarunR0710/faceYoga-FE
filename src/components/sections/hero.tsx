@@ -77,16 +77,6 @@ export function Hero() {
           transition={{ duration: 0.6 }}
           className="max-w-2xl"
         >
-          {/* Badge */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-[13px] text-white/80 mb-3"
-          >
-            Join 50,000+ people
-          </motion.p>
-
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -95,9 +85,9 @@ export function Hero() {
             className="text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] leading-[1.1] tracking-[-0.02em] text-white mb-4"
             style={{ fontWeight: 450 }}
           >
-            Improve your looks
+            Understand your face.
             <br />
-            <span className="text-white/50">without surgery</span>
+            <span className="text-white/50">Know what suits you.</span>
           </motion.h1>
 
           {/* Description */}

@@ -7,7 +7,6 @@ import { Menu, X } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/constants'
 
 const navLinks = [
-  { label: 'Why Face Yoga', href: '#transformations' },
   { label: 'How it works', href: '#how-it-works' },
   { label: 'FAQ', href: '#faq' },
 ]
@@ -83,12 +82,6 @@ export function Header() {
 
             {/* Desktop CTAs */}
             <div className="hidden md:flex items-center gap-2">
-              <Link
-                href="/admin/login"
-                className="px-4 py-2 text-[13px] text-white hover:text-white rounded-full hover:bg-white/10 transition-all duration-200"
-              >
-                Login
-              </Link>
               {/* CTA Button */}
               <Link
                 href="/form"
@@ -168,13 +161,6 @@ export function Header() {
                 transition={{ delay: 0.3 }}
                 className="flex flex-col items-center gap-4 mt-6"
               >
-                <Link
-                  href="/admin/login"
-                  className="text-[15px] text-white/70 hover:text-white transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Login
-                </Link>
                 <Link
                   href="/form"
                   className="h-12 px-8 inline-flex items-center text-white text-[15px] font-medium rounded-full hover:bg-white/20 transition-all"

@@ -7,7 +7,6 @@ import { Plus } from 'lucide-react'
 type Region = {
   id: string
   name: string
-  count: number
   markers: string[]
 }
 
@@ -15,38 +14,32 @@ const REGIONS: Region[] = [
   {
     id: 'forehead',
     name: 'Forehead & Brow',
-    count: 12,
     markers: ['Brow lift', 'Brow symmetry', 'Frontalis tone', 'Horizontal lines', 'Brow position', 'Glabella tension', 'Brow tilt', 'Temple hollowing', 'Frown depth', 'Hairline balance', 'Brow-to-eye gap', 'Expression rest state'],
   },
   {
     id: 'eyes',
     name: 'Eyes & Under-eye',
-    count: 18,
     markers: ['Eye openness', 'Upper-lid hood', 'Under-eye puffiness', 'Under-eye hollowing', 'Dark circles', 'Orbicularis tone', 'Crow\'s feet', 'Eye symmetry', 'Canthal tilt', 'Lid crease', 'Brow-eye distance', 'Squint lines', 'Tear-trough depth', 'Lash line', 'Inner-corner shape', 'Outer-corner lift', 'Eye rest tension', 'Blink strength'],
   },
   {
     id: 'cheeks',
     name: 'Cheeks & Midface',
-    count: 14,
     markers: ['Cheek lift', 'Cheekbone projection', 'Mid-cheek fullness', 'Under-cheek hollowing', 'Zygomatic tone', 'Nasolabial fold', 'Cheek symmetry', 'Apple position', 'Volume balance', 'Cheek-to-jaw balance', 'Smile lift', 'Midface length', 'Buccal fullness', 'Cheek rest state'],
   },
   {
     id: 'jaw',
     name: 'Jaw & Neck',
-    count: 13,
     markers: ['Jawline definition', 'Masseter tone', 'Jaw symmetry', 'Submental fullness', 'Neck posture', 'Platysma tone', 'Chin projection', 'Jaw-to-neck angle', 'Double-chin index', 'Neck firmness', 'Jowl formation', 'Jaw width', 'Neck taper'],
   },
   {
     id: 'lips',
     name: 'Lips & Mouth',
-    count: 11,
     markers: ['Lip fullness', 'Upper-lower ratio', 'Cupid\'s bow', 'Corner lift', 'Lip symmetry', 'Perioral lines', 'Smile width', 'Philtrum shape', 'Vermilion border', 'Mouth rest state', 'Lip hydration'],
   },
   {
     id: 'skin',
     name: 'Skin & Surface',
-    count: 15,
-    markers: ['Skin firmness', 'Evenness', 'Texture', 'Pore visibility', 'Fine lines', 'Redness', 'Hydration', 'Glow', 'Blemishes', 'Hyperpigmentation', 'Elasticity', 'Puffiness', 'Undertone', 'Sun damage', 'Overall clarity'],
+    markers: ['Skin firmness', 'Evenness', 'Texture', 'Pore visibility', 'Fine lines', 'Redness', 'Hydration', 'Blemishes', 'Hyperpigmentation', 'Elasticity', 'Puffiness', 'Undertone', 'Sun damage', 'Overall clarity'],
   },
 ]
 
@@ -64,7 +57,7 @@ export function MuscleMap() {
         >
           <p className="text-[12px] text-[#999] uppercase tracking-[0.15em] mb-3">Complete assessment</p>
           <h2 className="text-[1.75rem] md:text-[2.25rem] lg:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-4" style={{ fontWeight: 450 }}>
-            80+ facial markers, mapped across 6 zones
+            9 zones &middot; 70+ checkpoints
           </h2>
           <p className="text-[15px] text-[#666] leading-relaxed">
             Your doctor assesses every region of your face so nothing is missed — then builds a routine you can actually follow.
@@ -92,7 +85,6 @@ export function MuscleMap() {
                     <span className="text-[16px] md:text-[17px] font-medium text-[#111]">{r.name}</span>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="text-[12px] text-[#999] whitespace-nowrap">{r.count} markers</span>
                     <span
                       className="flex-shrink-0 w-7 h-7 rounded-full bg-[#f5f5f5] flex items-center justify-center transition-transform duration-300"
                       style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}

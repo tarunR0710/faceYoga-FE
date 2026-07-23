@@ -5,8 +5,8 @@ import { Stethoscope, ShieldCheck, Sparkles } from 'lucide-react'
 
 const cards = [
   { icon: Stethoscope, title: 'Guided by real doctors', body: 'A qualified doctor reviews your face and answers your questions directly.' },
-  { icon: ShieldCheck, title: 'Surgery-free, proven', body: 'Every recommendation is non-invasive and grounded in evidence.' },
-  { icon: Sparkles, title: 'Specific, not generic', body: 'No two plans are the same — yours is prescribed only for your face.' },
+  { icon: ShieldCheck, title: 'Surgery-free', body: 'Every recommendation is non-invasive and grounded in evidence.' },
+  { icon: Sparkles, title: 'Specific, not generic', body: 'No two plans are the same — yours is recommended only for your face.' },
 ]
 
 export function Community() {
@@ -20,12 +20,11 @@ export function Community() {
             viewport={{ once: true }}
           >
             <p className="text-[12px] text-white/40 uppercase tracking-[0.15em] mb-4">The community</p>
-            <div className="flex items-baseline gap-3 mb-3">
-              <span className="text-[3rem] md:text-[4rem] leading-none tracking-[-0.03em]" style={{ fontWeight: 450 }}>2M+</span>
-              <span className="text-[15px] text-white/50">followers &amp; growing</span>
-            </div>
+            <h2 className="text-[2rem] md:text-[2.75rem] leading-[1.1] tracking-[-0.03em] mb-3" style={{ fontWeight: 450 }}>
+              Built with experts. Tested with real people.
+            </h2>
             <p className="text-[15px] text-white/55 leading-relaxed max-w-md">
-              Join one of the world&apos;s largest natural-beauty communities. Real people, real routines, and results you can actually see.
+              We are just getting started — real people, real routines, and honest guidance for your face.
             </p>
           </motion.div>
 

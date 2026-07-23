@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, Check, Loader2, Shield, Sparkles, Lock, Clock, Star, Stethoscope } from 'lucide-react'
+import { ChevronLeft, Check, Loader2, Shield, Sparkles, Lock, Stethoscope } from 'lucide-react'
 import { useRazorpay } from '@/hooks/use-razorpay'
 import { PRICING_PLANS, SITE_CONFIG, type PlanId } from '@/lib/constants'
 import { trackInitiateCheckout, trackPurchase } from '@/lib/meta-pixel'
@@ -52,14 +52,6 @@ interface CheckoutData {
 
 const formatINR = (paise: number) => `₹${Math.round(paise / 100).toLocaleString('en-IN')}`
 
-// Teaser metrics for the locked report preview
-const TEASER_METRICS = [
-  { label: 'Facial symmetry', value: 88 },
-  { label: 'Cheek lift potential', value: 74 },
-  { label: 'Jawline definition', value: 61 },
-  { label: 'Under-eye firmness', value: 52 },
-]
-
 export default function PaymentPage() {
   const router = useRouter()
   const [checkoutData, setCheckoutData] = useState<CheckoutData | null>(null)
@@ -67,7 +59,6 @@ export default function PaymentPage() {
   const [selectedAddons, setSelectedAddons] = useState<string[]>(['video_consult'])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-  const [secondsLeft, setSecondsLeft] = useState<number>(15 * 60)
   const { isLoaded: razorpayLoaded, openPayment } = useRazorpay()
 
   useEffect(() => {
@@ -83,20 +74,6 @@ export default function PaymentPage() {
     }
   }, [router])
 
-  // Persistent offer countdown
-  useEffect(() => {
-    const key = 'checkoutDeadline'
-    let deadline = Number(sessionStorage.getItem(key))
-    if (!deadline || Number.isNaN(deadline) || deadline < Date.now()) {
-      deadline = Date.now() + 15 * 60 * 1000
-      sessionStorage.setItem(key, String(deadline))
-    }
-    const tick = () => setSecondsLeft(Math.max(0, Math.round((deadline - Date.now()) / 1000)))
-    tick()
-    const t = setInterval(tick, 1000)
-    return () => clearInterval(t)
-  }, [])
-
   const plan = PRICING_PLANS[selectedPlan]
   const activeAddons = ADDONS.filter((a) => selectedAddons.includes(a.id))
   const addonsPaise = activeAddons.reduce((sum, a) => sum + a.priceInPaise, 0)
@@ -104,9 +81,6 @@ export default function PaymentPage() {
 
   const toggleAddon = (id: string) =>
     setSelectedAddons((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
-
-  const mm = String(Math.floor(secondsLeft / 60)).padStart(2, '0')
-  const ss = String(secondsLeft % 60).padStart(2, '0')
 
   const handlePayment = async () => {
     if (!checkoutData) {
@@ -228,27 +202,13 @@ export default function PaymentPage() {
                 </div>
               </div>
 
-              {/* locked metric preview */}
-              <div className="relative p-5 md:p-6">
-                <div className="space-y-3.5">
-                  {TEASER_METRICS.map((m) => (
-                    <div key={m.label}>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[13px] text-[#555]">{m.label}</span>
-                        <span className="text-[12px] text-[#bbb] blur-[3px] select-none">{m.value}%</span>
-                      </div>
-                      <div className="h-2 rounded-full bg-[#f0f0f0] overflow-hidden">
-                        <div className="h-full rounded-full bg-[#d8d8d8] blur-[2px]" style={{ width: `${m.value}%` }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {/* lock overlay */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.88))' }}>
+              {/* locked report preview */}
+              <div className="relative p-5 md:p-6 min-h-[180px]">
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center px-6">
                   <div className="w-10 h-10 rounded-full bg-[#111] flex items-center justify-center">
                     <Lock style={{ width: 18, height: 18 }} className="text-white" />
                   </div>
-                  <p className="text-[13px] font-medium text-[#111]">Unlock your full analysis &amp; plan below</p>
+                  <p className="text-[13px] font-medium text-[#111]">Your full analysis across 9 zones and 70+ checkpoints is ready below</p>
                 </div>
               </div>
             </motion.div>
@@ -283,16 +243,10 @@ export default function PaymentPage() {
                           {isSelected && <Check className="w-2.5 h-2.5 text-white" />}
                         </span>
                       </div>
-                      {'originalPriceDisplay' in p && (
-                        <span className="text-[12px] text-[#bbb] line-through mr-1">{p.originalPriceDisplay}</span>
-                      )}
                       <div className="flex items-baseline gap-1">
                         <span className="text-[1.4rem] text-[#111]" style={{ fontWeight: 500 }}>{p.priceDisplay}</span>
                         {p.period && <span className="text-[12px] text-[#888]">{p.period}</span>}
                       </div>
-                      {'savings' in p && (
-                        <span className="inline-block mt-1.5 px-2 py-0.5 rounded text-[10px] font-medium" style={{ background: 'rgba(16,185,129,0.1)', color: '#059669' }}>{p.savings}</span>
-                      )}
                     </motion.button>
                   )
                 })}
@@ -301,8 +255,8 @@ export default function PaymentPage() {
 
             {/* Add-ons */}
             <div>
-              <h2 className="text-[15px] font-medium text-[#111] mb-1">2. Boost your results <span className="text-[#999] font-normal">(optional)</span></h2>
-              <p className="text-[13px] text-[#888] mb-3">Members who add a doctor consult see results roughly 2× faster.</p>
+              <h2 className="text-[15px] font-medium text-[#111] mb-1">2. Add expert support <span className="text-[#999] font-normal">(optional)</span></h2>
+              <p className="text-[13px] text-[#888] mb-3">Add a 1-on-1 doctor consult if you want to talk through your plan directly.</p>
               <div className="space-y-3">
                 {ADDONS.map((a) => {
                   const checked = selectedAddons.includes(a.id)
@@ -341,13 +295,6 @@ export default function PaymentPage() {
               animate={{ opacity: 1, y: 0 }}
               className="rounded-2xl border border-[#eee] bg-white p-5 md:p-6"
             >
-              {/* countdown */}
-              <div className="flex items-center justify-center gap-2 mb-5 py-2.5 rounded-xl bg-[#fff7ed] border border-[#fed7aa]">
-                <Clock className="w-4 h-4 text-[#ea580c]" />
-                <span className="text-[13px] text-[#9a3412]">Your discount holds for</span>
-                <span className="text-[13px] font-semibold text-[#9a3412] tabular-nums">{mm}:{ss}</span>
-              </div>
-
               <h3 className="text-[15px] font-medium text-[#111] mb-4">Order summary</h3>
 
               <div className="space-y-2.5 mb-4">
@@ -403,26 +350,12 @@ export default function PaymentPage() {
                 <div className="flex items-center gap-2 text-[12px] text-[#666]">
                   <Shield className="w-4 h-4 text-emerald-500" /> Secure payment via Razorpay
                 </div>
-                <div className="flex items-center gap-2 text-[12px] text-[#666]">
-                  <Check className="w-4 h-4 text-emerald-500" /> 7-day money-back guarantee
-                </div>
-                <div className="flex items-center gap-2 text-[12px] text-[#666]">
-                  <Check className="w-4 h-4 text-emerald-500" /> Cancel anytime, no questions asked
-                </div>
               </div>
 
-              {/* mini social proof */}
+              {/* honest proof */}
               <div className="mt-5 pt-5 border-t border-[#f0f0f0]">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <div className="flex gap-0.5">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                    ))}
-                  </div>
-                  <span className="text-[12px] text-[#888]">4.9 · joined by 50,000+ people</span>
-                </div>
-                <p className="text-[12px] text-[#888] italic leading-relaxed">
-                  &ldquo;Having a real doctor answer my questions was worth it on its own.&rdquo;
+                <p className="text-[12px] text-[#888] leading-relaxed">
+                  Built with experts. Tested with real people.
                 </p>
               </div>
             </motion.div>

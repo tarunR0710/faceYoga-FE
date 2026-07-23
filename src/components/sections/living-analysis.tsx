@@ -10,9 +10,9 @@ import { useState } from 'react'
  * The "living" annotated-face section. A portrait sits inside a dark
  * analysis console; floating glass HUD panels are layered on top, a
  * scan ring rotates, and annotation dots pulse at anchored coordinates.
- * Hovering / tapping a dot glides the bottom chart indicator to that
- * region's activation score (CSS `left` transition) and swaps the
- * readout — the same "annotations move within the image" behaviour
+ * Hovering / tapping a dot swaps the bottom
+ * readout to that region's qualitative reading — the same
+ * "annotations move within the image" behaviour
  * we mapped from the reference build, rebuilt from scratch for face yoga.
  */
 
@@ -22,19 +22,19 @@ type Region = {
   // anchor position over the face, in %
   x: number
   y: number
-  // current muscle-activation percentile (0-100)
-  activation: number
+  // qualitative reading label
+  reading: string
   // short diagnostic line
   note: string
   side: 'left' | 'right'
 }
 
 const REGIONS: Region[] = [
-  { id: 'brow', label: 'Frontalis (brow)', x: 50, y: 20, activation: 41, note: 'Low lift — responds fast to training', side: 'right' },
-  { id: 'undereye', label: 'Orbicularis (under-eye)', x: 33, y: 37, activation: 58, note: 'Mild puffiness, good potential', side: 'left' },
-  { id: 'cheek', label: 'Zygomaticus (cheek)', x: 68, y: 46, activation: 34, note: 'Underactive lift — priority zone', side: 'right' },
-  { id: 'jaw', label: 'Masseter (jawline)', x: 30, y: 66, activation: 72, note: 'Strong definition baseline', side: 'left' },
-  { id: 'lip', label: 'Orbicularis oris (lips)', x: 52, y: 60, activation: 49, note: 'Balanced, refine corners', side: 'right' },
+  { id: 'brow', label: 'Frontalis (brow)', x: 50, y: 20, reading: 'Improvement potential', note: 'Responds well to training', side: 'right' },
+  { id: 'undereye', label: 'Orbicularis (under-eye)', x: 33, y: 37, reading: 'Improvement potential', note: 'Good potential', side: 'left' },
+  { id: 'cheek', label: 'Zygomaticus (cheek)', x: 68, y: 46, reading: 'Priority zone', note: 'A focus area to work on', side: 'right' },
+  { id: 'jaw', label: 'Masseter (jawline)', x: 30, y: 66, reading: 'Strength', note: 'Strong definition baseline', side: 'left' },
+  { id: 'lip', label: 'Orbicularis oris (lips)', x: 52, y: 60, reading: 'Balanced', note: 'Balanced, refine corners', side: 'right' },
 ]
 
 export function LivingAnalysis() {
@@ -65,11 +65,11 @@ export function LivingAnalysis() {
             Doctor-led analysis
           </span>
           <h2 className="text-[1.75rem] md:text-[2.25rem] lg:text-[2.75rem] leading-[1.12] tracking-[-0.02em] text-white mb-4" style={{ fontWeight: 450 }}>
-            See exactly what every muscle is doing{' '}
-            <span className="text-white/40">— and where the biggest wins are hiding.</span>
+            See what every muscle is doing{' '}
+            <span className="text-white/40">— zone by zone.</span>
           </h2>
           <p className="text-[14px] md:text-[15px] text-white/55 leading-relaxed max-w-lg">
-            Your doctor walks you through each facial muscle group and scores its activation with you. Hover a point to inspect the zone.
+            Your doctor walks you through each facial muscle group with you. Hover a point to inspect the zone.
           </p>
         </motion.div>
 
@@ -165,23 +165,13 @@ export function LivingAnalysis() {
                 style={{ background: 'rgba(0,0,0,0.35)', border: '0.7px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(6px)' }}
               >
                 {[
-                  { k: 'Symmetry', v: 88 },
-                  { k: 'Muscle tone', v: 61 },
+                  { k: 'Symmetry', v: 'Reviewed' },
+                  { k: 'Muscle tone', v: 'Reviewed' },
                 ].map((s) => (
                   <div key={s.k}>
-                    <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center justify-between">
                       <span className="text-[10px] text-white/60">{s.k}</span>
-                      <span className="text-[10px] text-white font-medium">{s.v}%</span>
-                    </div>
-                    <div className="h-1 rounded-full bg-white/15 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${s.v}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, ease: 'easeOut' }}
-                        className="h-full rounded-full"
-                        style={{ background: '#a7e8cf' }}
-                      />
+                      <span className="text-[10px] text-white font-medium">{s.v}</span>
                     </div>
                   </div>
                 ))}
@@ -198,20 +188,11 @@ export function LivingAnalysis() {
                     <p className="text-[14px] text-white font-medium leading-tight">{active.label}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[26px] leading-none text-white" style={{ fontWeight: 400 }}>{active.activation}<span className="text-[14px] text-white/40">%</span></p>
-                    <p className="text-[10px] text-white/45">activation</p>
+                    <p className="text-[15px] leading-tight text-white" style={{ fontWeight: 400 }}>{active.reading}</p>
                   </div>
                 </div>
-                {/* percentile bar with gliding indicator */}
-                <div className="relative h-1.5 rounded-full bg-white/12 overflow-visible">
-                  <div className="absolute inset-0 rounded-full" style={{ background: 'linear-gradient(90deg, rgba(167,232,207,0.25), rgba(167,232,207,0.8))' }} />
-                  <div
-                    className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 transition-[left] duration-500 ease-out"
-                    style={{ left: `${active.activation}%` }}
-                  >
-                    <div className="w-3 h-3 rounded-full bg-white" style={{ boxShadow: '0 0 0 3px rgba(167,232,207,0.4)' }} />
-                  </div>
-                </div>
+                {/* qualitative zone indicator */}
+                <div className="relative h-1.5 rounded-full overflow-hidden" style={{ background: 'linear-gradient(90deg, rgba(167,232,207,0.25), rgba(167,232,207,0.8))' }} />
                 <p className="text-[11px] text-white/55 mt-2.5 leading-snug">{active.note}</p>
               </div>
             </div>
@@ -243,19 +224,19 @@ export function LivingAnalysis() {
                 n: '1',
                 title: 'Your most expressive feature',
                 body: 'Your doctor points out the one zone that shapes your look the most — so you know where a small change makes the biggest difference.',
-                stat: { label: 'Cheek lift potential', value: 'High', pct: 78 },
+                stat: { label: 'Cheek lift', value: 'Improvement potential' },
               },
               {
                 n: '2',
                 title: 'How each zone works together',
                 body: 'Muscles do not act alone. Your doctor shows how your brow, cheek and jawline balance one another, and which link to train first.',
-                stat: { label: 'Brow → cheek link', value: 'Strong', pct: 64 },
+                stat: { label: 'Brow → cheek link', value: 'Strength' },
               },
               {
                 n: '3',
-                title: 'Where you have the most to gain',
-                body: 'A projection of your realistic 12-week ceiling per zone, ranked — no surgery, just consistent targeted training.',
-                stat: { label: 'Jawline projection', value: '+18%', pct: 82 },
+                title: 'Where to focus first',
+                body: 'A view of which zones to prioritise per zone — no surgery, just consistent targeted training.',
+                stat: { label: 'Jawline', value: 'Priority zone' },
               },
             ].map((c, i) => (
               <motion.div
@@ -275,19 +256,9 @@ export function LivingAnalysis() {
                     <h3 className="text-[16px] md:text-[17px] text-white font-medium mb-1.5">{c.title}</h3>
                     <p className="text-[13px] text-white/55 leading-relaxed mb-4">{c.body}</p>
                     <div className="rounded-lg p-3" style={{ background: 'rgba(0,0,0,0.25)', border: '0.5px solid rgba(255,255,255,0.08)' }}>
-                      <div className="flex items-center justify-between mb-1.5">
+                      <div className="flex items-center justify-between">
                         <span className="text-[11px] text-white/50">{c.stat.label}</span>
                         <span className="text-[11px] text-white font-medium">{c.stat.value}</span>
-                      </div>
-                      <div className="h-1 rounded-full bg-white/12 overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${c.stat.pct}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
-                          className="h-full rounded-full"
-                          style={{ background: '#a7e8cf' }}
-                        />
                       </div>
                     </div>
                   </div>

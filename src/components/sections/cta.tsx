@@ -17,12 +17,9 @@ export function CTA() {
           <p className="text-[12px] text-[#999] uppercase tracking-[0.15em] mb-3">
             Get started today
           </p>
-          <h2 className="text-[1.75rem] md:text-[2.25rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-4" style={{ fontWeight: 450 }}>
-            Ready to transform your face?
+          <h2 className="text-[1.75rem] md:text-[2.25rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-8" style={{ fontWeight: 450 }}>
+            You do not need more random advice. You need to know what suits you.
           </h2>
-          <p className="text-[15px] md:text-[17px] text-[#666] leading-relaxed mb-8">
-            Join 50,000+ people who have discovered the power of personalized face yoga.
-          </p>
 
           <Link
             href="/form"
@@ -33,7 +30,7 @@ export function CTA() {
           </Link>
 
           <p className="mt-4 text-[13px] text-[#999]">
-            No commitment required. 14-day money-back guarantee.
+            No commitment required.
           </p>
         </motion.div>
       </div>

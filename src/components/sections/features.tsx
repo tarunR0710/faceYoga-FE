@@ -93,7 +93,7 @@ export function Features() {
             {totalExercises}+ Targeted <span className="text-black/30">Exercises</span>
           </h2>
           <p className="text-[15px] md:text-base text-[#666] leading-relaxed">
-            Our program covers every area of your face with science-backed exercises
+            Our program covers every area of your face with guided exercises
           </p>
         </motion.div>
 

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ChevronLeft, Shield, Clock, CheckCircle, Star } from 'lucide-react'
+import { ChevronLeft, Shield, Clock, CheckCircle } from 'lucide-react'
 import { LeadForm } from '@/components/forms/lead-form'
 import { SITE_CONFIG } from '@/lib/constants'
 
@@ -64,20 +64,6 @@ export default function FormPage() {
                   </li>
                 ))}
               </ul>
-            </div>
-
-            <div className="relative mt-8 pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-              <div className="flex items-center gap-2 mb-2">
-                <div className="flex gap-0.5">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                  ))}
-                </div>
-                <span className="text-[13px] text-white/70">4.9 · 12,000+ reviews</span>
-              </div>
-              <p className="text-[13px] text-white/50 italic leading-relaxed">
-                &ldquo;I finally understood what my face actually needed instead of guessing.&rdquo;
-              </p>
             </div>
           </motion.div>
 

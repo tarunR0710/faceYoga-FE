@@ -40,10 +40,7 @@ export const PRICING_PLANS = {
     priceInPaise: 299900,
     priceDisplay: '₹2,999',
     period: '/year',
-    originalPrice: 5988,
-    originalPriceDisplay: '₹5,988',
-    savings: '50% OFF',
-    description: 'Best value for committed transformation',
+    description: 'Best value for ongoing support',
     features: [
       'Everything in Monthly',
       'Annual facial re-analysis',
@@ -69,7 +66,6 @@ export const SITE_CONFIG = {
 
 export const NAV_LINKS = [
   { href: '#how-it-works', label: 'How it works' },
-  { href: '#transformations', label: 'Transformations' },
   { href: '#pricing', label: 'Pricing' },
   { href: '#faq', label: 'FAQ' },
 ]
@@ -79,22 +75,6 @@ export const SOCIAL_LINKS = {
   youtube: 'https://youtube.com/faceyoga',
   twitter: 'https://twitter.com/faceyoga',
 }
-
-export const STATS = [
-  { value: '50,000+', label: 'Happy Customers' },
-  { value: '160+', label: 'Exercise Routines' },
-  { value: '2,000+', label: 'Research Studies' },
-  { value: '4.9/5', label: 'Customer Rating' },
-]
-
-export const MEDIA_LOGOS = [
-  'Times of India',
-  'Hindustan Times',
-  'Economic Times',
-  'India Today',
-  'NDTV',
-  'News18',
-]
 
 export const FAQ_CATEGORIES = [
   {
@@ -110,7 +90,7 @@ export const FAQ_CATEGORIES = [
       },
       {
         q: 'Is Face Yoga safe?',
-        a: 'Yes, Face Yoga is completely safe when done correctly. Our personalized routines are designed by certified experts and backed by scientific research. We provide detailed video instructions to ensure you perform each exercise properly.',
+        a: 'Yes, Face Yoga is safe when done correctly. Our personalised routines are designed by experts, and we provide detailed video instructions to ensure you perform each exercise properly.',
       },
     ],
   },
@@ -119,7 +99,7 @@ export const FAQ_CATEGORIES = [
     questions: [
       {
         q: 'What does the facial analysis include?',
-        a: 'Our comprehensive analysis examines 160+ facial parameters including facial symmetry, muscle tone, skin texture, and proportions. We use this data to create a completely personalized routine tailored to your unique facial structure and goals.',
+        a: 'Our analysis examines 9 zones and 70+ checkpoints including facial symmetry, muscle tone, skin texture, and proportions. We use this to create a personalised routine tailored to your unique facial structure and goals.',
       },
       {
         q: 'How long does the analysis take?',
@@ -136,11 +116,11 @@ export const FAQ_CATEGORIES = [
     questions: [
       {
         q: 'Can I cancel my subscription anytime?',
-        a: 'Yes, you can cancel your subscription at any time with no questions asked. Your access will continue until the end of your billing period.',
+        a: 'Yes. You can cancel your subscription at any time, and your access will continue until the end of your billing period.',
       },
       {
         q: 'Is there a refund policy?',
-        a: 'We offer a 7-day money-back guarantee. If you are not satisfied with your analysis and plan within the first 7 days, we will provide a full refund.',
+        a: 'If you are not satisfied with your analysis and plan within the first 7 days, contact us and we will provide a full refund.',
       },
       {
         q: 'What payment methods do you accept?',
