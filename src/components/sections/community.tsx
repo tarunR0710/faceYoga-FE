@@ -4,28 +4,58 @@ import { motion } from 'framer-motion'
 import { Stethoscope, ShieldCheck, Sparkles } from 'lucide-react'
 
 const cards = [
-  { icon: Stethoscope, title: 'Guided by real doctors', body: 'A qualified doctor reviews your face and answers your questions directly.' },
-  { icon: ShieldCheck, title: 'Surgery-free', body: 'Every recommendation is non-invasive and grounded in evidence.' },
-  { icon: Sparkles, title: 'Specific, not generic', body: 'No two plans are the same — yours is recommended only for your face.' },
+  {
+    icon: Stethoscope,
+    title: 'Guided by real experts',
+    body: 'A qualified specialist reviews your face and answers your questions directly.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Surgery-free, evidence-based',
+    body: 'Every recommendation is non-invasive and grounded in evidence.',
+  },
+  {
+    icon: Sparkles,
+    title: 'Specific, not generic',
+    body: 'No two plans are the same — yours is mapped only for your face.',
+  },
 ]
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 export function Community() {
   return (
-    <section className="py-16 md:py-20 bg-[#111] text-white overflow-hidden">
+    <section className="py-16 md:py-24 bg-ivory text-ink overflow-hidden">
       <div className="container-main">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, ease }}
           >
-            <p className="text-[12px] text-white/40 uppercase tracking-[0.15em] mb-4">The community</p>
-            <h2 className="text-[2rem] md:text-[2.75rem] leading-[1.1] tracking-[-0.03em] mb-3" style={{ fontWeight: 450 }}>
-              Built with experts. Tested with real people.
-            </h2>
-            <p className="text-[15px] text-white/55 leading-relaxed max-w-md">
-              We are just getting started — real people, real routines, and honest guidance for your face.
+            <p className="text-[12px] text-analysis-teal uppercase tracking-[0.15em] mb-4">
+              Proof
             </p>
+            <h2
+              className="text-[2rem] md:text-[2.75rem] leading-[1.1] tracking-[-0.03em] mb-4"
+              style={{ fontWeight: 450 }}
+            >
+              <span className="text-ink">Built with experts.</span>{' '}
+              <span className="text-ink/45">Tested with real people.</span>
+            </h2>
+            <p className="text-[15px] md:text-[16px] text-ink/[0.78] leading-relaxed max-w-md">
+              Meet the specialist panel, see the method, and read
+              transparently-labelled experiences from our founding cohort — real
+              people who completed the full MapMyFace process.
+            </p>
+
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-mist px-3.5 py-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-analysis-teal" />
+              <span className="text-[12px] font-medium text-analysis-teal uppercase tracking-[0.1em]">
+                Founding cohort
+              </span>
+            </div>
           </motion.div>
 
           <div className="space-y-3">
@@ -37,20 +67,31 @@ export function Community() {
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="flex items-center gap-4 rounded-2xl p-5"
-                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+                  transition={{ duration: 0.5, delay: i * 0.1, ease }}
+                  className="flex items-center gap-4 rounded-[22px] p-5 bg-white border border-ink/10"
+                  style={{ boxShadow: '0 1px 2px rgba(21, 36, 33, 0.04)' }}
                 >
-                  <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-white" strokeWidth={1.5} />
+                  <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-mist flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-analysis-teal" strokeWidth={1.5} />
                   </div>
                   <div>
-                    <h3 className="text-[15px] font-medium text-white">{c.title}</h3>
-                    <p className="text-[13px] text-white/50">{c.body}</p>
+                    <h3 className="text-[15px] font-medium text-ink">{c.title}</h3>
+                    <p className="text-[13px] text-ink/[0.65]">{c.body}</p>
                   </div>
                 </motion.div>
               )
             })}
+
+            <motion.p
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: cards.length * 0.1, ease }}
+              className="pt-1 pl-1 text-[12px] text-ink/[0.55] italic"
+            >
+              Beta client experiences are labelled as such — no anonymous
+              reviews, no invented numbers.
+            </motion.p>
           </div>
         </div>
       </div>

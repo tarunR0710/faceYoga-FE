@@ -1,88 +1,103 @@
 'use client'
 
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 
-const experts = [
+const disciplines = [
   {
-    name: 'Dr. Priya Sharma',
-    title: 'Facial Aesthetics',
-    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face',
+    initial: 'Dr',
+    name: 'Dermatology & skin',
+    description: 'Reads skin health, texture and tone to ground every recommendation in clinical reality.',
   },
   {
-    name: 'Dr. Arjun Mehta',
-    title: 'Dermatologist',
-    image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&h=200&fit=crop&crop=face',
+    initial: 'Fy',
+    name: 'Face yoga & movement',
+    description: 'Assesses muscle tone and expression to guide what movement can genuinely change.',
   },
   {
-    name: 'Dr. Sneha Patel',
-    title: 'Cosmetic Surgeon',
-    image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=200&h=200&fit=crop&crop=face',
+    initial: 'Hr',
+    name: 'Hair & framing',
+    description: 'Considers how hairline, length and shape frame and balance your features.',
   },
   {
-    name: 'Dr. Vikram Singh',
-    title: 'Maxillofacial Expert',
-    image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&h=200&fit=crop&crop=face',
+    initial: 'St',
+    name: 'Styling & colour',
+    description: 'Matches palette, contrast and styling choices to your natural colouring.',
   },
   {
-    name: 'Dr. Ananya Reddy',
-    title: 'Anti-Aging Specialist',
-    image: 'https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=200&h=200&fit=crop&crop=face',
-  },
-  {
-    name: 'Dr. Rahul Kapoor',
-    title: 'Research Director',
-    image: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=200&h=200&fit=crop&crop=face',
+    initial: 'Rs',
+    name: 'Research & method',
+    description: 'Keeps the analysis honest, measured and grounded in evidence rather than trend.',
   },
 ]
 
+const easeOut = [0.22, 1, 0.36, 1] as const
+
 export function Experts() {
   return (
-    <section id="experts" className="py-20 bg-white">
+    <section id="experts" className="py-24 bg-ivory">
       <div className="container-main">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center max-w-2xl mx-auto mb-14"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: easeOut }}
+          className="max-w-2xl mb-14"
         >
-          <p className="text-[12px] text-[#999] uppercase tracking-[0.15em] mb-3">
-            Expert team
+          <p className="text-[12px] text-analysis-teal uppercase tracking-[0.18em] mb-4">
+            The MapMyFace expert panel
           </p>
-          <h2 className="text-[1.75rem] md:text-[2.25rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-4" style={{ fontWeight: 450 }}>
-            Backed by leading specialists
+          <h2
+            className="text-[1.9rem] md:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-ink mb-5"
+            style={{ fontWeight: 450 }}
+          >
+            Different specialists.{' '}
+            <span className="text-analysis-teal/70">One coordinated answer.</span>
           </h2>
-          <p className="text-[15px] md:text-[17px] text-[#666] leading-relaxed">
-            Our methods are developed and reviewed by qualified medical professionals
+          <p className="text-[15px] md:text-[17px] text-ink/70 leading-relaxed">
+            Your case is reviewed by the experts relevant to your needs, then brought
+            together into one Face Map.
           </p>
         </motion.div>
 
-        {/* Experts Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {experts.map((expert, index) => (
+        {/* Disciplines Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {disciplines.map((discipline, index) => (
             <motion.div
-              key={expert.name}
-              initial={{ opacity: 0, y: 16 }}
+              key={discipline.name}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
-              className="text-center group"
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.55, ease: easeOut, delay: index * 0.06 }}
+              className="rounded-[22px] border border-ink/10 bg-white p-7 shadow-[0_1px_2px_rgba(21,36,33,0.04)] transition-colors duration-300 hover:bg-mist/40"
             >
-              <div className="relative w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden bg-[#f5f5f5] ring-2 ring-transparent group-hover:ring-[#eee] transition-all">
-                <Image
-                  src={expert.image}
-                  alt={expert.name}
-                  fill
-                  sizes="80px"
-                  className="object-cover"
-                />
+              <div
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-sand text-analysis-teal text-[13px] tracking-[0.02em] mb-5"
+                style={{ fontWeight: 600 }}
+              >
+                {discipline.initial}
               </div>
-              <h3 className="text-[13px] font-medium text-[#111]">{expert.name}</h3>
-              <p className="text-[11px] text-[#999]">{expert.title}</p>
+              <h3 className="text-[16px] text-ink mb-2" style={{ fontWeight: 550 }}>
+                {discipline.name}
+              </h3>
+              <p className="text-[14px] text-ink/65 leading-relaxed">
+                {discipline.description}
+              </p>
             </motion.div>
           ))}
         </div>
+
+        {/* Trust line */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.6, ease: easeOut, delay: 0.1 }}
+          className="mt-10 max-w-2xl text-[13px] md:text-[14px] text-analysis-teal leading-relaxed"
+        >
+          Every expert appears with their full name, qualification and written consent —
+          published as we onboard our founding panel.
+        </motion.p>
       </div>
     </section>
   )
