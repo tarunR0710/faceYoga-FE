@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { useComparisonSlider } from '@/hooks/use-comparison-slider'
 
 function BeforeAfterSlider({
   beforeImage,
@@ -15,34 +15,12 @@ function BeforeAfterSlider({
   beforeLabel?: string
   afterLabel?: string
 }) {
-  const [sliderPosition, setSliderPosition] = useState(50)
-  const [isDragging, setIsDragging] = useState(false)
-
-  const handleMove = (clientX: number, rect: DOMRect) => {
-    const x = clientX - rect.left
-    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100))
-    setSliderPosition(percentage)
-  }
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDragging) return
-    const rect = e.currentTarget.getBoundingClientRect()
-    handleMove(e.clientX, rect)
-  }
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    handleMove(e.touches[0].clientX, rect)
-  }
+  const { position, containerRef, handleProps } = useComparisonSlider()
 
   return (
     <div
-      className="relative aspect-[3/4] rounded-xl overflow-hidden cursor-ew-resize select-none bg-[#e5e5e5]"
-      onMouseDown={() => setIsDragging(true)}
-      onMouseUp={() => setIsDragging(false)}
-      onMouseLeave={() => setIsDragging(false)}
-      onMouseMove={handleMouseMove}
-      onTouchMove={handleTouchMove}
+      ref={containerRef}
+      className="relative aspect-[3/4] rounded-xl overflow-hidden select-none bg-[#e5e5e5]"
     >
       {/* After Image (Background) */}
       <div className="absolute inset-0">
@@ -59,7 +37,7 @@ function BeforeAfterSlider({
       {/* Before Image (Clipped) */}
       <div
         className="absolute inset-0 overflow-hidden"
-        style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+        style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
       >
         <Image
           src={beforeImage}
@@ -83,14 +61,21 @@ function BeforeAfterSlider({
         </span>
       </div>
 
-      {/* Slider Line */}
+      {/* Slider Line + Handle (the ONLY draggable element) */}
       <div
-        className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg"
-        style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
+        className="absolute top-0 bottom-0 w-px bg-white/90 shadow-[0_0_6px_rgba(0,0,0,0.15)]"
+        style={{ left: `${position}%`, transform: 'translateX(-50%)' }}
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center">
-          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+        <div
+          {...handleProps}
+          aria-label="Drag to compare before and after"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/15 backdrop-blur-md border border-white/60 flex items-center justify-center gap-1 outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+        >
+          <svg className="w-1 h-1.5 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]" fill="currentColor" viewBox="0 0 4 6">
+            <path d="M4 0L0 3l4 3z" />
+          </svg>
+          <svg className="w-1 h-1.5 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]" fill="currentColor" viewBox="0 0 4 6">
+            <path d="M0 0L4 3L0 6z" />
           </svg>
         </div>
       </div>

@@ -94,8 +94,8 @@ export function Header() {
                 href="/form"
                 className="h-9 px-5 inline-flex items-center text-white text-[13px] font-medium rounded-full hover:bg-white/25 transition-all duration-200"
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
+                  border: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent',
                 }}
               >
                 Start my plan
@@ -108,8 +108,8 @@ export function Header() {
                 href="/form"
                 className="h-10 px-4 inline-flex items-center text-white text-[13px] font-medium rounded-full transition-all duration-200"
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
+                  border: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent',
                 }}
               >
                 Start my plan

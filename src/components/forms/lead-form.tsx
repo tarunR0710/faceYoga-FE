@@ -17,6 +17,10 @@ type Step = 'form' | 'otp' | 'verified'
 
 const API_URL = SITE_CONFIG.apiUrl
 
+// DEV ONLY: set NEXT_PUBLIC_BYPASS_OTP=true in .env.local to skip the OTP
+// step entirely (useful when the backend is down). Remove/disable for production.
+const BYPASS_OTP = process.env.NEXT_PUBLIC_BYPASS_OTP === 'true'
+
 export function LeadForm() {
   const router = useRouter()
   const [step, setStep] = useState<Step>('form')
@@ -136,6 +140,26 @@ export function LeadForm() {
   }
 
   const onSubmit = async () => {
+    // DEV bypass: skip OTP and go straight to checkout
+    if (BYPASS_OTP) {
+      const formData = getValues()
+      sessionStorage.setItem(
+        'checkoutData',
+        JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          phoneToken: 'dev-bypass',
+        })
+      )
+      setStep('verified')
+      trackLead()
+      setTimeout(() => {
+        router.push('/payment')
+      }, 1200)
+      return
+    }
+
     await sendOtp()
   }
 
@@ -148,8 +172,28 @@ export function LeadForm() {
 
   const labelClasses = 'block text-[13px] text-[#666] mb-1.5'
 
+  const stepIndex = step === 'form' ? 0 : step === 'otp' ? 1 : 2
+  const stepLabels = ['Details', 'Verify', 'Done']
+
   return (
     <div className="w-full">
+      {/* Step progress */}
+      <div className="flex items-center gap-2 mb-6">
+        {stepLabels.map((label, i) => (
+          <div key={label} className="flex-1 flex flex-col gap-1.5">
+            <div className="h-1 rounded-full bg-[#eee] overflow-hidden">
+              <div
+                className="h-full rounded-full bg-[#111] transition-all duration-500 ease-out"
+                style={{ width: i <= stepIndex ? '100%' : '0%' }}
+              />
+            </div>
+            <span className={cn('text-[10px] tracking-wide transition-colors', i <= stepIndex ? 'text-[#111]' : 'text-[#bbb]')}>
+              {label}
+            </span>
+          </div>
+        ))}
+      </div>
+
       <AnimatePresence mode="wait">
         {step === 'form' && (
           <motion.form

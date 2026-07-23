@@ -11,14 +11,15 @@ const faqs = [
     items: [
       { q: 'What is face yoga?', a: 'Face yoga is a series of targeted facial exercises designed to tone and strengthen the muscles in your face. Consistent practice can help define facial contours, improve skin elasticity, and create a more youthful appearance naturally.' },
       { q: 'How long until I see results?', a: 'Most users notice subtle improvements within 2-4 weeks of consistent practice. Significant results typically appear after 8-12 weeks, depending on your starting point and consistency.' },
-      { q: 'Is face yoga safe?', a: 'Yes, face yoga is completely safe when done correctly. Our exercises are designed by experts and include detailed video instructions to ensure proper form.' },
+      { q: 'Is face yoga safe?', a: 'Yes, face yoga is completely safe when done correctly. Your exercises are prescribed by a qualified doctor and include detailed video instructions to ensure proper form.' },
+      { q: 'Do I actually talk to a real doctor?', a: 'Yes. This is not an AI tool — you are matched with a qualified doctor who personally reviews your face, prescribes a routine specific to your concerns, and answers your questions directly along the way.' },
     ],
   },
   {
     category: 'About The Plan',
     items: [
-      { q: "What's included in my plan?", a: 'Your plan includes a comprehensive facial analysis, customized exercise routines, HD video tutorials, a daily schedule, progress tracking tools, and access to our support team.' },
-      { q: 'How is my plan personalized?', a: 'We analyze your facial structure using 160+ parameters to identify your unique characteristics and target areas, creating a routine specifically designed for your face.' },
+      { q: "What's included in my plan?", a: 'Your plan includes a personal review by your doctor, a customized exercise routine, HD video tutorials, a daily schedule, progress tracking tools, and direct chat with your doctor for any doubts.' },
+      { q: 'How is my plan personalized?', a: 'A doctor reviews your facial structure across 160+ markers to identify your unique characteristics and target areas, then prescribes a routine designed specifically for your face — never a generic template.' },
       { q: 'Can I access on mobile?', a: 'Yes! Your plan is fully accessible on any device - desktop, tablet, or smartphone. Practice wherever and whenever convenient.' },
     ],
   },

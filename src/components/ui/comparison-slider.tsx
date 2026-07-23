@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useRef, useCallback, useEffect } from 'react'
 import Image from 'next/image'
+import { useComparisonSlider } from '@/hooks/use-comparison-slider'
 
 interface ComparisonSliderProps {
   beforeImage: string
@@ -18,66 +18,12 @@ export function ComparisonSlider({
   afterLabel = 'Projection',
   className = '',
 }: ComparisonSliderProps) {
-  const [sliderPosition, setSliderPosition] = useState(50)
-  const [isDragging, setIsDragging] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  const handleMove = useCallback(
-    (clientX: number) => {
-      if (!containerRef.current) return
-
-      const rect = containerRef.current.getBoundingClientRect()
-      const x = clientX - rect.left
-      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100))
-      setSliderPosition(percentage)
-    },
-    []
-  )
-
-  const handleMouseDown = useCallback(() => {
-    setIsDragging(true)
-  }, [])
-
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false)
-  }, [])
-
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (!isDragging) return
-      handleMove(e.clientX)
-    },
-    [isDragging, handleMove]
-  )
-
-  const handleTouchMove = useCallback(
-    (e: TouchEvent) => {
-      if (!isDragging) return
-      handleMove(e.touches[0].clientX)
-    },
-    [isDragging, handleMove]
-  )
-
-  useEffect(() => {
-    document.addEventListener('mousemove', handleMouseMove)
-    document.addEventListener('mouseup', handleMouseUp)
-    document.addEventListener('touchmove', handleTouchMove)
-    document.addEventListener('touchend', handleMouseUp)
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-      document.removeEventListener('mouseup', handleMouseUp)
-      document.removeEventListener('touchmove', handleTouchMove)
-      document.removeEventListener('touchend', handleMouseUp)
-    }
-  }, [handleMouseMove, handleMouseUp, handleTouchMove])
+  const { position, containerRef, handleProps } = useComparisonSlider()
 
   return (
     <div
       ref={containerRef}
-      className={`relative overflow-hidden rounded-xl select-none cursor-ew-resize border border-[#eee] ${className}`}
-      onMouseDown={handleMouseDown}
-      onTouchStart={handleMouseDown}
+      className={`relative overflow-hidden rounded-xl select-none border border-[#eee] ${className}`}
     >
       {/* After Image (Background) */}
       <div className="relative w-full aspect-[4/5]">
@@ -87,6 +33,8 @@ export function ComparisonSlider({
               src={afterImage}
               alt="After"
               fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              loading="lazy"
               className="object-cover"
               draggable={false}
             />
@@ -108,7 +56,7 @@ export function ComparisonSlider({
       {/* Before Image (Clipped) */}
       <div
         className="absolute inset-0 overflow-hidden"
-        style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+        style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
       >
         <div className="relative w-full aspect-[4/5]">
           <div className="absolute inset-0 bg-gradient-to-b from-[#f0f0f0] to-[#e8e8e8]">
@@ -117,6 +65,8 @@ export function ComparisonSlider({
                 src={beforeImage}
                 alt="Before"
                 fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                loading="lazy"
                 className="object-cover"
                 draggable={false}
               />
@@ -136,17 +86,22 @@ export function ComparisonSlider({
         </div>
       </div>
 
-      {/* Slider Handle */}
+      {/* Slider Line + Handle (the ONLY draggable element) */}
       <div
-        className="absolute top-0 bottom-0 w-0.5 bg-white z-20"
-        style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)', boxShadow: '0 0 8px rgba(0,0,0,0.15)' }}
+        className="absolute top-0 bottom-0 w-px bg-white z-20"
+        style={{ left: `${position}%`, transform: 'translateX(-50%)', boxShadow: '0 0 8px rgba(0,0,0,0.15)' }}
       >
         {/* Handle Circle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white flex items-center justify-center"
-          style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.12)' }}
+        <div
+          {...handleProps}
+          aria-label="Drag to compare before and after"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/15 backdrop-blur-md border border-white/60 flex items-center justify-center gap-1 outline-none focus-visible:ring-2 focus-visible:ring-white/70"
         >
-          <svg className="w-4 h-4 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+          <svg className="w-1 h-1.5 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]" fill="currentColor" viewBox="0 0 4 6">
+            <path d="M4 0L0 3l4 3z" />
+          </svg>
+          <svg className="w-1 h-1.5 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]" fill="currentColor" viewBox="0 0 4 6">
+            <path d="M0 0L4 3L0 6z" />
           </svg>
         </div>
       </div>

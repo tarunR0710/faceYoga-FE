@@ -1,39 +1,65 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 // Hero video assets on Cloudflare R2 (public dev URL).
 // To move to a custom domain later, change only this base — the paths stay the same.
 const ASSET_BASE_URL = 'https://pub-276f99bee0ca472b8c097bf6b9fc7e52.r2.dev'
 
 export function Hero() {
+  // The lightweight poster is the LCP element and renders immediately.
+  // The 1080p video is deferred until after the page finishes loading so it
+  // never competes with LCP / main-thread work during the initial load.
+  const [showVideo, setShowVideo] = useState(false)
+  const [videoReady, setVideoReady] = useState(false)
+
+  useEffect(() => {
+    const start = () => setShowVideo(true)
+    if (document.readyState === 'complete') {
+      start()
+    } else {
+      window.addEventListener('load', start, { once: true })
+      return () => window.removeEventListener('load', start)
+    }
+  }, [])
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background Video */}
-      <div className="absolute inset-0">
-        {/* Video Background */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster={`${ASSET_BASE_URL}/faceyoga-poster.jpg`}
-          className="absolute inset-0 w-full h-full"
-          style={{
-            objectFit: 'cover',
-            objectPosition: 'center top',
-          }}
-        >
-          {/* Hero video from Cloudflare R2 — single 1080p source so it stays crisp
-              on high-DPR phones (the 640/720 encodes looked soft scaled to full screen).
-              The 57 KB poster is the LCP; the video streams in via faststart. */}
-          <source
-            src={`${ASSET_BASE_URL}/faceyoga-1920.mp4`}
-            type="video/mp4"
-          />
-        </video>
+      {/* Background */}
+      <div className="absolute inset-0 bg-[#3a3632]">
+        {/* Poster image — LCP element, shown instantly */}
+        <Image
+          src={`${ASSET_BASE_URL}/faceyoga-poster.jpg`}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-top"
+        />
+
+        {/* Deferred video — fades in over the poster once it can play */}
+        {showVideo && (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            onCanPlay={() => setVideoReady(true)}
+            className="absolute inset-0 w-full h-full transition-opacity duration-700"
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'center top',
+              opacity: videoReady ? 1 : 0,
+            }}
+          >
+            <source src={`${ASSET_BASE_URL}/faceyoga-1920.mp4`} type="video/mp4" />
+          </video>
+        )}
+
         {/* Gradient overlay for text readability */}
         <div
           className="absolute inset-0"
@@ -41,7 +67,6 @@ export function Hero() {
             background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 60%, transparent 100%)',
           }}
         />
-
       </div>
 
       {/* Content - positioned at bottom */}
@@ -82,7 +107,7 @@ export function Hero() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="text-[15px] md:text-[17px] text-white/70 leading-relaxed mb-8 max-w-md"
           >
-            Get your personalized facial analysis and transformation plan based on your unique features.
+            Get matched with a real doctor who reviews your face 1-on-1 and prescribes a plan built around your unique features.
           </motion.p>
 
           {/* CTA Buttons */}

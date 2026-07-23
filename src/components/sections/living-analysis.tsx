@@ -1,0 +1,302 @@
+'use client'
+
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { useState } from 'react'
+
+/**
+ * LivingAnalysis
+ * ------------------------------------------------------------------
+ * The "living" annotated-face section. A portrait sits inside a dark
+ * analysis console; floating glass HUD panels are layered on top, a
+ * scan ring rotates, and annotation dots pulse at anchored coordinates.
+ * Hovering / tapping a dot glides the bottom chart indicator to that
+ * region's activation score (CSS `left` transition) and swaps the
+ * readout — the same "annotations move within the image" behaviour
+ * we mapped from the reference build, rebuilt from scratch for face yoga.
+ */
+
+type Region = {
+  id: string
+  label: string
+  // anchor position over the face, in %
+  x: number
+  y: number
+  // current muscle-activation percentile (0-100)
+  activation: number
+  // short diagnostic line
+  note: string
+  side: 'left' | 'right'
+}
+
+const REGIONS: Region[] = [
+  { id: 'brow', label: 'Frontalis (brow)', x: 50, y: 20, activation: 41, note: 'Low lift — responds fast to training', side: 'right' },
+  { id: 'undereye', label: 'Orbicularis (under-eye)', x: 33, y: 37, activation: 58, note: 'Mild puffiness, good potential', side: 'left' },
+  { id: 'cheek', label: 'Zygomaticus (cheek)', x: 68, y: 46, activation: 34, note: 'Underactive lift — priority zone', side: 'right' },
+  { id: 'jaw', label: 'Masseter (jawline)', x: 30, y: 66, activation: 72, note: 'Strong definition baseline', side: 'left' },
+  { id: 'lip', label: 'Orbicularis oris (lips)', x: 52, y: 60, activation: 49, note: 'Balanced, refine corners', side: 'right' },
+]
+
+export function LivingAnalysis() {
+  const [activeId, setActiveId] = useState<string>('cheek')
+  const active = REGIONS.find((r) => r.id === activeId) ?? REGIONS[0]
+
+  return (
+    <section
+      className="relative overflow-hidden py-16 md:py-24"
+      style={{ background: 'linear-gradient(180deg, #5a5550 0%, #201c19 26%, #14110f 100%)' }}
+    >
+      <div className="container-main relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-2xl mb-10 md:mb-14"
+        >
+          <span
+            className="inline-block text-[10px] md:text-[11px] font-medium tracking-[0.2em] text-white/80 uppercase mb-4 px-4 py-2 rounded-full"
+            style={{
+              backgroundColor: 'rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255,255,255,0.15)',
+            }}
+          >
+            Doctor-led analysis
+          </span>
+          <h2 className="text-[1.75rem] md:text-[2.25rem] lg:text-[2.75rem] leading-[1.12] tracking-[-0.02em] text-white mb-4" style={{ fontWeight: 450 }}>
+            See exactly what every muscle is doing{' '}
+            <span className="text-white/40">— and where the biggest wins are hiding.</span>
+          </h2>
+          <p className="text-[14px] md:text-[15px] text-white/55 leading-relaxed max-w-lg">
+            Your doctor walks you through each facial muscle group and scores its activation with you. Hover a point to inspect the zone.
+          </p>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 lg:gap-12 items-center">
+          {/* ---------- The living console ---------- */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative w-full max-w-[520px] mx-auto"
+          >
+            <div
+              className="relative aspect-[4/5] rounded-2xl overflow-hidden"
+              style={{ background: '#aec2c9', border: '1px solid rgba(255,255,255,0.1)' }}
+            >
+              {/* Face image */}
+              <Image
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=700&h=875&fit=crop&crop=face"
+                alt="Facial muscle analysis"
+                fill
+                sizes="(max-width: 1024px) 100vw, 520px"
+                className="object-cover"
+                style={{ pointerEvents: 'none' }}
+              />
+
+              {/* Dark vignette so glass panels read clearly */}
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 30%, transparent 55%, rgba(0,0,0,0.55) 100%)' }} />
+
+              {/* Rotating scan ring */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[78%] aspect-square pointer-events-none">
+                <div
+                  className="animate-scan-spin w-full h-full rounded-full"
+                  style={{
+                    background: 'conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.0) 250deg, rgba(160,220,200,0.55) 340deg, transparent 360deg)',
+                    maskImage: 'radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px))',
+                    WebkitMaskImage: 'radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px))',
+                  }}
+                />
+              </div>
+
+              {/* Annotation dots */}
+              {REGIONS.map((r) => {
+                const isActive = r.id === activeId
+                return (
+                  <button
+                    key={r.id}
+                    type="button"
+                    onMouseEnter={() => setActiveId(r.id)}
+                    onFocus={() => setActiveId(r.id)}
+                    onClick={() => setActiveId(r.id)}
+                    aria-label={r.label}
+                    className="absolute z-20 -translate-x-1/2 -translate-y-1/2 group/dot"
+                    style={{ left: `${r.x}%`, top: `${r.y}%` }}
+                  >
+                    <span className="relative flex items-center justify-center">
+                      {/* pulse ring */}
+                      <span
+                        className="absolute w-4 h-4 rounded-full animate-pulse-ring"
+                        style={{ background: isActive ? 'rgba(160,220,200,0.5)' : 'rgba(255,255,255,0.35)' }}
+                      />
+                      {/* core dot */}
+                      <span
+                        className="relative w-2.5 h-2.5 rounded-full transition-all duration-300"
+                        style={{
+                          background: isActive ? '#a7e8cf' : '#ffffff',
+                          boxShadow: isActive ? '0 0 0 4px rgba(160,220,200,0.25)' : '0 0 0 3px rgba(255,255,255,0.15)',
+                          transform: isActive ? 'scale(1.3)' : 'scale(1)',
+                        }}
+                      />
+                    </span>
+                    {/* tiny floating label on active */}
+                    <span
+                      className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap text-[10px] font-medium text-white px-2 py-1 rounded-md transition-all duration-300"
+                      style={{
+                        left: r.side === 'right' ? 'calc(100% + 8px)' : 'auto',
+                        right: r.side === 'left' ? 'calc(100% + 8px)' : 'auto',
+                        background: 'rgba(0,0,0,0.55)',
+                        border: '0.5px solid rgba(255,255,255,0.12)',
+                        opacity: isActive ? 1 : 0,
+                        transform: `translateY(-50%) translateX(${isActive ? '0' : r.side === 'right' ? '-6px' : '6px'})`,
+                      }}
+                    >
+                      {r.label}
+                    </span>
+                  </button>
+                )
+              })}
+
+              {/* Top-left glass score card */}
+              <div
+                className="absolute top-4 left-4 z-10 w-[150px] rounded-xl p-3 flex flex-col gap-2"
+                style={{ background: 'rgba(0,0,0,0.35)', border: '0.7px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(6px)' }}
+              >
+                {[
+                  { k: 'Symmetry', v: 88 },
+                  { k: 'Muscle tone', v: 61 },
+                ].map((s) => (
+                  <div key={s.k}>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[10px] text-white/60">{s.k}</span>
+                      <span className="text-[10px] text-white font-medium">{s.v}%</span>
+                    </div>
+                    <div className="h-1 rounded-full bg-white/15 overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${s.v}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, ease: 'easeOut' }}
+                        className="h-full rounded-full"
+                        style={{ background: '#a7e8cf' }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Bottom glass chart card — the gliding indicator */}
+              <div
+                className="absolute bottom-4 left-4 right-4 z-10 rounded-xl p-3.5"
+                style={{ background: 'rgba(0,0,0,0.4)', border: '0.7px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)' }}
+              >
+                <div className="flex items-start justify-between mb-2.5">
+                  <div>
+                    <p className="text-[10px] text-white/50 uppercase tracking-[0.12em]">Selected zone</p>
+                    <p className="text-[14px] text-white font-medium leading-tight">{active.label}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-[26px] leading-none text-white" style={{ fontWeight: 400 }}>{active.activation}<span className="text-[14px] text-white/40">%</span></p>
+                    <p className="text-[10px] text-white/45">activation</p>
+                  </div>
+                </div>
+                {/* percentile bar with gliding indicator */}
+                <div className="relative h-1.5 rounded-full bg-white/12 overflow-visible">
+                  <div className="absolute inset-0 rounded-full" style={{ background: 'linear-gradient(90deg, rgba(167,232,207,0.25), rgba(167,232,207,0.8))' }} />
+                  <div
+                    className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 transition-[left] duration-500 ease-out"
+                    style={{ left: `${active.activation}%` }}
+                  >
+                    <div className="w-3 h-3 rounded-full bg-white" style={{ boxShadow: '0 0 0 3px rgba(167,232,207,0.4)' }} />
+                  </div>
+                </div>
+                <p className="text-[11px] text-white/55 mt-2.5 leading-snug">{active.note}</p>
+              </div>
+            </div>
+
+            {/* zone chips under the console */}
+            <div className="flex flex-wrap gap-2 mt-4 justify-center">
+              {REGIONS.map((r) => (
+                <button
+                  key={r.id}
+                  onMouseEnter={() => setActiveId(r.id)}
+                  onClick={() => setActiveId(r.id)}
+                  className="text-[11px] px-3 py-1.5 rounded-full transition-all duration-200"
+                  style={{
+                    background: r.id === activeId ? '#a7e8cf' : 'rgba(255,255,255,0.08)',
+                    color: r.id === activeId ? '#14110f' : 'rgba(255,255,255,0.6)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                  }}
+                >
+                  {r.label.split(' ')[0]}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ---------- Discover cards ---------- */}
+          <div className="space-y-4">
+            {[
+              {
+                n: '1',
+                title: 'Your most expressive feature',
+                body: 'Your doctor points out the one zone that shapes your look the most — so you know where a small change makes the biggest difference.',
+                stat: { label: 'Cheek lift potential', value: 'High', pct: 78 },
+              },
+              {
+                n: '2',
+                title: 'How each zone works together',
+                body: 'Muscles do not act alone. Your doctor shows how your brow, cheek and jawline balance one another, and which link to train first.',
+                stat: { label: 'Brow → cheek link', value: 'Strong', pct: 64 },
+              },
+              {
+                n: '3',
+                title: 'Where you have the most to gain',
+                body: 'A projection of your realistic 12-week ceiling per zone, ranked — no surgery, just consistent targeted training.',
+                stat: { label: 'Jawline projection', value: '+18%', pct: 82 },
+              },
+            ].map((c, i) => (
+              <motion.div
+                key={c.n}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-2xl p-5 md:p-6"
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+              >
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-medium" style={{ background: 'rgba(167,232,207,0.15)', color: '#a7e8cf' }}>
+                    {c.n}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-[16px] md:text-[17px] text-white font-medium mb-1.5">{c.title}</h3>
+                    <p className="text-[13px] text-white/55 leading-relaxed mb-4">{c.body}</p>
+                    <div className="rounded-lg p-3" style={{ background: 'rgba(0,0,0,0.25)', border: '0.5px solid rgba(255,255,255,0.08)' }}>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[11px] text-white/50">{c.stat.label}</span>
+                        <span className="text-[11px] text-white font-medium">{c.stat.value}</span>
+                      </div>
+                      <div className="h-1 rounded-full bg-white/12 overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${c.stat.pct}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
+                          className="h-full rounded-full"
+                          style={{ background: '#a7e8cf' }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

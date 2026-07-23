@@ -70,6 +70,7 @@ const config: Config = {
 
       fontFamily: {
         sans: [
+          'var(--font-inter)',
           'Inter',
           'PP Neue Montreal',
           '-apple-system',
@@ -80,6 +81,7 @@ const config: Config = {
         ],
         display: [
           'PP Neue Montreal',
+          'var(--font-inter)',
           'Inter',
           '-apple-system',
           'sans-serif',

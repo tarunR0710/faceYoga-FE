@@ -5,18 +5,18 @@ import { motion } from 'framer-motion'
 const steps = [
   {
     number: '01',
-    title: 'Complete the questionnaire',
-    description: 'Tell us about your facial concerns and goals. This helps us understand your unique needs.',
+    title: 'Share your photos & concerns',
+    description: 'Tell us about your facial goals and send a few photos. This gives your doctor everything they need to start.',
   },
   {
     number: '02',
-    title: 'Get your facial analysis',
-    description: 'Our experts analyze your facial structure using 160+ parameters to identify target areas.',
+    title: 'Consult your own doctor',
+    description: 'A qualified doctor personally reviews your face, answers your questions, and prescribes a routine specific to you — not an algorithm.',
   },
   {
     number: '03',
-    title: 'Receive your personalized plan',
-    description: 'Get your complete face yoga protocol with video tutorials and progress tracking.',
+    title: 'Follow your plan & stay in touch',
+    description: 'Get your face yoga protocol with video tutorials, track progress, and message your doctor whenever a doubt comes up.',
   },
 ]
 

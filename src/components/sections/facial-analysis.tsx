@@ -69,7 +69,7 @@ export function FacialAnalysis() {
               fill
               sizes="(max-width: 768px) 100vw, 448px"
               className="object-contain object-bottom"
-              priority
+              loading="lazy"
             />
           </div>
         </motion.div>
