@@ -1,39 +1,46 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Dna, CalendarClock, Activity, Target, Scan } from 'lucide-react'
 
-const factors = [
+const contextTags = [
+  'Face',
+  'Skin',
+  'Routine',
+  'Products',
+  'Lifestyle',
+  'Climate',
+  'Travel',
+  'Goals',
+  'Budget',
+  'Preferences',
+]
+
+const layers = [
   {
-    icon: Dna,
-    title: 'Your muscle baseline',
-    description: 'Your doctor assesses the current tone and activation of each of your 57 facial muscles before recommending a single exercise.',
+    title: 'Face architecture',
+    description: 'We start with the shape and proportions of your face, exactly as they are today.',
   },
   {
-    icon: CalendarClock,
-    title: 'Your age & skin elasticity',
-    description: 'Collagen and skin behave differently at 25 than at 45. Your plan adapts to how your face actually ages.',
+    title: 'Skin & surface',
+    description: 'Texture, tone and how your skin behaves across the seasons all inform what we suggest.',
   },
   {
-    icon: Activity,
-    title: 'Your lifestyle & habits',
-    description: 'Sleep, screen time, stress and posture all shape your face. We factor in your real daily routine.',
+    title: 'Routine & products',
+    description: 'What you already use and how much time you have shapes what fits into your day.',
   },
   {
-    icon: Target,
-    title: 'Your personal goals',
-    description: 'Lift, definition, symmetry or a softer look — we build toward what you actually want, not a generic ideal.',
+    title: 'Lifestyle & environment',
+    description: 'Sleep, stress, climate and travel are part of the picture, not an afterthought.',
   },
   {
-    icon: Scan,
-    title: 'Your bone structure',
-    description: 'Your underlying proportions decide what is realistic. Every recommendation is grounded in your unique anatomy.',
+    title: 'Goals & preferences',
+    description: 'We build around what you actually want, within the budget and effort you have in mind.',
   },
 ]
 
 export function PersonalizationFactors() {
   return (
-    <section className="section bg-white">
+    <section id="human-difference" className="section bg-ivory">
       <div className="container-main">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,33 +48,57 @@ export function PersonalizationFactors() {
           viewport={{ once: true }}
           className="max-w-2xl mb-10 md:mb-14"
         >
-          <p className="text-[12px] text-[#999] uppercase tracking-[0.15em] mb-3">Built around you</p>
-          <h2 className="text-[1.75rem] md:text-[2.25rem] lg:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-[#111]" style={{ fontWeight: 450 }}>
-            Every plan is shaped by{' '}
-            <span className="text-black/30">your face, not an average one.</span>
+          <p className="text-[12px] text-analysis-teal uppercase tracking-[0.15em] mb-3">
+            The human difference
+          </p>
+          <h2
+            className="text-[1.75rem] md:text-[2.25rem] lg:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-ink"
+            style={{ fontWeight: 450 }}
+          >
+            Your face is more than measurements.
           </h2>
+          <p className="mt-5 text-[16px] md:text-[17px] leading-relaxed text-ink/78">
+            Before recommending anything, we understand the routines and realities behind what we
+            see. Built from your life, not just your likeness.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.05 }}
+          className="mb-10 md:mb-14 flex flex-wrap gap-2.5"
+        >
+          {contextTags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full bg-mist px-4 py-1.5 text-[13px] text-ink"
+            >
+              {tag}
+            </span>
+          ))}
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-          {factors.map((f, i) => {
-            const Icon = f.icon
-            return (
-              <motion.div
-                key={f.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
-                className="group rounded-2xl p-6 bg-[#fafafa] border border-[#f0f0f0] transition-all duration-200 hover:bg-white hover:shadow-[0_20px_32px_-20px_rgba(0,0,0,0.25)] hover:border-transparent hover:-translate-y-0.5"
-              >
-                <div className="w-11 h-11 rounded-xl bg-white border border-[#eee] flex items-center justify-center mb-5 transition-colors group-hover:bg-[#111] group-hover:border-[#111]">
-                  <Icon className="w-5 h-5 text-[#111] transition-colors group-hover:text-white" strokeWidth={1.5} />
-                </div>
-                <h3 className="text-[16px] font-medium text-[#111] mb-2 tracking-[-0.01em]">{f.title}</h3>
-                <p className="text-[14px] text-[#666] leading-relaxed">{f.description}</p>
-              </motion.div>
-            )
-          })}
+          {layers.map((layer, i) => (
+            <motion.div
+              key={layer.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
+              className="group rounded-[22px] p-6 bg-white border border-ink/10 transition-all duration-200 hover:shadow-[0_18px_30px_-24px_rgba(21,36,33,0.35)] hover:-translate-y-0.5"
+            >
+              <div className="w-11 h-11 rounded-2xl bg-mist flex items-center justify-center mb-5">
+                <span className="block w-4 h-4 rounded-full border-[1.5px] border-analysis-teal" />
+              </div>
+              <h3 className="text-[16px] font-medium text-ink mb-2 tracking-[-0.01em]">
+                {layer.title}
+              </h3>
+              <p className="text-[14px] text-ink/78 leading-relaxed">{layer.description}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
