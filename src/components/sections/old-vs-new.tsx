@@ -18,7 +18,7 @@ const mapMyFace = [
 
 export function OldVsNew() {
   return (
-    <section id="why" className="pt-6 md:pt-10 pb-12 md:pb-16 bg-ivory">
+    <section id="why" className="pt-6 md:pt-10 pb-12 md:pb-16 bg-glow-tr">
       <div className="container-main">
         {/* Header */}
         <motion.div

@@ -6,8 +6,13 @@ import { ArrowRight } from 'lucide-react'
 
 export function CTA() {
   return (
-    <section className="py-24 md:py-32 bg-ink">
-      <div className="container-main">
+    <section className="relative overflow-hidden py-24 md:py-32 bg-ink">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{ background: 'radial-gradient(70% 90% at 50% 115%, rgb(var(--c-accent) / 0.20) 0%, transparent 65%)' }}
+      />
+      <div className="relative container-main">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -7,7 +7,7 @@ import { FACE_MAP_CORE, FACE_MAP_ADDONS } from '@/lib/constants'
 
 export function PricingPreview() {
   return (
-    <section id="pricing" className="section bg-ivory">
+    <section id="pricing" className="section bg-glow-bl">
       <div className="container-narrow">
         {/* Header */}
         <motion.div
@@ -34,10 +34,10 @@ export function PricingPreview() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="max-w-md mx-auto"
         >
-          <div className="bg-white rounded-[24px] border border-ink/10 p-6 md:p-8 shadow-[0_1px_2px_rgba(21,36,33,0.04),0_16px_40px_-28px_rgba(21,36,33,0.25)]">
+          <div className="card-glow rounded-[24px] border border-ink/10 p-6 md:p-8">
             {/* Price */}
             <div className="text-center mb-6 pb-6 border-b border-ink/10">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sand text-analysis-teal text-[11px] font-medium mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-soft text-ink text-[11px] font-medium mb-4">
                 {FACE_MAP_CORE.label}
               </div>
               <div className="flex items-baseline justify-center gap-1">

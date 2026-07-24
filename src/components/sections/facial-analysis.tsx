@@ -74,7 +74,7 @@ function FaceMapMock() {
 
 export function FacialAnalysis() {
   return (
-    <section id="face-map" className="relative overflow-hidden bg-ivory py-20 md:py-28">
+    <section id="face-map" className="relative overflow-hidden bg-mesh-soft py-20 md:py-28">
       <div className="container-main relative z-10">
         {/* Text Content */}
         <motion.div
