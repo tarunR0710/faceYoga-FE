@@ -17,13 +17,13 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-[#152421] text-white/70">
+    <footer className="bg-ink text-white/70">
       <div className="container-main py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-block">
-              <span className="text-[16px] font-semibold text-[#f7f4ef] tracking-[-0.01em]">
+              <span className="text-[16px] font-semibold text-ivory tracking-[-0.01em]">
                 {SITE_CONFIG.name}
               </span>
             </Link>
@@ -37,11 +37,11 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <p className="text-[11px] font-medium text-[#8fa9a3] uppercase tracking-[0.15em] mb-4">Company</p>
+            <p className="text-[11px] font-medium text-teal uppercase tracking-[0.15em] mb-4">Company</p>
             <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-[13px] text-white/70 hover:text-[#f7f4ef] transition-colors duration-150">
+                  <Link href={link.href} className="text-[13px] text-white/70 hover:text-ivory transition-colors duration-150">
                     {link.label}
                   </Link>
                 </li>
@@ -51,11 +51,11 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <p className="text-[11px] font-medium text-[#8fa9a3] uppercase tracking-[0.15em] mb-4">Legal</p>
+            <p className="text-[11px] font-medium text-teal uppercase tracking-[0.15em] mb-4">Legal</p>
             <ul className="space-y-2.5">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-[13px] text-white/70 hover:text-[#f7f4ef] transition-colors duration-150">
+                  <Link href={link.href} className="text-[13px] text-white/70 hover:text-ivory transition-colors duration-150">
                     {link.label}
                   </Link>
                 </li>
@@ -65,13 +65,13 @@ export function Footer() {
 
           {/* Social */}
           <div>
-            <p className="text-[11px] font-medium text-[#8fa9a3] uppercase tracking-[0.15em] mb-4">Connect</p>
+            <p className="text-[11px] font-medium text-teal uppercase tracking-[0.15em] mb-4">Connect</p>
             <div className="flex items-center gap-3">
               <a
                 href={SOCIAL_LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-[#f7f4ef] transition-all duration-150"
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-ivory transition-all duration-150"
                 aria-label="Instagram"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -82,7 +82,7 @@ export function Footer() {
                 href={SOCIAL_LINKS.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-[#f7f4ef] transition-all duration-150"
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-ivory transition-all duration-150"
                 aria-label="YouTube"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -93,7 +93,7 @@ export function Footer() {
                 href={SOCIAL_LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-[#f7f4ef] transition-all duration-150"
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 hover:text-ivory transition-all duration-150"
                 aria-label="LinkedIn"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

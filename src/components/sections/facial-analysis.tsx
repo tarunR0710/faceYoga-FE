@@ -28,25 +28,25 @@ function FaceMapMock() {
     <svg
       viewBox="0 0 240 300"
       fill="none"
-      className="h-full w-full"
+      className="h-full w-full text-teal"
       aria-hidden="true"
     >
       {/* Face outline */}
       <path
         d="M120 32c40 0 66 30 66 74 0 30-6 52-18 74-12 22-30 46-48 46s-36-24-48-46c-12-22-18-44-18-74 0-44 26-74 66-74Z"
-        stroke="#55766f"
+        stroke="currentColor"
         strokeWidth="1.5"
         strokeOpacity="0.55"
       />
       {/* Vertical midline */}
-      <path d="M120 40v190" stroke="#55766f" strokeWidth="1.5" strokeOpacity="0.22" />
+      <path d="M120 40v190" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.22" />
       {/* Horizontal zone lines */}
-      <path d="M60 108h120" stroke="#55766f" strokeWidth="1.5" strokeOpacity="0.22" />
-      <path d="M60 156h120" stroke="#55766f" strokeWidth="1.5" strokeOpacity="0.22" />
-      <path d="M72 204h96" stroke="#55766f" strokeWidth="1.5" strokeOpacity="0.22" />
+      <path d="M60 108h120" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.22" />
+      <path d="M60 156h120" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.22" />
+      <path d="M72 204h96" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.22" />
       {/* Brow / eye line marks */}
-      <path d="M84 116c8-6 20-6 28 0" stroke="#55766f" strokeWidth="1.5" strokeOpacity="0.45" />
-      <path d="M128 116c8-6 20-6 28 0" stroke="#55766f" strokeWidth="1.5" strokeOpacity="0.45" />
+      <path d="M84 116c8-6 20-6 28 0" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.45" />
+      <path d="M128 116c8-6 20-6 28 0" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.45" />
       {/* Numbered points */}
       {[
         { cx: 78, cy: 108, n: '1' },
@@ -55,14 +55,14 @@ function FaceMapMock() {
         { cx: 120, cy: 204, n: '4' },
       ].map((p) => (
         <g key={p.n}>
-          <circle cx={p.cx} cy={p.cy} r="9" fill="#f7f4ef" stroke="#55766f" strokeWidth="1.5" />
+          <circle cx={p.cx} cy={p.cy} r="9" fill="white" stroke="currentColor" strokeWidth="1.5" />
           <text
             x={p.cx}
             y={p.cy + 3.5}
             textAnchor="middle"
             fontSize="10"
             fontWeight="500"
-            fill="#152421"
+            className="fill-ink"
           >
             {p.n}
           </text>

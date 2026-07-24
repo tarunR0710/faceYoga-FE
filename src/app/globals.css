@@ -245,6 +245,47 @@
     @apply transition-all duration-150;
   }
   .link:hover { text-decoration-color: rgb(var(--c-ink) / 0.6); }
+
+  /* ── Subtle depth & accent hints (QOVES-style; all re-theme with the palette) ──
+     Rule: washes ≤6%, and use .bg-mesh-soft / .card-glow ONCE each per page. */
+  .bg-wash-warm { background: linear-gradient(180deg, rgb(var(--c-bg)) 0%, rgb(var(--c-surface-2)) 100%); }
+  .bg-glow-tr {
+    background: radial-gradient(120% 90% at 100% 0%, rgb(var(--c-accent) / 0.06) 0%, rgb(var(--c-accent) / 0.02) 35%, transparent 70%), rgb(var(--c-bg));
+  }
+  .bg-glow-bl {
+    background: radial-gradient(110% 80% at 0% 100%, rgb(var(--c-accent) / 0.05) 0%, transparent 65%), rgb(var(--c-bg));
+  }
+  .bg-mesh-soft {
+    background:
+      radial-gradient(90% 70% at 85% 15%, rgb(var(--c-accent) / 0.06) 0%, transparent 60%),
+      radial-gradient(80% 70% at 10% 90%, rgb(var(--c-accent-2) / 0.04) 0%, transparent 60%),
+      linear-gradient(180deg, rgb(var(--c-bg)) 0%, rgb(var(--c-surface-2)) 100%);
+  }
+  /* The ONE highlighted card: warm structural shadow + faint accent glow */
+  .card-glow {
+    background-color: rgb(var(--c-surface));
+    box-shadow:
+      0 1px 2px rgba(39,32,24,.05),
+      0 8px 20px rgba(39,32,24,.06),
+      0 16px 40px rgb(var(--c-accent) / 0.10),
+      0 4px 80px rgb(var(--c-accent) / 0.05);
+  }
+  .divider-accent {
+    height: 1px; border: 0;
+    background: linear-gradient(90deg, transparent, rgb(var(--c-accent) / 0.28) 20%, rgb(var(--c-accent) / 0.28) 60%, transparent);
+  }
+  /* Highlighter mark under a keyword */
+  .accent-mark {
+    background-image: linear-gradient(90deg, rgb(var(--c-accent) / 0.32), rgb(var(--c-accent) / 0.14));
+    background-size: 100% 0.32em; background-position: 0 88%; background-repeat: no-repeat;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  }
+  /* Gradient text — display sizes only (>=40px) */
+  .text-gradient-accent {
+    background: linear-gradient(100deg, rgb(var(--c-accent-ink)) 0%, rgb(var(--c-accent)) 55%, rgb(var(--c-accent) / 0.85) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+  }
 }
 
 @layer utilities {
