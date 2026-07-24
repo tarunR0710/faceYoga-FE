@@ -46,9 +46,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // data-palette selects the active colour theme: marigold · henna · emerald · sage
+  // data-palette selects the accent theme (clean white base stays constant): amber · teal · emerald · coral
   return (
-    <html lang="en" data-palette="marigold" className={`${manrope.variable} ${newsreader.variable}`}>
+    <html lang="en" data-palette="amber" className={`${manrope.variable} ${newsreader.variable}`}>
       <head>
         {/* Warm up connections to the media/image hosts for a faster LCP */}
         <link rel="preconnect" href="https://pub-276f99bee0ca472b8c097bf6b9fc7e52.r2.dev" crossOrigin="anonymous" />

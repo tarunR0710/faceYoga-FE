@@ -4,77 +4,62 @@
 
 @layer base {
   /* ─────────────────────────────────────────────────────────────────────
-     PALETTES. Values are R G B channels (for Tailwind's alpha support).
-     Active palette is chosen by data-palette on <html> (app/layout.tsx).
-     Roles:  bg = page  ·  surface = cards  ·  surface-2 = soft panels
-             ink = text/dark  ·  muted = secondary text
-             primary = primary buttons  ·  accent = the ONE catchy highlight
-     Try another look: change data-palette. Tweak a look: edit its channels.
+     CLEAN WHITE BASE (constant across palettes) — QOVES-style:
+     near-white page + pure-white cards that lift via warm, soft shadows.
+     Values are R G B channels (for Tailwind's / alpha support).
+     Roles: bg=page · surface=cards · surface-2=soft panels · ink=text
+            muted=secondary text · primary=dark buttons · accent=the ONE colour
+     Switch the accent theme via data-palette on <html> (app/layout.tsx).
      ───────────────────────────────────────────────────────────────────── */
+  :root {
+    --c-bg: 253 252 250;        /* #FDFCFA warm near-white page */
+    --c-surface: 255 255 255;   /* #FFFFFF pure-white cards */
+    --c-surface-2: 247 245 241; /* #F7F5F1 soft inset panels */
+    --c-ink: 33 29 24;          /* #211D18 warm near-black text */
+    --c-muted: 110 102 92;      /* #6E665C warm-grey secondary */
+    --c-primary: 33 29 24;      /* dark, accessible primary buttons */
+    --c-primary-ink: 253 252 250;
+    --c-border: 237 234 228;    /* #EDEAE4 warm hairline */
 
-  /* Marigold — warm ivory + turmeric-gold accent (default / recommended) */
-  :root,
-  [data-palette='marigold'] {
-    --c-bg: 251 246 236;
-    --c-surface: 255 255 255;
-    --c-surface-2: 244 236 223;
-    --c-ink: 43 33 23;
-    --c-muted: 140 126 108;
-    --c-primary: 43 33 23;
-    --c-primary-ink: 251 246 236;
-    --c-accent: 224 149 42;
-    --c-accent-ink: 43 33 23;
-    --c-accent-2: 181 98 60;
+    /* Warm-tinted elevation (shadow ink rgb 39 32 24) — depth on white */
+    --shadow-xs: 0 1px 2px rgba(39,32,24,.05);
+    --shadow-sm: 0 1px 2px rgba(39,32,24,.06), 0 2px 6px rgba(39,32,24,.06);
+    --shadow-md: 0 1px 2px rgba(39,32,24,.06), 0 4px 10px rgba(39,32,24,.07), 0 8px 24px rgba(39,32,24,.06);
+    --shadow-lg: 0 2px 4px rgba(39,32,24,.05), 0 8px 20px rgba(39,32,24,.08), 0 18px 42px rgba(39,32,24,.08);
+    --shadow-xl: 0 4px 8px rgba(39,32,24,.05), 0 16px 32px rgba(39,32,24,.09), 0 36px 72px rgba(39,32,24,.10);
   }
 
-  /* Henna — blush bone + deep rosewood-red accent */
-  [data-palette='henna'] {
-    --c-bg: 247 240 234;
-    --c-surface: 255 255 255;
-    --c-surface-2: 240 229 221;
-    --c-ink: 36 26 23;
-    --c-muted: 138 122 114;
-    --c-primary: 36 26 23;
-    --c-primary-ink: 247 240 234;
-    --c-accent: 163 71 51;
-    --c-accent-ink: 250 243 238;
-    --c-accent-2: 201 142 125;
+  /* ACCENT THEMES — change data-palette to try one. Colour lives in components. */
+  :root, [data-palette='amber'] {   /* honey-amber — recommended */
+    --c-accent: 200 134 43;         /* #C8862B */
+    --c-accent-ink: 166 106 24;     /* #A66A18 hover / accent text */
+    --c-accent-soft: 251 241 223;   /* #FBF1DF tinted highlight cards */
+    --c-accent-2: 46 111 106;       /* #2E6F6A muted teal (data-viz) */
   }
-
-  /* Emerald — warm ivory + jewel-green accent (green done rich, not dull) */
-  [data-palette='emerald'] {
-    --c-bg: 246 243 235;
-    --c-surface: 255 255 255;
-    --c-surface-2: 233 232 222;
-    --c-ink: 26 32 28;
-    --c-muted: 104 116 108;
-    --c-primary: 26 32 28;
-    --c-primary-ink: 246 243 235;
-    --c-accent: 23 122 90;
-    --c-accent-ink: 240 247 243;
-    --c-accent-2: 176 158 130;
+  [data-palette='teal'] {            /* clinical teal (Dr. Sheth's) */
+    --c-accent: 16 132 116;         /* #108474 */
+    --c-accent-ink: 13 105 92;
+    --c-accent-soft: 224 240 237;
+    --c-accent-2: 200 134 43;       /* amber partner */
   }
-
-  /* Sage — the original mineral-teal (kept for comparison) */
-  [data-palette='sage'] {
-    --c-bg: 247 244 239;
-    --c-surface: 255 255 255;
-    --c-surface-2: 220 231 228;
-    --c-ink: 21 36 33;
-    --c-muted: 85 118 111;
-    --c-primary: 21 36 33;
-    --c-primary-ink: 247 244 239;
-    --c-accent: 143 169 163;
-    --c-accent-ink: 21 36 33;
-    --c-accent-2: 185 168 158;
+  [data-palette='emerald'] {         /* jewel green */
+    --c-accent: 31 122 90;          /* #1F7A5A */
+    --c-accent-ink: 21 95 69;
+    --c-accent-soft: 228 241 235;
+    --c-accent-2: 200 134 43;
+  }
+  [data-palette='coral'] {           /* grown-up coral */
+    --c-accent: 229 101 75;         /* #E5654B */
+    --c-accent-ink: 194 74 52;
+    --c-accent-soft: 252 233 227;
+    --c-accent-2: 46 111 106;
   }
 
   :root {
     /* Full-colour aliases for plain CSS + back-compat with existing --mmf-* usage.
-       These recompute automatically when the active palette's channels change. */
-    --mmf-bg: rgb(var(--c-bg));
+       Recompute automatically when the palette/base channels change. */
     --mmf-ivory: rgb(var(--c-bg));
-    --mmf-white: #ffffff;
+    --mmf-white: rgb(var(--c-surface));
     --mmf-surface: rgb(var(--c-surface));
     --mmf-mist: rgb(var(--c-surface-2));
     --mmf-sand: rgb(var(--c-surface-2));
@@ -83,13 +68,13 @@
     --mmf-teal: rgb(var(--c-accent));
     --mmf-taupe: rgb(var(--c-accent-2));
     --mmf-accent-ink: rgb(var(--c-accent-ink));
-    --mmf-border: rgb(var(--c-ink) / 0.12);
+    --mmf-border: rgb(var(--c-border));
 
     --background: rgb(var(--c-bg));
     --foreground: rgb(var(--c-ink));
     --border: var(--mmf-border);
-    --ring: rgb(var(--c-muted));
-    --radius: 1.25rem;
+    --ring: rgb(var(--c-accent));
+    --radius: 1rem;
   }
 }
 
@@ -107,8 +92,8 @@
 
   body {
     @apply font-sans;
-    background-color: var(--mmf-ivory);
-    color: var(--mmf-ink);
+    background-color: rgb(var(--c-bg));
+    color: rgb(var(--c-ink));
   }
 
   /* Manrope: precision first. Avoid excessive boldness (Regular/Medium/SemiBold). */
@@ -136,7 +121,7 @@
 
   p {
     @apply text-[15px] md:text-base leading-relaxed;
-    color: rgba(21, 36, 33, 0.78);
+    color: rgb(var(--c-ink) / 0.78);
   }
 
   /* Editorial accent — Newsreader Italic, used sparingly (<15% of type). */
@@ -147,8 +132,8 @@
   }
 
   ::selection {
-    background-color: var(--mmf-ink);
-    color: var(--mmf-ivory);
+    background-color: rgb(var(--c-ink));
+    color: rgb(var(--c-bg));
   }
 }
 
@@ -158,57 +143,56 @@
   .container-wide { @apply w-full mx-auto px-5 md:px-8; max-width: 1320px; }
   .container-narrow { @apply w-full mx-auto px-5 md:px-8; max-width: 900px; }
 
-  /* Buttons — Deep Ink on light / Warm Ivory on dark; pill; 52–56px */
+  /* Buttons — dark primary on light / ivory on dark; pill; 56px */
   .btn-primary {
     @apply inline-flex items-center justify-center;
-    @apply h-14 px-8;
-    @apply text-[15px] font-semibold;
-    @apply rounded-full;
+    @apply h-14 px-8 text-[15px] font-semibold rounded-full;
     @apply transition-colors duration-200 ease-out;
-    background-color: var(--mmf-ink);
-    color: var(--mmf-ivory);
+    background-color: rgb(var(--c-primary));
+    color: rgb(var(--c-primary-ink));
   }
-  .btn-primary:hover { background-color: #24413b; }
+  .btn-primary:hover { background-color: rgb(var(--c-ink) / 0.88); }
 
   .btn-primary-on-dark {
     @apply inline-flex items-center justify-center;
     @apply h-14 px-8 text-[15px] font-semibold rounded-full;
     @apply transition-colors duration-200 ease-out;
-    background-color: var(--mmf-ivory);
-    color: var(--mmf-ink);
+    background-color: rgb(var(--c-bg));
+    color: rgb(var(--c-ink));
   }
   .btn-primary-on-dark:hover { background-color: #ffffff; }
 
-  .btn-secondary {
+  /* Accent button — the catchy one (dark text for contrast on amber/coral) */
+  .btn-accent {
+    @apply inline-flex items-center justify-center;
+    @apply h-14 px-8 text-[15px] font-semibold rounded-full;
+    @apply transition-colors duration-200 ease-out;
+    background-color: rgb(var(--c-accent));
+    color: rgb(var(--c-primary-ink));
+  }
+  .btn-accent:hover { background-color: rgb(var(--c-accent-ink)); }
+
+  .btn-secondary, .btn-outline {
     @apply inline-flex items-center justify-center;
     @apply h-14 px-8 text-[15px] font-semibold rounded-full;
     @apply transition-colors duration-200;
-    background-color: transparent;
-    color: var(--mmf-ink);
-    border: 1px solid var(--mmf-border);
+    background-color: rgb(var(--c-surface));
+    color: rgb(var(--c-ink));
+    border: 1px solid rgb(var(--c-border));
   }
-  .btn-secondary:hover { background-color: var(--mmf-mist); }
+  .btn-secondary:hover, .btn-outline:hover { background-color: rgb(var(--c-surface-2)); }
 
-  .btn-outline {
-    @apply inline-flex items-center justify-center;
-    @apply h-14 px-8 text-[15px] font-semibold rounded-full;
-    @apply transition-colors duration-200;
-    background-color: var(--mmf-white);
-    color: var(--mmf-ink);
-    border: 1px solid var(--mmf-border);
-  }
-  .btn-outline:hover { background-color: var(--mmf-mist); }
-
-  /* Cards — soft radius, barely-visible tonal shadow */
+  /* Cards — pure white on the warm page, lifted by soft warm shadows */
   .card {
-    background-color: var(--mmf-white);
-    border: 1px solid var(--mmf-border);
-    @apply rounded-[20px];
+    background-color: rgb(var(--c-surface));
+    border: 1px solid rgb(var(--c-border));
+    box-shadow: var(--shadow-sm);
+    @apply rounded-[16px];
   }
   .card-elevated {
-    background-color: var(--mmf-white);
-    @apply rounded-[24px];
-    box-shadow: 0 1px 2px rgba(21, 36, 33, 0.04), 0 8px 24px rgba(21, 36, 33, 0.05);
+    background-color: rgb(var(--c-surface));
+    box-shadow: var(--shadow-lg);
+    @apply rounded-[20px];
   }
 
   /* Section spacing */
@@ -217,46 +201,50 @@
 
   .divider {
     @apply h-px w-full;
-    background: linear-gradient(to right, transparent, var(--mmf-border), transparent);
+    background: linear-gradient(to right, transparent, rgb(var(--c-border)), transparent);
   }
 
   /* Badge */
   .badge {
     @apply inline-flex items-center h-7 px-3 text-[12px] font-medium rounded-full;
-    background-color: var(--mmf-mist);
-    color: var(--mmf-analysis);
+    background-color: rgb(var(--c-surface-2));
+    color: rgb(var(--c-muted));
+  }
+  .badge-accent {
+    background-color: rgb(var(--c-accent-soft));
+    color: rgb(var(--c-accent-ink));
   }
   .badge-dark {
-    background-color: var(--mmf-ink);
-    color: var(--mmf-ivory);
+    background-color: rgb(var(--c-ink));
+    color: rgb(var(--c-bg));
   }
 
   /* Input */
   .input-field {
     @apply w-full h-12 px-4 text-[15px] rounded-[14px];
     @apply transition-all duration-150 outline-none;
-    background-color: var(--mmf-white);
-    color: var(--mmf-ink);
-    border: 1px solid var(--mmf-border);
+    background-color: rgb(var(--c-surface));
+    color: rgb(var(--c-ink));
+    border: 1px solid rgb(var(--c-border));
   }
-  .input-field::placeholder { color: rgba(21, 36, 33, 0.4); }
+  .input-field::placeholder { color: rgb(var(--c-ink) / 0.4); }
   .input-field:focus {
-    border-color: var(--mmf-analysis);
-    box-shadow: 0 0 0 3px rgba(85, 118, 111, 0.15);
+    border-color: rgb(var(--c-accent));
+    box-shadow: 0 0 0 3px rgb(var(--c-accent) / 0.22);
   }
 
   /* Text utilities */
-  .text-muted { color: var(--mmf-analysis); }
-  .text-subtle { color: rgba(21, 36, 33, 0.55); }
+  .text-muted { color: rgb(var(--c-muted)); }
+  .text-subtle { color: rgb(var(--c-ink) / 0.55); }
 
   /* Link */
   .link {
-    color: var(--mmf-ink);
+    color: rgb(var(--c-ink));
     @apply font-medium underline underline-offset-2;
-    text-decoration-color: rgba(21, 36, 33, 0.25);
+    text-decoration-color: rgb(var(--c-ink) / 0.25);
     @apply transition-all duration-150;
   }
-  .link:hover { text-decoration-color: rgba(21, 36, 33, 0.6); }
+  .link:hover { text-decoration-color: rgb(var(--c-ink) / 0.6); }
 }
 
 @layer utilities {
@@ -301,11 +289,11 @@
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--mmf-mist); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--mmf-taupe); }
+::-webkit-scrollbar-thumb { background: rgb(var(--c-surface-2)); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-muted) / 0.5); }
 
-/* Focus states */
+/* Focus states — accent ring */
 *:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--mmf-ivory), 0 0 0 4px var(--mmf-analysis);
+  box-shadow: 0 0 0 2px rgb(var(--c-bg)), 0 0 0 4px rgb(var(--c-accent));
 }

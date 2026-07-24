@@ -23,9 +23,9 @@ const config: Config = {
         accent: { DEFAULT: 'rgb(var(--c-accent) / <alpha-value>)', foreground: 'rgb(var(--c-accent-ink) / <alpha-value>)' },
         card: { DEFAULT: 'rgb(var(--c-surface) / <alpha-value>)', foreground: 'rgb(var(--c-ink) / <alpha-value>)' },
 
-        border: 'rgb(var(--c-ink) / 0.12)',
-        input: 'rgb(var(--c-ink) / 0.12)',
-        ring: 'rgb(var(--c-muted) / <alpha-value>)',
+        border: 'rgb(var(--c-border) / <alpha-value>)',
+        input: 'rgb(var(--c-border) / <alpha-value>)',
+        ring: 'rgb(var(--c-accent) / <alpha-value>)',
         destructive: { DEFAULT: '#c0492f', foreground: '#f7f4ef' },
         success: { DEFAULT: 'rgb(var(--c-accent) / <alpha-value>)', foreground: 'rgb(var(--c-accent-ink) / <alpha-value>)' },
         navy: { DEFAULT: 'rgb(var(--c-ink) / <alpha-value>)', foreground: 'rgb(var(--c-primary-ink) / <alpha-value>)' },
@@ -35,6 +35,7 @@ const config: Config = {
         surface: 'rgb(var(--c-surface) / <alpha-value>)',
         'surface-2': 'rgb(var(--c-surface-2) / <alpha-value>)',
         'accent-2': 'rgb(var(--c-accent-2) / <alpha-value>)',
+        'accent-soft': 'rgb(var(--c-accent-soft) / <alpha-value>)',
 
         // Descriptive names kept so existing components re-theme automatically:
         //   ivory=bg · ink=text/dark · teal=accent · analysis-teal=muted · mist/sand=soft surface · taupe=accent-2
@@ -110,13 +111,14 @@ const config: Config = {
       },
 
       boxShadow: {
-        'sm': '0 1px 2px rgba(0, 0, 0, 0.04)',
-        'DEFAULT': '0 2px 8px rgba(0, 0, 0, 0.08)',
-        'md': '0 4px 12px rgba(0, 0, 0, 0.1)',
-        'lg': '0 8px 24px rgba(0, 0, 0, 0.12)',
-        'xl': '0 16px 48px rgba(0, 0, 0, 0.16)',
-        'card': '0 2px 8px rgba(0, 0, 0, 0.06)',
-        'card-hover': '0 8px 24px rgba(0, 0, 0, 0.1)',
+        'xs': 'var(--shadow-xs)',
+        'sm': 'var(--shadow-sm)',
+        'DEFAULT': 'var(--shadow-sm)',
+        'md': 'var(--shadow-md)',
+        'lg': 'var(--shadow-lg)',
+        'xl': 'var(--shadow-xl)',
+        'card': 'var(--shadow-sm)',
+        'card-hover': 'var(--shadow-md)',
       },
 
       keyframes: {
