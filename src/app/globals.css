@@ -3,23 +3,92 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* MapMyFace mineral-teal system (Brand Bible — FINAL). Swap here to re-theme. */
-    --mmf-ivory: #f7f4ef;
-    --mmf-ink: #152421;
-    --mmf-teal: #8fa9a3;
-    --mmf-analysis: #55766f;
-    --mmf-mist: #dce7e4;
-    --mmf-taupe: #b9a89e;
-    --mmf-sand: #e8ded5;
-    --mmf-white: #ffffff;
-    --mmf-border: rgba(21, 36, 33, 0.12);
+  /* ─────────────────────────────────────────────────────────────────────
+     PALETTES. Values are R G B channels (for Tailwind's alpha support).
+     Active palette is chosen by data-palette on <html> (app/layout.tsx).
+     Roles:  bg = page  ·  surface = cards  ·  surface-2 = soft panels
+             ink = text/dark  ·  muted = secondary text
+             primary = primary buttons  ·  accent = the ONE catchy highlight
+     Try another look: change data-palette. Tweak a look: edit its channels.
+     ───────────────────────────────────────────────────────────────────── */
 
-    /* Semantic aliases */
-    --background: var(--mmf-ivory);
-    --foreground: var(--mmf-ink);
+  /* Marigold — warm ivory + turmeric-gold accent (default / recommended) */
+  :root,
+  [data-palette='marigold'] {
+    --c-bg: 251 246 236;
+    --c-surface: 255 255 255;
+    --c-surface-2: 244 236 223;
+    --c-ink: 43 33 23;
+    --c-muted: 140 126 108;
+    --c-primary: 43 33 23;
+    --c-primary-ink: 251 246 236;
+    --c-accent: 224 149 42;
+    --c-accent-ink: 43 33 23;
+    --c-accent-2: 181 98 60;
+  }
+
+  /* Henna — blush bone + deep rosewood-red accent */
+  [data-palette='henna'] {
+    --c-bg: 247 240 234;
+    --c-surface: 255 255 255;
+    --c-surface-2: 240 229 221;
+    --c-ink: 36 26 23;
+    --c-muted: 138 122 114;
+    --c-primary: 36 26 23;
+    --c-primary-ink: 247 240 234;
+    --c-accent: 163 71 51;
+    --c-accent-ink: 250 243 238;
+    --c-accent-2: 201 142 125;
+  }
+
+  /* Emerald — warm ivory + jewel-green accent (green done rich, not dull) */
+  [data-palette='emerald'] {
+    --c-bg: 246 243 235;
+    --c-surface: 255 255 255;
+    --c-surface-2: 233 232 222;
+    --c-ink: 26 32 28;
+    --c-muted: 104 116 108;
+    --c-primary: 26 32 28;
+    --c-primary-ink: 246 243 235;
+    --c-accent: 23 122 90;
+    --c-accent-ink: 240 247 243;
+    --c-accent-2: 176 158 130;
+  }
+
+  /* Sage — the original mineral-teal (kept for comparison) */
+  [data-palette='sage'] {
+    --c-bg: 247 244 239;
+    --c-surface: 255 255 255;
+    --c-surface-2: 220 231 228;
+    --c-ink: 21 36 33;
+    --c-muted: 85 118 111;
+    --c-primary: 21 36 33;
+    --c-primary-ink: 247 244 239;
+    --c-accent: 143 169 163;
+    --c-accent-ink: 21 36 33;
+    --c-accent-2: 185 168 158;
+  }
+
+  :root {
+    /* Full-colour aliases for plain CSS + back-compat with existing --mmf-* usage.
+       These recompute automatically when the active palette's channels change. */
+    --mmf-bg: rgb(var(--c-bg));
+    --mmf-ivory: rgb(var(--c-bg));
+    --mmf-white: #ffffff;
+    --mmf-surface: rgb(var(--c-surface));
+    --mmf-mist: rgb(var(--c-surface-2));
+    --mmf-sand: rgb(var(--c-surface-2));
+    --mmf-ink: rgb(var(--c-ink));
+    --mmf-analysis: rgb(var(--c-muted));
+    --mmf-teal: rgb(var(--c-accent));
+    --mmf-taupe: rgb(var(--c-accent-2));
+    --mmf-accent-ink: rgb(var(--c-accent-ink));
+    --mmf-border: rgb(var(--c-ink) / 0.12);
+
+    --background: rgb(var(--c-bg));
+    --foreground: rgb(var(--c-ink));
     --border: var(--mmf-border);
-    --ring: var(--mmf-analysis);
+    --ring: rgb(var(--c-muted));
     --radius: 1.25rem;
   }
 }

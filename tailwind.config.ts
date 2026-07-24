@@ -10,56 +10,42 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // MapMyFace mineral-teal system (Brand Bible — FINAL)
-        background: '#f7f4ef', // Warm Ivory
-        foreground: '#152421', // Deep Ink
+        // ── Themeable role tokens ──────────────────────────────────────────
+        // All colours reference CSS variables set per-palette in globals.css.
+        // To try a palette: change `data-palette` on <html> in app/layout.tsx.
+        // To tweak a palette: edit its --c-* channels in globals.css. One place.
+        background: 'rgb(var(--c-bg) / <alpha-value>)',
+        foreground: 'rgb(var(--c-ink) / <alpha-value>)',
 
-        primary: {
-          DEFAULT: '#152421', // Deep Ink
-          foreground: '#f7f4ef',
-        },
-        secondary: {
-          DEFAULT: '#dce7e4', // Map Mist
-          foreground: '#152421',
-        },
-        muted: {
-          DEFAULT: '#e8ded5', // Soft Sand
-          foreground: '#55766f', // Analysis Teal
-        },
-        accent: {
-          DEFAULT: '#8fa9a3', // Map Teal
-          foreground: '#152421',
-        },
-        card: {
-          DEFAULT: '#ffffff',
-          foreground: '#152421',
-        },
+        primary: { DEFAULT: 'rgb(var(--c-primary) / <alpha-value>)', foreground: 'rgb(var(--c-primary-ink) / <alpha-value>)' },
+        secondary: { DEFAULT: 'rgb(var(--c-surface-2) / <alpha-value>)', foreground: 'rgb(var(--c-ink) / <alpha-value>)' },
+        muted: { DEFAULT: 'rgb(var(--c-surface-2) / <alpha-value>)', foreground: 'rgb(var(--c-muted) / <alpha-value>)' },
+        accent: { DEFAULT: 'rgb(var(--c-accent) / <alpha-value>)', foreground: 'rgb(var(--c-accent-ink) / <alpha-value>)' },
+        card: { DEFAULT: 'rgb(var(--c-surface) / <alpha-value>)', foreground: 'rgb(var(--c-ink) / <alpha-value>)' },
 
-        border: 'rgba(21, 36, 33, 0.12)',
-        input: 'rgba(21, 36, 33, 0.12)',
-        ring: '#55766f',
+        border: 'rgb(var(--c-ink) / 0.12)',
+        input: 'rgb(var(--c-ink) / 0.12)',
+        ring: 'rgb(var(--c-muted) / <alpha-value>)',
+        destructive: { DEFAULT: '#c0492f', foreground: '#f7f4ef' },
+        success: { DEFAULT: 'rgb(var(--c-accent) / <alpha-value>)', foreground: 'rgb(var(--c-accent-ink) / <alpha-value>)' },
+        navy: { DEFAULT: 'rgb(var(--c-ink) / <alpha-value>)', foreground: 'rgb(var(--c-primary-ink) / <alpha-value>)' },
 
-        destructive: {
-          DEFAULT: '#c0492f',
-          foreground: '#f7f4ef',
-        },
-        success: {
-          DEFAULT: '#55766f',
-          foreground: '#f7f4ef',
-        },
-        navy: {
-          DEFAULT: '#152421',
-          foreground: '#f7f4ef',
-        },
+        // Semantic aliases (use these in new components)
+        bg: 'rgb(var(--c-bg) / <alpha-value>)',
+        surface: 'rgb(var(--c-surface) / <alpha-value>)',
+        'surface-2': 'rgb(var(--c-surface-2) / <alpha-value>)',
+        'accent-2': 'rgb(var(--c-accent-2) / <alpha-value>)',
 
-        // Named MapMyFace tokens
-        ivory: '#f7f4ef',
-        ink: '#152421',
-        teal: '#8fa9a3',
-        'analysis-teal': '#55766f',
-        mist: '#dce7e4',
-        taupe: '#b9a89e',
-        sand: '#e8ded5',
+        // Descriptive names kept so existing components re-theme automatically:
+        //   ivory=bg · ink=text/dark · teal=accent · analysis-teal=muted · mist/sand=soft surface · taupe=accent-2
+        ivory: 'rgb(var(--c-bg) / <alpha-value>)',
+        ink: 'rgb(var(--c-ink) / <alpha-value>)',
+        teal: 'rgb(var(--c-accent) / <alpha-value>)',
+        'analysis-teal': 'rgb(var(--c-muted) / <alpha-value>)',
+        mist: 'rgb(var(--c-surface-2) / <alpha-value>)',
+        taupe: 'rgb(var(--c-accent-2) / <alpha-value>)',
+        sand: 'rgb(var(--c-surface-2) / <alpha-value>)',
+        white: '#ffffff',
       },
 
       fontFamily: {
