@@ -7,10 +7,10 @@ import { Menu, X } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/constants'
 
 const navLinks = [
-  { label: 'Why MapMyFace', href: '#why' },
-  { label: 'How it works', href: '#how-it-works' },
-  { label: 'Experts', href: '#experts' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Why MapMyFace', href: '/#why' },
+  { label: 'How it works', href: '/#how-it-works' },
+  { label: 'Experts', href: '/#experts' },
+  { label: 'FAQ', href: '/#faq' },
 ]
 
 export function Header() {

@@ -3,9 +3,12 @@ import { SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants'
 
 const footerLinks = {
   company: [
-    { label: 'How it works', href: '#how-it-works' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'FAQ', href: '#faq' },
+    { label: 'How it works', href: '/#how-it-works' },
+    { label: 'What you receive', href: '/what-you-receive' },
+    { label: 'Meet the experts', href: '/meet-the-experts' },
+    { label: 'Research & method', href: '/research-and-method' },
+    { label: 'Pricing', href: '/#pricing' },
+    { label: 'FAQ', href: '/#faq' },
     { label: 'Contact', href: `mailto:${SITE_CONFIG.email}` },
   ],
   legal: [
