@@ -286,6 +286,24 @@
     -webkit-background-clip: text; background-clip: text;
     color: transparent; -webkit-text-fill-color: transparent;
   }
+
+  /* MapMyFace logotype — Jost geometric face, warm-grey metallic gradient (static)
+     with a translucent white sheen that sweeps left→right (M of Map → Face). */
+  .wordmark-shine {
+    font-family: var(--font-jost), var(--font-manrope), system-ui, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.005em;
+    line-height: 1;
+    background-image:
+      linear-gradient(100deg, transparent 40%, rgba(255, 255, 255, 0.92) 50%, transparent 60%),
+      linear-gradient(176deg, #e6e0d6 0%, #b3aaa0 42%, #7d746a 100%);
+    background-size: 220% 100%, 100% 100%;
+    background-repeat: no-repeat, no-repeat;
+    background-position: 150% 0, center;
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+    animation: wordmarkShine 5s linear infinite;
+  }
 }
 
 @layer utilities {
@@ -318,12 +336,21 @@
   .animate-shimmer { background-size: 200% 100%; animation: shimmer 1.8s ease-in-out infinite; }
   @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 
+  /* Logotype sheen: sweep the white band from off-left → off-right, then hold (pause) */
+  @keyframes wordmarkShine {
+    0%   { background-position: 150% 0, center; }
+    45%  { background-position: -50% 0, center; }
+    100% { background-position: -50% 0, center; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-scan-spin,
     .animate-pulse-ring,
     .animate-marquee,
     .animate-marquee-slow,
     .animate-shimmer { animation: none !important; }
+    /* Keep the metallic gradient, drop the moving sheen */
+    .wordmark-shine { animation: none !important; background-position: -50% 0, center; }
   }
 }
 

@@ -124,16 +124,15 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Big brand wordmark */}
-        <Link href="/" className="mt-8 md:mt-12 block" aria-label={`${SITE_CONFIG.name} home`}>
-          <Image
-            src="/logo-wordmark.png"
-            alt={SITE_CONFIG.name}
-            width={601}
-            height={104}
-            className="w-full max-w-[560px] h-auto opacity-90"
-            style={{ filter: 'brightness(0) invert(1)' }}
-          />
+        {/* Big brand wordmark — live text so it can carry the metallic gradient + sheen */}
+        <Link
+          href="/"
+          className="mt-8 md:mt-12 block leading-none"
+          aria-label={`${SITE_CONFIG.name} home`}
+        >
+          <span className="wordmark-shine block text-[clamp(3rem,12vw,7rem)] select-none">
+            MapMyFace
+          </span>
         </Link>
       </div>
     </footer>
