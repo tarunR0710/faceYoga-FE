@@ -295,14 +295,14 @@
     letter-spacing: 0.005em;
     line-height: 1;
     background-image:
-      linear-gradient(100deg, transparent 40%, rgba(255, 255, 255, 0.92) 50%, transparent 60%),
-      linear-gradient(176deg, #e6e0d6 0%, #b3aaa0 42%, #7d746a 100%);
-    background-size: 220% 100%, 100% 100%;
+      linear-gradient(100deg, transparent 32%, rgba(255, 255, 255, 0.5) 43%, #ffffff 50%, rgba(255, 255, 255, 0.5) 57%, transparent 68%),
+      linear-gradient(176deg, #f4efe7 0%, #c6bdb2 40%, #837a6f 100%);
+    background-size: 240% 100%, 100% 100%;
     background-repeat: no-repeat, no-repeat;
     background-position: 150% 0, center;
     -webkit-background-clip: text; background-clip: text;
     color: transparent; -webkit-text-fill-color: transparent;
-    animation: wordmarkShine 5s linear infinite;
+    animation: wordmarkShine 2s linear infinite;
   }
 }
 
@@ -339,7 +339,7 @@
   /* Logotype sheen: sweep the white band from off-left → off-right, then hold (pause) */
   @keyframes wordmarkShine {
     0%   { background-position: 150% 0, center; }
-    45%  { background-position: -50% 0, center; }
+    50%  { background-position: -50% 0, center; }
     100% { background-position: -50% 0, center; }
   }
 

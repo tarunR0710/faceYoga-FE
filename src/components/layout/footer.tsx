@@ -124,16 +124,12 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Big brand wordmark — live text so it can carry the metallic gradient + sheen */}
-        <Link
-          href="/"
-          className="mt-8 md:mt-12 block leading-none"
-          aria-label={`${SITE_CONFIG.name} home`}
-        >
-          <span className="wordmark-shine block text-[clamp(3rem,12vw,7rem)] select-none">
+        {/* Big brand wordmark — live text, metallic gradient + sheen (decorative, centered) */}
+        <div className="mt-8 md:mt-12 text-center leading-none">
+          <span className="wordmark-shine inline-block text-[clamp(3.25rem,13vw,7.5rem)] select-none">
             MapMyFace
           </span>
-        </Link>
+        </div>
       </div>
     </footer>
   )
