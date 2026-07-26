@@ -77,7 +77,7 @@ export function Header() {
                 width={52}
                 height={52}
                 priority
-                style={{ filter: 'brightness(0) invert(1)' }}
+                style={{ filter: 'brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0,0,0,0.35))' }}
               />
             </Link>
 
@@ -114,14 +114,14 @@ export function Header() {
                 Start My Face Map
               </Link>
               <button
-                className="p-2.5 text-white rounded-full hover:bg-white/10 transition-colors"
+                className="p-2 -mr-1 text-white rounded-full border border-white/20 bg-white/10 hover:bg-white/20 transition-colors drop-shadow-[0_1px_3px_rgba(0,0,0,0.35)]"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? (
-                  <X className="h-5 w-5" strokeWidth={1.5} />
+                  <X className="h-6 w-6" strokeWidth={2.25} />
                 ) : (
-                  <Menu className="h-5 w-5" strokeWidth={1.5} />
+                  <Menu className="h-6 w-6" strokeWidth={2.25} />
                 )}
               </button>
             </div>
