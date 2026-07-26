@@ -125,12 +125,12 @@ export function Footer() {
         </div>
 
         {/* Big brand wordmark */}
-        <Link href="/" className="mt-10 md:mt-14 block" aria-label={`${SITE_CONFIG.name} home`}>
+        <Link href="/" className="mt-8 md:mt-12 block" aria-label={`${SITE_CONFIG.name} home`}>
           <Image
             src="/logo-wordmark.png"
             alt={SITE_CONFIG.name}
-            width={766}
-            height={326}
+            width={601}
+            height={104}
             className="w-full max-w-[560px] h-auto opacity-90"
             style={{ filter: 'brightness(0) invert(1)' }}
           />
