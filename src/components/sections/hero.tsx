@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { EASE_OUT } from '@/lib/motion'
 
 // Hero video assets on Cloudflare R2 (public dev URL).
 // To move to a custom domain later, change only this base — the paths stay the same.
@@ -15,6 +16,27 @@ export function Hero() {
   // never competes with LCP / main-thread work during the initial load.
   const [showVideo, setShowVideo] = useState(false)
   const [videoReady, setVideoReady] = useState(false)
+  const reduce = useReducedMotion()
+
+  // Orchestrated entrance: headline lines rise from a mask, then subhead + CTAs
+  // settle. One choreographed "curtain-up" on mount (not scroll) — the brand's
+  // first impression. Whole sequence stays under ~1.1s so it never blocks load.
+  const container = {
+    hidden: {},
+    show: { transition: { delayChildren: 0.15, staggerChildren: 0.14 } },
+  }
+  const headline = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.12 } },
+  }
+  const line = {
+    hidden: { y: '115%' },
+    show: { y: '0%', transition: { duration: 0.7, ease: EASE_OUT } },
+  }
+  const rise = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE_OUT } },
+  }
 
   useEffect(() => {
     const start = () => setShowVideo(true)
@@ -28,8 +50,13 @@ export function Hero() {
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-[#3a3632]">
+      {/* Background — subtle focus-pull settle on mount (scale only; no blur, keeps LCP + mobile safe) */}
+      <motion.div
+        className="absolute inset-0 bg-[#3a3632]"
+        initial={reduce ? false : { scale: 1.06 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.6, ease: EASE_OUT }}
+      >
         {/* Poster image — LCP element, shown instantly */}
         <Image
           src={`${ASSET_BASE_URL}/faceyoga-poster.jpg`}
@@ -67,34 +94,33 @@ export function Hero() {
             background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 60%, transparent 100%)',
           }}
         />
-      </div>
+      </motion.div>
 
       {/* Content - positioned at bottom */}
       <div className="relative h-full flex flex-col justify-end px-6 md:px-12 lg:px-20 pb-8 md:pb-12">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          variants={container}
+          initial={reduce ? false : 'hidden'}
+          animate="show"
           className="max-w-2xl"
         >
-          {/* Headline */}
+          {/* Headline — line-by-line mask reveal */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
+            variants={headline}
             className="text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] leading-[1.1] tracking-[-0.02em] text-white mb-4"
             style={{ fontWeight: 450 }}
           >
-            Understand your face.
-            <br />
-            <span className="text-white/50">Know what suits you.</span>
+            <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
+              <motion.span variants={line} className="block">Understand your face.</motion.span>
+            </span>
+            <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
+              <motion.span variants={line} className="block text-white/50">Know what suits you.</motion.span>
+            </span>
           </motion.h1>
 
           {/* Description */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
+            variants={rise}
             className="text-[15px] md:text-[17px] text-white/70 leading-relaxed mb-8 max-w-md"
           >
             Get matched with a real doctor who reviews your face 1-on-1 and prescribes a plan built around your unique features.
@@ -102,9 +128,7 @@ export function Hero() {
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
+            variants={rise}
             className="flex flex-row gap-3"
           >
             <Link

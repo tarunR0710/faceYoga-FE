@@ -1,17 +1,40 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useMotionTemplate, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 
 export function CTA() {
+  const reduce = useReducedMotion()
+  // Spotlight: a soft coral radial follows the cursor across the dark panel.
+  // Driven by motion values (no React re-render on mousemove); fades in on hover.
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
+  const spotlight = useMotionTemplate`radial-gradient(480px circle at ${mx}px ${my}px, rgb(var(--c-accent) / 0.20), transparent 68%)`
+
+  const handleMove = (e: React.MouseEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    mx.set(e.clientX - r.left)
+    my.set(e.clientY - r.top)
+  }
+
   return (
-    <section className="relative overflow-hidden py-24 md:py-32 bg-ink">
+    <section
+      className="group relative overflow-hidden py-24 md:py-32 bg-ink"
+      onMouseMove={reduce ? undefined : handleMove}
+    >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{ background: 'radial-gradient(70% 90% at 50% 115%, rgb(var(--c-accent) / 0.20) 0%, transparent 65%)' }}
       />
+      {!reduce && (
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{ background: spotlight }}
+        />
+      )}
       <div className="relative container-main">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

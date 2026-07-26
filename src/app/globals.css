@@ -295,14 +295,14 @@
     letter-spacing: 0.005em;
     line-height: 1;
     background-image:
-      linear-gradient(100deg, transparent 32%, rgba(255, 255, 255, 0.5) 43%, #ffffff 50%, rgba(255, 255, 255, 0.5) 57%, transparent 68%),
-      linear-gradient(176deg, #f4efe7 0%, #c6bdb2 40%, #837a6f 100%);
+      linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.6) 42%, #ffffff 50%, rgba(255, 255, 255, 0.6) 58%, transparent 70%),
+      linear-gradient(176deg, #fdfaf5 0%, #e4ddd2 45%, #b3a99c 100%);
     background-size: 240% 100%, 100% 100%;
     background-repeat: no-repeat, no-repeat;
     background-position: 150% 0, center;
     -webkit-background-clip: text; background-clip: text;
     color: transparent; -webkit-text-fill-color: transparent;
-    animation: wordmarkShine 1.5s linear infinite;
+    animation: wordmarkShine 4.5s ease-in-out infinite;
   }
 }
 
