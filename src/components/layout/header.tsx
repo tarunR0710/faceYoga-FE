@@ -65,8 +65,8 @@ export function Header() {
           <div
             className="flex items-center justify-between transition-all duration-500"
             style={{
-              height: solid ? '52px' : '64px',
-              padding: solid ? '0 24px' : '0 18px',
+              height: solid ? '58px' : '68px',
+              padding: solid ? '0 14px' : '0 10px',
             }}
           >
             {/* Logo — brand mark only, rendered white for the dark navbar */}
@@ -74,8 +74,8 @@ export function Header() {
               <Image
                 src="/logo-mark.png"
                 alt={SITE_CONFIG.name}
-                width={42}
-                height={42}
+                width={52}
+                height={52}
                 priority
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
