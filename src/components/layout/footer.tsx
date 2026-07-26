@@ -118,9 +118,9 @@ export function Footer() {
             <p className="text-[12px] text-white/40">
               &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
             </p>
-            <div className="flex items-center gap-4 text-[11px] text-white/40">
+            {/* <div className="flex items-center gap-4 text-[11px] text-white/40">
               <span>Payments secured by Razorpay</span>
-            </div>
+            </div> */}
           </div>
         </div>
 

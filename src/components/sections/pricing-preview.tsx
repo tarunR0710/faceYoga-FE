@@ -55,11 +55,11 @@ export function PricingPreview() {
           <div className="relative grid md:grid-cols-2 gap-8 md:gap-0">
             {/* Left — offer, price, CTA, trust */}
             <div className="md:pr-10">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal/15 border border-teal/25 text-teal text-[11px] font-medium tracking-wide mb-5">
-                {FACE_MAP_CORE.label}
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal/15 border border-teal/25 text-white text-[11px] font-medium tracking-wide mb-5">
+                {FACE_MAP_CORE.name}
               </div>
 
-              <p className="text-[14px] text-ivory/60 mb-1">{FACE_MAP_CORE.name}</p>
+              {/* <p className="text-[14px] text-ivory/60 mb-1">{FACE_MAP_CORE.name}</p> */}
               <div className="flex items-baseline gap-2">
                 <span
                   className="text-[3rem] md:text-[3.5rem] leading-none text-ivory tracking-tight"
@@ -97,7 +97,7 @@ export function PricingPreview() {
 
             {/* Right — what's included */}
             <div className="md:pl-10 md:border-l border-t md:border-t-0 border-white/10 pt-8 md:pt-0">
-              <p className="text-[12px] text-ivory/50 uppercase tracking-[0.12em] mb-5">
+              <p className="text-[12px] text-ivory/75 uppercase tracking-[0.12em] mb-5">
                 What&apos;s included
               </p>
               <ul className="space-y-3.5">

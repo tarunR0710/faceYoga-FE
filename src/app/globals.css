@@ -320,7 +320,7 @@
 
   /* MapMyFace logotype — Jost geometric face, warm-grey metallic gradient (static)
      with a translucent white sheen that sweeps left→right (M of Map → Face). */
-  .wordmark-shine {
+  /* .wordmark-shine {
     font-family: var(--font-jost), var(--font-manrope), system-ui, sans-serif;
     font-weight: 300;
     letter-spacing: 0.005em;
@@ -334,6 +334,63 @@
     -webkit-background-clip: text; background-clip: text;
     color: transparent; -webkit-text-fill-color: transparent;
     animation: wordmarkShine 4.5s ease-in-out infinite;
+  } */
+
+  .wordmark-shine {
+    font-family: var(--font-jost), var(--font-manrope), system-ui, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.005em;
+    line-height: 1;
+  
+    background-image:
+      linear-gradient(
+        115deg,
+        transparent 43%,
+        rgba(255, 255, 255, 0.15) 47%,
+        rgba(255, 255, 255, 0.95) 50%,
+        rgba(255, 255, 255, 0.15) 53%,
+        transparent 57%
+      ),
+      linear-gradient(
+        180deg,
+        #fbf8f2 0%,
+        #e5d8c4 28%,
+        #c5af90 52%,
+        #f6efe5 72%,
+        #9e8569 100%
+      );
+  
+    background-size: 350% 100%, 100% 100%;
+    background-repeat: no-repeat;
+    background-position: -220% 0, center;
+  
+    -webkit-background-clip: text;
+    background-clip: text;
+  
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.12));
+  
+    animation: wordmarkShine 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  
+  @keyframes wordmarkShine {
+    0% {
+      background-position: -220% 0, center;
+    }
+  
+    45% {
+      background-position: -220% 0, center;
+    }
+  
+    70% {
+      background-position: 220% 0, center;
+    }
+  
+    100% {
+      background-position: 220% 0, center;
+    }
   }
 }
 
