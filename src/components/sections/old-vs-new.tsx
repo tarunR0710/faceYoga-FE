@@ -87,7 +87,6 @@ export function OldVsNew() {
               background:
                 'linear-gradient(180deg, rgb(var(--c-accent) / 0.18) 0%, rgb(var(--c-surface)) 44%, rgb(var(--c-surface)) 100%)',
               border: '1px solid rgb(var(--c-accent) / 0.28)',
-              boxShadow: '0 10px 30px -14px rgb(var(--c-accent) / 0.30)',
             }}
           >
             <div className="flex items-center gap-3 mb-6">
