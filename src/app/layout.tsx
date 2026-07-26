@@ -57,9 +57,9 @@ export default function RootLayout({
 }) {
   // data-palette selects the accent theme (clean white base stays constant).
   // ★ FAVORITES: coral · oxblood
-  // all options: amber · teal · emerald · coral · azure · onyx · mahogany · periwinkle · deep-teal · oxblood
+  // all options: amber · teal · emerald · coral · azure · onyx · mahogany · periwinkle · deep-teal · oxblood · lagoon
   return (
-    <html lang="en" data-palette="coral" className={`${manrope.variable} ${newsreader.variable} ${jost.variable}`}>
+    <html lang="en" data-palette="lagoon" className={`${manrope.variable} ${newsreader.variable} ${jost.variable}`}>
       <head>
         {/* Warm up connections to the media/image hosts for a faster LCP */}
         <link rel="preconnect" href="https://pub-276f99bee0ca472b8c097bf6b9fc7e52.r2.dev" crossOrigin="anonymous" />

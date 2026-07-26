@@ -92,6 +92,12 @@
     --c-accent-soft: 246 227 230;   /* #F6E3E6 blush tint */
     --c-accent-2: 200 134 43;       /* amber counterpoint */
   }
+  [data-palette='lagoon'] {          /* #136a8a → #267871 — cerulean-to-teal lagoon */
+    --c-accent: 29 113 126;         /* #1D717E cyan-teal (bridges the two stops) */
+    --c-accent-ink: 20 86 96;       /* #145660 deeper hover / text */
+    --c-accent-soft: 224 239 242;   /* #E0EFF2 light cyan tint */
+    --c-accent-2: 200 134 43;       /* amber counterpoint */
+  }
 
   :root {
     /* Full-colour aliases for plain CSS + back-compat with existing --mmf-* usage.
