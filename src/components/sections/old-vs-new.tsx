@@ -82,11 +82,20 @@ export function OldVsNew() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, ease: 'easeOut', delay: 0.1 }}
-            className="rounded-[22px] p-6 md:p-8 bg-teal/15 border border-teal/30 shadow-[0_1px_2px_rgba(21,36,33,0.04)]"
+            className="rounded-[22px] p-6 md:p-8 relative overflow-hidden"
+            style={{
+              background:
+                'linear-gradient(180deg, rgb(var(--c-accent) / 0.18) 0%, rgb(var(--c-surface)) 44%, rgb(var(--c-surface)) 100%)',
+              border: '1px solid rgb(var(--c-accent) / 0.28)',
+              boxShadow: '0 10px 30px -14px rgb(var(--c-accent) / 0.30)',
+            }}
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 rounded-full bg-teal/25 flex items-center justify-center">
-                <div className="w-2.5 h-2.5 rounded-full bg-teal" />
+              <div
+                className="w-8 h-8 rounded-full flex items-center justify-center"
+                style={{ background: 'linear-gradient(135deg, rgb(var(--c-accent) / 0.30), rgb(var(--c-accent) / 0.08))' }}
+              >
+                <div className="w-2.5 h-2.5 rounded-full bg-accent" />
               </div>
               <h3 className="text-[15px] font-medium text-ink">MapMyFace</h3>
             </div>
