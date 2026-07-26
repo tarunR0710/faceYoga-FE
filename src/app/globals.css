@@ -12,8 +12,8 @@
      Switch the accent theme via data-palette on <html> (app/layout.tsx).
      ───────────────────────────────────────────────────────────────────── */
   :root {
-    --c-bg: 253 252 250;        /* #FDFCFA warm near-white page */
-    --c-surface: 255 255 255;   /* #FFFFFF pure-white cards */
+    --c-bg: 255 255 255;        /* #FFFFFF pure-white page — colour lives in components */
+    --c-surface: 255 255 255;   /* #FFFFFF cards (separated by shadow + hairline) */
     --c-surface-2: 247 245 241; /* #F7F5F1 soft inset panels */
     --c-ink: 33 29 24;          /* #211D18 warm near-black text */
     --c-muted: 110 102 92;      /* #6E665C warm-grey secondary */

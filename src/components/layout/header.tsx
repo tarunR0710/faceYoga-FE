@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/constants'
@@ -62,11 +63,24 @@ export function Header() {
               padding: isScrolled ? '0 20px' : '0 32px',
             }}
           >
-            {/* Logo */}
-            <Link href="/" className="flex items-center">
-              <span className="text-[15px] font-semibold text-white tracking-[-0.01em]">
-                {SITE_CONFIG.name}
-              </span>
+            {/* Logo — brand mark + wordmark, rendered white for the dark navbar */}
+            <Link href="/" className="flex items-center gap-2" aria-label={`${SITE_CONFIG.name} home`}>
+              <Image
+                src="/logo-mark.png"
+                alt=""
+                width={26}
+                height={26}
+                priority
+                style={{ filter: 'brightness(0) invert(1)' }}
+              />
+              <Image
+                src="/logo-wordmark.png"
+                alt={SITE_CONFIG.name}
+                width={54}
+                height={23}
+                priority
+                style={{ filter: 'brightness(0) invert(1)' }}
+              />
             </Link>
 
             {/* Desktop Navigation - Centered */}
