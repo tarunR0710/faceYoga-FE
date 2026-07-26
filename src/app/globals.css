@@ -462,7 +462,7 @@
   
     filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.12));
   
-    animation: wordmarkShine 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: wordmarkShine 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
   
   @keyframes wordmarkShine {
@@ -514,13 +514,6 @@
   .animate-shimmer { background-size: 200% 100%; animation: shimmer 1.8s ease-in-out infinite; }
   @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 
-  /* Logotype sheen: sweep the white band from off-left → off-right, then hold (pause) */
-  @keyframes wordmarkShine {
-    0%   { background-position: 150% 0, center; }
-    67%  { background-position: -50% 0, center; }
-    100% { background-position: -50% 0, center; }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .animate-scan-spin,
     .animate-pulse-ring,
@@ -528,7 +521,7 @@
     .animate-marquee-slow,
     .animate-shimmer { animation: none !important; }
     /* Keep the metallic gradient, drop the moving sheen */
-    .wordmark-shine { animation: none !important; background-position: -50% 0, center; }
+    .wordmark-shine { animation: none !important; background-position: -220% 0, center; }
   }
 }
 

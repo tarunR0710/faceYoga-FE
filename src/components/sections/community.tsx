@@ -66,10 +66,10 @@ export function Community() {
               return (
                 <motion.div
                   key={c.title}
-                  initial={reduce ? { opacity: 0 } : { opacity: 0, x: i % 2 === 0 ? -32 : 32 }}
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-60px' }}
-                  transition={{ duration: 0.6, delay: i * 0.12, ease }}
+                  transition={{ duration: 1, delay: i * 0.15, ease: [0.4, 0, 0.2, 1] }}
                   whileHover={reduce ? undefined : { y: -4, boxShadow: '0 18px 34px -18px rgba(21,36,33,0.26)', transition: { duration: 0.2, ease: EASE_OUT } }}
                   className="flex items-center gap-4 rounded-[22px] p-5 bg-white border border-ink/10"
                   style={{ boxShadow: '0 1px 2px rgba(21, 36, 33, 0.04)' }}
