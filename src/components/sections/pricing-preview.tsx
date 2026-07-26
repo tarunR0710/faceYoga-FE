@@ -40,12 +40,11 @@ export function PricingPreview() {
             {/* Price */}
             <div className="text-center mb-6 pb-6 border-b border-ink/10">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-soft text-ink text-[11px] font-medium mb-4">
-                {FACE_MAP_CORE.label}
+                {FACE_MAP_CORE.name}
               </div>
               <div className="flex items-baseline justify-center gap-1">
                 <span className="text-[2.75rem] md:text-[3rem] text-ink tracking-tight" style={{ fontWeight: 500 }}>{FACE_MAP_CORE.priceDisplay}</span>
               </div>
-              <p className="text-[14px] text-ink mt-2" style={{ fontWeight: 500 }}>{FACE_MAP_CORE.name}</p>
               <p className="text-[13px] text-analysis-teal mt-1">One payment. No subscription.</p>
             </div>
 
