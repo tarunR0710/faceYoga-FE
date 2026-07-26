@@ -302,7 +302,7 @@
     background-position: 150% 0, center;
     -webkit-background-clip: text; background-clip: text;
     color: transparent; -webkit-text-fill-color: transparent;
-    animation: wordmarkShine 2s linear infinite;
+    animation: wordmarkShine 1.5s linear infinite;
   }
 }
 
@@ -339,7 +339,7 @@
   /* Logotype sheen: sweep the white band from off-left → off-right, then hold (pause) */
   @keyframes wordmarkShine {
     0%   { background-position: 150% 0, center; }
-    50%  { background-position: -50% 0, center; }
+    67%  { background-position: -50% 0, center; }
     100% { background-position: -50% 0, center; }
   }
 
