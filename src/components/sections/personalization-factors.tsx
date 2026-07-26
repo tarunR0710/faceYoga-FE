@@ -1,7 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Ruler, Droplet, SprayCan, Leaf, Target } from 'lucide-react'
+import { EASE_OUT } from '@/lib/motion'
 
 const contextTags = [
   'Face',
@@ -45,6 +46,7 @@ const layers = [
 ]
 
 export function PersonalizationFactors() {
+  const reduce = useReducedMotion()
   return (
     <section id="human-difference" className="section bg-ivory">
       <div className="container-main">
@@ -92,11 +94,12 @@ export function PersonalizationFactors() {
             return (
               <motion.div
                 key={layer.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
-                className="group rounded-[22px] p-6 bg-white border border-ink/10 transition-all duration-200 hover:shadow-[0_18px_30px_-24px_rgba(21,36,33,0.35)] hover:-translate-y-0.5"
+                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, ease: EASE_OUT, delay: i * 0.06 }}
+                whileHover={reduce ? undefined : { y: -6, boxShadow: '0 20px 34px -22px rgba(21,36,33,0.35)', transition: { duration: 0.2, ease: EASE_OUT } }}
+                className="group rounded-[22px] p-6 bg-white border border-ink/10"
               >
                 <div className="w-11 h-11 rounded-2xl bg-mist flex items-center justify-center mb-5 transition-colors group-hover:bg-analysis-teal">
                   <Icon className="w-5 h-5 text-analysis-teal transition-colors group-hover:text-white" strokeWidth={1.5} />

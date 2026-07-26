@@ -274,6 +274,37 @@
     height: 1px; border: 0;
     background: linear-gradient(90deg, transparent, rgb(var(--c-accent) / 0.28) 20%, rgb(var(--c-accent) / 0.28) 60%, transparent);
   }
+  /* ── Pricing: inverted dark "hero" panel — radial spotlight + gradient hairline ── */
+  .pricing-panel {
+    position: relative;
+    background:
+      radial-gradient(120% 85% at 50% 0%, rgb(var(--c-accent) / 0.16) 0%, transparent 55%),
+      radial-gradient(80% 70% at 100% 100%, rgb(var(--c-accent) / 0.08) 0%, transparent 60%),
+      rgb(var(--c-ink));
+    box-shadow:
+      0 2px 4px rgba(39, 32, 24, 0.10),
+      0 18px 42px rgba(39, 32, 24, 0.22),
+      0 8px 90px rgb(var(--c-accent) / 0.10);
+  }
+  /* 1px gradient border drawn with a mask so the fill stays dark */
+  .pricing-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      150deg,
+      rgb(var(--c-accent) / 0.55) 0%,
+      rgb(255 255 255 / 0.14) 32%,
+      transparent 58%,
+      rgb(var(--c-accent) / 0.30) 100%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
   /* Highlighter mark under a keyword */
   .accent-mark {
     background-image: linear-gradient(90deg, rgb(var(--c-accent) / 0.32), rgb(var(--c-accent) / 0.14));

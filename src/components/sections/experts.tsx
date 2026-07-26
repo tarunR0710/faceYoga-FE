@@ -1,30 +1,31 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
+import { Stethoscope, Activity, Scissors, Palette, Microscope } from 'lucide-react'
 
 const disciplines = [
   {
-    initial: 'Dr',
+    icon: Stethoscope,
     name: 'Dermatology & skin',
     description: 'Reads skin health, texture and tone to ground every recommendation in clinical reality.',
   },
   {
-    initial: 'Fy',
+    icon: Activity,
     name: 'Face yoga & movement',
     description: 'Assesses muscle tone and expression to guide what movement can genuinely change.',
   },
   {
-    initial: 'Hr',
+    icon: Scissors,
     name: 'Hair & framing',
     description: 'Considers how hairline, length and shape frame and balance your features.',
   },
   {
-    initial: 'St',
+    icon: Palette,
     name: 'Styling & colour',
     description: 'Matches palette, contrast and styling choices to your natural colouring.',
   },
   {
-    initial: 'Rs',
+    icon: Microscope,
     name: 'Research & method',
     description: 'Keeps the analysis honest, measured and grounded in evidence rather than trend.',
   },
@@ -33,6 +34,8 @@ const disciplines = [
 const easeOut = [0.22, 1, 0.36, 1] as const
 
 export function Experts() {
+  const reduce = useReducedMotion()
+  const CENTER = Math.floor(disciplines.length / 2)
   return (
     <section id="experts" className="py-24 bg-ivory">
       <div className="container-main">
@@ -62,29 +65,30 @@ export function Experts() {
 
         {/* Disciplines Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {disciplines.map((discipline, index) => (
-            <motion.div
-              key={discipline.name}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.55, ease: easeOut, delay: index * 0.06 }}
-              className="rounded-[22px] border border-ink/10 bg-white p-7 shadow-[0_1px_2px_rgba(21,36,33,0.04)] transition-colors duration-300 hover:bg-mist/40"
-            >
-              <div
-                className="flex h-11 w-11 items-center justify-center rounded-full bg-sand text-analysis-teal text-[13px] tracking-[0.02em] mb-5"
-                style={{ fontWeight: 600 }}
+          {disciplines.map((discipline, index) => {
+            const Icon = discipline.icon
+            return (
+              <motion.div
+                key={discipline.name}
+                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.55, ease: easeOut, delay: Math.abs(index - CENTER) * 0.08 }}
+                whileHover={reduce ? undefined : { y: -6, boxShadow: '0 22px 46px -20px rgba(229,101,75,0.34)', transition: { duration: 0.2, ease: easeOut } }}
+                className="group rounded-[22px] border border-ink/10 bg-white p-7 shadow-[0_1px_2px_rgba(21,36,33,0.04)] transition-colors duration-300 hover:bg-mist/40"
               >
-                {discipline.initial}
-              </div>
-              <h3 className="text-[16px] text-ink mb-2" style={{ fontWeight: 550 }}>
-                {discipline.name}
-              </h3>
-              <p className="text-[14px] text-ink/65 leading-relaxed">
-                {discipline.description}
-              </p>
-            </motion.div>
-          ))}
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-sand mb-5 transition-colors duration-300 group-hover:bg-analysis-teal">
+                  <Icon className="w-5 h-5 text-analysis-teal transition-colors duration-300 group-hover:text-white" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-[16px] text-ink mb-2" style={{ fontWeight: 550 }}>
+                  {discipline.name}
+                </h3>
+                <p className="text-[14px] text-ink/65 leading-relaxed">
+                  {discipline.description}
+                </p>
+              </motion.div>
+            )
+          })}
         </div>
 
         {/* Trust line */}

@@ -1,7 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Stethoscope, ShieldCheck, Sparkles } from 'lucide-react'
+import { EASE_OUT } from '@/lib/motion'
 
 const cards = [
   {
@@ -24,6 +25,7 @@ const cards = [
 const ease = [0.22, 1, 0.36, 1] as const
 
 export function Community() {
+  const reduce = useReducedMotion()
   return (
     <section className="py-16 md:py-24 bg-ivory text-ink overflow-hidden">
       <div className="container-main">
@@ -64,10 +66,11 @@ export function Community() {
               return (
                 <motion.div
                   key={c.title}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1, ease }}
+                  whileHover={reduce ? undefined : { y: -4, boxShadow: '0 18px 34px -18px rgba(21,36,33,0.26)', transition: { duration: 0.2, ease: EASE_OUT } }}
                   className="flex items-center gap-4 rounded-[22px] p-5 bg-white border border-ink/10"
                   style={{ boxShadow: '0 1px 2px rgba(21, 36, 33, 0.04)' }}
                 >

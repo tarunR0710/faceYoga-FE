@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
+import { EASE_OUT, EASE_OUT_SOFT } from '@/lib/motion'
 
 const genericAdvice = [
   'The same answer for everyone',
@@ -17,6 +18,7 @@ const mapMyFace = [
 ]
 
 export function OldVsNew() {
+  const reduce = useReducedMotion()
   return (
     <section id="why" className="pt-6 md:pt-10 pb-12 md:pb-16 bg-glow-tr">
       <div className="container-main">
@@ -44,10 +46,11 @@ export function OldVsNew() {
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {/* Generic advice */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55, ease: 'easeOut' }}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, x: -32 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
+            whileHover={reduce ? undefined : { y: -4, boxShadow: '0 18px 34px -18px rgba(21,36,33,0.28)', transition: { duration: 0.2, ease: EASE_OUT } }}
             className="rounded-[22px] p-6 md:p-8 bg-mist border border-ink/10"
           >
             <div className="flex items-center gap-3 mb-6">
@@ -78,10 +81,11 @@ export function OldVsNew() {
 
           {/* MapMyFace - emphasised Map Teal tint */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55, ease: 'easeOut', delay: 0.1 }}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, x: 32 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, ease: EASE_OUT_SOFT, delay: 0.08 }}
+            whileHover={reduce ? undefined : { y: -4, boxShadow: '0 20px 44px -18px rgba(229,101,75,0.32)', transition: { duration: 0.2, ease: EASE_OUT } }}
             className="rounded-[22px] p-6 md:p-8 relative overflow-hidden"
             style={{
               background:
