@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Equal, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/constants'
 
 const navLinks = [
@@ -49,8 +49,8 @@ export function Header() {
           style={{
             width: solid ? '98%' : '100%',
             maxWidth: solid ? '1400px' : '100%',
-            backgroundColor: isScrolled
-              ? 'rgba(21, 36, 33, 0.72)'
+            backgroundColor: solid
+              ? 'rgba(33, 29, 24, 0.55)'
               : 'transparent',
             backdropFilter: solid ? 'blur(60px) saturate(200%)' : 'none',
             WebkitBackdropFilter: solid ? 'blur(60px) saturate(200%)' : 'none',
@@ -123,7 +123,21 @@ export function Header() {
                 {isMobileMenuOpen ? (
                   <X className="h-6 w-6" strokeWidth={2.25} />
                 ) : (
-                  <Equal className="h-6 w-6" strokeWidth={2.25} />
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="h-6 w-6"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M4 7.5h16M4 16.5h16"
+                      stroke="currentColor"
+                      strokeWidth="2.25"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 )}
               </button>
             </div>
