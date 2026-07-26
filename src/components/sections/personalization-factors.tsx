@@ -81,7 +81,7 @@ export function PersonalizationFactors() {
           {contextTags.map((tag) => (
             <span
               key={tag}
-              className="pill-accent rounded-full px-4 py-1.5 text-[12px]"
+              className="pill-accent rounded-full px-3 py-1 text-[12px]"
             >
               {tag}
             </span>
