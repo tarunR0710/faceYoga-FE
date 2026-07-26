@@ -50,10 +50,10 @@ export function Header() {
             width: solid ? '98%' : '100%',
             maxWidth: solid ? '1400px' : '100%',
             backgroundColor: solid
-              ? 'rgba(33, 29, 24, 0.38)'
+              ? 'rgba(33, 29, 24, 0.5)'
               : 'transparent',
-            backdropFilter: solid ? 'blur(60px) saturate(200%)' : 'none',
-            WebkitBackdropFilter: solid ? 'blur(60px) saturate(200%)' : 'none',
+            backdropFilter: solid ? 'blur(20px) saturate(300%)' : 'none',
+            WebkitBackdropFilter: solid ? 'blur(20px) saturate(300%)' : 'none',
             borderRadius: solid ? '999px' : '0px',
             border: '1px solid',
             borderColor: solid ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
