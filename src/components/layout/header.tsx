@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -15,8 +16,13 @@ const navLinks = [
 ]
 
 export function Header() {
+  const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  // On pages without a dark hero (everything except the homepage), show the solid
+  // pill from the top so the white logo/nav stay visible on the white background.
+  const solid = isScrolled || pathname !== '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +38,7 @@ export function Header() {
       <div
         className="fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-out"
         style={{
-          padding: isScrolled ? '10px 8px' : '0px',
+          padding: solid ? '10px 8px' : '0px',
         }}
       >
         <motion.header
@@ -41,17 +47,17 @@ export function Header() {
           transition={{ duration: 0.3 }}
           className="transition-all duration-500 ease-out"
           style={{
-            width: isScrolled ? '98%' : '100%',
-            maxWidth: isScrolled ? '1400px' : '100%',
+            width: solid ? '98%' : '100%',
+            maxWidth: solid ? '1400px' : '100%',
             backgroundColor: isScrolled
               ? 'rgba(21, 36, 33, 0.72)'
               : 'transparent',
-            backdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
-            WebkitBackdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
-            borderRadius: isScrolled ? '999px' : '0px',
+            backdropFilter: solid ? 'blur(60px) saturate(200%)' : 'none',
+            WebkitBackdropFilter: solid ? 'blur(60px) saturate(200%)' : 'none',
+            borderRadius: solid ? '999px' : '0px',
             border: '1px solid',
-            borderColor: isScrolled ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
-            boxShadow: isScrolled ? '0 4px 24px rgba(0, 0, 0, 0.1)' : 'none',
+            borderColor: solid ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+            boxShadow: solid ? '0 4px 24px rgba(0, 0, 0, 0.1)' : 'none',
             outline: 'none',
           }}
         >
@@ -59,8 +65,8 @@ export function Header() {
           <div
             className="flex items-center justify-between transition-all duration-500"
             style={{
-              height: isScrolled ? '52px' : '64px',
-              padding: isScrolled ? '0 20px' : '0 32px',
+              height: solid ? '52px' : '64px',
+              padding: solid ? '0 24px' : '0 18px',
             }}
           >
             {/* Logo — brand mark only, rendered white for the dark navbar */}
@@ -95,8 +101,8 @@ export function Header() {
                 href="/form"
                 className="h-9 px-5 inline-flex items-center text-white text-[13px] font-medium rounded-full hover:bg-white/25 transition-all duration-200"
                 style={{
-                  backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
-                  border: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent',
+                  backgroundColor: solid ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
+                  border: solid ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent',
                 }}
               >
                 Start My Face Map
@@ -109,8 +115,8 @@ export function Header() {
                 href="/form"
                 className="h-10 px-4 inline-flex items-center text-white text-[13px] font-medium rounded-full transition-all duration-200"
                 style={{
-                  backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
-                  border: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent',
+                  backgroundColor: solid ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
+                  border: solid ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent',
                 }}
               >
                 Start My Face Map
