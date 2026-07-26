@@ -1,15 +1,18 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { Scissors, Palette } from 'lucide-react'
 
 const addOns = [
   {
+    icon: Scissors,
     title: 'Hair Map',
     description:
       'Haircut structure, length, parting, volume, hairstyle and facial-hair direction.',
     price: 'Add for ₹699',
   },
   {
+    icon: Palette,
     title: 'Style & Colour Map',
     description:
       'Colours, clothing direction, silhouettes, necklines, accessories and personal presentation.',
@@ -46,7 +49,9 @@ export function AddOns() {
 
         {/* Add-on cards */}
         <div className="grid gap-4 sm:grid-cols-2 md:gap-6">
-          {addOns.map((addOn, index) => (
+          {addOns.map((addOn, index) => {
+            const Icon = addOn.icon
+            return (
             <motion.div
               key={addOn.title}
               initial={{ opacity: 0, y: 20 }}
@@ -55,6 +60,9 @@ export function AddOns() {
               transition={{ delay: index * 0.08, duration: 0.5, ease: 'easeOut' }}
               className="flex flex-col rounded-[22px] bg-white p-6 md:p-7 border border-[rgba(21,36,33,0.12)] shadow-[0_1px_2px_rgba(21,36,33,0.04)] transition-all duration-300 hover:border-[rgba(21,36,33,0.2)] hover:shadow-[0_4px_16px_rgba(21,36,33,0.06)]"
             >
+              <div className="w-11 h-11 rounded-2xl bg-mist flex items-center justify-center mb-5">
+                <Icon className="w-5 h-5 text-analysis-teal" strokeWidth={1.5} />
+              </div>
               <h3 className="text-[18px] md:text-[20px] font-medium tracking-[-0.01em] text-ink mb-2">
                 {addOn.title}
               </h3>
@@ -65,7 +73,8 @@ export function AddOns() {
                 {addOn.price}
               </span>
             </motion.div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Note */}

@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { Ruler, Droplet, SprayCan, Leaf, Target } from 'lucide-react'
 
 const contextTags = [
   'Face',
@@ -17,22 +18,27 @@ const contextTags = [
 
 const layers = [
   {
+    icon: Ruler,
     title: 'Face architecture',
     description: 'We start with the shape and proportions of your face, exactly as they are today.',
   },
   {
+    icon: Droplet,
     title: 'Skin & surface',
     description: 'Texture, tone and how your skin behaves across the seasons all inform what we suggest.',
   },
   {
+    icon: SprayCan,
     title: 'Routine & products',
     description: 'What you already use and how much time you have shapes what fits into your day.',
   },
   {
+    icon: Leaf,
     title: 'Lifestyle & environment',
     description: 'Sleep, stress, climate and travel are part of the picture, not an afterthought.',
   },
   {
+    icon: Target,
     title: 'Goals & preferences',
     description: 'We build around what you actually want, within the budget and effort you have in mind.',
   },
@@ -81,24 +87,27 @@ export function PersonalizationFactors() {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-          {layers.map((layer, i) => (
-            <motion.div
-              key={layer.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.06 }}
-              className="group rounded-[22px] p-6 bg-white border border-ink/10 transition-all duration-200 hover:shadow-[0_18px_30px_-24px_rgba(21,36,33,0.35)] hover:-translate-y-0.5"
-            >
-              <div className="w-11 h-11 rounded-2xl bg-mist flex items-center justify-center mb-5">
-                <span className="block w-4 h-4 rounded-full border-[1.5px] border-analysis-teal" />
-              </div>
-              <h3 className="text-[16px] font-medium text-ink mb-2 tracking-[-0.01em]">
-                {layer.title}
-              </h3>
-              <p className="text-[14px] text-ink/78 leading-relaxed">{layer.description}</p>
-            </motion.div>
-          ))}
+          {layers.map((layer, i) => {
+            const Icon = layer.icon
+            return (
+              <motion.div
+                key={layer.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
+                className="group rounded-[22px] p-6 bg-white border border-ink/10 transition-all duration-200 hover:shadow-[0_18px_30px_-24px_rgba(21,36,33,0.35)] hover:-translate-y-0.5"
+              >
+                <div className="w-11 h-11 rounded-2xl bg-mist flex items-center justify-center mb-5 transition-colors group-hover:bg-analysis-teal">
+                  <Icon className="w-5 h-5 text-analysis-teal transition-colors group-hover:text-white" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-[16px] font-medium text-ink mb-2 tracking-[-0.01em]">
+                  {layer.title}
+                </h3>
+                <p className="text-[14px] text-ink/78 leading-relaxed">{layer.description}</p>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>

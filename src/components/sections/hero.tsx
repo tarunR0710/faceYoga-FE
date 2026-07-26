@@ -123,7 +123,7 @@ export function Hero() {
             variants={rise}
             className="text-[15px] md:text-[17px] text-white/70 leading-relaxed mb-8 max-w-md"
           >
-            Get matched with a real doctor who reviews your face 1-on-1 and prescribes a plan built around your unique features.
+            Meet a real expert who reviews your face 1-on-1 and builds a plan around your unique features.
           </motion.p>
 
           {/* CTA Buttons */}
