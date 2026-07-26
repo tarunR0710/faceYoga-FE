@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Equal, X } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/constants'
 
 const navLinks = [
@@ -65,7 +65,7 @@ export function Header() {
           <div
             className="flex items-center justify-between transition-all duration-500"
             style={{
-              height: solid ? '58px' : '68px',
+              height: solid ? '54px' : '58px',
               padding: solid ? '0 14px' : '0 10px',
             }}
           >
@@ -123,7 +123,7 @@ export function Header() {
                 {isMobileMenuOpen ? (
                   <X className="h-6 w-6" strokeWidth={2.25} />
                 ) : (
-                  <Menu className="h-6 w-6" strokeWidth={2.25} />
+                  <Equal className="h-6 w-6" strokeWidth={2.25} />
                 )}
               </button>
             </div>
