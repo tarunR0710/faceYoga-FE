@@ -32,7 +32,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="section bg-ivory">
+    <section id="how-it-works" className="section section-alt">
       <div className="container-main">
         {/* Header */}
         <motion.div

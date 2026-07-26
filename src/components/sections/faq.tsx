@@ -58,7 +58,7 @@ function FAQItem({ question, answer, isOpen, onToggle }: {
   onToggle: () => void
 }) {
   return (
-    <div className="border-b border-ink/10 last:border-b-0">
+    <div className="border-b border-border/70 last:border-b-0">
       <button
         onClick={onToggle}
         className="w-full py-4 flex items-center justify-between text-left group"
@@ -103,6 +103,8 @@ export function FAQ() {
   return (
     <section id="faq" className="section bg-ivory">
       <div className="container-main">
+        {/* Soft seam — Pricing (white) → FAQ (white) */}
+        <div className="divider-soft mb-12 md:mb-16" />
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -135,7 +137,7 @@ export function FAQ() {
               <p className="text-[11px] font-medium text-analysis-teal uppercase tracking-[0.1em] mb-4">
                 {category.category}
               </p>
-              <div className="bg-ivory rounded-[18px] border border-ink/10 px-5">
+              <div className="card rounded-[18px] px-5">
                 {category.items.map((faq, index) => (
                   <FAQItem
                     key={index}

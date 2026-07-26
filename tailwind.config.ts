@@ -24,6 +24,7 @@ const config: Config = {
         card: { DEFAULT: 'rgb(var(--c-surface) / <alpha-value>)', foreground: 'rgb(var(--c-ink) / <alpha-value>)' },
 
         border: 'rgb(var(--c-border) / <alpha-value>)',
+        'border-soft': 'rgb(var(--c-border-soft) / <alpha-value>)',
         input: 'rgb(var(--c-border) / <alpha-value>)',
         ring: 'rgb(var(--c-accent) / <alpha-value>)',
         destructive: { DEFAULT: '#c0492f', foreground: '#f7f4ef' },

@@ -88,7 +88,7 @@ function FaceMapMock() {
 export function FacialAnalysis() {
   const reduce = useReducedMotion()
   return (
-    <section id="face-map" className="relative overflow-hidden bg-mesh-soft py-20 md:py-28">
+    <section id="face-map" className="relative overflow-hidden section-alt py-20 md:py-28">
       <div className="container-main relative z-10">
         {/* Text Content */}
         <motion.div
@@ -130,7 +130,7 @@ export function FacialAnalysis() {
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.55, ease, delay: i * 0.1 }}
               whileHover={reduce ? undefined : { y: -6, boxShadow: '0 20px 40px -20px rgba(21,36,33,0.3)', transition: { duration: 0.2, ease } }}
-              className="flex flex-col rounded-[22px] border border-ink/10 bg-white p-7 shadow-[0_1px_2px_rgba(21,36,33,0.04)]"
+              className="card flex flex-col rounded-[22px] p-7"
             >
               <div className="mb-5 flex items-center gap-3">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-mist text-[12px] font-medium text-analysis-teal">

@@ -36,9 +36,9 @@ export function PricingPreview() {
           transition={{ duration: 0.7, ease: EASE_OUT }}
           className="max-w-md mx-auto"
         >
-          <div className="card-glow rounded-[24px] border border-ink/10 p-6 md:p-8">
+          <div className="card-glow rounded-[24px] border border-border-soft p-6 md:p-8">
             {/* Price */}
-            <div className="text-center mb-6 pb-6 border-b border-ink/10">
+            <div className="text-center mb-6 pb-6 border-b border-border/70">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-soft text-ink text-[11px] font-medium mb-4">
                 {FACE_MAP_CORE.name}
               </div>
