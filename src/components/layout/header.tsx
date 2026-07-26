@@ -50,7 +50,7 @@ export function Header() {
             width: solid ? '98%' : '100%',
             maxWidth: solid ? '1400px' : '100%',
             backgroundColor: solid
-              ? 'rgba(33, 29, 24, 0.55)'
+              ? 'rgba(33, 29, 24, 0.38)'
               : 'transparent',
             backdropFilter: solid ? 'blur(60px) saturate(200%)' : 'none',
             WebkitBackdropFilter: solid ? 'blur(60px) saturate(200%)' : 'none',
