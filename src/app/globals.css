@@ -98,6 +98,12 @@
     --c-accent-soft: 224 239 242;   /* #E0EFF2 light cyan tint */
     --c-accent-2: 200 134 43;       /* amber counterpoint */
   }
+  [data-palette='aqua'] {            /* #43cea2 → #185a9d — mint-to-blue river (bridge) */
+    --c-accent: 45 148 160;         /* #2D94A0 teal-cyan bridge */
+    --c-accent-ink: 28 104 116;     /* #1C6874 deeper hover / text */
+    --c-accent-soft: 224 242 243;   /* #E0F2F3 light aqua tint */
+    --c-accent-2: 200 134 43;       /* amber counterpoint */
+  }
 
   :root {
     /* Full-colour aliases for plain CSS + back-compat with existing --mmf-* usage.
