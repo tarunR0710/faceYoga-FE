@@ -99,11 +99,7 @@ export function Header() {
               {/* CTA Button */}
               <Link
                 href="/form"
-                className="h-9 px-5 inline-flex items-center text-white text-[13px] font-medium rounded-full hover:bg-white/25 transition-all duration-200"
-                style={{
-                  backgroundColor: solid ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
-                  border: solid ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent',
-                }}
+                className="h-9 px-5 inline-flex items-center bg-white text-ink text-[13px] font-semibold rounded-full hover:bg-white/90 transition-colors duration-200"
               >
                 Start My Face Map
               </Link>
@@ -113,11 +109,7 @@ export function Header() {
             <div className="flex md:hidden items-center gap-2">
               <Link
                 href="/form"
-                className="h-10 px-4 inline-flex items-center text-white text-[13px] font-medium rounded-full transition-all duration-200"
-                style={{
-                  backgroundColor: solid ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
-                  border: solid ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid transparent',
-                }}
+                className="h-10 px-4 inline-flex items-center bg-white text-ink text-[13px] font-semibold rounded-full hover:bg-white/90 transition-colors duration-200"
               >
                 Start My Face Map
               </Link>
