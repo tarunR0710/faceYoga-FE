@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Check, ArrowRight } from 'lucide-react'
-import { FACE_MAP_CORE, FACE_MAP_ADDONS } from '@/lib/constants'
+import { FACE_MAP_CORE } from '@/lib/constants'
 
 export function PricingPreview() {
   return (
@@ -57,19 +57,6 @@ export function PricingPreview() {
                       <Check className="w-3 h-3 text-analysis-teal" strokeWidth={2} />
                     </div>
                     <span className="text-[14px] text-ink/80">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Add-ons */}
-            <div className="mb-6 pt-5 border-t border-ink/10">
-              <p className="text-[12px] text-analysis-teal uppercase tracking-[0.08em] mb-3">Optional specialist maps</p>
-              <ul className="space-y-2">
-                {FACE_MAP_ADDONS.map((addon) => (
-                  <li key={addon.id} className="flex items-center justify-between">
-                    <span className="text-[14px] text-ink/80">{addon.name}</span>
-                    <span className="text-[13px] text-ink" style={{ fontWeight: 500 }}>Add for {addon.priceDisplay}</span>
                   </li>
                 ))}
               </ul>
