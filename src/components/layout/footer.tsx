@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants'
 
 const footerLinks = {
@@ -25,10 +26,14 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="inline-block">
-              <span className="text-[16px] font-semibold text-ivory tracking-[-0.01em]">
-                {SITE_CONFIG.name}
-              </span>
+            <Link href="/" className="inline-block" aria-label={`${SITE_CONFIG.name} home`}>
+              <Image
+                src="/logo-mark.png"
+                alt={SITE_CONFIG.name}
+                width={34}
+                height={34}
+                style={{ filter: 'brightness(0) invert(1)' }}
+              />
             </Link>
             <p className="mt-3 text-[13px] text-white/60 max-w-[220px] leading-relaxed">
               Your complete appearance plan, mapped around you. Human-led, research-informed, personally mapped.
@@ -118,6 +123,18 @@ export function Footer() {
             </div>
           </div>
         </div>
+
+        {/* Big brand wordmark */}
+        <Link href="/" className="mt-10 md:mt-14 block" aria-label={`${SITE_CONFIG.name} home`}>
+          <Image
+            src="/logo-wordmark.png"
+            alt={SITE_CONFIG.name}
+            width={766}
+            height={326}
+            className="w-full max-w-[560px] h-auto opacity-90"
+            style={{ filter: 'brightness(0) invert(1)' }}
+          />
+        </Link>
       </div>
     </footer>
   )
