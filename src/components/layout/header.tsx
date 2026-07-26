@@ -102,7 +102,7 @@ export function Header() {
                 className="inline-flex items-center bg-white text-ink text-[12px] font-semibold rounded-full hover:bg-white/90 transition-colors duration-200"
                 style={{ padding: '8px 16px' }}
               >
-                Start My Face Map
+                Map my face
               </Link>
             </div>
 
@@ -113,7 +113,7 @@ export function Header() {
                 className="inline-flex items-center bg-white text-ink text-[12px] font-semibold rounded-full hover:bg-white/90 transition-colors duration-200"
                 style={{ padding: '8px 16px' }}
               >
-                Start My Face Map
+                Map my face
               </Link>
               <button
                 className="p-2 -mr-1 text-white rounded-full border border-white/20 bg-white/10 hover:bg-white/20 transition-colors drop-shadow-[0_1px_3px_rgba(0,0,0,0.35)]"
@@ -178,7 +178,7 @@ export function Header() {
                   }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Start My Face Map
+                  Map my face
                 </Link>
               </motion.div>
             </div>
