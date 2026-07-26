@@ -68,9 +68,9 @@ function FAQItem({ question, answer, isOpen, onToggle }: {
         </span>
         <span className="flex-shrink-0 w-6 h-6 rounded-full bg-mist flex items-center justify-center">
           {isOpen ? (
-            <Minus className="w-3 h-3 text-analysis-teal" strokeWidth={2} />
+            <Minus className="w-3 h-3 text-teal" strokeWidth={2} />
           ) : (
-            <Plus className="w-3 h-3 text-analysis-teal" strokeWidth={2} />
+            <Plus className="w-3 h-3 text-teal" strokeWidth={2} />
           )}
         </span>
       </button>

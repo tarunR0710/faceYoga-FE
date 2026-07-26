@@ -48,11 +48,49 @@
     --c-accent-soft: 228 241 235;
     --c-accent-2: 200 134 43;
   }
-  [data-palette='coral'] {           /* grown-up coral */
+  [data-palette='coral'] {           /* ★ FAVORITE — grown-up coral */
     --c-accent: 229 101 75;         /* #E5654B */
     --c-accent-ink: 194 74 52;
     --c-accent-soft: 252 233 227;
     --c-accent-2: 46 111 106;
+  }
+
+  /* ── Gradient-derived presets (from uigradients flows) ── */
+  [data-palette='azure'] {           /* #59cde9 → #0a2a88 — ocean sky-to-deep-sea */
+    --c-accent: 31 111 204;         /* #1F6FCC */
+    --c-accent-ink: 20 66 160;      /* #1442A0 */
+    --c-accent-soft: 228 244 251;   /* #E4F4FB (from the #59cde9 end) */
+    --c-accent-2: 200 134 43;       /* amber counterpoint */
+  }
+  [data-palette='onyx'] {            /* #152331 → #000000 — steel graphite mono */
+    --c-accent: 60 80 100;          /* #3C5064 */
+    --c-accent-ink: 36 50 63;       /* #24323F */
+    --c-accent-soft: 234 237 240;   /* #EAEDF0 cool grey tint */
+    --c-accent-2: 200 134 43;       /* amber spark for the mono flow */
+  }
+  [data-palette='mahogany'] {        /* #f7f7f7→#b9a0a0→#794747→#4e2020→#111 — rose-to-maroon */
+    --c-accent: 150 78 72;          /* #964E48 rosewood */
+    --c-accent-ink: 94 42 40;       /* #5E2A28 dark maroon */
+    --c-accent-soft: 243 233 233;   /* #F3E9E9 dusty-rose tint (#b9a0a0 end) */
+    --c-accent-2: 46 111 106;       /* muted teal counterpoint */
+  }
+  [data-palette='periwinkle'] {      /* #b5b9ff → #2b2c49 — soft periwinkle to indigo */
+    --c-accent: 91 96 200;          /* #5B60C8 */
+    --c-accent-ink: 62 64 128;      /* #3E4080 */
+    --c-accent-soft: 233 234 249;   /* #E9EAF9 (from the #b5b9ff end) */
+    --c-accent-2: 200 134 43;       /* amber counterpoint */
+  }
+  [data-palette='deep-teal'] {       /* #0f2027 → #203a43 → #2c5364 — midnight teal */
+    --c-accent: 32 104 122;         /* #20687A */
+    --c-accent-ink: 26 78 92;       /* #1A4E5C */
+    --c-accent-soft: 226 238 241;   /* #E2EEF1 */
+    --c-accent-2: 200 134 43;       /* amber counterpoint */
+  }
+  [data-palette='oxblood'] {         /* ★ FAVORITE — #200122 → #6f0000 — aubergine-to-oxblood, dark & dramatic */
+    --c-accent: 168 34 56;          /* #A82238 deep berry-crimson (bridges the purple + red) */
+    --c-accent-ink: 118 16 40;      /* #761028 oxblood hover/text */
+    --c-accent-soft: 246 227 230;   /* #F6E3E6 blush tint */
+    --c-accent-2: 200 134 43;       /* amber counterpoint */
   }
 
   :root {
@@ -265,10 +303,9 @@
   .card-glow {
     background-color: rgb(var(--c-surface));
     box-shadow:
-      0 1px 2px rgba(39,32,24,.05),
-      0 8px 20px rgba(39,32,24,.06),
-      0 16px 40px rgb(var(--c-accent) / 0.10),
-      0 4px 80px rgb(var(--c-accent) / 0.05);
+      0 1px 2px rgba(39,32,24,.04),
+      0 6px 16px rgba(39,32,24,.05),
+      0 12px 30px rgb(var(--c-accent) / 0.06);
   }
   .divider-accent {
     height: 1px; border: 0;
@@ -316,6 +353,59 @@
     background: linear-gradient(100deg, rgb(var(--c-accent-ink)) 0%, rgb(var(--c-accent)) 55%, rgb(var(--c-accent) / 0.85) 100%);
     -webkit-background-clip: text; background-clip: text;
     color: transparent; -webkit-text-fill-color: transparent;
+  }
+
+  /* ── Accent application system ───────────────────────────────────────────
+     A small, reusable vocabulary for putting the accent on cards, icons and
+     pills WITHOUT it ever reading as a loud, direct fill. Everything below is
+     token-driven (re-themes with data-palette) and tuned to stay elegant with
+     BOTH a light accent (coral) and a dark, saturated one (oxblood): rest
+     states lean on the near-white --c-accent-soft tint or very low-opacity
+     washes, and full-strength --c-accent only ever appears as a thin border,
+     a small glyph, or a soft glow — never a solid block. */
+
+  /* .card-hover-accent — neutral card at rest, faint accent lift on hover.
+     Owns background + border + shadow, so drop the inline bg/border/shadow
+     classes when you use it. Pair with a framer `whileHover={{ y: -6 }}` for
+     the physical lift (leave boxShadow to this class so it re-themes).
+     Where: any card grid (feature / step / discipline cards). */
+  .card-hover-accent {
+    background-color: rgb(var(--c-surface));
+    border: 1px solid rgb(var(--c-border));
+    box-shadow: var(--shadow-sm);
+    transition: border-color .3s ease, box-shadow .3s ease, background-color .3s ease;
+  }
+  .card-hover-accent:hover {
+    border-color: rgb(var(--c-accent) / 0.25);
+    /* barely-there wash from the top edge — reads as light, not colour */
+    background-image: radial-gradient(120% 100% at 50% 0%, rgb(var(--c-accent) / 0.05) 0%, transparent 62%);
+    box-shadow:
+      0 1px 2px rgba(39,32,24,.05),
+      0 10px 24px rgba(39,32,24,.06),
+      0 20px 44px -22px rgb(var(--c-accent) / 0.35);
+  }
+
+  /* .icon-tile-accent — NEUTRAL light-grey tile holding an accent glyph.
+     The tile background stays neutral; only the lucide icon carries the colour
+     (it inherits `currentColor`, so give the icon NO text-colour class). If the
+     tile sits inside a `.group` card, it deepens slightly (still neutral) on hover.
+     Where: the icon square/circle at the top of a card. */
+  .icon-tile-accent {
+    background-color: rgb(var(--c-surface-2));   /* neutral light-grey tile */
+    color: rgb(var(--c-accent));                 /* only the glyph takes the colour */
+    transition: background-color .3s ease, color .3s ease;
+  }
+  .group:hover .icon-tile-accent {
+    background-color: rgb(var(--c-ink) / 0.06);  /* stays neutral, just a touch deeper */
+    color: rgb(var(--c-accent-ink));
+  }
+
+  /* .pill-accent — soft accent tint + accent-ink text (same recipe as
+     .badge-accent, but standalone so it can sit on any chip without the
+     fixed .badge height). Where: category tags, number/step chips, labels. */
+  .pill-accent {
+    background-color: rgb(var(--c-accent-soft));
+    color: rgb(var(--c-accent-ink));
   }
 
   /* MapMyFace logotype — Jost geometric face, warm-grey metallic gradient (static)
@@ -372,7 +462,7 @@
   
     filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.12));
   
-    animation: wordmarkShine 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: wordmarkShine 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
   
   @keyframes wordmarkShine {
@@ -380,11 +470,11 @@
       background-position: -220% 0, center;
     }
   
-    45% {
+    25% {
       background-position: -220% 0, center;
     }
   
-    70% {
+    75% {
       background-position: 220% 0, center;
     }
   
@@ -448,8 +538,24 @@
 ::-webkit-scrollbar-thumb { background: rgb(var(--c-surface-2)); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-muted) / 0.5); }
 
-/* Focus states — accent ring */
+/* Focus states — accent ring for buttons, links, etc. */
 *:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px rgb(var(--c-bg)), 0 0 0 4px rgb(var(--c-accent));
+}
+
+/* Text fields own their focus treatment (border + the single 3px ring in
+   `.input-field:focus`, or their component's own focus styles). Opt them out
+   of the global ring so keyboard/mouse focus shows ONE clean ring, never the
+   global 4px ring stacked on top. `.input-field:focus` (higher specificity)
+   still wins and paints its own ring; plain fields fall back to their border. */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.input-field:focus-visible {
+  box-shadow: none;
+}
+.input-field:focus {
+  border-color: rgb(var(--c-accent));
+  box-shadow: 0 0 0 3px rgb(var(--c-accent) / 0.22);
 }

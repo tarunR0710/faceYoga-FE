@@ -74,11 +74,11 @@ export function Experts() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.55, ease: easeOut, delay: Math.abs(index - CENTER) * 0.08 }}
-                whileHover={reduce ? undefined : { y: -6, boxShadow: '0 22px 46px -20px rgba(229,101,75,0.34)', transition: { duration: 0.2, ease: easeOut } }}
-                className="group rounded-[22px] border border-ink/10 bg-white p-7 shadow-[0_1px_2px_rgba(21,36,33,0.04)] transition-colors duration-300 hover:bg-mist/40"
+                whileHover={reduce ? undefined : { y: -6, transition: { duration: 0.2, ease: easeOut } }}
+                className="group card-hover-accent rounded-[22px] p-7"
               >
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-sand mb-5 transition-colors duration-300 group-hover:bg-analysis-teal">
-                  <Icon className="w-5 h-5 text-analysis-teal transition-colors duration-300 group-hover:text-white" strokeWidth={1.5} />
+                <div className="icon-tile-accent flex h-11 w-11 items-center justify-center rounded-full mb-5">
+                  <Icon className="w-5 h-5" strokeWidth={1.5} />
                 </div>
                 <h3 className="text-[16px] text-ink mb-2" style={{ fontWeight: 550 }}>
                   {discipline.name}

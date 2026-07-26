@@ -62,10 +62,10 @@ export function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.08, duration: 0.5, ease: 'easeOut' }}
-              className="relative rounded-[22px] bg-white p-5 md:p-6 border border-[rgba(21,36,33,0.12)] shadow-[0_1px_2px_rgba(21,36,33,0.04)] transition-all duration-300 hover:border-[rgba(21,36,33,0.2)] hover:shadow-[0_4px_16px_rgba(21,36,33,0.06)]"
+              className="card-hover-accent relative rounded-[22px] p-5 md:p-6"
             >
               {/* Number chip */}
-              <span className="mb-4 inline-flex items-center justify-center rounded-full bg-mist px-2.5 py-1 text-[12px] font-medium tracking-[0.08em] text-analysis-teal">
+              <span className="pill-accent mb-4 inline-flex items-center justify-center rounded-full px-2.5 py-1 text-[12px] font-medium tracking-[0.08em]">
                 {step.number}
               </span>
 

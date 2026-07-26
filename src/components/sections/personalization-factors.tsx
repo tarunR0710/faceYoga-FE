@@ -81,7 +81,7 @@ export function PersonalizationFactors() {
           {contextTags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-mist px-4 py-1.5 text-[13px] text-ink"
+              className="pill-accent rounded-full px-4 py-1.5 text-[13px]"
             >
               {tag}
             </span>
@@ -98,11 +98,11 @@ export function PersonalizationFactors() {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.5, ease: EASE_OUT, delay: i * 0.06 }}
-                whileHover={reduce ? undefined : { y: -6, boxShadow: '0 20px 34px -22px rgba(21,36,33,0.35)', transition: { duration: 0.2, ease: EASE_OUT } }}
-                className="group rounded-[22px] p-6 bg-white border border-ink/10"
+                whileHover={reduce ? undefined : { y: -6, transition: { duration: 0.2, ease: EASE_OUT } }}
+                className="group card-hover-accent rounded-[22px] p-6"
               >
-                <div className="w-11 h-11 rounded-2xl bg-mist flex items-center justify-center mb-5 transition-colors group-hover:bg-analysis-teal">
-                  <Icon className="w-5 h-5 text-analysis-teal transition-colors group-hover:text-white" strokeWidth={1.5} />
+                <div className="icon-tile-accent w-11 h-11 rounded-2xl flex items-center justify-center mb-5">
+                  <Icon className="w-5 h-5" strokeWidth={1.5} />
                 </div>
                 <h3 className="text-[16px] font-medium text-ink mb-2 tracking-[-0.01em]">
                   {layer.title}

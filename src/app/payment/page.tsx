@@ -168,7 +168,7 @@ export default function PaymentPage() {
                 <ol className="space-y-3">
                   {NEXT_STEPS.map((step, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-mist text-analysis-teal text-[12px] flex items-center justify-center" style={{ fontWeight: 600 }}>{i + 1}</span>
+                      <span className="pill-accent flex-shrink-0 w-6 h-6 rounded-full text-[12px] flex items-center justify-center" style={{ fontWeight: 600 }}>{i + 1}</span>
                       <span className="text-[14px] text-ink/80 leading-snug">{step}</span>
                     </li>
                   ))}
@@ -179,16 +179,16 @@ export default function PaymentPage() {
             {/* Core plan (included) */}
             <div>
               <h2 className="text-[15px] text-ink mb-3" style={{ fontWeight: 600 }}>1. Your Complete Face Map</h2>
-              <div className="rounded-[22px] border border-ink/10 bg-white p-5">
+              <div className="card-hover-accent rounded-[22px] p-5 md:p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sand text-analysis-teal text-[11px] font-medium">{FACE_MAP_CORE.label}</span>
+                  <span className="badge-accent inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium">{FACE_MAP_CORE.label}</span>
                   <span className="text-[1.25rem] text-ink" style={{ fontWeight: 500 }}>{FACE_MAP_CORE.priceDisplay}</span>
                 </div>
                 <ul className="space-y-2.5">
                   {FACE_MAP_CORE.includes.map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-teal/20 flex items-center justify-center mt-0.5">
-                        <Check className="w-3 h-3 text-analysis-teal" strokeWidth={2} />
+                      <span className="icon-tile-accent flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5">
+                        <Check className="w-3 h-3" strokeWidth={2.5} />
                       </span>
                       <span className="text-[14px] text-ink/80">{item}</span>
                     </li>
@@ -210,8 +210,10 @@ export default function PaymentPage() {
                       type="button"
                       onClick={() => toggleAddon(a.id)}
                       className={cn(
-                        'w-full text-left flex items-start gap-3 rounded-[22px] p-4 bg-white transition-all duration-200',
-                        checked ? 'ring-2 ring-ink' : 'ring-1 ring-ink/10 hover:ring-ink/25'
+                        'w-full text-left flex items-start gap-3 rounded-[22px] p-4 transition-all duration-200',
+                        checked
+                          ? 'ring-2 ring-ink bg-accent-soft/50'
+                          : 'bg-white ring-1 ring-ink/10 hover:ring-accent/40 hover:bg-accent-soft/25'
                       )}
                     >
                       <span className={cn('mt-0.5 flex-shrink-0 w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors', checked ? 'bg-ink border-ink' : 'border-ink/25 bg-white')}>
@@ -234,9 +236,9 @@ export default function PaymentPage() {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-[24px] border border-ink/10 bg-white p-5 md:p-6"
+              className="card-glow rounded-[24px] border border-ink/10 p-5 md:p-6"
             >
-              <h3 className="text-[15px] text-ink mb-4" style={{ fontWeight: 600 }}>Order summary</h3>
+              <h3 className="text-[13px] uppercase tracking-[0.1em] text-analysis-teal mb-4" style={{ fontWeight: 600 }}>Order summary</h3>
 
               <div className="space-y-2.5 mb-4">
                 <div className="flex items-center justify-between text-[13px]">
@@ -259,7 +261,8 @@ export default function PaymentPage() {
                 </AnimatePresence>
               </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-ink/10 mb-5">
+              <hr className="divider-accent mb-4" />
+              <div className="flex items-center justify-between mb-5">
                 <span className="text-[14px] text-ink" style={{ fontWeight: 500 }}>Total</span>
                 <motion.span key={totalPaise} initial={{ scale: 1.08 }} animate={{ scale: 1 }} className="text-[1.5rem] text-ink" style={{ fontWeight: 500 }}>
                   {formatINR(totalPaise)}
@@ -277,7 +280,7 @@ export default function PaymentPage() {
                 disabled={isLoading || !razorpayLoaded}
                 className={cn(
                   'w-full inline-flex items-center justify-center py-4 rounded-full text-[15px] font-semibold transition-colors',
-                  isLoading || !razorpayLoaded ? 'bg-ink/40 text-ivory cursor-not-allowed' : 'bg-ink text-ivory hover:bg-[#24413b]'
+                  isLoading || !razorpayLoaded ? 'bg-ink/40 text-ivory cursor-not-allowed' : 'bg-ink text-ivory hover:bg-ink/88'
                 )}
               >
                 {isLoading ? (
@@ -289,7 +292,7 @@ export default function PaymentPage() {
 
               <div className="mt-4 space-y-2">
                 <div className="flex items-center gap-2 text-[12px] text-analysis-teal">
-                  <Shield className="w-4 h-4" /> Secure payment via Razorpay · 0 surgery, ever
+                  <Shield className="w-4 h-4 text-accent" strokeWidth={1.75} /> Secure payment via Razorpay · 0 surgery, ever
                 </div>
               </div>
 

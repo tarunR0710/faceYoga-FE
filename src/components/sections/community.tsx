@@ -74,8 +74,8 @@ export function Community() {
                   className="flex items-center gap-4 rounded-[22px] p-5 bg-white border border-ink/10"
                   style={{ boxShadow: '0 1px 2px rgba(21, 36, 33, 0.04)' }}
                 >
-                  <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-mist flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-analysis-teal" strokeWidth={1.5} />
+                  <div className="icon-tile-accent flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center">
+                    <Icon className="w-5 h-5" strokeWidth={1.5} />
                   </div>
                   <div>
                     <h3 className="text-[15px] font-medium text-ink">{c.title}</h3>

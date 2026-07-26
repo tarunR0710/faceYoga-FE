@@ -55,7 +55,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // data-palette selects the accent theme (clean white base stays constant): amber · teal · emerald · coral
+  // data-palette selects the accent theme (clean white base stays constant).
+  // ★ FAVORITES: coral · oxblood
+  // all options: amber · teal · emerald · coral · azure · onyx · mahogany · periwinkle · deep-teal · oxblood
   return (
     <html lang="en" data-palette="coral" className={`${manrope.variable} ${newsreader.variable} ${jost.variable}`}>
       <head>
