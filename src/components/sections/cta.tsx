@@ -26,8 +26,8 @@ export function CTA() {
       {/* Top ramp — ease the white section above into the dark band (no hard edge) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-28 md:h-40"
-        style={{ background: 'linear-gradient(180deg, rgb(var(--c-bg)) 0%, rgb(var(--c-bg) / 0.6) 30%, transparent 100%)' }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-16 md:h-24"
+        style={{ background: 'linear-gradient(180deg, rgb(var(--c-bg)) 0%, rgb(var(--c-bg) / 0.55) 35%, transparent 100%)' }}
       />
       <div
         aria-hidden
