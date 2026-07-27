@@ -51,7 +51,7 @@ export function OldVsNew() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
             whileHover={reduce ? undefined : { y: -4, boxShadow: '0 18px 34px -18px rgba(21,36,33,0.28)', transition: { duration: 0.2, ease: EASE_OUT } }}
-            className="rounded-[22px] p-6 md:p-8 bg-mist border border-border/70"
+            className="rounded-[28px] p-6 md:p-8 bg-mist border border-border/70"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-8 rounded-full bg-ink/5 flex items-center justify-center">
@@ -86,7 +86,7 @@ export function OldVsNew() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: EASE_OUT_SOFT, delay: 0.08 }}
             whileHover={reduce ? undefined : { y: -4, boxShadow: '0 20px 44px -18px rgba(229,101,75,0.32)', transition: { duration: 0.2, ease: EASE_OUT } }}
-            className="rounded-[22px] p-6 md:p-8 relative overflow-hidden"
+            className="rounded-[28px] p-6 md:p-8 relative overflow-hidden"
             style={{
               background:
                 'linear-gradient(180deg, rgb(var(--c-accent) / 0.18) 0%, rgb(var(--c-surface)) 44%, rgb(var(--c-surface)) 100%)',

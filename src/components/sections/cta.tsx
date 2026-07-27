@@ -20,8 +20,9 @@ export function CTA() {
 
   return (
     <section
-      className="group relative overflow-hidden py-24 md:py-32 bg-ink"
+      className="group relative overflow-hidden py-24 md:py-32"
       onMouseMove={reduce ? undefined : handleMove}
+      style={{ background: 'linear-gradient(180deg, rgb(var(--c-accent)) 0%, rgb(var(--c-accent-ink)) 55%, rgb(var(--c-ink)) 100%)' }}
     >
       {/* Top ramp — ease the white section above into the dark band (no hard edge) */}
       <div
@@ -49,7 +50,7 @@ export function CTA() {
           transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
           className="text-center max-w-2xl mx-auto"
         >
-          <p className="text-[12px] text-teal uppercase tracking-[0.15em] mb-4">
+          <p className="text-[12px] text-ivory/80 uppercase tracking-[0.15em] mb-4">
             Get started today
           </p>
           <h2 className="text-[1.75rem] md:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-ivory mb-10" style={{ fontWeight: 450 }}>
@@ -64,7 +65,7 @@ export function CTA() {
             <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2} />
           </Link>
 
-          <p className="mt-5 text-[13px] text-analysis-teal">
+          <p className="mt-5 text-[13px] text-ivory/55">
             No commitment required.
           </p>
         </motion.div>
