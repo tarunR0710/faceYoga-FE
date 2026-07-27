@@ -130,8 +130,8 @@
 
     /* Dark accent-tinted "ink" for the closing dark band (CTA + footer).
        A deep, accent-tinted near-black — re-themes with the palette. */
-    --c-ink-accent: color-mix(in srgb, rgb(var(--c-accent)) 42%, rgb(var(--c-ink)) 58%);
-    --c-ink-accent-deep: color-mix(in srgb, rgb(var(--c-accent)) 26%, rgb(var(--c-ink)) 74%);
+    --c-ink-accent: color-mix(in srgb, rgb(var(--c-accent-ink)) 82%, #06100f 18%);
+    --c-ink-accent-deep: color-mix(in srgb, rgb(var(--c-accent-ink)) 60%, #06100f 40%);
 
     --background: rgb(var(--c-bg));
     --foreground: rgb(var(--c-ink));
