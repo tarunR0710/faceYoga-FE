@@ -128,6 +128,11 @@
     --mmf-accent-ink: rgb(var(--c-accent-ink));
     --mmf-border: rgb(var(--c-border));
 
+    /* Dark accent-tinted "ink" for the closing dark band (CTA + footer).
+       A deep, accent-tinted near-black — re-themes with the palette. */
+    --c-ink-accent: color-mix(in srgb, rgb(var(--c-accent)) 42%, rgb(var(--c-ink)) 58%);
+    --c-ink-accent-deep: color-mix(in srgb, rgb(var(--c-accent)) 26%, rgb(var(--c-ink)) 74%);
+
     --background: rgb(var(--c-bg));
     --foreground: rgb(var(--c-ink));
     --border: var(--mmf-border);
@@ -537,12 +542,26 @@
   .animate-shimmer { background-size: 200% 100%; animation: shimmer 1.8s ease-in-out infinite; }
   @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 
+  /* Typewriter caret — thin accent bar; blinks while typing, then a few times, then rests hidden */
+  .typewriter-caret {
+    display: inline-block;
+    width: 2px;
+    height: 0.95em;
+    margin-left: 3px;
+    vertical-align: -0.1em;
+    background: rgb(var(--c-accent));
+    animation: caretBlink 1.05s steps(1) infinite;
+  }
+  .typewriter-caret--done { animation: caretBlink 1.05s steps(1) 6 forwards; }
+  @keyframes caretBlink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-scan-spin,
     .animate-pulse-ring,
     .animate-marquee,
     .animate-marquee-slow,
     .animate-shimmer { animation: none !important; }
+    .typewriter-caret, .typewriter-caret--done { animation: none !important; opacity: 0; }
     /* Keep the metallic gradient, drop the moving sheen */
     .wordmark-shine { animation: none !important; background-position: 130% 0, center; }
   }

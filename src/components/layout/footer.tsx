@@ -21,7 +21,10 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-ink text-white/70">
+    <footer
+      className="text-white/70"
+      style={{ background: 'linear-gradient(180deg, var(--c-ink-accent) 0%, var(--c-ink-accent-deep) 100%)' }}
+    >
       <div className="container-main py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -45,7 +48,7 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <p className="text-[11px] font-medium text-teal uppercase tracking-[0.15em] mb-4">Company</p>
+            <p className="text-[11px] font-medium text-white/45 uppercase tracking-[0.15em] mb-4">Company</p>
             <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
@@ -59,7 +62,7 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <p className="text-[11px] font-medium text-teal uppercase tracking-[0.15em] mb-4">Legal</p>
+            <p className="text-[11px] font-medium text-white/45 uppercase tracking-[0.15em] mb-4">Legal</p>
             <ul className="space-y-2.5">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
@@ -73,7 +76,7 @@ export function Footer() {
 
           {/* Social */}
           <div>
-            <p className="text-[11px] font-medium text-teal uppercase tracking-[0.15em] mb-4">Connect</p>
+            <p className="text-[11px] font-medium text-white/45 uppercase tracking-[0.15em] mb-4">Connect</p>
             <div className="flex items-center gap-3">
               <a
                 href={SOCIAL_LINKS.instagram}

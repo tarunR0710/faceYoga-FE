@@ -22,7 +22,7 @@ export function CTA() {
     <section
       className="group relative overflow-hidden pt-44 md:pt-56 pb-24 md:pb-32"
       onMouseMove={reduce ? undefined : handleMove}
-      style={{ background: 'linear-gradient(180deg, rgb(var(--c-accent)) 0%, rgb(var(--c-accent-ink)) 55%, rgb(var(--c-ink)) 100%)' }}
+      style={{ background: 'linear-gradient(180deg, rgb(var(--c-accent)) 0%, rgb(var(--c-accent-ink)) 52%, var(--c-ink-accent) 100%)' }}
     >
       {/* Top ramp — ease the white section above into the dark band (no hard edge) */}
       <div

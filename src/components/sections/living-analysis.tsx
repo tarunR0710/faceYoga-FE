@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { Typewriter } from '@/components/ui/typewriter'
 
 /**
  * LivingAnalysis
@@ -65,8 +66,7 @@ export function LivingAnalysis() {
             Doctor-led analysis
           </span>
           <h2 className="text-[1.75rem] md:text-[2.25rem] lg:text-[2.75rem] leading-[1.12] tracking-[-0.02em] text-white mb-4" style={{ fontWeight: 450 }}>
-            See what every muscle is doing{' '}
-            <span className="text-white/40">— zone by zone.</span>
+            <Typewriter text="See what every muscle is doing — zone by zone." speed={38} />
           </h2>
           <p className="text-[14px] md:text-[15px] text-white/55 leading-relaxed max-w-lg">
             Your doctor walks you through each facial muscle group with you. Hover a point to inspect the zone.
