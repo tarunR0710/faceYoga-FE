@@ -6,11 +6,11 @@ import { ArrowRight } from 'lucide-react'
 
 export function CTA() {
   const reduce = useReducedMotion()
-  // Spotlight: a soft coral radial follows the cursor across the dark panel.
-  // Driven by motion values (no React re-render on mousemove); fades in on hover.
+  // Spotlight: a soft DARK radial pools under the cursor across the teal band
+  // (darkens rather than brightens). Driven by motion values (no re-render); fades in on hover.
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
-  const spotlight = useMotionTemplate`radial-gradient(480px circle at ${mx}px ${my}px, rgb(var(--c-accent) / 0.20), transparent 68%)`
+  const spotlight = useMotionTemplate`radial-gradient(460px circle at ${mx}px ${my}px, rgba(4, 14, 13, 0.5) 0%, transparent 70%)`
 
   const handleMove = (e: React.MouseEvent<HTMLElement>) => {
     const r = e.currentTarget.getBoundingClientRect()
@@ -20,15 +20,15 @@ export function CTA() {
 
   return (
     <section
-      className="group relative overflow-hidden pt-44 md:pt-56 pb-24 md:pb-32"
+      className="group relative overflow-hidden pt-48 md:pt-64 pb-24 md:pb-32"
       onMouseMove={reduce ? undefined : handleMove}
       style={{ background: 'linear-gradient(180deg, rgb(var(--c-accent)) 0%, rgb(var(--c-accent-ink)) 52%, var(--c-ink-accent) 100%)' }}
     >
       {/* Top ramp — ease the white section above into the dark band (no hard edge) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-44 md:h-56"
-        style={{ background: 'linear-gradient(180deg, rgb(var(--c-bg)) 0%, rgb(var(--c-bg) / 0.45) 45%, transparent 100%)' }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-48 md:h-64"
+        style={{ background: 'linear-gradient(180deg, rgb(var(--c-bg)) 0%, rgb(var(--c-bg) / 0.8) 20%, rgb(var(--c-bg) / 0.35) 52%, rgb(var(--c-bg) / 0.1) 78%, transparent 100%)' }}
       />
       <div
         aria-hidden

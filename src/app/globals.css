@@ -437,7 +437,7 @@
   }
   .group:hover .icon-tile-accent {
     background-color: rgb(var(--c-ink) / 0.06);  /* stays neutral, just a touch deeper */
-    color: rgb(var(--c-accent-ink));
+    color: rgb(var(--c-accent));                 /* keep the one light teal — no deepening */
   }
 
   /* .pill-accent — soft accent tint + accent-ink text (same recipe as
@@ -448,67 +448,86 @@
     color: rgb(var(--c-accent-ink));
   }
 
-  /* MapMyFace logotype — Jost geometric face, warm-grey metallic gradient (static)
-     with a translucent white sheen that sweeps left→right (M of Map → Face). */
-  /* .wordmark-shine {
-    font-family: var(--font-jost), var(--font-manrope), system-ui, sans-serif;
-    font-weight: 300;
-    letter-spacing: 0.005em;
-    line-height: 1;
-    background-image:
-      linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.6) 42%, #ffffff 50%, rgba(255, 255, 255, 0.6) 58%, transparent 70%),
-      linear-gradient(176deg, #fdfaf5 0%, #e4ddd2 45%, #b3a99c 100%);
-    background-size: 240% 100%, 100% 100%;
-    background-repeat: no-repeat, no-repeat;
-    background-position: 150% 0, center;
-    -webkit-background-clip: text; background-clip: text;
-    color: transparent; -webkit-text-fill-color: transparent;
-    animation: wordmarkShine 4.5s ease-in-out infinite;
-  } */
-
+  /* MapMyFace logotype — Jost geometric face on a deep warm-metallic (champagne /
+     bronze) base, with a bright specular streak that sweeps left→right (M of Map →
+     Face) like light catching brushed metal, plus a brief warm bloom as it passes. */
   .wordmark-shine {
     font-family: var(--font-jost), var(--font-manrope), system-ui, sans-serif;
     font-weight: 300;
     letter-spacing: 0.005em;
     line-height: 1;
-  
+
     background-image:
+      /* Layer 1 — the moving specular streak: soft warm halo, near-opaque white
+         shoulders, pure-white hot core with a crisp falloff. Slight diagonal. */
       linear-gradient(
-        110deg,
-        transparent 36%,
-        rgba(255, 255, 255, 0.28) 45%,
+        108deg,
+        transparent 34%,
+        rgba(255, 255, 255, 0.30) 42%,
+        rgba(255, 255, 255, 0.85) 47%,
         #ffffff 50%,
-        rgba(255, 255, 255, 0.28) 55%,
-        transparent 64%
+        rgba(255, 255, 255, 0.85) 53%,
+        rgba(255, 255, 255, 0.30) 58%,
+        transparent 66%
       ),
+      /* Layer 2 — static brushed-metal base: brighter top, a genuine mid-bronze
+         shadow band for contrast, a soft specular return, deep bronze foot. Kept
+         off pure-white so the moving streak always reads as the brightest thing. */
       linear-gradient(
         180deg,
-        #fbf8f2 0%,
-        #e5d8c4 28%,
-        #c5af90 52%,
-        #f6efe5 72%,
-        #9e8569 100%
+        #f3ead9 0%,
+        #ceb489 34%,
+        #a3865f 54%,
+        #dcc9ab 66%,
+        #8a6f4e 100%
       );
-  
+
     background-size: 200% 100%, 100% 100%;
     background-repeat: no-repeat;
-    background-position: 130% 0, center;
-  
+    background-position: 108% 0, center;
+
     -webkit-background-clip: text;
     background-clip: text;
-  
+
     color: transparent;
     -webkit-text-fill-color: transparent;
-  
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.12));
-  
-    animation: wordmarkShine 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+
+    /* Static depth shadow (also the resting look under reduced motion). The warm
+       bloom is added on top only during the sweep, via the keyframes below. */
+    filter: drop-shadow(0 1px 1px rgba(35, 26, 14, 0.22));
+
+    animation: wordmarkShine 4.8s cubic-bezier(0.45, 0, 0.25, 1) infinite;
   }
-  
+
   @keyframes wordmarkShine {
-    0%   { background-position: 130% 0, center; }   /* band off the left edge */
-    80%  { background-position: -30% 0, center; }   /* swept slowly to off the right */
-    100% { background-position: -30% 0, center; }   /* brief hold, then repeat */
+    /* Streak off the left edge; no bloom. */
+    0% {
+      background-position: 108% 0, center;
+      filter: drop-shadow(0 1px 1px rgba(35, 26, 14, 0.22))
+              drop-shadow(0 0 0 rgba(255, 246, 230, 0))
+              brightness(1);
+    }
+    /* ~1s in: streak crosses the centre of the word — peak spark: brief warm
+       glow bloom + a small overall brightness lift. */
+    23% {
+      filter: drop-shadow(0 1px 1px rgba(35, 26, 14, 0.22))
+              drop-shadow(0 0 14px rgba(255, 246, 230, 0.5))
+              brightness(1.12);
+    }
+    /* Streak leaves the right edge (~2s sweep); bloom gone. */
+    46% {
+      background-position: -8% 0, center;
+      filter: drop-shadow(0 1px 1px rgba(35, 26, 14, 0.22))
+              drop-shadow(0 0 0 rgba(255, 246, 230, 0))
+              brightness(1);
+    }
+    /* Rest off the right edge (~2.4s) before the next pass. */
+    100% {
+      background-position: -8% 0, center;
+      filter: drop-shadow(0 1px 1px rgba(35, 26, 14, 0.22))
+              drop-shadow(0 0 0 rgba(255, 246, 230, 0))
+              brightness(1);
+    }
   }
 }
 
@@ -562,8 +581,9 @@
     .animate-marquee-slow,
     .animate-shimmer { animation: none !important; }
     .typewriter-caret, .typewriter-caret--done { animation: none !important; opacity: 0; }
-    /* Keep the metallic gradient, drop the moving sheen */
-    .wordmark-shine { animation: none !important; background-position: 130% 0, center; }
+    /* Keep the brushed-metal gradient; drop the sweep. Park the specular streak
+       across the left third ("MapM") so the resting mark still catches light. */
+    .wordmark-shine { animation: none !important; background-position: 66% 0, center; }
   }
 }
 
