@@ -20,15 +20,15 @@ export function CTA() {
 
   return (
     <section
-      className="group relative overflow-hidden py-24 md:py-32"
+      className="group relative overflow-hidden pt-44 md:pt-56 pb-24 md:pb-32"
       onMouseMove={reduce ? undefined : handleMove}
       style={{ background: 'linear-gradient(180deg, rgb(var(--c-accent)) 0%, rgb(var(--c-accent-ink)) 55%, rgb(var(--c-ink)) 100%)' }}
     >
       {/* Top ramp — ease the white section above into the dark band (no hard edge) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-16 md:h-24"
-        style={{ background: 'linear-gradient(180deg, rgb(var(--c-bg)) 0%, rgb(var(--c-bg) / 0.55) 35%, transparent 100%)' }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-44 md:h-56"
+        style={{ background: 'linear-gradient(180deg, rgb(var(--c-bg)) 0%, rgb(var(--c-bg) / 0.45) 45%, transparent 100%)' }}
       />
       <div
         aria-hidden

@@ -51,7 +51,7 @@ export function OldVsNew() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
             whileHover={reduce ? undefined : { y: -4, boxShadow: '0 18px 34px -18px rgba(21,36,33,0.28)', transition: { duration: 0.2, ease: EASE_OUT } }}
-            className="rounded-[28px] p-6 md:p-8 bg-mist border border-border/70"
+            className="rounded-[22px] p-6 md:p-8 bg-mist border border-border/40"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-8 rounded-full bg-ink/5 flex items-center justify-center">
@@ -86,19 +86,30 @@ export function OldVsNew() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: EASE_OUT_SOFT, delay: 0.08 }}
             whileHover={reduce ? undefined : { y: -4, boxShadow: '0 20px 44px -18px rgba(229,101,75,0.32)', transition: { duration: 0.2, ease: EASE_OUT } }}
-            className="rounded-[28px] p-6 md:p-8 relative overflow-hidden"
+            className="rounded-[22px] p-6 md:p-8 relative"
             style={{
               background:
                 'linear-gradient(180deg, rgb(var(--c-accent) / 0.18) 0%, rgb(var(--c-surface)) 44%, rgb(var(--c-surface)) 100%)',
-              border: '1px solid rgb(var(--c-accent) / 0.28)',
+              border: '1px solid rgb(var(--c-accent) / 0.22)',
             }}
           >
             <div className="flex items-center gap-3 mb-6">
               <div
-                className="w-8 h-8 rounded-full flex items-center justify-center"
+                className="relative w-8 h-8 rounded-full flex items-center justify-center"
                 style={{ background: 'linear-gradient(135deg, rgb(var(--c-accent) / 0.30), rgb(var(--c-accent) / 0.08))' }}
               >
-                <div className="w-2.5 h-2.5 rounded-full bg-accent" />
+                {/* Radar ping — rings radiating out from the dot like a scanner */}
+                <span
+                  aria-hidden
+                  className="animate-pulse-ring absolute w-2.5 h-2.5 rounded-full"
+                  style={{ border: '1.5px solid rgb(var(--c-accent) / 0.55)' }}
+                />
+                <span
+                  aria-hidden
+                  className="animate-pulse-ring absolute w-2.5 h-2.5 rounded-full"
+                  style={{ border: '1.5px solid rgb(var(--c-accent) / 0.55)', animationDelay: '1.2s' }}
+                />
+                <div className="relative w-2.5 h-2.5 rounded-full bg-accent" />
               </div>
               <h3 className="text-[15px] font-medium text-ink">MapMyFace</h3>
             </div>
