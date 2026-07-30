@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { Typewriter } from '@/components/ui/typewriter'
+import { ANALYSIS_FACE, PLACEHOLDER } from '@/lib/showcase'
 
 /**
  * LivingAnalysis
@@ -63,13 +63,19 @@ export function LivingAnalysis() {
               border: '1px solid rgba(255,255,255,0.15)',
             }}
           >
-            Doctor-led analysis
+            Muscle-by-muscle
           </span>
           <h2 className="text-[1.75rem] md:text-[2.25rem] lg:text-[2.75rem] leading-[1.12] tracking-[-0.02em] text-white mb-4" style={{ fontWeight: 450 }}>
-            <Typewriter text="See what every muscle is doing — zone by zone." speed={38} />
+            See what every muscle is doing{' '}
+            <span className="text-white/40">— zone by zone.</span>
           </h2>
           <p className="text-[14px] md:text-[15px] text-white/55 leading-relaxed max-w-lg">
-            Your doctor walks you through each facial muscle group with you. Hover a point to inspect the zone.
+            Walk through each facial muscle group, zone by zone. Hover a point to inspect it.
+            {PLACEHOLDER && (
+              <span className="ml-2 inline-flex items-center h-5 px-2 rounded-full bg-white/10 border border-white/15 text-[10px] font-medium text-white/70 align-middle">
+                Sample face — replace before launch
+              </span>
+            )}
           </p>
         </motion.div>
 
@@ -86,9 +92,9 @@ export function LivingAnalysis() {
               className="relative aspect-[4/5] rounded-2xl overflow-hidden"
               style={{ background: '#aec2c9', border: '1px solid rgba(255,255,255,0.1)' }}
             >
-              {/* Face image */}
+              {/* Face image — swap via ANALYSIS_FACE in src/lib/showcase.ts */}
               <Image
-                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=700&h=875&fit=crop&crop=face"
+                src={ANALYSIS_FACE}
                 alt="Facial muscle analysis"
                 fill
                 sizes="(max-width: 1024px) 100vw, 520px"

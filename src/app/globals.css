@@ -470,16 +470,16 @@
         rgba(255, 255, 255, 0.30) 58%,
         transparent 66%
       ),
-      /* Layer 2 — static brushed-metal base: brighter top, a genuine mid-bronze
-         shadow band for contrast, a soft specular return, deep bronze foot. Kept
-         off pure-white so the moving streak always reads as the brightest thing. */
+      /* Layer 2 — static warm-satin base: desaturated warm-greys (pewter/champagne),
+         not gold/bronze, so it reads soft rather than "metallic". Keeps a gentle
+         mid-tone + foot for contrast so the moving streak still reads as brightest. */
       linear-gradient(
         180deg,
-        #f3ead9 0%,
-        #ceb489 34%,
-        #a3865f 54%,
-        #dcc9ab 66%,
-        #8a6f4e 100%
+        #f5f1ea 0%,
+        #ddd6ca 32%,
+        #c0b7a8 54%,
+        #e4ded2 66%,
+        #aaa091 100%
       );
 
     background-size: 200% 100%, 100% 100%;

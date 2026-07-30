@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { Ruler, Droplet, SprayCan, Leaf, Target } from 'lucide-react'
 import { EASE_OUT } from '@/lib/motion'
+import { Typewriter } from '@/components/ui/typewriter'
 
 const contextTags = [
   'Face',
@@ -63,7 +64,7 @@ export function PersonalizationFactors() {
             className="text-[1.75rem] md:text-[2.25rem] lg:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-ink"
             style={{ fontWeight: 450 }}
           >
-            Your face is more than measurements.
+            <Typewriter text="Your face is more than measurements." speed={70} />
           </h2>
           <p className="mt-5 text-[16px] md:text-[17px] leading-relaxed text-ink/78">
             Before recommending anything, we understand the routines and realities behind what we

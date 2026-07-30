@@ -1,6 +1,7 @@
 'use client'
 
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { useRef } from 'react'
 import { EASE_OUT } from '@/lib/motion'
 
 const parts = [
@@ -41,28 +42,11 @@ const mapPoints = [
   { cx: 120, cy: 204, n: '4' },
 ]
 
-function FaceMapMock() {
-  const reduce = useReducedMotion()
-  const container = { hidden: {}, show: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } } }
-  const draw = {
-    hidden: { pathLength: 0, opacity: 0 },
-    show: { pathLength: 1, opacity: 1, transition: { pathLength: { duration: 0.9, ease: EASE_OUT }, opacity: { duration: 0.2 } } },
-  }
-  const pop = {
-    hidden: { opacity: 0, scale: 0.4 },
-    show: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: EASE_OUT } },
-  }
+// `draw` (0→1) is driven by the section's scroll progress: the face map draws
+// itself as you scroll through the section — the "your face becoming a map" beat.
+function FaceMapMock({ draw }: { draw: MotionValue<number> | number }) {
   return (
-    <motion.svg
-      viewBox="0 0 240 300"
-      fill="none"
-      className="h-full w-full text-teal"
-      aria-hidden="true"
-      variants={container}
-      initial={reduce ? false : 'hidden'}
-      whileInView="show"
-      viewport={{ once: true }}
-    >
+    <svg viewBox="0 0 240 300" fill="none" className="h-full w-full text-teal" aria-hidden="true">
       {mapLines.map((l) => (
         <motion.path
           key={l.d}
@@ -70,25 +54,29 @@ function FaceMapMock() {
           stroke="currentColor"
           strokeWidth="1.5"
           strokeOpacity={l.o}
-          variants={draw}
+          style={{ pathLength: draw }}
         />
       ))}
       {mapPoints.map((p) => (
-        <motion.g key={p.n} variants={pop}>
+        <motion.g key={p.n} style={{ opacity: draw }}>
           <circle cx={p.cx} cy={p.cy} r="9" fill="white" stroke="currentColor" strokeWidth="1.5" />
           <text x={p.cx} y={p.cy + 3.5} textAnchor="middle" fontSize="10" fontWeight="500" className="fill-ink">
             {p.n}
           </text>
         </motion.g>
       ))}
-    </motion.svg>
+    </svg>
   )
 }
 
 export function FacialAnalysis() {
   const reduce = useReducedMotion()
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
+  const drawScrub = useTransform(scrollYProgress, [0.28, 0.62], [0, 1])
+  const draw = reduce ? 1 : drawScrub
   return (
-    <section id="face-map" className="relative overflow-hidden section-alt py-20 md:py-28">
+    <section ref={sectionRef} id="face-map" className="relative overflow-hidden section-alt py-20 md:py-28">
       <div className="container-main relative z-10">
         {/* Text Content */}
         <motion.div
@@ -138,7 +126,7 @@ export function FacialAnalysis() {
                 </span>
                 {i === 1 && (
                   <div className="ml-auto h-12 w-10 opacity-90">
-                    <FaceMapMock />
+                    <FaceMapMock draw={draw} />
                   </div>
                 )}
               </div>

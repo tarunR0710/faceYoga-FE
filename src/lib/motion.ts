@@ -9,3 +9,19 @@ export const EASE_IN_OUT = [0.65, 0, 0.35, 1] as const // symmetric — parallax
 
 // Standard viewport for scroll reveals: fire slightly early, never re-trigger.
 export const VIEWPORT = { once: true, margin: '-80px' } as const
+
+// Desktop gate for heavy scroll effects (sticky pins, parallax).
+// SSR-safe: starts false, so server + first paint render the mobile/static
+// fallback, then upgrades after mount (no hydration mismatch).
+import { useEffect, useState } from 'react'
+export function useIsDesktop(query = '(min-width: 768px)') {
+  const [isDesktop, setIsDesktop] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia(query)
+    const update = () => setIsDesktop(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [query])
+  return isDesktop
+}

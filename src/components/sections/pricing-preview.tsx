@@ -54,8 +54,8 @@ export function PricingPreview() {
               <ul className="space-y-2.5">
                 {FACE_MAP_CORE.includes.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-mist flex items-center justify-center mt-0.5">
-                      <Check className="w-3 h-3 text-teal" strokeWidth={2} />
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-mist flex items-center justify-center mt-0.5">
+                      <Check className="w-3.5 h-3.5 text-teal" strokeWidth={2} />
                     </div>
                     <span className="text-[14px] text-ink/80">{item}</span>
                   </li>

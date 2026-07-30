@@ -1,7 +1,9 @@
 'use client'
 
+import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Stethoscope, Activity, Scissors, Palette, Microscope } from 'lucide-react'
+import { EXPERT_PANEL, PLACEHOLDER } from '@/lib/showcase'
 
 const disciplines = [
   {
@@ -75,7 +77,7 @@ export function Experts() {
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.55, ease: easeOut, delay: Math.abs(index - CENTER) * 0.08 }}
                 whileHover={reduce ? undefined : { y: -6, transition: { duration: 0.2, ease: easeOut } }}
-                className="group card-hover-accent rounded-[22px] p-7"
+                className="group card-hover-accent rounded-[22px] p-6"
               >
                 <div className="icon-tile-accent flex h-11 w-11 items-center justify-center rounded-full mb-5">
                   <Icon className="w-5 h-5" strokeWidth={1.5} />
@@ -89,6 +91,37 @@ export function Experts() {
               </motion.div>
             )
           })}
+        </div>
+
+        {/* Founding panel — REAL named experts go here (placeholder headshots for now) */}
+        <div className="mt-16 md:mt-20">
+          <div className="flex items-center gap-3 mb-6">
+            <h3 className="text-[12px] uppercase tracking-[0.15em] text-analysis-teal">Founding panel</h3>
+            {PLACEHOLDER && (
+              <span className="inline-flex items-center h-5 px-2 rounded-full bg-accent-soft text-[10px] font-medium text-accent-foreground">
+                Placeholder — real experts to be onboarded
+              </span>
+            )}
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-5">
+            {EXPERT_PANEL.map((expert, index) => (
+              <motion.div
+                key={index}
+                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, ease: easeOut, delay: index * 0.06 }}
+                className="group card-hover-accent rounded-[20px] p-5 text-center"
+              >
+                <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden bg-mist ring-1 ring-border">
+                  <Image src={expert.image} alt={expert.name} fill sizes="80px" className="object-cover" />
+                </div>
+                <p className="text-[14px] font-medium text-ink">{expert.name}</p>
+                <p className="text-[12px] text-analysis-teal mt-0.5">{expert.credential}</p>
+                <p className="text-[11px] text-ink/50 mt-1">{expert.focus}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Trust line */}

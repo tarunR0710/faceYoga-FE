@@ -137,7 +137,7 @@ export function FAQ() {
               <p className="text-[11px] font-medium text-analysis-teal uppercase tracking-[0.1em] mb-4">
                 {category.category}
               </p>
-              <div className="card rounded-[18px] px-5">
+              <div className="card rounded-[18px] px-5 py-2">
                 {category.items.map((faq, index) => (
                   <FAQItem
                     key={index}

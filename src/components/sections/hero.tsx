@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useReducedMotion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import { EASE_OUT } from '@/lib/motion'
 
 // Hero video assets on Cloudflare R2 (public dev URL).
@@ -17,6 +17,14 @@ export function Hero() {
   const [showVideo, setShowVideo] = useState(false)
   const [videoReady, setVideoReady] = useState(false)
   const reduce = useReducedMotion()
+
+  // Parallax scroll-out: the background drifts + zooms slower than the page while
+  // the headline lifts and fades away — the "hero dissolves into the page" beat.
+  const heroRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
+  const bgY = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['0%', '7%'])
+  const contentY = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, -90])
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.65], reduce ? [1, 1] : [1, 0])
 
   // Orchestrated entrance: headline lines rise from a mask, then subhead + CTAs
   // settle. One choreographed "curtain-up" on mount (not scroll) — the brand's
@@ -49,7 +57,7 @@ export function Hero() {
   }, [])
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section ref={heroRef} className="relative h-screen w-full overflow-hidden">
       {/* Background — subtle focus-pull settle on mount (scale only; no blur, keeps LCP + mobile safe) */}
       <motion.div
         className="absolute inset-0 bg-[#3a3632]"
@@ -57,6 +65,8 @@ export function Hero() {
         animate={{ scale: 1 }}
         transition={{ duration: 1.6, ease: EASE_OUT }}
       >
+        {/* Parallax layer — poster + video drift/zoom on scroll-out */}
+        <motion.div className="absolute inset-0" style={{ y: bgY, scale: reduce ? 1 : 1.14 }}>
         {/* Poster image — LCP element, shown instantly */}
         <Image
           src={`${ASSET_BASE_URL}/faceyoga-poster.jpg`}
@@ -86,6 +96,7 @@ export function Hero() {
             <source src={`${ASSET_BASE_URL}/faceyoga-1920.mp4`} type="video/mp4" />
           </video>
         )}
+        </motion.div>
 
         {/* Gradient overlay for text readability */}
         <div
@@ -102,6 +113,7 @@ export function Hero() {
           variants={container}
           initial={reduce ? false : 'hidden'}
           animate="show"
+          style={{ y: contentY, opacity: contentOpacity }}
           className="max-w-2xl"
         >
           {/* Headline — line-by-line mask reveal */}
