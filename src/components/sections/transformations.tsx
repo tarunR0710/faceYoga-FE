@@ -190,7 +190,7 @@ export function Transformations() {
             </div>
 
             {/* Before/after stage */}
-            <div className="relative w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[420px] mx-auto aspect-[4/5]">
+            <div className="relative w-full max-w-[330px] sm:max-w-[380px] lg:max-w-[420px] mx-auto aspect-[4/5]">
               {TRANSFORMATIONS.map((item, i) => (
                 <PinnedSlide key={item.id} item={item} index={i} count={count} progress={smooth} />
               ))}
