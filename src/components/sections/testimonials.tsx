@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
+import { EASE_OUT_SOFT } from '@/lib/motion'
 import { Star } from 'lucide-react'
 import { TESTIMONIALS, RATING, PLACEHOLDER } from '@/lib/showcase'
 
@@ -16,14 +17,16 @@ function Stars() {
 }
 
 export function Testimonials() {
+  const reduce = useReducedMotion()
   return (
     <section className="section bg-white">
       <div className="container-main">
         {/* rating summary band */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
           className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-12"
         >
           <div className="max-w-xl">
@@ -53,10 +56,10 @@ export function Testimonials() {
           {TESTIMONIALS.map((t, i) => (
             <motion.figure
               key={t.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
+              transition={{ delay: i * 0.08, duration: 0.6, ease: EASE_OUT_SOFT }}
               className="flex flex-col rounded-2xl bg-mist border border-border-soft p-6 md:p-7"
             >
               <Stars />

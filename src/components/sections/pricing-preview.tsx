@@ -87,6 +87,7 @@ export function PricingPreview() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE_OUT }}
           className="mt-8 text-center"
         >
           <p className="text-[11px] text-analysis-teal/70 mb-3">Accepted payments</p>

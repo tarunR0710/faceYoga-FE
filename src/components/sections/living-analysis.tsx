@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
+import { EASE_OUT_SOFT } from '@/lib/motion'
 import { useState } from 'react'
 import { ANALYSIS_FACE, PLACEHOLDER } from '@/lib/showcase'
 
@@ -39,6 +40,7 @@ const REGIONS: Region[] = [
 ]
 
 export function LivingAnalysis() {
+  const reduce = useReducedMotion()
   const [activeId, setActiveId] = useState<string>('cheek')
   const active = REGIONS.find((r) => r.id === activeId) ?? REGIONS[0]
 
@@ -50,9 +52,10 @@ export function LivingAnalysis() {
       <div className="container-main relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: EASE_OUT_SOFT }}
           className="max-w-2xl mb-10 md:mb-14"
         >
           <span
@@ -82,10 +85,10 @@ export function LivingAnalysis() {
         <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 lg:gap-12 items-center">
           {/* ---------- The living console ---------- */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
             className="relative w-full max-w-[520px] mx-auto"
           >
             <div
@@ -247,10 +250,10 @@ export function LivingAnalysis() {
             ].map((c, i) => (
               <motion.div
                 key={c.n}
-                initial={{ opacity: 0, y: 20 }}
+                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.1, duration: 0.7, ease: EASE_OUT_SOFT }}
                 className="rounded-2xl p-5 md:p-6"
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
               >

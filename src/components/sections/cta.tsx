@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { motion, useMotionValue, useMotionTemplate, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { EASE_OUT } from '@/lib/motion'
 
 export function CTA() {
   const reduce = useReducedMotion()
@@ -47,7 +48,7 @@ export function CTA() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 0.6, ease: EASE_OUT }}
           className="text-center max-w-2xl mx-auto"
         >
           <p className="text-[12px] text-ivory/80 uppercase tracking-[0.15em] mb-4">

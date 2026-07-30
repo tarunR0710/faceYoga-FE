@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import { Stethoscope, ShieldCheck, Sparkles } from 'lucide-react'
-import { EASE_OUT } from '@/lib/motion'
+import { EASE_OUT, EASE_OUT_SOFT } from '@/lib/motion'
 
 const cards = [
   {
@@ -22,8 +22,6 @@ const cards = [
   },
 ]
 
-const ease = [0.22, 1, 0.36, 1] as const
-
 export function Community() {
   const reduce = useReducedMotion()
   return (
@@ -34,7 +32,7 @@ export function Community() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease }}
+            transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
           >
             <p className="text-[12px] text-analysis-teal uppercase tracking-[0.15em] mb-4">
               Proof
@@ -69,7 +67,7 @@ export function Community() {
                   initial={reduce ? { opacity: 0 } : { opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-60px' }}
-                  transition={{ duration: 1, delay: i * 0.15, ease: [0.4, 0, 0.2, 1] }}
+                  transition={{ duration: 1, delay: i * 0.15, ease: EASE_OUT_SOFT }}
                   whileHover={reduce ? undefined : { y: -4, boxShadow: '0 18px 34px -18px rgba(21,36,33,0.26)', transition: { duration: 0.2, ease: EASE_OUT } }}
                   className="card flex items-center gap-4 rounded-[22px] p-5"
                 >
@@ -88,7 +86,7 @@ export function Community() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: cards.length * 0.1, ease }}
+              transition={{ duration: 0.5, delay: cards.length * 0.1, ease: EASE_OUT_SOFT }}
               className="pt-1 pl-1 text-[12px] text-ink/[0.55] italic"
             >
               Beta client experiences are labelled as such — no anonymous

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Stethoscope, Activity, Scissors, Palette, Microscope } from 'lucide-react'
 import { EXPERT_PANEL, PLACEHOLDER } from '@/lib/showcase'
+import { EASE_OUT_SOFT } from '@/lib/motion'
 
 const disciplines = [
   {
@@ -33,8 +34,6 @@ const disciplines = [
   },
 ]
 
-const easeOut = [0.22, 1, 0.36, 1] as const
-
 export function Experts() {
   const reduce = useReducedMotion()
   const CENTER = Math.floor(disciplines.length / 2)
@@ -46,7 +45,7 @@ export function Experts() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: easeOut }}
+          transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
           className="max-w-2xl mb-14"
         >
           <p className="text-[12px] text-analysis-teal uppercase tracking-[0.18em] mb-4">
@@ -75,8 +74,8 @@ export function Experts() {
                 initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.55, ease: easeOut, delay: Math.abs(index - CENTER) * 0.08 }}
-                whileHover={reduce ? undefined : { y: -6, transition: { duration: 0.2, ease: easeOut } }}
+                transition={{ duration: 0.55, ease: EASE_OUT_SOFT, delay: Math.abs(index - CENTER) * 0.08 }}
+                whileHover={reduce ? undefined : { y: -6, transition: { duration: 0.2, ease: EASE_OUT_SOFT } }}
                 className="group card-hover-accent rounded-[22px] p-6"
               >
                 <div className="icon-tile-accent flex h-11 w-11 items-center justify-center rounded-full mb-5">
@@ -110,7 +109,7 @@ export function Experts() {
                 initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, ease: easeOut, delay: index * 0.06 }}
+                transition={{ duration: 0.5, ease: EASE_OUT_SOFT, delay: index * 0.06 }}
                 className="group card-hover-accent rounded-[20px] p-5 text-center"
               >
                 <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden bg-mist ring-1 ring-border">
@@ -129,7 +128,7 @@ export function Experts() {
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.6, ease: easeOut, delay: 0.1 }}
+          transition={{ duration: 0.6, ease: EASE_OUT_SOFT, delay: 0.1 }}
           className="mt-10 max-w-2xl text-[13px] md:text-[14px] text-analysis-teal leading-relaxed"
         >
           Every expert appears with their full name, qualification and written consent —

@@ -27,7 +27,7 @@ export function OldVsNew() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
           className="text-center max-w-3xl mx-auto mb-14"
         >
           <p className="text-[11px] md:text-[12px] font-medium uppercase tracking-[0.14em] text-analysis-teal mb-4">

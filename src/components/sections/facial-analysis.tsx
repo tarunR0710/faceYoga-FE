@@ -1,8 +1,8 @@
 'use client'
 
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from 'framer-motion'
 import { useRef } from 'react'
-import { EASE_OUT } from '@/lib/motion'
+import { EASE_OUT_SOFT } from '@/lib/motion'
 
 const parts = [
   {
@@ -21,8 +21,6 @@ const parts = [
     body: 'What to start, stop, continue and do first.',
   },
 ]
-
-const ease = [0.22, 0.61, 0.36, 1] as const
 
 // Simple analysis-line mock: thin outline of a face with a few numbered points.
 // The lines draw themselves in when scrolled into view — a small "mapping" moment.
@@ -73,7 +71,9 @@ export function FacialAnalysis() {
   const reduce = useReducedMotion()
   const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
-  const drawScrub = useTransform(scrollYProgress, [0.28, 0.62], [0, 1])
+  // Spring-smooth so the self-drawing line glides rather than tracking the wheel 1:1.
+  const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 28, restDelta: 0.001 })
+  const drawScrub = useTransform(smooth, [0.28, 0.62], [0, 1])
   const draw = reduce ? 1 : drawScrub
   return (
     <section ref={sectionRef} id="face-map" className="relative overflow-hidden section-alt py-20 md:py-28">
@@ -83,7 +83,7 @@ export function FacialAnalysis() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease }}
+          transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
           className="mx-auto max-w-2xl text-center"
         >
           {/* Eyebrow */}
@@ -116,8 +116,8 @@ export function FacialAnalysis() {
               initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.97 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.55, ease, delay: i * 0.1 }}
-              whileHover={reduce ? undefined : { y: -6, boxShadow: '0 20px 40px -20px rgba(21,36,33,0.3)', transition: { duration: 0.2, ease } }}
+              transition={{ duration: 0.55, ease: EASE_OUT_SOFT, delay: i * 0.1 }}
+              whileHover={reduce ? undefined : { y: -6, boxShadow: '0 20px 40px -20px rgba(21,36,33,0.3)', transition: { duration: 0.2, ease: EASE_OUT_SOFT } }}
               className="card flex flex-col rounded-[22px] p-7"
             >
               <div className="mb-5 flex items-center gap-3">

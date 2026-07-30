@@ -1,9 +1,25 @@
 'use client'
 
-import { motion, useReducedMotion } from 'framer-motion'
+import { useMemo } from 'react'
+import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { Ruler, Droplet, SprayCan, Leaf, Target } from 'lucide-react'
-import { EASE_OUT } from '@/lib/motion'
+import { EASE_OUT, EASE_OUT_SOFT } from '@/lib/motion'
 import { Typewriter } from '@/components/ui/typewriter'
+
+// Tags "bubble up" slowly, in a RANDOM order, one at a time: each rises +
+// inflates from small with a soft spring, at its own randomised delay — so they
+// surface like bubbles instead of a left-to-right sweep.
+const tagContainer: Variants = { hidden: {}, show: {} }
+const tagBubble: Variants = {
+  hidden: { opacity: 0, y: 22, scale: 0.5 },
+  show: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    // Gentle, no-overshoot spring (Apple-smooth) — inflates up smoothly, no pop-bounce.
+    transition: { delay, type: 'spring', stiffness: 80, damping: 26, mass: 1 },
+  }),
+}
 
 const contextTags = [
   'Face',
@@ -48,6 +64,18 @@ const layers = [
 
 export function PersonalizationFactors() {
   const reduce = useReducedMotion()
+
+  // A unique, randomly-ordered time slot per tag → slow, random, one-by-one.
+  // 0.45s apart so ten tags surface over ~4.5s. Computed once on mount.
+  const tagDelays = useMemo(() => {
+    const slots = contextTags.map((_, i) => i * 0.45)
+    for (let i = slots.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[slots[i], slots[j]] = [slots[j], slots[i]]
+    }
+    return slots
+  }, [])
+
   return (
     <section id="human-difference" className="section bg-ivory">
       <div className="container-main">
@@ -55,6 +83,7 @@ export function PersonalizationFactors() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: EASE_OUT_SOFT }}
           className="max-w-2xl mb-10 md:mb-14"
         >
           <p className="text-[12px] text-analysis-teal uppercase tracking-[0.15em] mb-3">
@@ -73,19 +102,23 @@ export function PersonalizationFactors() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.05 }}
+          variants={reduce ? undefined : tagContainer}
+          initial={reduce ? { opacity: 0 } : 'hidden'}
+          whileInView={reduce ? { opacity: 1 } : 'show'}
+          viewport={{ once: true, margin: '-60px' }}
           className="mb-10 md:mb-14 flex flex-wrap gap-2.5"
         >
-          {contextTags.map((tag) => (
-            <span
+          {contextTags.map((tag, i) => (
+            <motion.span
               key={tag}
-              className="pill-accent rounded-full px-3 py-1 text-[12px]"
+              custom={tagDelays[i]}
+              variants={reduce ? undefined : tagBubble}
+              whileHover={reduce ? undefined : { scale: 0.94 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+              className="glass-bubble rounded-full px-3.5 py-1.5 text-[12px] will-change-transform"
             >
               {tag}
-            </span>
+            </motion.span>
           ))}
         </motion.div>
 

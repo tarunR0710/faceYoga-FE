@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Plus, Minus } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/constants'
+import { EASE_OUT } from '@/lib/motion'
 
 const faqs = [
   {
@@ -80,7 +81,7 @@ function FAQItem({ question, answer, isOpen, onToggle }: {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            transition={{ duration: 0.25, ease: EASE_OUT }}
             className="overflow-hidden"
           >
             <p className="pb-4 text-[13px] text-analysis-teal leading-relaxed pr-8">
@@ -94,6 +95,7 @@ function FAQItem({ question, answer, isOpen, onToggle }: {
 }
 
 export function FAQ() {
+  const reduce = useReducedMotion()
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({})
 
   const toggleItem = (key: string) => {
@@ -107,9 +109,10 @@ export function FAQ() {
         <div className="divider-soft mb-12 md:mb-16" />
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE_OUT }}
           className="text-center max-w-xl mx-auto mb-12"
         >
           <p className="text-[12px] text-analysis-teal uppercase tracking-[0.1em] mb-3">
@@ -129,10 +132,10 @@ export function FAQ() {
           {faqs.map((category, categoryIndex) => (
             <motion.div
               key={category.category}
-              initial={{ opacity: 0, y: 16 }}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: categoryIndex * 0.1 }}
+              transition={{ delay: categoryIndex * 0.1, duration: 0.6, ease: EASE_OUT }}
             >
               <p className="text-[11px] font-medium text-analysis-teal uppercase tracking-[0.1em] mb-4">
                 {category.category}
@@ -157,6 +160,7 @@ export function FAQ() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE_OUT }}
           className="mt-12 text-center text-[14px] text-analysis-teal"
         >
           Still have questions?{' '}
