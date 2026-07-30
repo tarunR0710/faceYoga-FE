@@ -116,7 +116,7 @@ export function Header() {
                 Map my face
               </Link>
               <button
-                className="p-2 -mr-1 text-white rounded-full hover:bg-white/10 transition-colors drop-shadow-[0_1px_3px_rgba(0,0,0,0.35)]"
+                className="p-2 text-white rounded-full hover:bg-white/10 transition-colors drop-shadow-[0_1px_3px_rgba(0,0,0,0.35)]"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Toggle menu"
               >
