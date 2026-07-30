@@ -1,8 +1,16 @@
 'use client'
 
-import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from 'framer-motion'
-import { useRef } from 'react'
-import { EASE_OUT_SOFT } from '@/lib/motion'
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useMotionValueEvent,
+  type MotionValue,
+} from 'framer-motion'
+import { useRef, useState } from 'react'
+import { EASE_OUT_SOFT, useIsDesktop } from '@/lib/motion'
 
 const parts = [
   {
@@ -22,8 +30,8 @@ const parts = [
   },
 ]
 
-// Simple analysis-line mock: thin outline of a face with a few numbered points.
-// The lines draw themselves in when scrolled into view — a small "mapping" moment.
+// Thin outline of a face with a few numbered points. `draw` (0→1) drives the
+// self-draw; on the pinned version it's the (spring-smoothed) section scroll.
 const mapLines = [
   { d: 'M120 32c40 0 66 30 66 74 0 30-6 52-18 74-12 22-30 46-48 46s-36-24-48-46c-12-22-18-44-18-74 0-44 26-74 66-74Z', o: 0.55 },
   { d: 'M120 40v190', o: 0.22 },
@@ -40,8 +48,6 @@ const mapPoints = [
   { cx: 120, cy: 204, n: '4' },
 ]
 
-// `draw` (0→1) is driven by the section's scroll progress: the face map draws
-// itself as you scroll through the section — the "your face becoming a map" beat.
 function FaceMapMock({ draw }: { draw: MotionValue<number> | number }) {
   return (
     <svg viewBox="0 0 240 300" fill="none" className="h-full w-full text-teal" aria-hidden="true">
@@ -69,12 +75,116 @@ function FaceMapMock({ draw }: { draw: MotionValue<number> | number }) {
 
 export function FacialAnalysis() {
   const reduce = useReducedMotion()
+  const desktop = useIsDesktop()
+
+  // Mobile + reduced-motion: the calm stacked layout (no pin).
+  if (!desktop || reduce) return <StackedFaceMap reduce={reduce} />
+
+  return <PinnedFaceMap />
+}
+
+/* ── Desktop: the one Apple pin — face map holds while the 3 parts cross-fade ── */
+function PinnedFaceMap() {
+  const ref = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
+  // Spring-smooth the value that drives the drawing so the line glides.
+  const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 28, restDelta: 0.001 })
+  const draw = useTransform(smooth, [0.05, 0.72], [0, 1])
+
+  const [active, setActive] = useState(0)
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    setActive(Math.min(parts.length - 1, Math.max(0, Math.floor(v * parts.length))))
+  })
+
+  return (
+    <section
+      id="face-map"
+      ref={ref}
+      className="section-alt relative"
+      style={{ height: `${parts.length * 100}vh` }}
+    >
+      <div className="sticky top-0 h-screen overflow-hidden flex items-center">
+        <div className="container-main grid grid-cols-2 gap-12 lg:gap-20 items-center w-full">
+          {/* Left — pinned face map that draws itself in */}
+          <div className="flex justify-center">
+            <div className="w-[260px] lg:w-[340px] aspect-[240/300]">
+              <FaceMapMock draw={draw} />
+            </div>
+          </div>
+
+          {/* Right — header + the 3 parts cross-fading on scroll */}
+          <div>
+            <span className="mb-4 inline-block text-[11px] lg:text-[13px] font-medium uppercase tracking-wide text-analysis-teal">
+              Your Face Map
+            </span>
+            <h2 className="text-[1.75rem] lg:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-ink mb-10" style={{ fontWeight: 450 }}>
+              Not just what we see. <span className="text-ink/40">What it means for you.</span>
+            </h2>
+
+            <div className="relative min-h-[190px]">
+              {parts.map((part, i) => (
+                <PartText key={part.step} part={part} i={i} total={parts.length} progress={scrollYProgress} />
+              ))}
+            </div>
+
+            {/* Progress — which part you're on */}
+            <div className="mt-8 flex items-center gap-2">
+              {parts.map((s, i) => (
+                <span
+                  key={s.step}
+                  className={`h-[3px] rounded-full transition-all duration-300 ${
+                    i === active ? 'w-9 bg-teal' : 'w-4 bg-ink/15'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Each part fades in, holds, then cross-fades out to the next as scroll passes its band.
+function PartText({
+  part,
+  i,
+  total,
+  progress,
+}: {
+  part: (typeof parts)[number]
+  i: number
+  total: number
+  progress: MotionValue<number>
+}) {
+  const w = 0.09 // cross-fade width
+  const a = i / total
+  const b = (i + 1) / total
+  const range = i === 0 ? [0, b - w, b] : i === total - 1 ? [a - w, a, 1] : [a - w, a, b - w, b]
+  const out = i === 0 ? [1, 1, 0] : i === total - 1 ? [0, 1, 1] : [0, 1, 1, 0]
+  const opacity = useTransform(progress, range, out)
+  const y = useTransform(progress, [a - w, a], [26, 0])
+  return (
+    <motion.div style={{ opacity, y }} className="absolute inset-0 flex flex-col justify-center">
+      <span className="text-[13px] font-medium tracking-[0.1em] text-analysis-teal">{part.step}</span>
+      <h3 className="mt-2 text-[1.5rem] lg:text-[2rem] leading-[1.15] tracking-[-0.01em] text-ink" style={{ fontWeight: 450 }}>
+        {part.title}
+      </h3>
+      <p className="mt-3 text-[15px] lg:text-[17px] leading-relaxed text-analysis-teal max-w-md">
+        {part.body}
+      </p>
+    </motion.div>
+  )
+}
+
+/* ── Mobile / reduced-motion: calm stacked layout ─────────────────────────── */
+function StackedFaceMap({ reduce }: { reduce: boolean | null }) {
   const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
-  // Spring-smooth so the self-drawing line glides rather than tracking the wheel 1:1.
   const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 28, restDelta: 0.001 })
   const drawScrub = useTransform(smooth, [0.28, 0.62], [0, 1])
   const draw = reduce ? 1 : drawScrub
+
   return (
     <section ref={sectionRef} id="face-map" className="relative overflow-hidden section-alt py-20 md:py-28">
       <div className="container-main relative z-10">
@@ -86,25 +196,15 @@ export function FacialAnalysis() {
           transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
           className="mx-auto max-w-2xl text-center"
         >
-          {/* Eyebrow */}
           <span className="mb-5 inline-block text-[11px] md:text-[13px] font-medium uppercase tracking-wide text-analysis-teal">
             Your Face Map
           </span>
-
-          {/* Headline */}
-          <h2
-            className="text-[1.75rem] leading-[1.15] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.75rem]"
-            style={{ fontWeight: 450 }}
-          >
-            Not just what we see.{' '}
-            <span className="text-ink/40">What it means for you.</span>
+          <h2 className="text-[1.75rem] leading-[1.15] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.75rem]" style={{ fontWeight: 450 }}>
+            Not just what we see. <span className="text-ink/40">What it means for you.</span>
           </h2>
-
-          {/* Body */}
           <p className="mx-auto mt-5 max-w-lg text-[14px] leading-relaxed text-ink/78 md:text-[15px]">
-            Your Face Map connects expert observations to an Appearance Protocol,
-            so you know what to start, stop, continue and do first. It is not a
-            score. It is a plan.
+            Your Face Map connects expert observations to an Appearance Protocol, so you
+            know what to start, stop, continue and do first. It is not a score. It is a plan.
           </p>
         </motion.div>
 
@@ -133,9 +233,7 @@ export function FacialAnalysis() {
               <h3 className="text-[17px] font-medium tracking-[-0.01em] text-ink md:text-[18px]">
                 {part.title}
               </h3>
-              <p className="mt-2 text-[14px] leading-relaxed text-ink/78">
-                {part.body}
-              </p>
+              <p className="mt-2 text-[14px] leading-relaxed text-ink/78">{part.body}</p>
             </motion.div>
           ))}
         </div>
