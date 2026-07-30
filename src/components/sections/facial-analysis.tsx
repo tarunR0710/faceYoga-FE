@@ -50,7 +50,7 @@ const mapPoints = [
 
 function FaceMapMock({ draw }: { draw: MotionValue<number> | number }) {
   return (
-    <svg viewBox="0 0 240 300" fill="none" className="h-full w-full text-teal" aria-hidden="true">
+    <svg viewBox="42 24 156 216" fill="none" className="h-full w-full text-teal" aria-hidden="true">
       {mapLines.map((l) => (
         <motion.path
           key={l.d}
@@ -106,7 +106,7 @@ function PinnedFaceMap() {
         <div className="container-main grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 lg:gap-20 items-center w-full">
           {/* Face map — on top when narrow, on the left when wide */}
           <div className="flex justify-center">
-            <div className="w-[210px] sm:w-[260px] md:w-[380px] lg:w-[440px] aspect-[240/300]">
+            <div className="w-[210px] sm:w-[260px] md:w-[380px] lg:w-[440px] aspect-[156/216]">
               <FaceMapMock draw={draw} />
             </div>
           </div>
@@ -120,7 +120,7 @@ function PinnedFaceMap() {
               Not just what we see. <span className="text-ink/40">What it means for you.</span>
             </h2>
 
-            <div className="relative min-h-[170px]">
+            <div className="relative min-h-[210px]">
               {parts.map((part, i) => (
                 <PartText key={part.step} part={part} i={i} total={parts.length} progress={scrollYProgress} />
               ))}
@@ -165,11 +165,11 @@ function PartText({
   const y = useTransform(progress, [a - w, a], [26, 0])
   return (
     <motion.div style={{ opacity, y }} className="absolute inset-0 flex flex-col justify-center items-center md:items-start">
-      <span className="text-[13px] font-medium tracking-[0.1em] text-analysis-teal">{part.step}</span>
-      <h3 className="mt-2 text-[1.5rem] lg:text-[2rem] leading-[1.15] tracking-[-0.01em] text-ink" style={{ fontWeight: 450 }}>
+      <span className="text-[14px] font-medium tracking-[0.14em] text-analysis-teal">{part.step}</span>
+      <h3 className="mt-3 text-[2rem] sm:text-[2.25rem] lg:text-[2.75rem] leading-[1.12] tracking-[-0.02em] text-ink" style={{ fontWeight: 450 }}>
         {part.title}
       </h3>
-      <p className="mt-3 text-[15px] lg:text-[17px] leading-relaxed text-analysis-teal max-w-md mx-auto md:mx-0">
+      <p className="mt-4 text-[16px] sm:text-[18px] lg:text-[19px] leading-relaxed text-analysis-teal max-w-md mx-auto md:mx-0">
         {part.body}
       </p>
     </motion.div>
