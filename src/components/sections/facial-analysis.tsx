@@ -75,10 +75,11 @@ function FaceMapMock({ draw }: { draw: MotionValue<number> | number }) {
 
 export function FacialAnalysis() {
   const reduce = useReducedMotion()
-  const desktop = useIsDesktop()
+  // Pin on anything above true-mobile width (stacks single-column when narrow);
+  // real phones (< 480px) + reduced-motion get the calm stacked cards.
+  const wide = useIsDesktop('(min-width: 480px)')
 
-  // Mobile + reduced-motion: the calm stacked layout (no pin).
-  if (!desktop || reduce) return <StackedFaceMap reduce={reduce} />
+  if (!wide || reduce) return <StackedFaceMap reduce={reduce} />
 
   return <PinnedFaceMap />
 }
@@ -104,31 +105,31 @@ function PinnedFaceMap() {
       style={{ height: `${parts.length * 100}vh` }}
     >
       <div className="sticky top-0 h-screen overflow-hidden flex items-center">
-        <div className="container-main grid grid-cols-2 gap-12 lg:gap-20 items-center w-full">
-          {/* Left — pinned face map that draws itself in */}
+        <div className="container-main grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 lg:gap-20 items-center w-full">
+          {/* Face map — on top when narrow, on the left when wide */}
           <div className="flex justify-center">
-            <div className="w-[260px] lg:w-[340px] aspect-[240/300]">
+            <div className="w-[150px] sm:w-[190px] md:w-[300px] lg:w-[340px] aspect-[240/300]">
               <FaceMapMock draw={draw} />
             </div>
           </div>
 
-          {/* Right — header + the 3 parts cross-fading on scroll */}
-          <div>
+          {/* Header + the 3 parts cross-fading on scroll */}
+          <div className="text-center md:text-left">
             <span className="mb-4 inline-block text-[11px] lg:text-[13px] font-medium uppercase tracking-wide text-analysis-teal">
               Your Face Map
             </span>
-            <h2 className="text-[1.75rem] lg:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-ink mb-10" style={{ fontWeight: 450 }}>
+            <h2 className="hidden md:block text-[1.75rem] lg:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-ink mb-10" style={{ fontWeight: 450 }}>
               Not just what we see. <span className="text-ink/40">What it means for you.</span>
             </h2>
 
-            <div className="relative min-h-[190px]">
+            <div className="relative min-h-[170px]">
               {parts.map((part, i) => (
                 <PartText key={part.step} part={part} i={i} total={parts.length} progress={scrollYProgress} />
               ))}
             </div>
 
             {/* Progress — which part you're on */}
-            <div className="mt-8 flex items-center gap-2">
+            <div className="mt-8 flex items-center justify-center md:justify-start gap-2">
               {parts.map((s, i) => (
                 <span
                   key={s.step}
@@ -165,12 +166,12 @@ function PartText({
   const opacity = useTransform(progress, range, out)
   const y = useTransform(progress, [a - w, a], [26, 0])
   return (
-    <motion.div style={{ opacity, y }} className="absolute inset-0 flex flex-col justify-center">
+    <motion.div style={{ opacity, y }} className="absolute inset-0 flex flex-col justify-center items-center md:items-start">
       <span className="text-[13px] font-medium tracking-[0.1em] text-analysis-teal">{part.step}</span>
       <h3 className="mt-2 text-[1.5rem] lg:text-[2rem] leading-[1.15] tracking-[-0.01em] text-ink" style={{ fontWeight: 450 }}>
         {part.title}
       </h3>
-      <p className="mt-3 text-[15px] lg:text-[17px] leading-relaxed text-analysis-teal max-w-md">
+      <p className="mt-3 text-[15px] lg:text-[17px] leading-relaxed text-analysis-teal max-w-md mx-auto md:mx-0">
         {part.body}
       </p>
     </motion.div>

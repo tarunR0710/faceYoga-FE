@@ -1,6 +1,7 @@
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { Hero } from '@/components/sections/hero'
+import { TrustBar } from '@/components/sections/trust-bar'
 import { OldVsNew } from '@/components/sections/old-vs-new'
 import { HowItWorks } from '@/components/sections/how-it-works'
 import { PersonalizationFactors } from '@/components/sections/personalization-factors'
@@ -25,6 +26,7 @@ export default function HomePage() {
       <Header />
       <main>
         <Hero />
+        <TrustBar />               {/* 01b Trust bridge */}
         <OldVsNew />               {/* 02 Problem */}
         <HowItWorks />             {/* 03 Method */}
         <PersonalizationFactors /> {/* 04 Human Difference */}

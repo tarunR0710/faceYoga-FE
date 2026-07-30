@@ -49,7 +49,7 @@ export function Hero() {
   }, [])
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative h-[calc(100svh-60px)] md:h-screen w-full overflow-hidden">
       {/* Background — subtle focus-pull settle on mount (scale only; no blur, keeps LCP + mobile safe) */}
       <motion.div
         className="absolute inset-0 bg-[#3a3632]"
@@ -102,7 +102,7 @@ export function Hero() {
           variants={container}
           initial={reduce ? false : 'hidden'}
           animate="show"
-          className="max-w-2xl"
+          className="max-w-2xl mx-auto "
         >
           {/* Headline — line-by-line mask reveal */}
           <motion.h1
@@ -114,14 +114,14 @@ export function Hero() {
               <motion.span variants={line} className="block">Understand your face.</motion.span>
             </span>
             <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
-              <motion.span variants={line} className="block text-white/50">Know what suits you.</motion.span>
+              <motion.span variants={line} className="block text-white/75">Know what suits you.</motion.span>
             </span>
           </motion.h1>
 
           {/* Description */}
           <motion.p
             variants={rise}
-            className="text-[15px] md:text-[17px] text-white/70 leading-relaxed mb-8 max-w-md"
+            className="text-[15px] md:text-[17px] text-white/90 leading-relaxed mb-8 max-w-md mx-auto"
           >
             Meet a real expert who reviews your face 1-on-1 and builds a plan around your unique features.
           </motion.p>
@@ -133,13 +133,13 @@ export function Hero() {
           >
             <Link
               href="/form"
-              className="h-12 sm:h-14 px-6 sm:px-10 inline-flex items-center justify-center bg-white text-[#111] text-[14px] sm:text-[15px] font-medium rounded-full hover:bg-white/90 transition-all duration-200"
+              className="flex-1 h-12 sm:h-14 px-4 inline-flex items-center justify-center whitespace-nowrap bg-white text-[#111] text-[13px] sm:text-[15px] font-semibold rounded-full shadow-lg shadow-black/20 hover:bg-white/90 active:scale-[0.98] transition-all duration-200"
             >
               Start My Face Map
             </Link>
             <Link
               href="#how-it-works"
-              className="h-12 sm:h-14 px-6 sm:px-10 inline-flex items-center justify-center text-white text-[14px] sm:text-[15px] font-medium rounded-full border border-white/30 hover:bg-white/10 transition-all duration-200"
+              className="flex-1 h-12 sm:h-14 px-4 inline-flex items-center justify-center whitespace-nowrap text-white text-[13px] sm:text-[15px] font-medium rounded-full bg-white/10 backdrop-blur-md border border-white/25 shadow-lg shadow-black/10 hover:bg-white/20 active:scale-[0.98] transition-all duration-200"
             >
               How it works
             </Link>

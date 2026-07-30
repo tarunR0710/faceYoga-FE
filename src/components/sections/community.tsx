@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import { Stethoscope, ShieldCheck, Sparkles } from 'lucide-react'
-import { EASE_OUT, EASE_OUT_SOFT } from '@/lib/motion'
+import { EASE_OUT, EASE_OUT_SOFT, EASE_IN_OUT } from '@/lib/motion'
 
 const cards = [
   {
@@ -67,7 +67,7 @@ export function Community() {
                   initial={reduce ? { opacity: 0 } : { opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-60px' }}
-                  transition={{ duration: 1, delay: i * 0.15, ease: EASE_OUT_SOFT }}
+                  transition={{ duration: 1.8, delay: i * 0.22, ease: EASE_IN_OUT }}
                   whileHover={reduce ? undefined : { y: -4, boxShadow: '0 18px 34px -18px rgba(21,36,33,0.26)', transition: { duration: 0.2, ease: EASE_OUT } }}
                   className="card flex items-center gap-4 rounded-[22px] p-5"
                 >

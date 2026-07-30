@@ -66,9 +66,9 @@ export function PersonalizationFactors() {
   const reduce = useReducedMotion()
 
   // A unique, randomly-ordered time slot per tag → slow, random, one-by-one.
-  // 0.45s apart so ten tags surface over ~4.5s. Computed once on mount.
+  // 0.40s apart so ten tags surface over ~4s. Computed once on mount.
   const tagDelays = useMemo(() => {
-    const slots = contextTags.map((_, i) => i * 0.45)
+    const slots = contextTags.map((_, i) => i * 0.40)
     for (let i = slots.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
       ;[slots[i], slots[j]] = [slots[j], slots[i]]
