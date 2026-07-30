@@ -177,11 +177,11 @@ export function Transformations() {
     <section id="results" ref={ref} className="relative bg-glow-tr" style={{ height: `${count * 78}svh` }}>
       <div className="sticky top-0 h-[100svh] overflow-hidden flex items-center">
         <div className="container-main w-full">
-          <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-16 items-center">
             {/* Heading + progress (stays put while slides change) */}
             <div>
               <Heading />
-              <div className="mt-6 lg:mt-8 flex gap-2 max-w-[240px] mx-auto lg:mx-0">
+              <div className="mt-9 lg:mt-8 flex gap-2 max-w-[240px] mx-auto lg:mx-0">
                 {TRANSFORMATIONS.map((item, i) => (
                   <ProgressBar key={item.id} index={i} count={count} progress={smooth} />
                 ))}
