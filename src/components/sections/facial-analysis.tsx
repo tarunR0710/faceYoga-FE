@@ -10,7 +10,7 @@ import {
   type MotionValue,
 } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { EASE_OUT_SOFT, useIsDesktop } from '@/lib/motion'
+import { EASE_OUT_SOFT } from '@/lib/motion'
 
 const parts = [
   {
@@ -75,11 +75,9 @@ function FaceMapMock({ draw }: { draw: MotionValue<number> | number }) {
 
 export function FacialAnalysis() {
   const reduce = useReducedMotion()
-  // Pin on anything above true-mobile width (stacks single-column when narrow);
-  // real phones (< 480px) + reduced-motion get the calm stacked cards.
-  const wide = useIsDesktop('(min-width: 480px)')
-
-  if (!wide || reduce) return <StackedFaceMap reduce={reduce} />
+  // Pin the scrollytelling at every width (it stacks to a single column when
+  // narrow). Only reduced-motion falls back to the calm stacked cards.
+  if (reduce) return <StackedFaceMap reduce={reduce} />
 
   return <PinnedFaceMap />
 }
