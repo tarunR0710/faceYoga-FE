@@ -106,7 +106,7 @@ function PinnedFaceMap() {
         <div className="container-main grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 lg:gap-20 items-center w-full">
           {/* Face map — on top when narrow, on the left when wide */}
           <div className="flex justify-center">
-            <div className="w-[150px] sm:w-[190px] md:w-[300px] lg:w-[340px] aspect-[240/300]">
+            <div className="w-[210px] sm:w-[260px] md:w-[380px] lg:w-[440px] aspect-[240/300]">
               <FaceMapMock draw={draw} />
             </div>
           </div>
