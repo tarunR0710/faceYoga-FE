@@ -1,0 +1,9 @@
+{
+  "// Tailwind uses @tailwind / @apply / @layer — silence the built-in CSS validator": "",
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}
