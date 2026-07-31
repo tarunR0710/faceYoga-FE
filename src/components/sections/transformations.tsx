@@ -12,6 +12,7 @@ import {
   type MotionValue,
 } from 'framer-motion'
 import { useComparisonSlider } from '@/hooks/use-comparison-slider'
+import { useIsDesktop } from '@/lib/motion'
 import { TRANSFORMATIONS, PLACEHOLDER, type Transformation } from '@/lib/showcase'
 
 /* Shared heading — same copy in both the pinned and the fallback layouts. */
@@ -147,14 +148,16 @@ function GridCard({ item, index }: { item: Transformation; index: number }) {
 
 export function Transformations() {
   const reduce = useReducedMotion()
+  const isDesktop = useIsDesktop()
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
   // Spring-smooth the scroll so the wipe/cross-fades glide instead of tracking the wheel 1:1.
   const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 28, restDelta: 0.001 })
   const count = TRANSFORMATIONS.length
 
-  // Reduced-motion only: no pin — plain draggable grid.
-  if (reduce) {
+  // Mobile + reduced-motion: plain padded grid — pinning crams a phone viewport
+  // (content taller than the screen → no space above). Pin stays desktop-only.
+  if (reduce || !isDesktop) {
     return (
       <section id="results" className="section bg-glow-tr">
         <div className="container-main">
