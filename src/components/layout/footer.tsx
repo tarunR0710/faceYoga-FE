@@ -38,17 +38,17 @@ export function Footer() {
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
             </Link>
-            <p className="mt-3 text-[13px] text-white/60 max-w-[220px] leading-relaxed">
+            <p className="my-3 text-[13px] text-white/70 max-w-[220px] font-medium leading-relaxed">
               Your complete appearance plan, mapped around you. Human-led, research-informed, personally mapped.
             </p>
-            <p className="mt-3 text-[12px] text-white/40">
+            <p className="mt-3 text-[12px] text-white/55">
               {SITE_CONFIG.email}
             </p>
           </div>
 
           {/* Company */}
           <div>
-            <p className="text-[11px] font-medium text-white/45 uppercase tracking-[0.15em] mb-4">Company</p>
+            <p className="text-[11px] font-medium text-white/60 uppercase tracking-[0.15em] mb-4">Company</p>
             <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
@@ -62,7 +62,7 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <p className="text-[11px] font-medium text-white/45 uppercase tracking-[0.15em] mb-4">Legal</p>
+            <p className="text-[11px] font-medium text-white/60 uppercase tracking-[0.15em] mb-4">Legal</p>
             <ul className="space-y-2.5">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
@@ -76,7 +76,7 @@ export function Footer() {
 
           {/* Social */}
           <div>
-            <p className="text-[11px] font-medium text-white/45 uppercase tracking-[0.15em] mb-4">Connect</p>
+            <p className="text-[11px] font-medium text-white/60 uppercase tracking-[0.15em] mb-4">Connect</p>
             <div className="flex items-center gap-3">
               <a
                 href={SOCIAL_LINKS.instagram}
@@ -118,10 +118,10 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-10 pt-6 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[12px] text-white/40">
+            <p className="text-[12px] text-white/55">
               &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
             </p>
-            {/* <div className="flex items-center gap-4 text-[11px] text-white/40">
+            {/* <div className="flex items-center gap-4 text-[11px] text-white/55">
               <span>Payments secured by Razorpay</span>
             </div> */}
           </div>

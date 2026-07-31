@@ -47,7 +47,14 @@ export function LivingAnalysis() {
   return (
     <section
       className="relative overflow-hidden py-16 md:py-24"
-      style={{ background: 'linear-gradient(180deg, color-mix(in srgb, rgb(var(--c-accent-2)) 40%, #08130f 60%) 0%, color-mix(in srgb, rgb(var(--c-accent-2)) 22%, #08130f 78%) 100%)' }}
+      style={{
+        background:
+          'radial-gradient(85% 55% at 50% 42%, rgb(var(--c-accent) / 0.12) 0%, transparent 62%), ' +
+          'linear-gradient(180deg, ' +
+          'color-mix(in srgb, rgb(var(--c-accent)) 32%, #06181c 68%) 0%, ' +
+          'color-mix(in srgb, rgb(var(--c-accent-ink)) 44%, #06121e 56%) 48%, ' +
+          'var(--c-ink-accent-deep) 100%)',
+      }}
     >
       <div className="container-main relative z-10">
         {/* Header */}

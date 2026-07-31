@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useState } from 'react'
 import { motion, useMotionValue, useMotionTemplate, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { EASE_OUT } from '@/lib/motion'
@@ -9,21 +10,34 @@ export function CTA() {
   const reduce = useReducedMotion()
   // Spotlight: a soft DARK radial pools under the cursor across the teal band
   // (darkens rather than brightens). Driven by motion values (no re-render); fades in on hover.
-  const mx = useMotionValue(0)
-  const my = useMotionValue(0)
-  const spotlight = useMotionTemplate`radial-gradient(460px circle at ${mx}px ${my}px, rgba(4, 14, 13, 0.5) 0%, transparent 70%)`
+  const mx = useMotionValue(-1000)
+  const my = useMotionValue(-1000)
+  const [active, setActive] = useState(false)
+  // Soft, navy-tinted dark pool that follows the pointer/finger (not near-black).
+  const spotlight = useMotionTemplate`radial-gradient(340px circle at ${mx}px ${my}px, rgba(12, 28, 50, 0.4) 0%, transparent 72%)`
 
-  const handleMove = (e: React.MouseEvent<HTMLElement>) => {
+  const track = (e: React.PointerEvent<HTMLElement>) => {
     const r = e.currentTarget.getBoundingClientRect()
     mx.set(e.clientX - r.left)
     my.set(e.clientY - r.top)
   }
+  // Pointer events cover BOTH mouse (hover) and touch (press + drag) — the mobile bit.
+  const pointer = reduce
+    ? {}
+    : {
+        onPointerMove: track,
+        onPointerEnter: (e: React.PointerEvent<HTMLElement>) => { track(e); setActive(true) },
+        onPointerDown: (e: React.PointerEvent<HTMLElement>) => { track(e); setActive(true) },
+        onPointerLeave: () => setActive(false),
+        onPointerUp: () => setActive(false),
+        onPointerCancel: () => setActive(false),
+      }
 
   return (
     <section
       className="group relative overflow-hidden pt-48 md:pt-64 pb-24 md:pb-32"
-      onMouseMove={reduce ? undefined : handleMove}
-      style={{ background: 'linear-gradient(180deg, rgb(var(--c-accent)) 0%, rgb(var(--c-accent-ink)) 52%, var(--c-ink-accent) 100%)' }}
+      {...pointer}
+      style={{ background: 'linear-gradient(180deg, rgb(var(--c-accent)) 0%, rgb(var(--c-accent-ink)) 26%, var(--c-ink-accent) 56%)' }}
     >
       {/* Top ramp — ease the white section above into the dark band (no hard edge) */}
       <div
@@ -39,8 +53,10 @@ export function CTA() {
       {!reduce && (
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0"
           style={{ background: spotlight }}
+          animate={{ opacity: active ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
         />
       )}
       <div className="relative container-main">
@@ -51,7 +67,7 @@ export function CTA() {
           transition={{ duration: 0.6, ease: EASE_OUT }}
           className="text-center max-w-2xl mx-auto"
         >
-          <p className="text-[12px] text-ivory/80 uppercase tracking-[0.15em] mb-4">
+          <p className="text-[12px] text-ivory/65 uppercase tracking-[0.15em] mb-4">
             Get started today
           </p>
           <h2 className="text-[1.75rem] md:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-ivory mb-10" style={{ fontWeight: 450 }}>

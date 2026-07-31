@@ -185,7 +185,7 @@ function StackedFaceMap({ reduce }: { reduce: boolean | null }) {
   const draw = reduce ? 1 : drawScrub
 
   return (
-    <section ref={sectionRef} id="face-map" className="relative overflow-hidden section-alt py-20 md:py-28">
+    <section ref={sectionRef} id="face-map" className="relative overflow-hidden section-alt py-16 md:py-28">
       <div className="container-main relative z-10">
         {/* Text Content */}
         <motion.div

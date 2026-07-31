@@ -38,11 +38,11 @@ export function Community() {
               Proof
             </p>
             <h2
-              className="text-[2rem] md:text-[2.75rem] leading-[1.1] tracking-[-0.03em] mb-4"
+              className="text-[2rem] md:text-[2.75rem] leading-[1.1] tracking-[-0.03em] mb-4 text-balance"
               style={{ fontWeight: 450 }}
             >
               <span className="text-ink">Built with experts.</span>{' '}
-              <span className="text-ink/45">Tested with real people.</span>
+              <span className="text-ink/45 block sm:inline">Tested with real people.</span>
             </h2>
             <p className="text-[15px] md:text-[16px] text-ink/[0.78] leading-relaxed max-w-md">
               Meet the specialist panel, see the method, and read

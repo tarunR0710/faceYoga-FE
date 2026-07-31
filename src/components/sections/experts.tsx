@@ -38,7 +38,7 @@ export function Experts() {
   const reduce = useReducedMotion()
   const CENTER = Math.floor(disciplines.length / 2)
   return (
-    <section id="experts" className="py-24 bg-ivory">
+    <section id="experts" className="py-14 md:py-24 bg-ivory">
       <div className="container-main">
         {/* Header */}
         <motion.div
@@ -97,7 +97,7 @@ export function Experts() {
           <div className="flex items-center gap-3 mb-6">
             <h3 className="text-[12px] uppercase tracking-[0.15em] text-analysis-teal">Founding panel</h3>
             {PLACEHOLDER && (
-              <span className="inline-flex items-center h-5 px-2 rounded-full bg-accent-soft text-[10px] font-medium text-accent-foreground">
+              <span className="inline-flex items-center h-5 px-2 rounded-full bg-accent-soft text-[8px] font-medium text-accent-foreground">
                 Placeholder — real experts to be onboarded
               </span>
             )}
@@ -110,7 +110,10 @@ export function Experts() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, ease: EASE_OUT_SOFT, delay: index * 0.06 }}
-                className="group card-hover-accent rounded-[20px] p-5 text-center"
+                style={{ boxShadow: '0 12px 30px -18px rgba(15,30,50,0)' }}
+                whileHover={reduce ? undefined : { y: -6, boxShadow: '0 18px 38px -18px rgba(15,30,50,0.28)', transition: { duration: 0.22, ease: EASE_OUT_SOFT } }}
+                whileTap={reduce ? undefined : { y: -5, boxShadow: '0 16px 32px -16px rgba(15,30,50,0.28)', transition: { duration: 0.18, ease: EASE_OUT_SOFT } }}
+                className="rounded-[20px] p-5 text-center will-change-transform"
               >
                 <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden bg-mist ring-1 ring-border">
                   <Image src={expert.image} alt={expert.name} fill sizes="80px" className="object-cover" />

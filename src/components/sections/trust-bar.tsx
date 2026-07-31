@@ -1,12 +1,12 @@
 'use client'
 
-import { UserCheck, Users, CalendarClock, ShieldCheck, Lock, BadgeCheck } from 'lucide-react'
+import { UserCheck, Fingerprint, CalendarClock, ShieldCheck, Lock, BadgeCheck } from 'lucide-react'
 
 // Infinite auto-scrolling "trust bridge" under the hero (qoves-style marquee).
 // Honest, brand-true reassurances — reword to the Face Map playbook voice.
 const items = [
   { icon: UserCheck, label: 'Expert-reviewed' },
-  { icon: Users, label: '5 expert disciplines' },
+  { icon: Fingerprint, label: 'Made for your features' },
   { icon: CalendarClock, label: 'Your Face Map in 2–4 days' },
   { icon: ShieldCheck, label: 'No surgery, ever' },
   { icon: Lock, label: 'Private & secure' },

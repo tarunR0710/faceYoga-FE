@@ -49,7 +49,7 @@ export function Hero() {
   }, [])
 
   return (
-    <section className="relative h-[calc(100svh-60px)] md:h-screen w-full overflow-hidden">
+    <section className="relative h-[calc(100svh-55px)] md:h-screen w-full overflow-hidden">
       {/* Background — subtle focus-pull settle on mount (scale only; no blur, keeps LCP + mobile safe) */}
       <motion.div
         className="absolute inset-0 bg-[#3a3632]"
@@ -97,7 +97,7 @@ export function Hero() {
       </motion.div>
 
       {/* Content - positioned at bottom */}
-      <div className="relative h-full flex flex-col justify-end px-6 md:px-12 lg:px-20 pb-8 md:pb-12">
+      <div className="relative h-full flex flex-col justify-end px-6 md:px-12 lg:px-20 pb-10 md:pb-12">
         <motion.div
           variants={container}
           initial={reduce ? false : 'hidden'}
