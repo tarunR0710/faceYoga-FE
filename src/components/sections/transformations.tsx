@@ -81,23 +81,30 @@ export function Transformations() {
   const [maxX, setMaxX] = useState(0)
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] })
-  const smooth = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
-  const x = useTransform(smooth, [0, 1], [0, -maxX])
-  const progressWidth = useTransform(smooth, [0, 1], ['6%', '100%'])
+  const smooth = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 })
+  // Finish the horizontal travel by 85% of the scroll, then hold — so the last
+  // cards are fully in view (and the spring has settled) before the pin releases.
+  const x = useTransform(smooth, [0, 0.85], [0, -maxX])
+  const progressWidth = useTransform(smooth, [0, 0.85], ['6%', '100%'])
   const count = TRANSFORMATIONS.length
 
   // Measure how far the track overflows the viewport → that's the horizontal travel.
+  // ResizeObserver re-measures after images/fonts settle so maxX is never stale.
   useEffect(() => {
     if (reduce) return
-    const measure = () => {
-      const track = trackRef.current
-      const vp = viewportRef.current
-      if (!track || !vp) return
-      setMaxX(Math.max(0, track.scrollWidth - vp.clientWidth))
-    }
+    const track = trackRef.current
+    const vp = viewportRef.current
+    if (!track || !vp) return
+    const measure = () => setMaxX(Math.max(0, track.scrollWidth - vp.clientWidth))
     measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(track)
+    ro.observe(vp)
     window.addEventListener('resize', measure)
-    return () => window.removeEventListener('resize', measure)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', measure)
+    }
   }, [reduce])
 
   // Reduced-motion: plain padded grid (no pin, no scroll-driven motion).
