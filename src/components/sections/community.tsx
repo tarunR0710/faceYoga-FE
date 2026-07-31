@@ -44,7 +44,7 @@ export function Community() {
               <span className="text-ink">Built with experts.</span>{' '}
               <span className="text-ink/45 block sm:inline">Tested with real people.</span>
             </h2>
-            <p className="text-[15px] md:text-[16px] text-ink/[0.78] leading-relaxed max-w-md">
+            <p className="text-[14px] md:text-[16px] text-ink/[0.78] leading-relaxed max-w-md">
               Meet the specialist panel, see the method, and read
               transparently-labelled experiences from our founding cohort — real
               people who completed the full MapMyFace process.
@@ -74,7 +74,7 @@ export function Community() {
                   <div className="icon-tile-accent flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center">
                     <Icon className="w-5 h-5" strokeWidth={1.5} />
                   </div>
-                  <div>
+                  <div className='flex flex-col gap-1.5'>
                     <h3 className="text-[15px] font-medium text-ink">{c.title}</h3>
                     <p className="text-[13px] text-ink/[0.65]">{c.body}</p>
                   </div>

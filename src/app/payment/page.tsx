@@ -178,7 +178,7 @@ export default function PaymentPage() {
 
             {/* Core plan (included) */}
             <div>
-              <h2 className="text-[15px] text-ink mb-3" style={{ fontWeight: 600 }}>1. Your Complete Face Map</h2>
+              <h2 className="text-[14px] text-ink mb-3" style={{ fontWeight: 600 }}>1. Your Complete Face Map</h2>
               <div className="card-hover-accent rounded-[22px] p-5 md:p-6">
                 <div className="flex items-center justify-between mb-4">
                   <span className="badge-accent inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium">{FACE_MAP_CORE.label}</span>
@@ -199,7 +199,7 @@ export default function PaymentPage() {
 
             {/* Add-ons */}
             <div>
-              <h2 className="text-[15px] text-ink mb-1" style={{ fontWeight: 600 }}>2. Add specialist maps <span className="text-analysis-teal font-normal">(optional)</span></h2>
+              <h2 className="text-[14px] text-ink mb-1" style={{ fontWeight: 600 }}>2. Add specialist maps <span className="text-analysis-teal font-normal">(optional)</span></h2>
               <p className="text-[13px] text-analysis-teal mb-3">Add hair or personal-style guidance so it works with the complete picture.</p>
               <div className="space-y-3">
                 {FACE_MAP_ADDONS.map((a) => {
@@ -279,7 +279,7 @@ export default function PaymentPage() {
                 onClick={handlePayment}
                 disabled={isLoading || !razorpayLoaded}
                 className={cn(
-                  'w-full inline-flex items-center justify-center py-4 rounded-full text-[15px] font-semibold transition-colors',
+                  'w-full inline-flex items-center justify-center py-4 rounded-full text-[14px] font-semibold transition-colors',
                   isLoading || !razorpayLoaded ? 'bg-ink/40 text-ivory cursor-not-allowed' : 'bg-ink text-ivory hover:bg-ink/88'
                 )}
               >

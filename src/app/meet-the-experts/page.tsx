@@ -150,7 +150,7 @@ export default function Page() {
                 Reviewed separately.{' '}
                 <span className="text-analysis-teal/70">Delivered as one Face Map.</span>
               </h2>
-              <p className="text-[15px] md:text-[17px] text-ink/70 leading-relaxed">
+              <p className="text-[14px] md:text-[17px] text-ink/70 leading-relaxed">
                 No conflicting opinions to reconcile yourself. Each specialist works in their
                 own field, then their views are integrated into one coordinated,
                 non-contradictory answer.
@@ -192,7 +192,7 @@ export default function Page() {
               transition={{ duration: 0.6, ease: easeOut }}
               className="rounded-[22px] border border-ink/10 bg-accent-soft p-8 md:p-10 max-w-3xl"
             >
-              <p className="text-[15px] md:text-[17px] text-ink leading-relaxed">
+              <p className="text-[14px] md:text-[17px] text-ink leading-relaxed">
                 Every expert appears with their full name, qualification and written consent —
                 published as we onboard our founding panel.
               </p>
@@ -224,7 +224,7 @@ export default function Page() {
 
               <Link
                 href="/form"
-                className="inline-flex items-center justify-center h-14 px-9 bg-ivory text-ink text-[15px] font-semibold rounded-full hover:bg-mist transition-colors duration-300 ease-smooth group"
+                className="inline-flex items-center justify-center h-14 px-9 bg-ivory text-ink text-[14px] font-semibold rounded-full hover:bg-mist transition-colors duration-300 ease-smooth group"
               >
                 Start My Face Map
                 <ArrowRight

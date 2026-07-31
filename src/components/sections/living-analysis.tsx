@@ -79,7 +79,7 @@ export function LivingAnalysis() {
             See what every muscle is doing{' '}
             <span className="text-white/40">— zone by zone.</span>
           </h2>
-          <p className="text-[14px] md:text-[15px] text-white/55 leading-relaxed max-w-lg">
+          <p className="text-[14px] md:text-[14px] text-white/55 leading-relaxed max-w-lg">
             Walk through each facial muscle group, zone by zone. Hover a point to inspect it.
             {PLACEHOLDER && (
               <span className="ml-2 inline-flex items-center h-5 px-2 rounded-full bg-white/10 border border-white/15 text-[10px] font-medium text-white/70 align-middle">
@@ -204,7 +204,7 @@ export function LivingAnalysis() {
                     <p className="text-[14px] text-white font-medium leading-tight">{active.label}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[15px] leading-tight text-white" style={{ fontWeight: 400 }}>{active.reading}</p>
+                    <p className="text-[14px] leading-tight text-white" style={{ fontWeight: 400 }}>{active.reading}</p>
                   </div>
                 </div>
                 {/* qualitative zone indicator */}

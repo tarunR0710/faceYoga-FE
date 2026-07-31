@@ -15,7 +15,7 @@ export default function TermsPage() {
 
         <h1 className="text-[2rem] font-medium text-ink mb-8">Terms of Service</h1>
 
-        <div className="prose max-w-none text-[15px] text-ink/70 leading-relaxed space-y-6">
+        <div className="prose max-w-none text-[14px] text-ink/70 leading-relaxed space-y-6">
           <p className="text-analysis-teal">Last updated: July 2026</p>
 
           <h2 className="text-[18px] font-medium text-ink mt-8 mb-4">1. Acceptance of Terms</h2>
