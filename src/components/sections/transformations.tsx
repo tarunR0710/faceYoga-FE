@@ -177,7 +177,7 @@ export function Transformations() {
     <section id="results" ref={ref} className="relative bg-glow-tr" style={{ height: `${count * 78}svh` }}>
       <div className="sticky top-0 h-[100svh] overflow-hidden flex items-center">
         <div className="container-main w-full">
-          <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6 lg:gap-24 items-center">
             {/* Heading + progress (stays put while slides change) */}
             <div>
               <Heading />
@@ -190,7 +190,7 @@ export function Transformations() {
             </div>
 
             {/* Before/after stage */}
-            <div className="relative w-full max-w-[230px] sm:max-w-[320px] lg:max-w-[420px] mx-auto aspect-[4/5]">
+            <div className="relative w-full max-w-[230px] sm:max-w-[320px] md:max-w-[400px] lg:max-w-[500px] mx-auto aspect-[4/5]">
               {TRANSFORMATIONS.map((item, i) => (
                 <PinnedSlide key={item.id} item={item} index={i} count={count} progress={smooth} />
               ))}
