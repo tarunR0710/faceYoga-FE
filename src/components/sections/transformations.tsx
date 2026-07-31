@@ -40,10 +40,10 @@ function BeforeAfterSlider({ beforeImage, afterImage }: { beforeImage: string; a
       </div>
       <span className="absolute top-3 left-3 text-[9px] font-medium tracking-[0.15em] text-white/85 drop-shadow">BEFORE</span>
       <span className="absolute top-3 right-3 text-[9px] font-medium tracking-[0.15em] text-white/85 drop-shadow">PROJECTION</span>
-      <div className="absolute top-0 bottom-0 w-px bg-white/90 shadow-[0_0_6px_rgba(0,0,0,0.25)]" style={{ left: `${position}%`, transform: 'translateX(-50%)' }}>
-        <div {...handleProps} aria-label="Drag to compare" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/15 backdrop-blur-md border border-white/70 flex items-center justify-center gap-1 cursor-ew-resize outline-none focus-visible:ring-2 focus-visible:ring-white/70">
-          <svg className="w-1 h-1.5 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]" fill="currentColor" viewBox="0 0 4 6"><path d="M4 0L0 3l4 3z" /></svg>
-          <svg className="w-1 h-1.5 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]" fill="currentColor" viewBox="0 0 4 6"><path d="M0 0L4 3L0 6z" /></svg>
+      <div className="absolute top-0 bottom-0 w-px bg-white/75 shadow-[0_0_2px_rgba(0,0,0,0.2)]" style={{ left: `${position}%`, transform: 'translateX(-50%)' }}>
+        <div {...handleProps} aria-label="Drag to compare" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/15 backdrop-blur-md border border-white/70 flex items-center justify-center gap-[3px] cursor-ew-resize outline-none focus-visible:ring-2 focus-visible:ring-white/70">
+          <svg className="w-[3px] h-[5px] text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]" fill="currentColor" viewBox="0 0 4 6"><path d="M4 0L0 3l4 3z" /></svg>
+          <svg className="w-[3px] h-[5px] text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]" fill="currentColor" viewBox="0 0 4 6"><path d="M0 0L4 3L0 6z" /></svg>
         </div>
       </div>
     </div>
