@@ -8,13 +8,14 @@ import { EASE_OUT } from '@/lib/motion'
 
 export function CTA() {
   const reduce = useReducedMotion()
-  // Spotlight: a soft DARK radial pools under the cursor across the teal band
-  // (darkens rather than brightens). Driven by motion values (no re-render); fades in on hover.
+  // Spotlight: a soft accent GLOW pools under the pointer/finger (screen-blend,
+  // brightens the dark band). Driven by motion values (no re-render); fades in on hover/touch.
   const mx = useMotionValue(-1000)
   const my = useMotionValue(-1000)
   const [active, setActive] = useState(false)
-  // Soft, navy-tinted dark pool that follows the pointer/finger (not near-black).
-  const spotlight = useMotionTemplate`radial-gradient(340px circle at ${mx}px ${my}px, rgba(12, 28, 50, 0.4) 0%, transparent 72%)`
+  // Soft accent GLOW that follows the pointer/finger. Brightens (screen-blend) so
+  // it's clearly evident on the now-dark band — a dark pool would vanish here.
+  const spotlight = useMotionTemplate`radial-gradient(300px circle at ${mx}px ${my}px, rgb(var(--c-accent) / 0.6) 0%, rgb(var(--c-accent) / 0.14) 36%, transparent 70%)`
 
   const track = (e: React.PointerEvent<HTMLElement>) => {
     const r = e.currentTarget.getBoundingClientRect()
@@ -54,9 +55,9 @@ export function CTA() {
         <motion.div
           aria-hidden
           className="pointer-events-none absolute inset-0"
-          style={{ background: spotlight }}
+          style={{ background: spotlight, mixBlendMode: 'screen' }}
           animate={{ opacity: active ? 1 : 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
         />
       )}
       <div className="relative container-main">
