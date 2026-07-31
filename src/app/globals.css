@@ -202,9 +202,9 @@
 
 @layer components {
   /* Containers */
-  .container-main { @apply w-full mx-auto px-6 md:px-8; max-width: 1200px; }
-  .container-wide { @apply w-full mx-auto px-6 md:px-8; max-width: 1320px; }
-  .container-narrow { @apply w-full mx-auto px-6 md:px-8; max-width: 900px; }
+  .container-main { @apply w-full mx-auto px-4 md:px-8; max-width: 1200px; }
+  .container-wide { @apply w-full mx-auto px-4 md:px-8; max-width: 1320px; }
+  .container-narrow { @apply w-full mx-auto px-4 md:px-8; max-width: 900px; }
 
   /* Buttons — dark primary on light / ivory on dark; pill; 56px */
   .btn-primary {
