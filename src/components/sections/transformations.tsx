@@ -12,7 +12,6 @@ import {
   type MotionValue,
 } from 'framer-motion'
 import { useComparisonSlider } from '@/hooks/use-comparison-slider'
-import { useIsDesktop } from '@/lib/motion'
 import { TRANSFORMATIONS, PLACEHOLDER, type Transformation } from '@/lib/showcase'
 
 /* Shared heading — same copy in both the pinned and the fallback layouts. */
@@ -24,7 +23,7 @@ function Heading() {
         Real members.{' '}
         <span className="text-ink/40">Real change.</span>
       </h2>
-      <p className="text-[14px] md:text-[15px] text-ink/65 leading-relaxed mt-4">
+      <p className="hidden sm:block text-[14px] md:text-[15px] text-ink/65 leading-relaxed mt-4">
         Scroll to reveal each transformation — before to after, same angle, same lighting.
         {PLACEHOLDER && (
           <span className="ml-2 inline-flex items-center h-5 px-2 rounded-full bg-accent-soft text-[10px] font-medium text-accent-foreground align-middle">
@@ -148,16 +147,14 @@ function GridCard({ item, index }: { item: Transformation; index: number }) {
 
 export function Transformations() {
   const reduce = useReducedMotion()
-  const isDesktop = useIsDesktop()
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
   // Spring-smooth the scroll so the wipe/cross-fades glide instead of tracking the wheel 1:1.
   const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 28, restDelta: 0.001 })
   const count = TRANSFORMATIONS.length
 
-  // Mobile + reduced-motion: plain padded grid — pinning crams a phone viewport
-  // (content taller than the screen → no space above). Pin stays desktop-only.
-  if (reduce || !isDesktop) {
+  // Reduced-motion only: plain padded grid (no scroll-driven motion).
+  if (reduce) {
     return (
       <section id="results" className="section bg-glow-tr">
         <div className="container-main">
@@ -180,11 +177,11 @@ export function Transformations() {
     <section id="results" ref={ref} className="relative bg-glow-tr" style={{ height: `${count * 78}svh` }}>
       <div className="sticky top-0 h-[100svh] overflow-hidden flex items-center">
         <div className="container-main w-full">
-          <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6 lg:gap-16 items-center">
             {/* Heading + progress (stays put while slides change) */}
             <div>
               <Heading />
-              <div className="mt-9 lg:mt-8 flex gap-2 max-w-[240px] mx-auto lg:mx-0">
+              <div className="mt-5 lg:mt-8 flex gap-2 max-w-[240px] mx-auto lg:mx-0">
                 {TRANSFORMATIONS.map((item, i) => (
                   <ProgressBar key={item.id} index={i} count={count} progress={smooth} />
                 ))}
@@ -193,7 +190,7 @@ export function Transformations() {
             </div>
 
             {/* Before/after stage */}
-            <div className="relative w-full max-w-[330px] sm:max-w-[380px] lg:max-w-[420px] mx-auto aspect-[4/5]">
+            <div className="relative w-full max-w-[230px] sm:max-w-[320px] lg:max-w-[420px] mx-auto aspect-[4/5]">
               {TRANSFORMATIONS.map((item, i) => (
                 <PinnedSlide key={item.id} item={item} index={i} count={count} progress={smooth} />
               ))}
