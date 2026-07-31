@@ -106,11 +106,11 @@
     --c-accent-soft: 224 239 242;   /* #E0EFF2 light cyan tint */
     --c-accent-2: 200 134 43;       /* amber counterpoint */
   }
-  [data-palette='aqua'] {            /* #43cea2 → #185a9d — mint-to-blue river (bridge) */
-    --c-accent: 45 148 160;         /* #2D94A0 teal-cyan bridge */
-    --c-accent-ink: 28 104 116;     /* #1C6874 deeper hover / text */
-    --c-accent-soft: 224 242 243;   /* #E0F2F3 light aqua tint */
-    --c-accent-2: 200 134 43;       /* amber counterpoint */
+  [data-palette='aqua'] {            /* #43BBCE → #21AAC2 → #2575C4 — cyan-teal to blue (trial) */
+    --c-accent: 33 170 194;         /* #21AAC2 cyan-teal — icons, accents, buttons */
+    --c-accent-ink: 37 117 196;     /* #2575C4 blue — hover / accent text / footer-dark base */
+    --c-accent-soft: 219 242 246;   /* #DBF2F6 light cyan — pill / text-chip bg */
+    --c-accent-2: 37 117 196;       /* #2575C4 blue partner */
   }
 
   :root {
@@ -130,8 +130,8 @@
 
     /* Dark accent-tinted "ink" for the closing dark band (CTA + footer).
        A deep, accent-tinted near-black — re-themes with the palette. */
-    --c-ink-accent: color-mix(in srgb, rgb(var(--c-accent-ink)) 68%, #06100f 32%);
-    --c-ink-accent-deep: color-mix(in srgb, rgb(var(--c-accent-ink)) 42%, #06100f 58%);
+    --c-ink-accent: color-mix(in srgb, rgb(var(--c-accent-ink)) 46%, #06100f 54%);
+    --c-ink-accent-deep: color-mix(in srgb, rgb(var(--c-accent-ink)) 26%, #06100f 74%);
 
     --background: rgb(var(--c-bg));
     --foreground: rgb(var(--c-ink));
@@ -202,9 +202,9 @@
 
 @layer components {
   /* Containers */
-  .container-main { @apply w-full mx-auto px-5 md:px-8; max-width: 1200px; }
-  .container-wide { @apply w-full mx-auto px-5 md:px-8; max-width: 1320px; }
-  .container-narrow { @apply w-full mx-auto px-5 md:px-8; max-width: 900px; }
+  .container-main { @apply w-full mx-auto px-6 md:px-8; max-width: 1200px; }
+  .container-wide { @apply w-full mx-auto px-6 md:px-8; max-width: 1320px; }
+  .container-narrow { @apply w-full mx-auto px-6 md:px-8; max-width: 900px; }
 
   /* Buttons — dark primary on light / ivory on dark; pill; 56px */
   .btn-primary {
@@ -340,9 +340,9 @@
   .card-glow {
     background-color: rgb(var(--c-surface));
     box-shadow:
-      0 1px 2px rgba(39,32,24,.04),
-      0 6px 16px rgba(39,32,24,.05),
-      0 12px 30px rgb(var(--c-accent) / 0.06);
+      0 1px 2px rgba(39,32,24,.05),
+      0 8px 20px rgba(39,32,24,.07),
+      0 18px 42px -6px rgb(var(--c-accent) / 0.10);
   }
   .divider-accent {
     height: 1px; border: 0;
