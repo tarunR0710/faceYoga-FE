@@ -38,7 +38,7 @@ export function Experts() {
   const reduce = useReducedMotion()
   const CENTER = Math.floor(disciplines.length / 2)
   return (
-    <section id="experts" className="py-14 md:py-24 bg-ivory">
+    <section id="experts" className="py-16 md:py-24 bg-ivory">
       <div className="container-main">
         {/* Header */}
         <motion.div

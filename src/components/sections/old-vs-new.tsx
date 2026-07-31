@@ -20,7 +20,7 @@ const mapMyFace = [
 export function OldVsNew() {
   const reduce = useReducedMotion()
   return (
-    <section id="why" className="pt-12 md:pt-16 pb-12 md:pb-16 bg-glow-tr">
+    <section id="why" className="pt-16 md:pt-16 pb-16 md:pb-16 bg-glow-tr">
       <div className="container-main">
         {/* Header */}
         <motion.div
