@@ -510,11 +510,11 @@
       linear-gradient(
         108deg,
         transparent 34%,
-        rgba(255, 255, 255, 0.30) 42%,
-        rgba(255, 255, 255, 0.85) 47%,
-        #ffffff 50%,
-        rgba(255, 255, 255, 0.85) 53%,
-        rgba(255, 255, 255, 0.30) 58%,
+        rgba(255, 255, 255, 0.18) 42%,
+        rgba(255, 255, 255, 0.60) 47%,
+        rgba(255, 255, 255, 0.82) 50%,
+        rgba(255, 255, 255, 0.60) 53%,
+        rgba(255, 255, 255, 0.18) 58%,
         transparent 66%
       ),
       /* Layer 2 — static warm-satin base: desaturated warm-greys (pewter/champagne),
