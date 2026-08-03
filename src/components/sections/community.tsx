@@ -38,7 +38,7 @@ export function Community() {
               Proof
             </p>
             <h2
-              className="text-[2rem] md:text-[2.75rem] leading-[1.1] tracking-[-0.03em] mb-4 text-balance"
+              className="text-[1.75rem] md:text-[2.5rem] leading-[1.12] tracking-[-0.02em] mb-4 text-balance"
               style={{ fontWeight: 450 }}
             >
               <span className="text-ink">Built with experts.</span>{' '}

@@ -28,7 +28,7 @@ export function PricingPreview() {
           </h2>
         </motion.div>
 
-        {/* Core plan card */}
+        {/* Core plan card - new layout */}
         <motion.div
           initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -36,20 +36,50 @@ export function PricingPreview() {
           transition={{ duration: 0.7, ease: EASE_OUT }}
           className="max-w-md mx-auto"
         >
-          <div className="card-glow rounded-[24px] border border-border-soft p-6 md:p-8">
-            {/* Price */}
-            <div className="text-center mb-6 pb-6 border-b border-border/70">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-soft text-ink text-[11px] font-medium mb-4">
-                {FACE_MAP_CORE.name}
+          <div className="rounded-[24px] bg-white border border-border-soft shadow-lg shadow-[rgba(105,180,255,0.08)]">
+            {/* Top section - gradient with price & CTA - inset with own rounded corners */}
+            <div className="p-3 md:p-4">
+              <div
+                className="relative rounded-[18px] p-6 md:p-8 overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(107,233,255,0.22) 0%, rgba(105,180,255,0.28) 50%, rgba(140,236,255,0.22) 100%)'
+                }}
+              >
+                {/* Decorative circles - positioned absolutely */}
+                <div className="absolute top-0 right-0 w-28 h-28 -translate-y-1/3 translate-x-1/3 pointer-events-none">
+                  <svg viewBox="0 0 100 100" fill="none" className="w-full h-full">
+                    <circle cx="50" cy="50" r="45" stroke="#69B4FF" strokeWidth="1" opacity="0.3" />
+                    <circle cx="50" cy="50" r="28" stroke="#6BE9FF" strokeWidth="1" opacity="0.35" />
+                  </svg>
+                </div>
+                <div className="absolute bottom-0 left-0 w-20 h-20 translate-y-1/3 -translate-x-1/3 pointer-events-none">
+                  <svg viewBox="0 0 100 100" fill="none" className="w-full h-full">
+                    <circle cx="50" cy="50" r="40" stroke="#69B4FF" strokeWidth="1" opacity="0.25" />
+                  </svg>
+                </div>
+                <div className="absolute top-5 left-5 w-2 h-2 rounded-full bg-[#69B4FF]/35 pointer-events-none" />
+                <div className="absolute bottom-6 right-10 w-1.5 h-1.5 rounded-full bg-[#8CECFF]/45 pointer-events-none" />
+
+                <div className="relative z-10 text-center">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-soft text-ink text-[11px] font-medium mb-4">
+                  {FACE_MAP_CORE.name}
+                </div>
+                <div className="flex items-baseline justify-center gap-1">
+                  <span className="text-[2.75rem] md:text-[3rem] text-ink tracking-tight" style={{ fontWeight: 500 }}>{FACE_MAP_CORE.priceDisplay}</span>
+                </div>
+                <p className="text-[13px] text-analysis-teal mt-1 mb-6">One payment. No subscription.</p>
+
+                {/* CTA */}
+                <Link href="/form" className="btn-primary group w-full">
+                  Start My Face Map
+                  <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2} />
+                </Link>
               </div>
-              <div className="flex items-baseline justify-center gap-1">
-                <span className="text-[2.75rem] md:text-[3rem] text-ink tracking-tight" style={{ fontWeight: 500 }}>{FACE_MAP_CORE.priceDisplay}</span>
               </div>
-              <p className="text-[13px] text-analysis-teal mt-1">One payment. No subscription.</p>
             </div>
 
-            {/* Includes */}
-            <div className="mb-6">
+            {/* Bottom section - clean white with features */}
+            <div className="px-6 md:px-8 pb-6 md:pb-8">
               <p className="text-[12px] text-analysis-teal uppercase tracking-[0.08em] mb-4">What&apos;s included</p>
               <ul className="space-y-2.5">
                 {FACE_MAP_CORE.includes.map((item) => (
@@ -61,23 +91,17 @@ export function PricingPreview() {
                   </li>
                 ))}
               </ul>
-            </div>
 
-            {/* CTA */}
-            <Link href="/form" className="btn-primary group w-full">
-              Start My Face Map
-              <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2} />
-            </Link>
-
-            {/* Trust */}
-            <div className="mt-5 flex items-center justify-center gap-4 text-[11px] text-analysis-teal">
-              <span className="flex items-center gap-1">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                Secure payment
-              </span>
-              <span>0 surgery, ever</span>
+              {/* Trust */}
+              <div className="mt-5 pt-5 border-t border-ink/7 flex items-center justify-center gap-4 text-[11px] text-analysis-teal">
+                <span className="flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                  Secure payment
+                </span>
+                <span>0 surgery, ever</span>
+              </div>
             </div>
           </div>
         </motion.div>

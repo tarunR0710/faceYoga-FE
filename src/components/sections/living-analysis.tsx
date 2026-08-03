@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import { EASE_OUT_SOFT } from '@/lib/motion'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { ANALYSIS_FACE, PLACEHOLDER } from '@/lib/showcase'
 
 /**
@@ -38,6 +39,101 @@ const REGIONS: Region[] = [
   { id: 'jaw', label: 'Masseter (jawline)', x: 30, y: 66, reading: 'Strength', note: 'Strong definition baseline', side: 'left' },
   { id: 'lip', label: 'Orbicularis oris (lips)', x: 52, y: 60, reading: 'Balanced', note: 'Balanced, refine corners', side: 'right' },
 ]
+
+/* Apple-style zone selector with fixed width and arrows */
+function ZoneSelector({
+  regions,
+  activeId,
+  setActiveId,
+}: {
+  regions: Region[]
+  activeId: string
+  setActiveId: (id: string) => void
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const activeIdx = regions.findIndex((r) => r.id === activeId)
+  const isFirst = activeIdx === 0
+  const isLast = activeIdx === regions.length - 1
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 100
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      })
+    }
+  }
+
+  const goToPrev = () => {
+    if (activeIdx > 0) setActiveId(regions[activeIdx - 1].id)
+  }
+
+  const goToNext = () => {
+    if (activeIdx < regions.length - 1) setActiveId(regions[activeIdx + 1].id)
+  }
+
+  return (
+    <div className="mt-4 flex justify-center">
+      <div
+        className="flex items-center rounded-full"
+        style={{
+          background: 'rgba(30,30,30,0.9)',
+          border: '1px solid rgba(255,255,255,0.1)',
+        }}
+      >
+        {/* Left arrow - hidden when at first */}
+        <button
+          onClick={() => { scroll('left'); goToPrev(); }}
+          className={`flex-shrink-0 w-10 h-10 flex items-center justify-center transition-all duration-200 ${
+            isFirst ? 'opacity-0 pointer-events-none' : 'text-white/70 hover:text-white'
+          }`}
+          aria-label="Previous zone"
+          disabled={isFirst}
+        >
+          <ChevronLeft className="w-4 h-4" strokeWidth={2} />
+        </button>
+
+        {/* Scrollable zone options */}
+        <div
+          ref={scrollRef}
+          className="flex items-center gap-1 overflow-x-auto scrollbar-hide max-w-[260px] sm:max-w-[320px]"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {regions.map((r) => {
+            const isActive = r.id === activeId
+            return (
+              <button
+                key={r.id}
+                onClick={() => setActiveId(r.id)}
+                className="flex-shrink-0 text-[12px] px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap"
+                style={{
+                  background: isActive ? 'rgba(255,255,255,0.95)' : 'transparent',
+                  color: isActive ? '#14110f' : 'rgba(255,255,255,0.5)',
+                  fontWeight: isActive ? 500 : 400,
+                }}
+              >
+                {r.label.split(' ')[0]}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Right arrow - hidden when at last */}
+        <button
+          onClick={() => { scroll('right'); goToNext(); }}
+          className={`flex-shrink-0 w-10 h-10 flex items-center justify-center transition-all duration-200 ${
+            isLast ? 'opacity-0 pointer-events-none' : 'text-white/70 hover:text-white'
+          }`}
+          aria-label="Next zone"
+          disabled={isLast}
+        >
+          <ChevronRight className="w-4 h-4" strokeWidth={2} />
+        </button>
+      </div>
+    </div>
+  )
+}
 
 export function LivingAnalysis() {
   const reduce = useReducedMotion()
@@ -213,24 +309,8 @@ export function LivingAnalysis() {
               </div>
             </div>
 
-            {/* zone chips under the console */}
-            <div className="flex flex-wrap gap-2 mt-4 justify-center">
-              {REGIONS.map((r) => (
-                <button
-                  key={r.id}
-                  onMouseEnter={() => setActiveId(r.id)}
-                  onClick={() => setActiveId(r.id)}
-                  className="text-[11px] px-3 py-1.5 rounded-full transition-all duration-200"
-                  style={{
-                    background: r.id === activeId ? '#a7e8cf' : 'rgba(255,255,255,0.08)',
-                    color: r.id === activeId ? '#14110f' : 'rgba(255,255,255,0.6)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                  }}
-                >
-                  {r.label.split(' ')[0]}
-                </button>
-              ))}
-            </div>
+            {/* Apple-style zone selector with arrows */}
+            <ZoneSelector regions={REGIONS} activeId={activeId} setActiveId={setActiveId} />
           </motion.div>
 
           {/* ---------- Discover cards ---------- */}

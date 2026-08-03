@@ -106,11 +106,11 @@
     --c-accent-soft: 224 239 242;   /* #E0EFF2 light cyan tint */
     --c-accent-2: 200 134 43;       /* amber counterpoint */
   }
-  [data-palette='aqua'] {            /* #43BBCE → #21AAC2 → #2575C4 — cyan-teal to blue (trial) */
-    --c-accent: 33 170 194;         /* #21AAC2 cyan-teal — icons, accents, buttons */
-    --c-accent-ink: 37 117 196;     /* #2575C4 blue — hover / accent text / footer-dark base */
-    --c-accent-soft: 219 242 246;   /* #DBF2F6 light cyan — pill / text-chip bg */
-    --c-accent-2: 37 117 196;       /* #2575C4 blue partner */
+  [data-palette='aqua'] {            /* #69B4FF blue — blueish accent */
+    --c-accent: 105 180 255;        /* #69B4FF blue — icons, accents */
+    --c-accent-ink: 85 150 230;     /* #5596E6 deeper blue — hover / accent text */
+    --c-accent-soft: 230 240 255;   /* #E6F0FF light blue — pill / text-chip bg */
+    --c-accent-2: 105 180 255;      /* #69B4FF blue partner */
   }
 
   :root {

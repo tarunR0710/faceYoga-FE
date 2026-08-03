@@ -156,15 +156,17 @@ function PartText({
   total: number
   progress: MotionValue<number>
 }) {
-  const w = 0.09 // cross-fade width
+  const w = 0.05 // tighter cross-fade
   const a = i / total
   const b = (i + 1) / total
-  const range = i === 0 ? [0, b - w, b] : i === total - 1 ? [a - w, a, 1] : [a - w, a, b - w, b]
+  const range = i === 0 ? [0, b - w, b] : i === total - 1 ? [a, a + w, 1] : [a, a + w, b - w, b]
   const out = i === 0 ? [1, 1, 0] : i === total - 1 ? [0, 1, 1] : [0, 1, 1, 0]
   const opacity = useTransform(progress, range, out)
-  const y = useTransform(progress, [a - w, a], [26, 0])
+  const y = useTransform(progress, [a, a + w], [16, 0])
+  // Hide completely when opacity is near zero
+  const visibility = useTransform(opacity, (v) => (v < 0.01 ? 'hidden' : 'visible'))
   return (
-    <motion.div style={{ opacity, y }} className="absolute inset-0 flex flex-col justify-center items-center md:items-start">
+    <motion.div style={{ opacity, y, visibility }} className="absolute inset-0 flex flex-col justify-center items-center md:items-start">
       <span className="text-[14px] font-medium tracking-[0.14em] text-analysis-teal">{part.step}</span>
       <h3 className="mt-3 text-[2rem] sm:text-[2.25rem] lg:text-[2.75rem] leading-[1.12] tracking-[-0.02em] text-ink" style={{ fontWeight: 450 }}>
         {part.title}
