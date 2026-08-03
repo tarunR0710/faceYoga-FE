@@ -14,8 +14,8 @@
   :root {
     --c-bg: 255 255 255;        /* #FFFFFF pure-white page — colour lives in components */
     --c-surface: 255 255 255;   /* #FFFFFF cards (separated by shadow + hairline) */
-    --c-surface-2: 247 245 241; /* #F7F5F1 soft inset panels */
-    --c-surface-alt: 250 249 245;/* #FAF9F5 lighter near-white for section bands */
+    --c-surface-2: 253 252 249; /* #FDFCF9 soft creamy panels */
+    --c-surface-alt: 254 253 251;/* #FEFDFB light ivory for section bands */
     --c-ink: 33 29 24;          /* #211D18 warm near-black text */
     --c-muted: 110 102 92;      /* #6E665C warm-grey secondary */
     --c-primary: 33 29 24;      /* dark, accessible primary buttons */

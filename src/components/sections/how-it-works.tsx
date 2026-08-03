@@ -63,7 +63,7 @@ export function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ delay: index * 0.08, duration: 0.55, ease: EASE_OUT }}
-              className="relative card rounded-[22px] p-5 md:p-6"
+              className="relative rounded-[22px] p-5 md:p-6 bg-white border border-border/30 hover:bg-accent-soft/50 transition-colors duration-200 cursor-pointer"
             >
               <span className="mb-4 inline-flex items-center justify-center rounded-full bg-mist px-2.5 py-1 text-[12px] font-medium tracking-[0.08em] text-analysis-teal">
                 {step.number}

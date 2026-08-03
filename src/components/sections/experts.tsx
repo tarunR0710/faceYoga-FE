@@ -77,40 +77,41 @@ function DisciplineCard({
       transition={{ duration: 0.55, ease: EASE_OUT_SOFT, delay: Math.abs(index - center) * 0.08 }}
       onMouseEnter={reduce ? undefined : play}
       onMouseLeave={reduce ? undefined : stop}
-      className="group relative overflow-hidden rounded-[22px] aspect-[4/3] bg-mist cursor-pointer"
+      className="group relative overflow-hidden rounded-[22px] bg-white border border-border/30 cursor-pointer"
+      style={{ boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.04)' }}
     >
-      {/* Poster (the video's first frame) fills the card at rest; the clip plays over it on hover */}
-      <video
-        ref={videoRef}
-        muted
-        loop
-        playsInline
-        preload="none"
-        poster={d.poster}
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.04]"
-      >
-        <source src={d.video} type="video/mp4" />
-      </video>
+      {/* Clip — hidden until hover, then autoplays behind the text (no video/poster at rest) */}
+      {!reduce && (
+        <>
+          <video
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            preload="none"
+            poster={d.poster}
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          >
+            <source src={d.video} type="video/mp4" />
+          </video>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          />
+        </>
+      )}
 
-      {/* Legibility scrim over the image/clip */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10"
-      />
-
-      {/* Content — always readable over the poster */}
-      <div className="relative flex h-full flex-col p-5">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white ring-1 ring-white/25 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-0">
+      {/* Content — a normal card at rest; text turns white / clears on hover */}
+      <div className="relative p-5">
+        <div className="icon-tile-accent mb-4 flex h-10 w-10 items-center justify-center rounded-full transition-opacity duration-300 group-hover:opacity-0">
           <Icon className="w-5 h-5" strokeWidth={1.5} />
         </div>
-        <div className="mt-auto">
-          <h3 className="text-[16px] md:text-[17px] font-medium tracking-[-0.01em] text-white drop-shadow-sm">
-            {d.name}
-          </h3>
-          <p className="mt-1.5 max-h-24 overflow-hidden text-[13px] leading-relaxed text-white/80 transition-all duration-300 group-hover:max-h-0 group-hover:opacity-0">
-            {d.description}
-          </p>
-        </div>
+        <h3 className="text-[16px] font-medium tracking-[-0.01em] text-ink transition-colors duration-300 group-hover:text-white">
+          {d.name}
+        </h3>
+        <p className="mt-2 text-[13px] leading-relaxed text-ink/65 transition-opacity duration-300 group-hover:opacity-0">
+          {d.description}
+        </p>
       </div>
     </motion.div>
   )

@@ -12,6 +12,7 @@ const navLinks = [
   { label: 'Why MapMyFace', href: '/#why' },
   { label: 'How it works', href: '/#how-it-works' },
   { label: 'Experts', href: '/#experts' },
+  { label: 'Pricing', href: '/#pricing' },
   { label: 'FAQ', href: '/#faq' },
 ]
 

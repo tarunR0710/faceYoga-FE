@@ -85,7 +85,7 @@ function ZoneSelector({
         {/* Left arrow - hidden when at first */}
         <button
           onClick={() => { scroll('left'); goToPrev(); }}
-          className={`flex-shrink-0 w-10 h-10 flex items-center justify-center transition-all duration-200 ${
+          className={`flex-shrink-0 w-11 h-11 flex items-center justify-center transition-all duration-200 ${
             isFirst ? 'opacity-0 pointer-events-none' : 'text-white/70 hover:text-white'
           }`}
           aria-label="Previous zone"
@@ -122,7 +122,7 @@ function ZoneSelector({
         {/* Right arrow - hidden when at last */}
         <button
           onClick={() => { scroll('right'); goToNext(); }}
-          className={`flex-shrink-0 w-10 h-10 flex items-center justify-center transition-all duration-200 ${
+          className={`flex-shrink-0 w-11 h-11 flex items-center justify-center transition-all duration-200 ${
             isLast ? 'opacity-0 pointer-events-none' : 'text-white/70 hover:text-white'
           }`}
           aria-label="Next zone"

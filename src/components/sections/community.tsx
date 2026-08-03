@@ -58,7 +58,7 @@ export function Community() {
             </div>
           </motion.div>
 
-          <div className="space-y-3">
+          <div className="space-y-4">
             {cards.map((c, i) => {
               const Icon = c.icon
               return (
