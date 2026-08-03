@@ -77,38 +77,37 @@ function DisciplineCard({
       transition={{ duration: 0.55, ease: EASE_OUT_SOFT, delay: Math.abs(index - center) * 0.08 }}
       onMouseEnter={reduce ? undefined : play}
       onMouseLeave={reduce ? undefined : stop}
-      className="group relative overflow-hidden rounded-[22px] aspect-[4/3] bg-white border border-border/30 cursor-pointer"
+      className="group relative overflow-hidden rounded-[22px] aspect-[4/3] bg-mist cursor-pointer"
     >
-      {!reduce && (
-        <video
-          ref={videoRef}
-          muted
-          loop
-          playsInline
-          preload="none"
-          poster={d.poster}
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        >
-          <source src={d.video} type="video/mp4" />
-        </video>
-      )}
+      {/* Poster (the video's first frame) fills the card at rest; the clip plays over it on hover */}
+      <video
+        ref={videoRef}
+        muted
+        loop
+        playsInline
+        preload="none"
+        poster={d.poster}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.04]"
+      >
+        <source src={d.video} type="video/mp4" />
+      </video>
 
-      {/* Scrim for legibility over the clip */}
+      {/* Legibility scrim over the image/clip */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10"
       />
 
-      {/* Content */}
+      {/* Content — always readable over the poster */}
       <div className="relative flex h-full flex-col p-5">
-        <div className="icon-tile-accent flex h-11 w-11 items-center justify-center rounded-full transition-all duration-300 group-hover:-translate-y-1 group-hover:opacity-0">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white ring-1 ring-white/25 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-0">
           <Icon className="w-5 h-5" strokeWidth={1.5} />
         </div>
         <div className="mt-auto">
-          <h3 className="text-[17px] font-medium tracking-[-0.01em] text-ink transition-all duration-300 group-hover:text-[15px] group-hover:text-white">
+          <h3 className="text-[16px] md:text-[17px] font-medium tracking-[-0.01em] text-white drop-shadow-sm">
             {d.name}
           </h3>
-          <p className="mt-2 max-h-24 overflow-hidden text-[14px] leading-relaxed text-ink/65 transition-all duration-300 group-hover:max-h-0 group-hover:opacity-0">
+          <p className="mt-1.5 max-h-24 overflow-hidden text-[13px] leading-relaxed text-white/80 transition-all duration-300 group-hover:max-h-0 group-hover:opacity-0">
             {d.description}
           </p>
         </div>
@@ -148,7 +147,7 @@ export function Experts() {
         </motion.div>
 
         {/* Disciplines Grid — Netflix-style hover clips */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl">
           {disciplines.map((discipline, index) => (
             <DisciplineCard key={discipline.name} d={discipline} index={index} center={CENTER} reduce={!!reduce} />
           ))}
