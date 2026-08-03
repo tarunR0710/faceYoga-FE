@@ -89,27 +89,20 @@ export function OldVsNew() {
             className="rounded-[22px] p-4 relative"
             style={{
               background:
-                'linear-gradient(180deg, rgb(var(--c-accent) / 0.18) 0%, rgb(var(--c-surface)) 44%, rgb(var(--c-surface)) 100%)',
-              border: '1px solid rgb(var(--c-accent) / 0.22)',
+                'radial-gradient(80% 55% at 15% 6%, rgb(var(--c-accent) / 0.22) 0%, transparent 55%), linear-gradient(180deg, rgb(var(--c-accent) / 0.10) 0%, rgb(var(--c-surface)) 48%, rgb(var(--c-surface)) 100%)',
+              border: '1px solid rgb(var(--c-accent) / 0.26)',
             }}
           >
             <div className="flex items-center gap-3 mb-6">
               <div
                 className="relative w-8 h-8 rounded-full flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, rgb(var(--c-accent) / 0.30), rgb(var(--c-accent) / 0.08))' }}
+                style={{ background: 'linear-gradient(135deg, rgb(var(--c-accent) / 0.32), rgb(var(--c-accent) / 0.08))' }}
               >
-                {/* Radar ping — rings radiating out from the dot like a scanner */}
-                <span
-                  aria-hidden
-                  className="animate-pulse-ring absolute w-2.5 h-2.5 rounded-full"
-                  style={{ border: '1.5px solid rgb(var(--c-accent) / 0.55)' }}
-                />
-                <span
-                  aria-hidden
-                  className="animate-pulse-ring absolute w-2.5 h-2.5 rounded-full"
-                  style={{ border: '1.5px solid rgb(var(--c-accent) / 0.55)', animationDelay: '1.2s' }}
-                />
-                <div className="relative w-2.5 h-2.5 rounded-full bg-accent" />
+                {/* Radar ping — 3 evenly-spaced rings radiating out from the dot */}
+                <span aria-hidden className="animate-pulse-ring absolute w-4 h-4 rounded-full" style={{ border: '2px solid rgb(var(--c-accent) / 0.6)' }} />
+                <span aria-hidden className="animate-pulse-ring absolute w-4 h-4 rounded-full" style={{ border: '2px solid rgb(var(--c-accent) / 0.6)', animationDelay: '0.8s' }} />
+                <span aria-hidden className="animate-pulse-ring absolute w-4 h-4 rounded-full" style={{ border: '2px solid rgb(var(--c-accent) / 0.6)', animationDelay: '1.6s' }} />
+                <div className="relative w-3 h-3 rounded-full bg-accent" style={{ boxShadow: '0 0 8px rgb(var(--c-accent) / 0.6)' }} />
               </div>
               <h3 className="text-[15px] font-medium text-ink">MapMyFace</h3>
             </div>
