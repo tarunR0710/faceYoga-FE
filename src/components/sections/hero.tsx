@@ -102,12 +102,12 @@ export function Hero() {
           variants={container}
           initial={reduce ? false : 'hidden'}
           animate="show"
-          className="max-w-2xl mx-auto "
+          className="max-w-2xl"
         >
           {/* Headline — line-by-line mask reveal */}
           <motion.h1
             variants={headline}
-            className="text-[2rem] md:text-[36px] lg:text-[3.5rem] leading-[1.1] tracking-[-0.02em] text-white mb-4"
+            className="text-[28px] md:text-[36px] lg:text-[3.5rem] leading-[1.1] tracking-[-0.02em] text-white mb-4"
             style={{ fontWeight: 450 }}
           >
             <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
@@ -121,7 +121,7 @@ export function Hero() {
           {/* Description */}
           <motion.p
             variants={rise}
-            className="text-[14px] md:text-[17px] text-white/75 leading-relaxed mb-8 max-w-md mx-auto"
+            className="text-[14px] md:text-[17px] text-white/75 leading-relaxed mb-8 max-w-md"
           >
             Meet a real expert who reviews your face 1-on-1 and builds a plan around your unique features.
           </motion.p>
