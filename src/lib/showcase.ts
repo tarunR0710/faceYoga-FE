@@ -95,3 +95,32 @@ export const EXPERT_PANEL: Expert[] = [
    clear, front-facing face photo you own the rights to (ideally neutral bg,
    even lighting) — the annotation dots are positioned as % so any portrait works. */
 export const ANALYSIS_FACE = F('photo-1544005313-94ddf0286df2', 700, 875)
+
+/* ── 5 · Section media ───────────────────────────────────────────────────────
+   Stand-in imagery for the sections the blueprint specifies with a visual.
+
+   These are LOCAL FILES in /public/placeholder on purpose. Hot-linking stock
+   hosts made `next dev` throw ENOTFOUND / 500s from the image optimiser the
+   moment the network blipped, and every one of these is being replaced anyway.
+
+   REPLACE each file with brand-shot media: real Indian men and women, natural
+   skin texture, neutral clothing, controlled Map Teal / Map Mist backgrounds.
+   No salon imagery, no over-retouching, no generic AI visuals (blueprint,
+   Developer Handoff → Imagery). Keep the same filenames and nothing else needs
+   to change. */
+export const MEDIA = {
+  /** Face Mapping Session mock — the two video tiles. */
+  sessionCustomer: '/placeholder/session-customer.jpg',
+  sessionExpert: '/placeholder/session-expert.jpg',
+  /** Hair Map add-on — hair structure / length / parting reference. */
+  hairMap: '/placeholder/hair-map.jpg',
+  /** Style & Colour Map add-on — clothing, colour and presentation reference. */
+  styleMap: '/placeholder/style-map.jpg',
+  /** Face Map report cover / spread preview. */
+  reportCover: '/placeholder/report-cover.jpg',
+  /** Expert panel — the still shown at rest on each of the four role cards. */
+  panelMedical: '/placeholder/panel-medical.jpg',
+  panelResearch: '/placeholder/panel-research.jpg',
+  panelYoga: '/placeholder/panel-yoga.jpg',
+  panelHair: '/placeholder/panel-hair.jpg',
+} as const

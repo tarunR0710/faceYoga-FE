@@ -55,11 +55,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // data-palette selects the accent theme (clean white base stays constant).
-  // ★ FAVORITES: coral · oxblood
-  // all options: amber · teal · emerald · coral · azure · onyx · mahogany · periwinkle · deep-teal · oxblood · lagoon · aqua
+  // data-palette selects the theme. `aurora` is derived from the pricing-card
+  // gradient (#6BE9FF → #69B4FF → #8CECFF) and is the only palette that also
+  // defines the --g1/--g2/--g3 stops the section tone bands are built from;
+  // every other palette falls back to plain grounds.
+  // Section rhythm itself lives in app/page.tsx → SECTIONS.
+  // all options: aurora · clinic · amber · teal · emerald · coral · azure · onyx
+  //              mahogany · periwinkle · deep-teal · oxblood · lagoon · aqua
   return (
-    <html lang="en" data-palette="aqua" className={`${manrope.variable} ${newsreader.variable} ${jost.variable}`}>
+    <html lang="en" data-palette="aurora" className={`${manrope.variable} ${newsreader.variable} ${jost.variable}`}>
       <head>
         {/* Warm up connections to the media/image hosts for a faster LCP */}
         <link rel="preconnect" href="https://pub-276f99bee0ca472b8c097bf6b9fc7e52.r2.dev" crossOrigin="anonymous" />

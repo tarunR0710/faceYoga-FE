@@ -1,173 +1,128 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { Plus, Minus } from 'lucide-react'
-import { SITE_CONFIG } from '@/lib/constants'
-import { EASE_OUT } from '@/lib/motion'
-
-const faqs = [
-  {
-    category: 'The approach',
-    items: [
-      {
-        q: 'Is MapMyFace only face yoga?',
-        a: 'No. Face yoga is one of five expert layers inside a broader, personalised Face Map.',
-      },
-      {
-        q: 'Is this an AI face scan?',
-        a: 'No. Technology may help visualise, but real experts lead the consultation, interpretation and recommendations.',
-      },
-      {
-        q: 'Will you recommend surgery?',
-        a: 'No. MapMyFace focuses on non-surgical appearance guidance — 0 surgery, ever.',
-      },
-    ],
-  },
-  {
-    category: 'Your Face Map',
-    items: [
-      {
-        q: 'How long does it take?',
-        a: 'Your Face Map is delivered within 2–4 working days after your completed Face Mapping Session.',
-      },
-      {
-        q: 'Can I ask questions after delivery?',
-        a: 'Yes. When something in your Face Map is unclear, a real person answers.',
-      },
-      {
-        q: 'Are Hair Map and Style & Colour Map included?',
-        a: 'They are optional specialist add-ons you can select before payment (₹699 each).',
-      },
-    ],
-  },
-  {
-    category: 'Privacy',
-    items: [
-      {
-        q: 'How is my data handled?',
-        a: 'Your face photos and session are private, used only to create your Face Map, and never used in marketing without your explicit written consent.',
-      },
-    ],
-  },
-]
-
-function FAQItem({ question, answer, isOpen, onToggle }: {
-  question: string
-  answer: string
-  isOpen: boolean
-  onToggle: () => void
-}) {
-  return (
-    <div className="border-b border-border/70 last:border-b-0">
-      <button
-        onClick={onToggle}
-        className="w-full py-4 flex items-center justify-between text-left group"
-      >
-        <span className="text-[14px] font-medium text-ink group-hover:text-analysis-teal transition-colors pr-4">
-          {question}
-        </span>
-        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-mist flex items-center justify-center">
-          {isOpen ? (
-            <Minus className="w-3 h-3 text-teal" strokeWidth={2} />
-          ) : (
-            <Plus className="w-3 h-3 text-teal" strokeWidth={2} />
-          )}
-        </span>
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: EASE_OUT }}
-            className="overflow-hidden"
-          >
-            <p className="pb-4 text-[13px] text-analysis-teal leading-relaxed pr-8">
-              {answer}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
+import { useMemo, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import * as AccordionPrimitive from '@radix-ui/react-accordion'
+import { Plus, Mail } from 'lucide-react'
+import { FAQS, FAQ_GROUPS, SITE_CONFIG } from '@/lib/constants'
+import { EASE_OUT, REVEAL, VIEWPORT, stagger } from '@/lib/motion'
 
 export function FAQ() {
   const reduce = useReducedMotion()
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>({})
+  const [group, setGroup] = useState<string>('All')
 
-  const toggleItem = (key: string) => {
-    setOpenItems((prev) => ({ ...prev, [key]: !prev[key] }))
-  }
+  const visible = useMemo(
+    () => (group === 'All' ? FAQS : FAQS.filter((f) => f.group === group)),
+    [group]
+  )
 
   return (
-    <section id="faq" className="section bg-ivory">
+    <section id="faq" className="section">
       <div className="container-main">
-        {/* Soft seam — Pricing (white) → FAQ (white) */}
-        <div className="divider-soft mb-12 md:mb-16" />
-        {/* Header */}
-        <motion.div
-          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: EASE_OUT }}
-          className="text-center max-w-xl mx-auto mb-12"
-        >
-          <p className="text-[12px] text-analysis-teal uppercase tracking-[0.1em] mb-3">
-            FAQ
-          </p>
-          <h2 className="text-[1.75rem] md:text-[2.25rem] leading-[1.15] tracking-[-0.02em] mb-4" style={{ fontWeight: 450 }}>
-            <span className="text-ink">Questions, </span>
-            <span className="text-analysis-teal">answered honestly.</span>
-          </h2>
-          <p className="text-[15px] md:text-base text-analysis-teal leading-relaxed">
-            What MapMyFace is, how your Face Map works, and how your data stays private.
-          </p>
-        </motion.div>
-
-        {/* FAQ Grid */}
-        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
-          {faqs.map((category, categoryIndex) => (
-            <motion.div
-              key={category.category}
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: categoryIndex * 0.1, duration: 0.6, ease: EASE_OUT }}
+        {/* grid-cols-1 is load-bearing: without it the single implicit track is
+            `auto`, which sizes to the max-content of the filter rail below and
+            pushes the whole page wider than the viewport. */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-14">
+          {/* ── Heading ──────────────────────────────────────────────────── */}
+          <motion.div
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VIEWPORT}
+            transition={REVEAL}
+            className="lg:sticky lg:top-24 lg:self-start"
+          >
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-analysis-teal md:text-[12px]">
+              Frequently asked questions
+            </p>
+            <h2
+              className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
+              style={{ fontWeight: 450 }}
             >
-              <p className="text-[11px] font-medium text-analysis-teal uppercase tracking-[0.1em] mb-4">
-                {category.category}
-              </p>
-              <div className="card rounded-[18px] px-5 py-2">
-                {category.items.map((faq, index) => (
-                  <FAQItem
-                    key={index}
-                    question={faq.q}
-                    answer={faq.a}
-                    isOpen={openItems[`${categoryIndex}-${index}`] || false}
-                    onToggle={() => toggleItem(`${categoryIndex}-${index}`)}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              Everything you should understand <span className="text-ink/40">before you pay.</span>
+            </h2>
+            <p className="mt-5 text-[14px] leading-relaxed text-analysis-teal md:text-[15px]">
+              Direct answers, no technical language. If something is still unclear, a real person
+              replies.
+            </p>
 
-        {/* Contact */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: EASE_OUT }}
-          className="mt-12 text-center text-[14px] text-analysis-teal"
-        >
-          Still have questions?{' '}
-          <a href={`mailto:${SITE_CONFIG.email}`} className="text-ink font-medium hover:underline">
-            Contact support
-          </a>
-        </motion.p>
+            <a
+              href={`mailto:${SITE_CONFIG.email}`}
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2.5 text-[13px] font-medium text-ink transition-colors hover:bg-mist"
+            >
+              <Mail className="h-3.5 w-3.5 text-accent" strokeWidth={1.8} />
+              Ask us directly
+            </a>
+          </motion.div>
+
+          {/* ── Questions ────────────────────────────────────────────────── */}
+          <div className="min-w-0">
+            {/* Filter — fifteen answers stay browsable on a phone */}
+            <div className="no-scrollbar -mx-4 mb-5 flex gap-2 overflow-x-auto px-4 md:mx-0 md:flex-wrap md:px-0">
+              {FAQ_GROUPS.map((g) => {
+                const on = group === g
+                const count = g === 'All' ? FAQS.length : FAQS.filter((f) => f.group === g).length
+                return (
+                  <button
+                    key={g}
+                    type="button"
+                    onClick={() => setGroup(g)}
+                    aria-pressed={on}
+                    className={`shrink-0 rounded-full border px-3.5 py-2 text-[12px] font-medium transition-colors duration-250 ${
+                      on
+                        ? 'border-accent/40 bg-accent-soft text-accent-foreground'
+                        : 'border-border/60 bg-white text-analysis-teal hover:bg-mist'
+                    }`}
+                  >
+                    {g}
+                    <span className={`ml-1.5 tabular-nums ${on ? 'text-accent/70' : 'text-ink/30'}`}>
+                      {count}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+
+            <AccordionPrimitive.Root
+              type="single"
+              collapsible
+              className="overflow-hidden rounded-[20px] border border-border/60 bg-white"
+            >
+              {visible.map((faq, i) => (
+                <motion.div
+                  key={faq.q}
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={VIEWPORT}
+                  transition={{ duration: 0.55, ease: EASE_OUT, delay: stagger(i, 0.04, 0.28) }}
+                >
+                  <AccordionPrimitive.Item
+                    value={faq.q}
+                    className="border-b border-border/60 last:border-b-0"
+                  >
+                    <AccordionPrimitive.Header className="flex">
+                      <AccordionPrimitive.Trigger className="group flex flex-1 items-start gap-3 px-4 py-4 text-left md:px-5">
+                        <span className="flex-1 text-[14px] font-medium leading-snug tracking-[-0.01em] text-ink transition-colors group-hover:text-accent-foreground md:text-[15px]">
+                          {faq.q}
+                        </span>
+                        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-mist">
+                          <Plus
+                            className="h-3 w-3 text-accent transition-transform duration-300 group-data-[state=open]:rotate-45"
+                            strokeWidth={2.4}
+                          />
+                        </span>
+                      </AccordionPrimitive.Trigger>
+                    </AccordionPrimitive.Header>
+                    <AccordionPrimitive.Content className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+                      <p className="px-4 pb-4 pr-12 text-[13px] leading-relaxed text-analysis-teal md:px-5 md:text-[13.5px]">
+                        {faq.a}
+                      </p>
+                    </AccordionPrimitive.Content>
+                  </AccordionPrimitive.Item>
+                </motion.div>
+              ))}
+            </AccordionPrimitive.Root>
+          </div>
+        </div>
       </div>
     </section>
   )

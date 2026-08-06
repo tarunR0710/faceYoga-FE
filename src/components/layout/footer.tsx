@@ -2,20 +2,29 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants'
 
+// Blueprint footer: Explore · Support · Legal · Connect.
 const footerLinks = {
-  company: [
-    { label: 'How it works', href: '/#how-it-works' },
-    { label: 'What you receive', href: '/what-you-receive' },
-    { label: 'Meet the experts', href: '/meet-the-experts' },
-    { label: 'Research & method', href: '/research-and-method' },
+  explore: [
+    { label: 'How It Works', href: '/#how-it-works' },
+    { label: 'Your Face Map', href: '/#face-map' },
+    { label: 'Experts', href: '/#experts' },
+    { label: 'Add-ons', href: '/#add-ons' },
     { label: 'Pricing', href: '/#pricing' },
     { label: 'FAQ', href: '/#faq' },
+  ],
+  support: [
     { label: 'Contact', href: `mailto:${SITE_CONFIG.email}` },
+    { label: 'Clarification', href: `mailto:${SITE_CONFIG.email}?subject=Face%20Map%20clarification` },
+    { label: 'Rescheduling', href: `mailto:${SITE_CONFIG.email}?subject=Reschedule%20my%20session` },
+    { label: 'Help', href: '/#faq' },
   ],
   legal: [
     { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Terms', href: '/terms' },
     { label: 'Refund Policy', href: '/refund' },
+    // Image / marketing consent is covered inside the privacy page until a
+    // standalone Consent & Image Policy page exists.
+    { label: 'Consent & Image Policy', href: '/privacy#consent' },
   ],
 }
 
@@ -26,9 +35,9 @@ export function Footer() {
       style={{ background: 'linear-gradient(180deg, var(--c-ink-accent) 0%, var(--c-ink-accent-deep) 100%)' }}
     >
       <div className="container-main py-12 md:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-2">
             <Link href="/" className="inline-block" aria-label={`${SITE_CONFIG.name} home`}>
               <Image
                 src="/logo-mark.png"
@@ -38,21 +47,35 @@ export function Footer() {
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
             </Link>
-            <p className="my-3 text-[13px] text-white/70 max-w-[220px] font-medium leading-relaxed">
-              Your complete appearance plan, mapped around you. Human-led, research-informed, personally mapped.
+            <p className="my-3 max-w-[260px] text-[13px] font-medium leading-relaxed text-white/70">
+              Expert-led personalised facial analysis and appearance improvement.
             </p>
             <p className="mt-3 text-[12px] text-white/55">
               {SITE_CONFIG.email}
             </p>
           </div>
 
-          {/* Company */}
+          {/* Explore */}
           <div>
-            <p className="text-[11px] font-medium text-white/60 uppercase tracking-[0.15em] mb-4">Company</p>
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.15em] text-white/60">Explore</p>
             <ul className="space-y-2.5">
-              {footerLinks.company.map((link) => (
+              {footerLinks.explore.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-[13px] text-white/70 hover:text-ivory transition-colors duration-150">
+                  <Link href={link.href} className="text-[13px] text-white/70 transition-colors duration-150 hover:text-ivory">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Support */}
+          <div>
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.15em] text-white/60">Support</p>
+            <ul className="space-y-2.5">
+              {footerLinks.support.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="text-[13px] text-white/70 transition-colors duration-150 hover:text-ivory">
                     {link.label}
                   </Link>
                 </li>
@@ -62,11 +85,11 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <p className="text-[11px] font-medium text-white/60 uppercase tracking-[0.15em] mb-4">Legal</p>
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.15em] text-white/60">Legal</p>
             <ul className="space-y-2.5">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-[13px] text-white/70 hover:text-ivory transition-colors duration-150">
+                  <Link href={link.href} className="text-[13px] text-white/70 transition-colors duration-150 hover:text-ivory">
                     {link.label}
                   </Link>
                 </li>
@@ -75,8 +98,19 @@ export function Footer() {
           </div>
 
           {/* Social */}
-          <div>
-            <p className="text-[11px] font-medium text-white/60 uppercase tracking-[0.15em] mb-4">Connect</p>
+          <div className="col-span-2 md:col-span-5">
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.15em] text-white/60">Connect</p>
+            <div className="mb-4 flex flex-wrap gap-x-6 gap-y-1.5 text-[13px] text-white/70">
+              <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ivory">
+                Instagram: @mapmyfaceofficial
+              </a>
+              <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ivory">
+                YouTube: MapMyFaceOfficial
+              </a>
+              <a href={`mailto:${SITE_CONFIG.email}`} className="transition-colors hover:text-ivory">
+                Business email
+              </a>
+            </div>
             <div className="flex items-center gap-3">
               <a
                 href={SOCIAL_LINKS.instagram}

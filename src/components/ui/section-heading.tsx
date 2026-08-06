@@ -1,0 +1,87 @@
+'use client'
+
+import type { ReactNode } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { REVEAL, VIEWPORT } from '@/lib/motion'
+
+type SectionHeadingProps = {
+  /** Small uppercase kicker — the blueprint's section label (e.g. "THE PROBLEM"). */
+  eyebrow: string
+  /** First sentence of the headline — full-strength ink. */
+  title: ReactNode
+  /** Second sentence — rendered at 40% ink, the house two-tone headline. */
+  muted?: ReactNode
+  /** Supporting paragraph under the headline. */
+  lede?: ReactNode
+  /** Right-hand editorial note (blueprint's margin guidance blocks). Desktop only column. */
+  note?: ReactNode
+  align?: 'left' | 'center'
+  className?: string
+  /** Tightens the bottom margin for sections whose first row sits close. */
+  tight?: boolean
+}
+
+/**
+ * One header for every section: same eyebrow tracking, same two-tone h2, same
+ * reveal. Section-to-section consistency is most of the premium impression
+ * (playbook §9 "consistency fix worth doing first"), so headers are not
+ * re-typeset per component.
+ */
+export function SectionHeading({
+  eyebrow,
+  title,
+  muted,
+  lede,
+  note,
+  align = 'left',
+  className = '',
+  tight = false,
+}: SectionHeadingProps) {
+  const reduce = useReducedMotion()
+  const centered = align === 'center'
+
+  const heading = (
+    <motion.div
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={VIEWPORT}
+      transition={REVEAL}
+      className={centered ? 'mx-auto max-w-3xl text-center' : 'max-w-2xl'}
+    >
+      <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-analysis-teal md:text-[12px]">
+        {eyebrow}
+      </p>
+      <h2
+        className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
+        style={{ fontWeight: 450 }}
+      >
+        {title}
+        {muted ? <span className="text-ink/40"> {muted}</span> : null}
+      </h2>
+      {lede ? (
+        <p className="mt-5 text-[14px] leading-relaxed text-analysis-teal md:text-[16px]">{lede}</p>
+      ) : null}
+    </motion.div>
+  )
+
+  if (!note) {
+    return <div className={`${tight ? 'mb-8 md:mb-10' : 'mb-12 md:mb-16'} ${className}`}>{heading}</div>
+  }
+
+  return (
+    <div
+      className={`${tight ? 'mb-8 md:mb-10' : 'mb-12 md:mb-16'} grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-end lg:gap-12 ${className}`}
+    >
+      {heading}
+      <motion.p
+        initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={VIEWPORT}
+        transition={{ ...REVEAL, delay: 0.1 }}
+        className="border-l border-border pl-4 text-[13px] leading-relaxed text-ink/60 md:text-[14px]"
+      >
+        {note}
+      </motion.p>
+    </div>
+  )
+}

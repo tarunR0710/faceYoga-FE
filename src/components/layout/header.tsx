@@ -6,15 +6,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
-import { SITE_CONFIG } from '@/lib/constants'
+import { SITE_CONFIG, NAV_LINKS } from '@/lib/constants'
+import { EASE_OUT } from '@/lib/motion'
+import { ScrollProgress } from '@/components/layout/scroll-progress'
 
-const navLinks = [
-  { label: 'Why MapMyFace', href: '/#why' },
-  { label: 'How it works', href: '/#how-it-works' },
-  { label: 'Experts', href: '/#experts' },
-  { label: 'Pricing', href: '/#pricing' },
-  { label: 'FAQ', href: '/#faq' },
-]
+// Blueprint header order: How It Works · Your Face Map · Experts · Add-ons ·
+// Pricing · FAQ. (The blueprint also shows a Login item; there is no customer
+// account area yet, so it is left out rather than linked to nothing.)
+const navLinks = NAV_LINKS
 
 export function Header() {
   const pathname = usePathname()
@@ -35,6 +34,8 @@ export function Header() {
 
   return (
     <>
+      <ScrollProgress />
+
       {/* Navbar container - fixed at top */}
       <div
         className="fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-out"
@@ -45,14 +46,14 @@ export function Header() {
         <motion.header
           initial={{ y: -10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4, ease: EASE_OUT }}
           className="transition-all duration-500 ease-out"
           style={{
             width: solid ? '98%' : '100%',
             maxWidth: solid ? '1400px' : '100%',
-            backgroundColor: solid
-              ? 'rgba(33, 29, 24, 0.38)'
-              : 'transparent',
+            // token-driven so the pill stays in the palette's temperature — a
+            // warm dark over the cool gradient bands reads as muddy grey-green
+            backgroundColor: solid ? 'rgb(var(--c-ink) / 0.42)' : 'transparent',
             backdropFilter: solid ? 'blur(60px) saturate(350%)' : 'none',
             WebkitBackdropFilter: solid ? 'blur(60px) saturate(350%)' : 'none',
             borderRadius: solid ? '999px' : '0px',
@@ -103,18 +104,18 @@ export function Header() {
                 className="inline-flex items-center bg-white text-ink text-[12px] font-semibold rounded-full hover:bg-white/90 transition-colors duration-200"
                 style={{ padding: '8px 16px' }}
               >
-                Map my face
+                Start My Plan
               </Link>
             </div>
 
-            {/* Mobile: Start My Face Map + Menu Button */}
+            {/* Mobile: Start My Plan + Menu Button */}
             <div className="flex md:hidden items-center gap-2">
               <Link
                 href="/form"
                 className="inline-flex items-center bg-white text-ink text-[12px] font-semibold rounded-full hover:bg-white/90 transition-colors duration-200"
                 style={{ padding: '8px 16px' }}
               >
-                Map my face
+                Start My Plan
               </Link>
               <button
                 className="p-2 mr-2 text-white rounded-full hover:bg-white/10 transition-colors drop-shadow-[0_1px_3px_rgba(0,0,0,0.35)]"
@@ -167,7 +168,7 @@ export function Header() {
                   key={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ duration: 0.5, ease: EASE_OUT, delay: index * 0.06 }}
                 >
                   <Link
                     href={link.href}
@@ -181,7 +182,7 @@ export function Header() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.42 }}
                 className="flex flex-col items-center gap-4 mt-6"
               >
                 <Link
@@ -193,7 +194,7 @@ export function Header() {
                   }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Map my face
+                  Start My Plan
                 </Link>
               </motion.div>
             </div>

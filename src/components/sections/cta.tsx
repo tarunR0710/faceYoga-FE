@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { motion, useMotionValue, useMotionTemplate, useReducedMotion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import { EASE_OUT } from '@/lib/motion'
+import { ArrowRight, Check } from 'lucide-react'
+import { EASE_OUT, REVEAL, VIEWPORT } from '@/lib/motion'
 
 export function CTA() {
   const reduce = useReducedMotion()
@@ -62,30 +62,66 @@ export function CTA() {
       )}
       <div className="relative container-main">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: EASE_OUT }}
-          className="text-center max-w-2xl mx-auto"
+          viewport={VIEWPORT}
+          transition={REVEAL}
+          className="mx-auto max-w-2xl text-center"
         >
-          <p className="text-[12px] text-ivory/65 uppercase tracking-[0.15em] mb-4">
-            Get started today
+          <p className="mb-4 text-[11px] uppercase tracking-[0.16em] text-ivory/65 md:text-[12px]">
+            Your plan starts with understanding
           </p>
-          <h2 className="text-[1.75rem] md:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-ivory mb-10" style={{ fontWeight: 450 }}>
-            You do not need more random advice. You need to know what suits you.
-          </h2>
-
-          <Link
-            href="/form"
-            className="inline-flex items-center justify-center h-14 px-9 bg-ivory text-ink text-[15px] font-semibold rounded-full hover:bg-mist transition-colors duration-300 ease-smooth group"
+          <h2
+            className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ivory md:text-[2.5rem]"
+            style={{ fontWeight: 450 }}
           >
-            Start My Face Map
-            <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2} />
-          </Link>
-
-          <p className="mt-5 text-[13px] text-ivory/55">
-            No commitment required.
+            Stop guessing what suits you.{' '}
+            <span className="text-ivory/60">Start with a plan built around you.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-[14px] leading-relaxed text-ivory/70 md:text-[16px]">
+            Meet real experts, understand your complete appearance and receive clear personalised
+            direction through your own Face Map.
           </p>
+
+          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link
+              href="/form"
+              className="group inline-flex h-14 w-full items-center justify-center rounded-full bg-ivory px-9 text-[15px] font-semibold text-ink transition-colors duration-300 ease-smooth hover:bg-mist sm:w-auto"
+            >
+              Start My Plan
+              <ArrowRight
+                className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
+                strokeWidth={2}
+              />
+            </Link>
+            <Link
+              href="#how-it-works"
+              className="inline-flex h-14 w-full items-center justify-center rounded-full border border-ivory/25 bg-white/10 px-8 text-[15px] font-medium text-ivory backdrop-blur-md transition-colors duration-300 hover:bg-white/20 sm:w-auto"
+            >
+              See How It Works
+            </Link>
+          </div>
+
+          {/* What is always included, restated at the moment of decision */}
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5">
+            {[
+              'Personal onboarding included',
+              'Expert-led consultation',
+              'Clarification support available',
+            ].map((chip, i) => (
+              <motion.span
+                key={chip}
+                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={VIEWPORT}
+                transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.15 + i * 0.09 }}
+                className="inline-flex items-center gap-2 text-[12px] text-ivory/65 md:text-[13px]"
+              >
+                <Check className="h-3.5 w-3.5 shrink-0 text-ivory/50" strokeWidth={2} />
+                {chip}
+              </motion.span>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

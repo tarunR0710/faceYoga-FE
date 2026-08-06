@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useReducedMotion } from 'framer-motion'
-import { useEffect, useState } from 'react'
-import { EASE_OUT } from '@/lib/motion'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { EASE_OUT, EASE_OUT_SOFT } from '@/lib/motion'
 
 // Hero video assets on Cloudflare R2 (public dev URL).
 // To move to a custom domain later, change only this base — the paths stay the same.
@@ -17,6 +17,13 @@ export function Hero() {
   const [showVideo, setShowVideo] = useState(false)
   const [videoReady, setVideoReady] = useState(false)
   const reduce = useReducedMotion()
+
+  // Cinematic exit: the copy lifts and dissolves as the hero scrolls away
+  // (playbook §9 polish). Transform + opacity only, so it costs nothing.
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] })
+  const exitOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0])
+  const exitY = useTransform(scrollYProgress, [0, 1], [0, -60])
 
   // Orchestrated entrance: headline lines rise from a mask, then subhead + CTAs
   // settle. One choreographed "curtain-up" on mount (not scroll) — the brand's
@@ -49,13 +56,13 @@ export function Hero() {
   }, [])
 
   return (
-    <section className="relative h-[calc(100svh-47px)] md:h-screen w-full overflow-hidden">
+    <section ref={sectionRef} className="relative h-[calc(100svh-47px)] md:h-screen w-full overflow-hidden">
       {/* Background — subtle focus-pull settle on mount (scale only; no blur, keeps LCP + mobile safe) */}
       <motion.div
         className="absolute inset-0 bg-[#3a3632]"
         initial={reduce ? false : { scale: 1.06 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 1.6, ease: EASE_OUT }}
+        transition={{ duration: 1.6, ease: EASE_OUT_SOFT }}
       >
         {/* Poster image — LCP element, shown instantly */}
         <Image
@@ -103,7 +110,16 @@ export function Hero() {
           initial={reduce ? false : 'hidden'}
           animate="show"
           className="max-w-2xl"
+          style={reduce ? undefined : { opacity: exitOpacity, y: exitY }}
         >
+          {/* Section label — blueprint eyebrow */}
+          <motion.p
+            variants={rise}
+            className="mb-4 text-[10px] md:text-[11px] font-medium uppercase tracking-[0.18em] text-white/60"
+          >
+            Personalised appearance intelligence
+          </motion.p>
+
           {/* Headline — line-by-line mask reveal */}
           <motion.h1
             variants={headline}
@@ -114,16 +130,25 @@ export function Hero() {
               <motion.span variants={line} className="block">Understand your face.</motion.span>
             </span>
             <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
-              <motion.span variants={line} className="block text-white/75">Know what suits you.</motion.span>
+              <motion.span variants={line} className="block text-white/75">Discover what suits you.</motion.span>
             </span>
           </motion.h1>
 
           {/* Description */}
+          {/* Blueprint gives a shorter hero line for the mobile key screen —
+              same promise, fewer words above the fold. */}
           <motion.p
             variants={rise}
-            className="text-[14px] md:text-[17px] text-white/75 leading-relaxed mb-8 max-w-md"
+            className="text-[14px] md:text-[17px] text-white/75 leading-relaxed mb-8 max-w-lg"
           >
-            Meet a real expert who reviews your face 1-on-1 and builds a plan around your unique features.
+            <span className="md:hidden">
+              Meet real experts and receive one personalised appearance plan.
+            </span>
+            <span className="hidden md:inline">
+              Meet real experts who study your face, skin, routine, lifestyle and goals — then create
+              one personalised plan covering facial appearance, skincare direction, grooming and
+              relevant face yoga.
+            </span>
           </motion.p>
 
           {/* CTA Buttons */}
@@ -135,15 +160,23 @@ export function Hero() {
               href="/form"
               className="flex-1 h-12 sm:h-14 px-4 inline-flex items-center justify-center whitespace-nowrap bg-white text-[#111] text-[13px] sm:text-[15px] font-semibold rounded-full shadow-lg shadow-black/20 hover:bg-white/90 active:scale-[0.98] transition-all duration-200"
             >
-              Start My Face Map
+              Start My Plan
             </Link>
             <Link
               href="#how-it-works"
               className="flex-1 h-12 sm:h-14 px-4 inline-flex items-center justify-center whitespace-nowrap text-white text-[13px] sm:text-[15px] font-medium rounded-full bg-white/10 backdrop-blur-md border border-white/25 shadow-lg shadow-black/10 hover:bg-white/20 active:scale-[0.98] transition-all duration-200"
             >
-              How it works
+              See How It Works
             </Link>
           </motion.div>
+
+          {/* Trust line */}
+          <motion.p
+            variants={rise}
+            className="mt-6 text-[11px] md:text-[13px] text-white/55 tracking-[0.01em]"
+          >
+            Human-led. Research-informed. Personalised for you.
+          </motion.p>
         </motion.div>      </div>
     </section>
   )

@@ -21,6 +21,13 @@
     --c-primary: 33 29 24;      /* dark, accessible primary buttons */
     --c-primary-ink: 253 252 250;
     --c-border: 237 234 228;    /* #EDEAE4 warm hairline */
+
+    /* Tone-ladder defaults. Declared HERE, before every [data-palette] block:
+       :root and [data-palette] have the same specificity, so a later :root
+       would silently win. Palettes without a rhythm fall back to the flat
+       near-whites, which is what makes reverting a one-word change. */
+    --c-tone-warm: 254 253 251;
+    --c-tone-ink: 33 29 24;
     --c-border-soft: 243 240 234;/* #F3F0EA even softer warm hairline (cards on white) */
 
     /* Soft card "halo" — separation by light, not by a hard line */
@@ -106,6 +113,73 @@
     --c-accent-soft: 224 239 242;   /* #E0EFF2 light cyan tint */
     --c-accent-2: 200 134 43;       /* amber counterpoint */
   }
+  /* ── AURORA — built out of the pricing-card gradient ───────────────────────
+     The three stops already on the pricing panel (#6BE9FF cyan → #69B4FF sky →
+     #8CECFF pale) are gorgeous but are SURFACE colours: 1.4–2.2:1 on white, so
+     none can carry text. The system therefore splits them by job —
+       surfaces  the stops, composited on white at 10–28% (the `tone-*` bands)
+       graphic   #6BE9FF full strength — rings, dots, mapping lines, dark bands
+       action    #1A5FA8 (the sky stop, deepened) — 6.47:1 on white ✓
+       ink       #132734 cool near-black so text belongs to the blue family
+       muted     #4A6377 slate — 5.10:1 even on the strongest light band ✓
+     Dark bands are the same gradient inverted, not a foreign black, so the
+     page stays one world end to end. */
+  [data-palette='aurora'] {
+    --c-bg: 255 255 255;
+    --c-surface: 255 255 255;
+    --c-surface-2: 236 245 255;   /* #ECF5FF the wash, for chips and pills */
+    --c-surface-alt: 236 245 255;
+    --c-ink: 19 39 52;            /* #132734 — 15.36:1 on white */
+    --c-muted: 74 99 119;         /* #4A6377 — 6.28 white / 5.71 wash / 5.10 glow */
+    --c-primary: 19 39 52;
+    --c-primary-ink: 255 255 255;
+    --c-border: 223 233 243;      /* #DFE9F3 cool hairline */
+    --c-border-soft: 235 242 249;
+
+    --c-accent: 26 95 168;        /* #1A5FA8 links, buttons, active states */
+    --c-accent-ink: 23 86 154;    /* #17569A hover / accent text */
+    --c-accent-soft: 219 250 255; /* #DBFAFF cyan chip */
+    --c-accent-2: 107 233 255;    /* #6BE9FF the bright cyan — graphic only */
+
+    /* the gradient itself, as tokens, so every band is one recipe at 3 strengths */
+    --g1: 107 233 255;            /* #6BE9FF */
+    --g2: 105 180 255;            /* #69B4FF */
+    --g3: 140 236 255;            /* #8CECFF */
+  }
+
+  /* ── CLINIC & CLAY — the blueprint's locked palette, made functional ────────
+     The brand's six colours split by JOB, not by name:
+       surfaces  Warm Ivory / Map Mist / Soft Sand   (all chroma < 6, L* 89–96)
+       ink       Deep Ink #152421                    14.65:1 on Ivory
+       action    Analysis Teal #55766F               4.55:1 on Ivory ✓ AA
+       graphic   Map Teal #8FA9A3                    2.29:1 — NEVER text; lines/rings only
+       spark     Terracotta #9C5A2C                  4.89:1 on Ivory ✓, split-complement to the teal
+     Note the page ground moves off pure white: that alone turns the old
+     0.67 ΔL* section step into 5.5, which is the whole "it feels flat" fix. */
+  [data-palette='clinic'] {
+    --c-bg: 247 244 239;          /* #F7F4EF Warm Ivory — the ground */
+    --c-surface: 255 255 255;     /* pure-white cards now actually lift off the page */
+    --c-surface-2: 236 231 223;   /* #ECE7DF soft warm panel — chips, badges */
+    --c-surface-alt: 220 231 228; /* #DCE7E4 Map Mist — the COOL band (.section-alt) */
+    --c-ink: 21 36 33;            /* #152421 Deep Ink */
+    --c-muted: 73 103 97;         /* #496761 — deepened Analysis Teal so body copy
+                                     clears AA on ALL three grounds: 5.64 ivory,
+                                     4.89 mist, 4.66 sand. #55766F only made it
+                                     on ivory (3.94 on mist). */
+    --c-primary: 21 36 33;
+    --c-primary-ink: 247 244 239;
+    --c-border: 225 219 209;      /* #E1DBD1 warm hairline */
+    --c-border-soft: 235 230 222;
+
+    --c-accent: 85 118 111;       /* interaction teal */
+    --c-accent-ink: 61 89 83;     /* #3D5953 hover / accent text */
+    --c-accent-soft: 220 231 228; /* Map Mist tint */
+    --c-accent-2: 156 90 44;      /* #9C5A2C Terracotta — the spark, ≤4 uses per page */
+
+    --c-tone-warm: 232 222 213;   /* #E8DED5 Soft Sand — the WARM band */
+    --c-tone-ink: 21 36 33;       /* the anchor band */
+  }
+
   [data-palette='aqua'] {            /* #43BBCE → #21AAC2 → #2575C4 — cyan-teal to blue (trial) */
     --c-accent: 33 170 194;         /* #21AAC2 cyan-teal — icons, accents, buttons */
     --c-accent-ink: 37 117 196;     /* #2575C4 blue — hover / accent text / footer-dark base */
@@ -270,8 +344,95 @@
     background: linear-gradient(to right, transparent, rgb(var(--c-border)), transparent);
   }
 
-  /* Near-white band — the primary section-differentiation lever (token-driven) */
+  /* ── SECTION TONE LADDER ───────────────────────────────────────────────────
+     One gradient recipe at three strengths, plus the plain ground. The bands
+     are set from ONE place (`TONE` in app/page.tsx) so the whole rhythm can be
+     re-tuned or dropped without touching a single section file.
+
+       base   plain white                       L* 100.0   the default
+       wash   the gradient at 10–13%            L*  96.1   Δ 3.9  the alternator
+       glow   the gradient at 22–28%            L*  91.8   Δ 8.2  attention
+       deep   the gradient inverted             L*  13.6          anchors
+  */
   .section-alt { background-color: rgb(var(--c-surface-alt)); }
+
+  .tone-wash {
+    background:
+      linear-gradient(135deg,
+        rgb(var(--g1, 107 233 255) / .10) 0%,
+        rgb(var(--g2, 105 180 255) / .13) 50%,
+        rgb(var(--g3, 140 236 255) / .10) 100%),
+      rgb(var(--c-bg));
+  }
+
+  .tone-glow {
+    background:
+      radial-gradient(90% 70% at 88% 0%, rgb(var(--g1, 107 233 255) / .16) 0%, transparent 62%),
+      linear-gradient(135deg,
+        rgb(var(--g1, 107 233 255) / .22) 0%,
+        rgb(var(--g2, 105 180 255) / .28) 50%,
+        rgb(var(--g3, 140 236 255) / .22) 100%),
+      rgb(var(--c-bg));
+  }
+
+  /* On a tinted band a card does not need to float — the halo collapses to a
+     hairline, which is a third card texture for free. */
+  .tone-wash, .tone-glow {
+    --shadow-card: 0 1px 2px rgb(19 39 52 / .04), 0 0 0 1px rgb(19 39 52 / .04);
+    --shadow-sm: 0 1px 2px rgb(19 39 52 / .04), 0 0 0 1px rgb(19 39 52 / .04);
+  }
+
+  /* DEEP — the same gradient inverted. Re-scopes the role tokens so every
+     descendant already using text-ink / bg-surface / border-border flips with
+     no component change. The bright cyan is 1.4:1 on white but 11.06:1 here,
+     so this is the only place it gets to be a foreground colour. */
+  .tone-deep {
+    /* the flat colour is declared too, so the band never falls back to white if
+       the gradient layers fail to paint — the text here is light */
+    background-color: #0a2536;
+    background-image:
+      radial-gradient(80% 60% at 82% 0%, rgb(var(--g1, 107 233 255) / .16) 0%, transparent 62%),
+      radial-gradient(70% 60% at 8% 100%, rgb(var(--g2, 105 180 255) / .12) 0%, transparent 60%),
+      linear-gradient(150deg, #0a2536 0%, #103049 55%, #0a2434 100%);
+
+    --c-bg: 10 37 54;
+    --c-surface: 18 48 67;
+    --c-surface-2: 26 58 78;
+    --c-surface-alt: 10 37 54;
+    --c-ink: 232 246 255;          /* 14.32:1 on the band */
+    --c-muted: 157 196 220;        /* 8.54:1 */
+    --c-border: 46 76 97;
+    --c-border-soft: 36 62 81;
+    --c-primary: 232 246 255;
+    --c-primary-ink: 10 37 54;
+
+    --c-accent: 107 233 255;       /* the cyan, finally usable — 11.06:1 */
+    --c-accent-ink: 200 244 255;
+    --c-accent-soft: 22 62 84;
+
+    /* --mmf-* resolve where they are declared, so they need redeclaring here */
+    --mmf-border: rgb(46 76 97);
+    --mmf-ink: rgb(232 246 255);
+    --mmf-teal: rgb(107 233 255);
+
+    /* drop shadows do not read on dark — separate with a lit top edge */
+    --shadow-card: inset 0 1px 0 rgb(255 255 255 / .07);
+    --shadow-sm: inset 0 1px 0 rgb(255 255 255 / .07);
+    --shadow-md: inset 0 1px 0 rgb(255 255 255 / .07);
+    --shadow-lg: inset 0 1px 0 rgb(255 255 255 / .09);
+
+    color: rgb(var(--c-ink));
+  }
+  .tone-deep .card,
+  .tone-deep .card-hover-accent {
+    border-color: rgb(255 255 255 / .10);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / .07);
+  }
+  .tone-deep .card-hover-accent:hover {
+    border-color: rgb(var(--c-accent) / .40);
+    background-image: none;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / .12);
+  }
 
   /* Soft, wide gradient seam — for white→white section boundaries only */
   .divider-soft {
@@ -627,6 +788,9 @@
     .animate-marquee,
     .animate-marquee-slow,
     .animate-shimmer { animation: none !important; }
+    /* Accordions still open/close — they just do it instantly. */
+    .animate-accordion-down,
+    .animate-accordion-up { animation-duration: 1ms !important; }
     .typewriter-caret, .typewriter-caret--done { animation: none !important; opacity: 0; }
     /* Keep the brushed-metal gradient; drop the sweep. Park the specular streak
        across the left third ("MapM") so the resting mark still catches light. */

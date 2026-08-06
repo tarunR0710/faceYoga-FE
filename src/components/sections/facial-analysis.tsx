@@ -9,25 +9,27 @@ import {
   useMotionValueEvent,
   type MotionValue,
 } from 'framer-motion'
+import Link from 'next/link'
 import { useRef, useState } from 'react'
-import { EASE_OUT_SOFT } from '@/lib/motion'
+import { ArrowRight, Check } from 'lucide-react'
+import { EASE_OUT_SOFT, REVEAL, SCRUB_SPRING, VIEWPORT, stagger, useIsDesktop } from '@/lib/motion'
 
+// The three things the report opens with, in the blueprint's own labels.
 const parts = [
-  {
-    step: '01',
-    title: 'Overview',
-    body: 'Your three biggest strengths, in plain language.',
-  },
-  {
-    step: '02',
-    title: 'Facial Map',
-    body: 'Your features read across 9 zones, with clear labels.',
-  },
+  { step: '01', title: 'Facial Overview', body: 'How your features work together.' },
+  { step: '02', title: 'Your Face Map', body: 'Made around one person: you.' },
   {
     step: '03',
     title: 'Appearance Protocol',
-    body: 'What to start, stop, continue and do first.',
+    body: 'First, next and later — foundation, targeted changes, review.',
   },
+]
+
+const promises = [
+  'Clear explanations, not unexplained scores',
+  'Visual analysis and context',
+  'Prioritised recommendations',
+  'Practical actions you can follow',
 ]
 
 // Thin outline of a face with a few numbered points. `draw` (0→1) drives the
@@ -63,8 +65,8 @@ function FaceMapMock({ draw }: { draw: MotionValue<number> | number }) {
       ))}
       {mapPoints.map((p) => (
         <motion.g key={p.n} style={{ opacity: draw }}>
-          <circle cx={p.cx} cy={p.cy} r="9" fill="white" stroke="currentColor" strokeWidth="1.5" />
-          <text x={p.cx} y={p.cy + 3.5} textAnchor="middle" fontSize="10" fontWeight="500" className="fill-ink">
+          <circle cx={p.cx} cy={p.cy} r="9" fill="rgb(var(--c-surface))" stroke="currentColor" strokeWidth="1.5" />
+          <text x={p.cx} y={p.cy + 3.5} textAnchor="middle" fontSize="10" fontWeight="500" fill="rgb(var(--c-ink))">
             {p.n}
           </text>
         </motion.g>
@@ -73,12 +75,42 @@ function FaceMapMock({ draw }: { draw: MotionValue<number> | number }) {
   )
 }
 
+function PromiseList({ compact = false }: { compact?: boolean }) {
+  return (
+    <ul className={compact ? 'grid gap-2' : 'grid gap-2.5 sm:grid-cols-2'}>
+      {promises.map((p) => (
+        <li key={p} className="flex items-start gap-2.5">
+          <span className="mt-[3px] flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent-soft">
+            <Check className="h-2.5 w-2.5 text-accent-foreground" strokeWidth={2.5} />
+          </span>
+          <span className="text-[13px] leading-snug text-ink/[0.78] md:text-[13.5px]">{p}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function ExploreCta() {
+  return (
+    <Link
+      href="#inside-face-map"
+      className="group inline-flex h-12 items-center justify-center rounded-full border border-border bg-surface px-6 text-[14px] font-semibold text-ink transition-colors duration-200 hover:bg-surface-2"
+    >
+      Explore Your Face Map
+      <ArrowRight
+        className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
+        strokeWidth={2}
+      />
+    </Link>
+  )
+}
+
 export function FacialAnalysis() {
   const reduce = useReducedMotion()
-  // Pin the scrollytelling at every width (it stacks to a single column when
-  // narrow). Only reduced-motion falls back to the calm stacked cards.
-  if (reduce) return <StackedFaceMap reduce={reduce} />
-
+  const isDesktop = useIsDesktop()
+  // The single pinned "Apple moment" of the page — desktop only. Phones get the
+  // calm stacked version so 23 sections do not become 40 screens of scroll.
+  if (reduce || !isDesktop) return <StackedFaceMap reduce={!!reduce} />
   return <PinnedFaceMap />
 }
 
@@ -87,7 +119,7 @@ function PinnedFaceMap() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
   // Spring-smooth the value that drives the drawing so the line glides.
-  const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 28, restDelta: 0.001 })
+  const smooth = useSpring(scrollYProgress, SCRUB_SPRING)
   const draw = useTransform(smooth, [0.05, 0.72], [0, 1])
 
   const [active, setActive] = useState(0)
@@ -99,43 +131,51 @@ function PinnedFaceMap() {
     <section
       id="face-map"
       ref={ref}
-      className="section-alt relative"
-      style={{ height: `${parts.length * 100}vh` }}
+      className="relative"
+      style={{ height: `${parts.length * 90}svh` }}
     >
-      <div className="sticky top-0 h-screen overflow-hidden flex items-center">
-        <div className="container-main grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 lg:gap-20 items-center w-full">
-          {/* Face map — on top when narrow, on the left when wide */}
+      <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
+        <div className="container-main grid w-full grid-cols-2 items-center gap-12 lg:gap-20">
+          {/* Face map */}
           <div className="flex justify-center">
-            <div className="w-[210px] sm:w-[260px] md:w-[380px] lg:w-[440px] aspect-[156/216]">
+            <div className="aspect-[156/216] w-[340px] lg:w-[420px]">
               <FaceMapMock draw={draw} />
             </div>
           </div>
 
           {/* Header + the 3 parts cross-fading on scroll */}
-          <div className="text-center md:text-left">
-            <span className="mb-4 inline-block text-[11px] lg:text-[13px] font-medium uppercase tracking-wide text-analysis-teal">
+          <div>
+            <p className="mb-4 text-[12px] font-medium uppercase tracking-[0.16em] text-analysis-teal">
               Your Face Map
-            </span>
-            <h2 className="hidden md:block text-[1.75rem] lg:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-ink mb-10" style={{ fontWeight: 450 }}>
-              Not just what we see. <span className="text-ink/40">What it means for you.</span>
+            </p>
+            <h2
+              className="mb-8 text-[1.9rem] leading-[1.14] tracking-[-0.02em] text-ink lg:text-[2.4rem]"
+              style={{ fontWeight: 450 }}
+            >
+              Your complete analysis, <span className="text-ink/40">organised into one personal report.</span>
             </h2>
 
-            <div className="relative min-h-[210px]">
+            <div className="relative min-h-[168px]">
               {parts.map((part, i) => (
                 <PartText key={part.step} part={part} i={i} total={parts.length} progress={scrollYProgress} />
               ))}
             </div>
 
-            {/* Progress — which part you're on */}
-            <div className="mt-8 flex items-center justify-center md:justify-start gap-2">
+            {/* Progress — which chapter you're on */}
+            <div className="mb-8 mt-2 flex items-center gap-2">
               {parts.map((s, i) => (
                 <span
                   key={s.step}
                   className={`h-[3px] rounded-full transition-all duration-300 ${
-                    i === active ? 'w-9 bg-teal' : 'w-4 bg-ink/15'
+                    i === active ? 'w-9 bg-accent' : 'w-4 bg-ink/15'
                   }`}
                 />
               ))}
+            </div>
+
+            <PromiseList />
+            <div className="mt-7">
+              <ExploreCta />
             </div>
           </div>
         </div>
@@ -166,12 +206,15 @@ function PartText({
   // Hide completely when opacity is near zero
   const visibility = useTransform(opacity, (v) => (v < 0.01 ? 'hidden' : 'visible'))
   return (
-    <motion.div style={{ opacity, y, visibility }} className="absolute inset-0 flex flex-col justify-center items-center md:items-start">
-      <span className="text-[14px] font-medium tracking-[0.14em] text-analysis-teal">{part.step}</span>
-      <h3 className="mt-3 text-[2rem] sm:text-[2.25rem] lg:text-[2.75rem] leading-[1.12] tracking-[-0.02em] text-ink" style={{ fontWeight: 450 }}>
+    <motion.div style={{ opacity, y, visibility }} className="absolute inset-0 flex flex-col justify-center">
+      <span className="text-[13px] font-medium tracking-[0.16em] text-accent/70">{part.step}</span>
+      <h3
+        className="mt-2 text-[1.9rem] leading-[1.12] tracking-[-0.02em] text-ink lg:text-[2.4rem]"
+        style={{ fontWeight: 450 }}
+      >
         {part.title}
       </h3>
-      <p className="mt-4 text-[16px] sm:text-[18px] lg:text-[19px] leading-relaxed text-analysis-teal max-w-md mx-auto md:mx-0">
+      <p className="mt-3 max-w-md text-[16px] leading-relaxed text-analysis-teal lg:text-[18px]">
         {part.body}
       </p>
     </motion.div>
@@ -179,65 +222,92 @@ function PartText({
 }
 
 /* ── Mobile / reduced-motion: calm stacked layout ─────────────────────────── */
-function StackedFaceMap({ reduce }: { reduce: boolean | null }) {
+function StackedFaceMap({ reduce }: { reduce: boolean }) {
   const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
-  const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 28, restDelta: 0.001 })
+  const smooth = useSpring(scrollYProgress, SCRUB_SPRING)
   const drawScrub = useTransform(smooth, [0.28, 0.62], [0, 1])
   const draw = reduce ? 1 : drawScrub
 
   return (
-    <section ref={sectionRef} id="face-map" className="relative overflow-hidden section-alt py-16 md:py-28">
+    <section ref={sectionRef} id="face-map" className="section relative overflow-hidden">
       <div className="container-main relative z-10">
-        {/* Text Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
-          className="mx-auto max-w-2xl text-center"
-        >
-          <span className="mb-5 inline-block text-[11px] md:text-[13px] font-medium uppercase tracking-wide text-analysis-teal">
-            Your Face Map
-          </span>
-          <h2 className="text-[1.75rem] leading-[1.15] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.75rem]" style={{ fontWeight: 450 }}>
-            Not just what we see. <span className="text-ink/40">What it means for you.</span>
-          </h2>
-          <p className="mx-auto mt-5 max-w-lg text-[14px] leading-relaxed text-ink/78 md:text-[15px]">
-            Your Face Map connects expert observations to an Appearance Protocol, so you
-            know what to start, stop, continue and do first. It is not a score. It is a plan.
-          </p>
-        </motion.div>
+        <div className="grid grid-cols-1 items-center gap-8">
+          <motion.div
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VIEWPORT}
+            transition={REVEAL}
+          >
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-analysis-teal">
+              Your Face Map
+            </p>
+            <h2
+              className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink"
+              style={{ fontWeight: 450 }}
+            >
+              Your complete analysis, <span className="text-ink/40">organised into one personal report.</span>
+            </h2>
+            <p className="mt-4 text-[14px] leading-relaxed text-analysis-teal">
+              Your Face Map is created after the Face Mapping Session and Expert Mapping Review. It
+              explains what the team observed, what the findings mean and what you should do next.
+            </p>
+          </motion.div>
 
-        {/* Face Map parts */}
-        <div className="mx-auto mt-14 grid max-w-5xl gap-5 md:mt-16 md:grid-cols-3">
+          {/* The drawing map, kept small on phones */}
+          <motion.div
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={VIEWPORT}
+            transition={{ ...REVEAL, delay: 0.08 }}
+            className="mx-auto aspect-[156/216] w-[150px]"
+          >
+            <FaceMapMock draw={draw} />
+          </motion.div>
+
+          <motion.div
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VIEWPORT}
+            transition={{ ...REVEAL, delay: 0.1 }}
+            className="rounded-[20px] bg-surface p-5"
+            style={{ boxShadow: 'var(--shadow-card)' }}
+          >
+            <PromiseList compact />
+          </motion.div>
+        </div>
+
+        {/* The three opening chapters */}
+        <div className="mt-8 grid grid-cols-1 gap-3">
           {parts.map((part, i) => (
             <motion.div
               key={part.step}
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.97 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.55, ease: EASE_OUT_SOFT, delay: i * 0.1 }}
-              whileHover={reduce ? undefined : { y: -6, boxShadow: '0 20px 40px -20px rgba(21,36,33,0.3)', transition: { duration: 0.2, ease: EASE_OUT_SOFT } }}
-              className="card flex flex-col rounded-[22px] p-7"
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={VIEWPORT}
+              transition={{ ...REVEAL, delay: stagger(i, 0.09) }}
+              className="flex items-start gap-4 rounded-[18px] border border-border/50 bg-surface p-4"
             >
-              <div className="mb-5 flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-mist text-[12px] font-medium text-analysis-teal">
-                  {part.step}
-                </span>
-                {i === 1 && (
-                  <div className="ml-auto h-12 w-10 opacity-90">
-                    <FaceMapMock draw={draw} />
-                  </div>
-                )}
+              <span className="pill-accent flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold">
+                {part.step}
+              </span>
+              <div>
+                <h3 className="text-[15px] font-medium tracking-[-0.01em] text-ink">{part.title}</h3>
+                <p className="mt-1 text-[13px] leading-relaxed text-analysis-teal">{part.body}</p>
               </div>
-              <h3 className="text-[17px] font-medium tracking-[-0.01em] text-ink md:text-[18px]">
-                {part.title}
-              </h3>
-              <p className="mt-2 text-[14px] leading-relaxed text-ink/78">{part.body}</p>
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEWPORT}
+          transition={{ ...REVEAL, delay: 0.12 }}
+          className="mt-8"
+        >
+          <ExploreCta />
+        </motion.div>
       </div>
     </section>
   )
