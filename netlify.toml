@@ -1,0 +1,14 @@
+# Netlify build config.
+#
+# The Next.js runtime must be declared here, not just relied on from the UI:
+# without it Netlify serves the raw `.next` directory as static files, which has
+# no index.html, so every route (and everything in public/) returns Netlify's
+# own 404. This app cannot be served statically — no `output: 'export'`, and it
+# uses server rendering, next/image remote patterns and headers() from
+# next.config.js.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
