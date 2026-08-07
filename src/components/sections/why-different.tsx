@@ -65,7 +65,7 @@ export function WhyDifferent() {
           <div
             role="tablist"
             aria-label="Compare approaches"
-            className="mb-5 flex rounded-full border border-border/60 bg-white p-1"
+            className="mb-5 flex rounded-full border border-border/60 bg-surface p-1"
           >
             {sides.map((s, i) => (
               <button
@@ -92,7 +92,7 @@ export function WhyDifferent() {
             ))}
           </div>
 
-          <div className="overflow-hidden rounded-[20px] border border-border/60 bg-white">
+          <div className="overflow-hidden rounded-[20px] border border-border/60 bg-surface">
             {rows.map((r) => (
               <div key={r.label} className="border-b border-border/60 px-4 py-3.5 last:border-b-0">
                 <p className="text-[9.5px] font-semibold uppercase tracking-[0.14em] text-analysis-teal">
@@ -180,7 +180,7 @@ export function WhyDifferent() {
                       i === rows.length - 1 ? 'rounded-b-[18px]' : ''
                     }`}
                   >
-                    <span className="mt-[1px] flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/70">
+                    <span className="mt-[1px] flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent/20">
                       <Check className="h-2.5 w-2.5 text-accent-foreground" strokeWidth={2.5} />
                     </span>
                     <p className="text-[13.5px] leading-snug text-ink">{r.mmf}</p>

@@ -49,6 +49,7 @@ const families = [
 // Flattened, with a position on the ring. Nine nodes, 40° apart, starting at top.
 const CENTER = 160
 const RING = 116
+const HUB = 62      // clear zone for the centre label
 const nodes = families.flatMap((f, fi) =>
   f.factors.map((factor, i) => {
     const index = fi * 3 + i
@@ -124,6 +125,19 @@ export function Methodology() {
                   )
                 })}
 
+                {/* the hub — drawn AFTER the spokes so they terminate against
+                    it. Without this the spokes run straight under the centre
+                    label and cut through the text. */}
+                <circle
+                  cx={CENTER}
+                  cy={CENTER}
+                  r={HUB}
+                  fill="rgb(var(--c-surface))"
+                  stroke="rgb(var(--c-accent))"
+                  strokeOpacity="0.18"
+                  strokeWidth="1"
+                />
+
                 {/* nodes */}
                 {nodes.map((n) => {
                   const on = active === n.index
@@ -164,7 +178,7 @@ export function Methodology() {
               </svg>
 
               {/* centre — the active factor's name */}
-              <div className="pointer-events-none absolute left-1/2 top-1/2 w-[44%] -translate-x-1/2 -translate-y-1/2 text-center">
+              <div className="pointer-events-none absolute left-1/2 top-1/2 w-[34%] -translate-x-1/2 -translate-y-1/2 text-center">
                 <motion.div
                   key={current.index}
                   initial={reduce ? false : { opacity: 0, y: 6 }}
@@ -175,7 +189,7 @@ export function Methodology() {
                     {current.family}
                   </p>
                   <p
-                    className="mt-1 text-[13px] leading-tight tracking-[-0.01em] text-ink md:text-[14px]"
+                    className="mt-1 text-[12.5px] leading-tight tracking-[-0.01em] text-ink md:text-[13.5px]"
                     style={{ fontWeight: 500 }}
                   >
                     {current.title}

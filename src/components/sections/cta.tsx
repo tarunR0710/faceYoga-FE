@@ -76,7 +76,7 @@ export function CTA() {
             style={{ fontWeight: 450 }}
           >
             Stop guessing what suits you.{' '}
-            <span className="text-ivory/60">Start with a plan built around you.</span>
+            <span className="text-ivory/70">Start with a plan built around you.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-[14px] leading-relaxed text-ivory/70 md:text-[16px]">
             Meet real experts, understand your complete appearance and receive clear personalised

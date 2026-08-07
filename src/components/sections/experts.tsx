@@ -139,11 +139,18 @@ export function Experts() {
   return (
     <section id="experts" className="section">
       <div className="container-main">
+        {/* Merged with the former Expert Mapping Review section: the blueprint
+            runs them as two spreads (pages 10 and 11), but on one continuous
+            scroll they listed the same four disciplines back to back. The
+            coordination message now leads, the roster carries it, and the
+            convergence diagram is gone — Methodology already owns the one
+            circular diagram on the page. */}
         <SectionHeading
           eyebrow="The expert panel"
-          title="Guided by"
-          muted="experienced specialists."
-          note="Profiles show the professionals behind MapMyFace clearly and credibly. Only approved names, qualifications, experience and photographs are published."
+          title="Multiple areas of expertise."
+          muted="One coordinated plan."
+          lede="After your Face Mapping Session, the relevant specialists study your complete case together in an Expert Mapping Review. The aim is not a set of disconnected opinions, but one clear direction."
+          note="Every expert appears with their real name, qualification and experience — published with their written consent."
         />
 
         <CardRail cols={4} label="MapMyFace expert panel">
@@ -151,6 +158,17 @@ export function Experts() {
             <PanelCard key={member.role} member={member} index={i} reduce={!!reduce} />
           ))}
         </CardRail>
+
+        <motion.p
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEWPORT}
+          transition={{ ...REVEAL, delay: 0.15 }}
+          className="mx-auto mt-10 max-w-2xl text-center text-[13.5px] leading-relaxed text-analysis-teal md:mt-12 md:text-[15px]"
+        >
+          Every recommendation must work together as part of the same person — not as an isolated
+          suggestion.
+        </motion.p>
       </div>
     </section>
   )

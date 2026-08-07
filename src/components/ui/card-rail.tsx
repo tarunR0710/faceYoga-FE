@@ -81,7 +81,7 @@ export function CardRail({
       <div
         ref={trackRef}
         aria-label={label}
-        className={`no-scrollbar -mx-4 flex snap-x snap-mandatory overflow-x-auto px-4 pb-1 ${gap} ${WIDTHS[peek]} [&>*]:shrink-0 [&>*]:snap-start md:mx-0 md:grid ${COLS[cols]} md:overflow-visible md:px-0 md:pb-0 md:[&>*]:w-auto`}
+        className={`card-rail no-scrollbar -mx-4 flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain px-4 pb-1 ${gap} ${WIDTHS[peek]} [&>*]:shrink-0 [&>*]:snap-start md:mx-0 md:grid ${COLS[cols]} md:overflow-visible md:px-0 md:pb-0 md:[&>*]:w-auto`}
       >
         {children}
       </div>

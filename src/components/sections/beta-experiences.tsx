@@ -5,7 +5,6 @@ import { Quote, Video, UserCheck, ScrollText } from 'lucide-react'
 import { REVEAL, VIEWPORT, stagger } from '@/lib/motion'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { CardRail } from '@/components/ui/card-rail'
-import { PLACEHOLDER } from '@/lib/showcase'
 
 /**
  * The blueprint specifies three testimonial *slots* and a brief for each — not
@@ -17,6 +16,7 @@ const slots = [
   {
     icon: UserCheck,
     brief: 'A verified quote about the clarity created by the Face Mapping Session.',
+    /** Editorial brief for whoever collects this quote — NOT display copy. */
     guidance: "The client's real words after approval. First name, age range and city only with consent.",
     quote: null as string | null,
     attribution: null as string | null,
@@ -48,7 +48,7 @@ export function BetaExperiences() {
           eyebrow="Beta client experiences"
           title="Early experiences with"
           muted="the MapMyFace process."
-          note="Only genuine beta-client feedback, shared with permission, and always labelled as beta feedback — even when the client is personally known to the founder."
+          note="Only genuine beta-client feedback, shared with permission and always labelled as beta."
         />
 
         <CardRail cols={3} label="Beta client experiences">
@@ -100,10 +100,7 @@ export function BetaExperiences() {
                   {s.attribution ? (
                     <p className="text-[13px] font-medium text-ink">{s.attribution}</p>
                   ) : (
-                    <p className="text-[11.5px] leading-relaxed text-analysis-teal">{s.guidance}</p>
-                  )}
-                  {PLACEHOLDER && !s.quote && (
-                    <span className="mt-2.5 inline-flex h-5 items-center rounded-full bg-white px-2 text-[8.5px] font-medium uppercase tracking-[0.1em] text-ink/45">
+                    <span className="inline-flex h-5 items-center rounded-full bg-white px-2 text-[8.5px] font-medium uppercase tracking-[0.1em] text-ink/45">
                       Awaiting verified feedback
                     </span>
                   )}

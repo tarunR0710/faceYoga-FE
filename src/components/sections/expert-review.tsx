@@ -8,13 +8,16 @@ import { SectionHeading } from '@/components/ui/section-heading'
 
 // Four reviewers, one case. `line` is the connector each card owns in the
 // desktop diagram, so selecting a card can light up its own path to the centre.
+// Coordinates are in the centre cell's own viewBox: x=0 is the left cards' right
+// edge, x=100 the right cards' left edge (see the SVG below), so 3/97 leaves a
+// small breathing gap and the line can never run across a card.
 const reviewers = [
   {
     id: 'medical',
     icon: Stethoscope,
     title: 'Medical & skin context',
     body: "Appropriate professional review where the customer's concerns require it.",
-    line: { x: 27, y: 27 },
+    line: { x: 3, y: 27 },
     cell: 'lg:col-start-1 lg:row-start-1 lg:text-right lg:items-end',
   },
   {
@@ -22,7 +25,7 @@ const reviewers = [
     icon: Microscope,
     title: 'Facial analysis & research',
     body: 'Structure, relationships, balance and evidence-informed interpretation.',
-    line: { x: 73, y: 27 },
+    line: { x: 97, y: 27 },
     cell: 'lg:col-start-3 lg:row-start-1',
   },
   {
@@ -30,7 +33,7 @@ const reviewers = [
     icon: Activity,
     title: 'Face-yoga direction',
     body: "Relevant exercises selected around the customer's needs and practical ability.",
-    line: { x: 27, y: 73 },
+    line: { x: 3, y: 73 },
     cell: 'lg:col-start-1 lg:row-start-2 lg:text-right lg:items-end',
   },
   {
@@ -38,7 +41,7 @@ const reviewers = [
     icon: Scissors,
     title: 'Hair & personal style',
     body: 'Specialist review when the customer purchases an add-on.',
-    line: { x: 73, y: 73 },
+    line: { x: 97, y: 73 },
     cell: 'lg:col-start-3 lg:row-start-2',
   },
 ]
@@ -60,39 +63,6 @@ export function ExpertReview() {
         />
 
         <div className="relative mx-auto max-w-5xl">
-          {/* Connectors — four paths that draw once, then respond to selection */}
-          <svg
-            aria-hidden
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block"
-          >
-            {reviewers.map((r, i) => {
-              const on = active === r.id
-              return (
-                <motion.line
-                  key={r.id}
-                  x1="50"
-                  y1="50"
-                  x2={r.line.x}
-                  y2={r.line.y}
-                  stroke="rgb(var(--c-accent))"
-                  strokeDasharray="2 2"
-                  // pathLength is the one-shot draw; selection is expressed with
-                  // stroke attributes + a CSS transition so the two never fight
-                  // over the same animated value.
-                  strokeWidth={on ? 0.5 : 0.28}
-                  strokeOpacity={on ? 0.85 : 0.3}
-                  initial={reduce ? { opacity: 1 } : { pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 1 }}
-                  viewport={VIEWPORT}
-                  transition={{ duration: 0.9, ease: EASE_OUT_SOFT, delay: 0.3 + i * 0.1 }}
-                  style={{ transition: 'stroke-opacity .3s ease, stroke-width .3s ease' }}
-                />
-              )
-            })}
-          </svg>
-
           <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-[minmax(0,1fr)_240px_minmax(0,1fr)] lg:grid-rows-2 lg:gap-x-8 lg:gap-y-10">
             {/* the centre — the whole point of the section */}
             <motion.div
@@ -100,11 +70,67 @@ export function ExpertReview() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={VIEWPORT}
               transition={{ ...REVEAL, delay: 0.15 }}
-              className="order-first col-span-2 flex items-center justify-center lg:order-none lg:col-span-1 lg:col-start-2 lg:row-span-2 lg:row-start-1"
+              className="relative order-first col-span-2 flex items-center justify-center lg:order-none lg:col-span-1 lg:col-start-2 lg:row-span-2 lg:row-start-1"
             >
+              {/* Connectors.
+                  Previously this SVG spanned the whole grid with endpoints at a
+                  fixed 27%/73%, which sit INSIDE the cards — and sink deeper the
+                  wider the screen gets, because the centre column is a fixed
+                  240px while the side columns are 1fr. It now lives in the centre
+                  cell and is stretched by exactly the column gap (-left-8 /
+                  -right-8), so x=0 and x=100 land precisely on the facing card
+                  edges no matter the viewport. It stops 3 units short of them. */}
+              <svg
+                aria-hidden
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                className="pointer-events-none absolute -left-8 -right-8 bottom-0 top-0 hidden h-full w-auto lg:block"
+              >
+                {reviewers.map((r, i) => {
+                  const on = active === r.id
+                  return (
+                    <motion.line
+                      key={r.id}
+                      x1="50"
+                      y1="50"
+                      x2={r.line.x}
+                      y2={r.line.y}
+                      stroke="rgb(var(--c-accent))"
+                      strokeDasharray="2 2"
+                      // pathLength is the one-shot draw; selection is expressed with
+                      // stroke attributes + a CSS transition so the two never fight
+                      // over the same animated value.
+                      strokeWidth={on ? 0.6 : 0.35}
+                      strokeOpacity={on ? 0.85 : 0.3}
+                      initial={reduce ? { opacity: 1 } : { pathLength: 0, opacity: 0 }}
+                      whileInView={{ pathLength: 1, opacity: 1 }}
+                      viewport={VIEWPORT}
+                      transition={{ duration: 0.9, ease: EASE_OUT_SOFT, delay: 0.3 + i * 0.1 }}
+                      style={{ transition: 'stroke-opacity .3s ease, stroke-width .3s ease' }}
+                    />
+                  )
+                })}
+              </svg>
+
+              {/* concentric halo — the hub reads as a focus point, not a plain disc */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute hidden rounded-full border border-accent/[0.09] lg:block lg:h-[286px] lg:w-[286px]"
+              />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute hidden rounded-full border border-accent/[0.14] lg:block lg:h-[252px] lg:w-[252px]"
+              />
+
               <div
-                className="relative flex aspect-square w-[190px] flex-col items-center justify-center rounded-full border border-accent/25 bg-white px-6 text-center lg:w-[220px]"
-                style={{ boxShadow: '0 18px 42px -18px rgb(var(--c-accent) / 0.35)' }}
+                className="relative flex aspect-square w-[190px] flex-col items-center justify-center rounded-full px-6 text-center lg:w-[220px]"
+                style={{
+                  background:
+                    'radial-gradient(120% 100% at 50% 0%, rgb(var(--c-accent-soft)) 0%, rgb(var(--c-surface)) 62%)',
+                  border: '1px solid rgb(var(--c-accent) / 0.22)',
+                  boxShadow:
+                    'inset 0 1px 0 rgb(255 255 255 / 0.9), 0 2px 6px rgb(var(--c-ink) / 0.05), 0 20px 44px -20px rgb(var(--c-accent) / 0.45)',
+                }}
               >
                 {!reduce && (
                   <span

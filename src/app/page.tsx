@@ -9,7 +9,6 @@ import { Outcome } from '@/components/sections/outcome'
 import { HowItWorks } from '@/components/sections/how-it-works'
 import { FaceMappingSession } from '@/components/sections/face-mapping-session'
 import { ExpertUnderstands } from '@/components/sections/expert-understands'
-import { ExpertReview } from '@/components/sections/expert-review'
 import { Experts } from '@/components/sections/experts'
 import { FacialAnalysis } from '@/components/sections/facial-analysis'
 import { InsideFaceMap } from '@/components/sections/inside-face-map'
@@ -38,16 +37,18 @@ import { CTA } from '@/components/sections/cta'
  *
  *   base — plain ground
  *   wash — the pricing-card gradient at 10–13%, the quiet alternator
- *   glow — the same gradient at 22–28%, saved for two attention moments
+ *   glow — the same gradient at 28–36%, saved for two attention moments
  *   deep — the gradient inverted; the anchors
  *
  * Rules: never two tinted bands back to back (`base` between them), and only
- * ever two `glow` and three `deep` on the page — scarcity is what makes them land.
+ * ever two `glow` and three `deep` on the page (05 / 10 / 16) — scarcity is what
+ * makes them land, and they need spacing: 10 and 16 works, 10 and 12 would not.
  *
  * Dormant (kept in git, not rendered): `living-analysis`, `transformations`,
  * `testimonials`, `community`, `old-vs-new`, `comparison`, `muscle-map`,
  * `features`, `science`, `what-youll-learn`, `progress-tracking`,
- * `research-stats`, `stats-grid`, `gallery`, `social-proof` — none appear in the
+ * `research-stats`, `stats-grid`, `gallery`, `social-proof`, `expert-review` — none
+ * appear in the
  * blueprint's section order.
  */
 const SECTIONS: { tone: ToneName; node: React.ReactNode; note: string }[] = [
@@ -57,21 +58,20 @@ const SECTIONS: { tone: ToneName; node: React.ReactNode; note: string }[] = [
   { tone: 'deep', node: <HowItWorks key="method" />, note: '05 The method — anchor 1' },
   { tone: 'base', node: <FaceMappingSession key="session" />, note: '06 Face Mapping Session' },
   { tone: 'wash', node: <ExpertUnderstands key="understands" />, note: '07 What the expert understands' },
-  { tone: 'base', node: <ExpertReview key="review" />, note: '08 Expert Mapping Review' },
-  { tone: 'wash', node: <Experts key="experts" />, note: '09 The expert panel' },
-  { tone: 'deep', node: <FacialAnalysis key="face-map" />, note: '10 Your Face Map — anchor 2' },
-  { tone: 'wash', node: <InsideFaceMap key="inside" />, note: '11 Inside your Face Map' },
-  { tone: 'base', node: <AppearanceProtocol key="protocol" />, note: '12 Appearance Protocol' },
-  { tone: 'glow', node: <MainOffer key="offer" />, note: '13 The main offer — second hook' },
-  { tone: 'base', node: <AddOns key="add-ons" />, note: '14 Hair Map + Style & Colour Map' },
-  { tone: 'wash', node: <Methodology key="methodology" />, note: '15 The methodology' },
-  { tone: 'base', node: <WhyDifferent key="different" />, note: '16 Why MapMyFace is different' },
-  { tone: 'wash', node: <WhoItsFor key="who" />, note: '17 Who it is for' },
-  { tone: 'base', node: <BetaExperiences key="beta" />, note: '18 Beta client experiences' },
-  { tone: 'base', node: <PricingPreview key="pricing" />, note: '19 Pricing — the card owns the gradient here' },
-  { tone: 'wash', node: <AfterPayment key="after" />, note: '20 After payment' },
-  { tone: 'base', node: <PrivacyTrust key="privacy" />, note: '21 Privacy & trust' },
-  { tone: 'wash', node: <FAQ key="faq" />, note: '22 FAQ' },
+  { tone: 'base', node: <Experts key="experts" />, note: '08 The expert panel + Expert Mapping Review' },
+  { tone: 'deep', node: <FacialAnalysis key="face-map" />, note: '09 Your Face Map — anchor 2' },
+  { tone: 'wash', node: <InsideFaceMap key="inside" />, note: '10 Inside your Face Map' },
+  { tone: 'base', node: <AppearanceProtocol key="protocol" />, note: '11 Appearance Protocol' },
+  { tone: 'glow', node: <MainOffer key="offer" />, note: '12 The main offer — second hook' },
+  { tone: 'base', node: <AddOns key="add-ons" />, note: '13 Hair Map + Style & Colour Map' },
+  { tone: 'wash', node: <Methodology key="methodology" />, note: '14 The methodology' },
+  { tone: 'deep', node: <WhyDifferent key="different" />, note: '15 Why MapMyFace is different — anchor 3' },
+  { tone: 'wash', node: <WhoItsFor key="who" />, note: '16 Who it is for' },
+  { tone: 'base', node: <BetaExperiences key="beta" />, note: '17 Beta client experiences' },
+  { tone: 'base', node: <PricingPreview key="pricing" />, note: '18 Pricing — the card owns the gradient here' },
+  { tone: 'wash', node: <AfterPayment key="after" />, note: '19 After payment' },
+  { tone: 'base', node: <PrivacyTrust key="privacy" />, note: '20 Privacy & trust' },
+  { tone: 'wash', node: <FAQ key="faq" />, note: '21 FAQ' },
 ]
 
 export default function HomePage() {

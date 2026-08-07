@@ -152,7 +152,7 @@ function PinnedFaceMap() {
               className="mb-8 text-[1.9rem] leading-[1.14] tracking-[-0.02em] text-ink lg:text-[2.4rem]"
               style={{ fontWeight: 450 }}
             >
-              Your complete analysis, <span className="text-ink/40">organised into one personal report.</span>
+              Your complete analysis, <span className="text-ink/55">organised into one personal report.</span>
             </h2>
 
             <div className="relative min-h-[168px]">
@@ -246,7 +246,7 @@ function StackedFaceMap({ reduce }: { reduce: boolean }) {
               className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink"
               style={{ fontWeight: 450 }}
             >
-              Your complete analysis, <span className="text-ink/40">organised into one personal report.</span>
+              Your complete analysis, <span className="text-ink/55">organised into one personal report.</span>
             </h2>
             <p className="mt-4 text-[14px] leading-relaxed text-analysis-teal">
               Your Face Map is created after the Face Mapping Session and Expert Mapping Review. It

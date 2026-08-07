@@ -1,15 +1,18 @@
 'use client'
 
-import { motion, useReducedMotion } from 'framer-motion'
-import { Target, History, Sun, Utensils, CloudSun, UserRound, ShieldAlert } from 'lucide-react'
-import { REVEAL, VIEWPORT, stagger } from '@/lib/motion'
+import { useState } from 'react'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { ChevronDown, ShieldAlert } from 'lucide-react'
+import { EASE_OUT, EASE_OUT_SOFT, REVEAL, VIEWPORT, stagger } from '@/lib/motion'
 import { SectionHeading } from '@/components/ui/section-heading'
-import { DetailAccordion, type DetailGroup } from '@/components/ui/detail-accordion'
+import { ContextScene, type SceneId } from '@/components/ui/context-scene'
 
-const groups: DetailGroup[] = [
+type Topic = { id: SceneId; title: string; items: string[] }
+
+const topics: Topic[] = [
   {
+    id: 'goals',
     title: 'Your goals',
-    icon: Target,
     items: [
       'What would you like to improve?',
       'What concerns you most?',
@@ -17,8 +20,8 @@ const groups: DetailGroup[] = [
     ],
   },
   {
+    id: 'skincare',
     title: 'Your skincare history',
-    icon: History,
     items: [
       'Products currently used',
       'Products used during the previous year',
@@ -26,8 +29,8 @@ const groups: DetailGroup[] = [
     ],
   },
   {
+    id: 'routine',
     title: 'Your daily routine',
-    icon: Sun,
     items: [
       'Morning and evening routine',
       'Work environment, sleep and stress',
@@ -35,8 +38,8 @@ const groups: DetailGroup[] = [
     ],
   },
   {
+    id: 'lifestyle',
     title: 'Your lifestyle',
-    icon: Utensils,
     items: [
       'Food habits and water intake',
       'Travel frequency and daily schedule',
@@ -44,8 +47,8 @@ const groups: DetailGroup[] = [
     ],
   },
   {
+    id: 'environment',
     title: 'Your environment',
-    icon: CloudSun,
     items: [
       'Location, climate and humidity',
       'Pollution and seasonal changes',
@@ -53,8 +56,8 @@ const groups: DetailGroup[] = [
     ],
   },
   {
+    id: 'context',
     title: 'Relevant personal context',
-    icon: UserRound,
     items: [
       'Existing concerns voluntarily disclosed',
       'Grooming and face-yoga history',
@@ -63,8 +66,22 @@ const groups: DetailGroup[] = [
   },
 ]
 
+function Bullets({ items }: { items: string[] }) {
+  return (
+    <ul className="space-y-2">
+      {items.map((item) => (
+        <li key={item} className="flex items-start gap-2.5">
+          <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-white/45" />
+          <span className="text-[13px] leading-relaxed text-white/75">{item}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export function ExpertUnderstands() {
   const reduce = useReducedMotion()
+  const [active, setActive] = useState(0)
 
   return (
     <section id="expert-understands" className="section">
@@ -73,45 +90,100 @@ export function ExpertUnderstands() {
           eyebrow="What the expert understands"
           title="Personal recommendations"
           muted="require personal context."
-          note="The Face Mapping Session follows a structured conversation, while still giving the expert freedom to ask deeper questions where the customer's situation requires it."
+          note="The Face Mapping Session follows a structured conversation, while leaving your expert free to ask deeper questions wherever your situation calls for it."
         />
 
-        {/* Mobile: accordion — six groups stay one screen instead of six */}
-        <div className="md:hidden">
-          <DetailAccordion groups={groups} />
-        </div>
+        {/* One open row at a time drives the scene beside it — a list instead of
+            yet another card grid. On mobile the scene moves INSIDE the open row,
+            so tapping never changes something that is off screen. */}
+        <motion.div
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEWPORT}
+          transition={REVEAL}
+          className="rounded-[26px] border border-border/50 bg-surface p-3 md:p-4"
+          style={{ boxShadow: 'var(--shadow-card)' }}
+        >
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)] md:gap-4">
+            {/* ── The list ────────────────────────────────────────────────── */}
+            <ol className="flex flex-col gap-2">
+              {topics.map((t, i) => {
+                const on = active === i
+                return (
+                  <motion.li
+                    key={t.id}
+                    initial={reduce ? { opacity: 0 } : { opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={VIEWPORT}
+                    transition={{ duration: 0.55, ease: EASE_OUT, delay: stagger(i, 0.06) }}
+                    className={`overflow-hidden rounded-[18px] transition-colors duration-300 ${
+                      on ? 'bg-ink' : 'bg-surface-2 hover:bg-accent-soft/60'
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setActive(i)}
+                      aria-expanded={on}
+                      className="flex w-full items-center gap-3 px-4 py-3.5 text-left md:px-5"
+                    >
+                      <span
+                        className={`shrink-0 text-[12px] tabular-nums ${
+                          on ? 'text-white/45' : 'text-ink/30'
+                        }`}
+                        style={{ fontWeight: 500 }}
+                      >
+                        /{String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span
+                        className={`flex-1 text-[14px] tracking-[-0.01em] md:text-[15px] ${
+                          on ? 'text-white' : 'text-ink'
+                        }`}
+                        style={{ fontWeight: 500 }}
+                      >
+                        {t.title}
+                      </span>
+                      <ChevronDown
+                        className={`h-4 w-4 shrink-0 transition-transform duration-300 ${
+                          on ? 'rotate-180 text-white/60' : 'text-ink/35'
+                        }`}
+                        strokeWidth={1.8}
+                      />
+                    </button>
 
-        {/* Desktop: the blueprint's 3 × 2 grid */}
-        <div className="hidden grid-cols-1 gap-5 md:grid md:grid-cols-2 lg:grid-cols-3">
-          {groups.map((g, i) => {
-            const Icon = g.icon!
-            return (
-              <motion.div
-                key={g.title}
-                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={VIEWPORT}
-                transition={{ ...REVEAL, delay: stagger(i) }}
-                className="card-hover-accent group rounded-[22px] p-6"
-              >
-                <div className="mb-5 flex items-center gap-3">
-                  <span className="icon-tile-accent flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl">
-                    <Icon className="h-[18px] w-[18px]" strokeWidth={1.5} />
-                  </span>
-                  <h3 className="text-[16px] font-medium tracking-[-0.01em] text-ink">{g.title}</h3>
-                </div>
-                <ul className="space-y-3">
-                  {g.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5">
-                      <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-accent/50" />
-                      <span className="text-[13.5px] leading-relaxed text-ink/[0.72]">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            )
-          })}
-        </div>
+                    <AnimatePresence initial={false}>
+                      {on && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.38, ease: EASE_OUT_SOFT }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-4 pb-4 pl-[52px] md:px-5 md:pl-[60px]">
+                            <Bullets items={t.items} />
+                            {/* mobile: the scene lives inside the open row */}
+                            <ContextScene
+                              id={t.id}
+                              className="mt-4 aspect-[16/10] w-full md:hidden"
+                            />
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.li>
+                )
+              })}
+            </ol>
+
+            {/* ── The scene (desktop) ─────────────────────────────────────── */}
+            {/* absolute inside a relative cell so the list alone sets the row
+                height — otherwise the SVG's own 4:5 ratio drives it and the
+                panel runs 200px past the bottom of the list. */}
+            <div className="relative hidden min-h-[420px] md:block">
+              <ContextScene id={topics[active].id} className="absolute inset-0" />
+            </div>
+          </div>
+        </motion.div>
 
         {/* Professional boundary — kept visible, not buried in the legal page */}
         <motion.div
@@ -119,7 +191,7 @@ export function ExpertUnderstands() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
           transition={{ ...REVEAL, delay: 0.1 }}
-          className="mt-8 flex items-start gap-3 rounded-[18px] bg-mist px-4 py-4 md:mt-10 md:px-5"
+          className="mt-6 flex items-start gap-3 rounded-[18px] bg-surface-2 px-4 py-4 md:mt-8 md:px-5"
         >
           <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0 text-analysis-teal" strokeWidth={1.6} />
           <p className="text-[12.5px] leading-relaxed text-analysis-teal md:text-[13.5px]">

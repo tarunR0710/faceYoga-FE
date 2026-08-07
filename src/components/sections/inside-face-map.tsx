@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Palette, MessageSquareHeart, ShieldCheck } from 'lucide-react'
 import { EASE_OUT, REVEAL, VIEWPORT, stagger } from '@/lib/motion'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { CardRail } from '@/components/ui/card-rail'
@@ -25,11 +24,6 @@ const chapters = [
   { n: '12', title: 'Recommended Follow-Through', body: 'How to keep following the plan, and when to ask for clarification.' },
 ]
 
-const marks = [
-  { icon: Palette, label: 'Designed in Map Teal, Warm Ivory and Deep Ink' },
-  { icon: MessageSquareHeart, label: 'Written in clear, respectful language' },
-  { icon: ShieldCheck, label: 'Reviewed before customer delivery' },
-]
 
 export function InsideFaceMap() {
   const reduce = useReducedMotion()
@@ -181,25 +175,6 @@ export function InsideFaceMap() {
           </motion.div>
         </div>
 
-        {/* Delivery marks */}
-        <div className="mt-10 flex flex-wrap gap-2.5 md:mt-12 md:justify-center">
-          {marks.map((m, i) => {
-            const Icon = m.icon
-            return (
-              <motion.span
-                key={m.label}
-                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={VIEWPORT}
-                transition={{ duration: 0.55, ease: EASE_OUT, delay: stagger(i, 0.08) }}
-                className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-white px-3.5 py-2 text-[11.5px] text-analysis-teal md:text-[12.5px]"
-              >
-                <Icon className="h-3.5 w-3.5 shrink-0 text-accent/70" strokeWidth={1.6} />
-                {m.label}
-              </motion.span>
-            )
-          })}
-        </div>
       </div>
     </section>
   )

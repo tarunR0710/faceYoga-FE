@@ -56,7 +56,7 @@ export function SectionHeading({
         style={{ fontWeight: 450 }}
       >
         {title}
-        {muted ? <span className="text-ink/40"> {muted}</span> : null}
+        {muted ? <span className="text-ink/55"> {muted}</span> : null}
       </h2>
       {lede ? (
         <p className="mt-5 text-[14px] leading-relaxed text-analysis-teal md:text-[16px]">{lede}</p>

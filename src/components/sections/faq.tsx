@@ -38,7 +38,7 @@ export function FAQ() {
               className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
               style={{ fontWeight: 450 }}
             >
-              Everything you should understand <span className="text-ink/40">before you pay.</span>
+              Everything you should understand <span className="text-ink/55">before you pay.</span>
             </h2>
             <p className="mt-5 text-[14px] leading-relaxed text-analysis-teal md:text-[15px]">
               Direct answers, no technical language. If something is still unclear, a real person

@@ -351,7 +351,9 @@
 
        base   plain white                       L* 100.0   the default
        wash   the gradient at 10–13%            L*  96.1   Δ 3.9  the alternator
-       glow   the gradient at 22–28%            L*  91.8   Δ 8.2  attention
+       glow   the gradient at 28–36%            L*  88.8   Δ 11.2 attention
+              (40% is the hard ceiling: secondary text hits 4.57:1 there,
+               44% drops it to 4.47 and fails AA)
        deep   the gradient inverted             L*  13.6          anchors
   */
   .section-alt { background-color: rgb(var(--c-surface-alt)); }
@@ -369,9 +371,9 @@
     background:
       radial-gradient(90% 70% at 88% 0%, rgb(var(--g1, 107 233 255) / .16) 0%, transparent 62%),
       linear-gradient(135deg,
-        rgb(var(--g1, 107 233 255) / .22) 0%,
-        rgb(var(--g2, 105 180 255) / .28) 50%,
-        rgb(var(--g3, 140 236 255) / .22) 100%),
+        rgb(var(--g1, 107 233 255) / .28) 0%,
+        rgb(var(--g2, 105 180 255) / .36) 50%,
+        rgb(var(--g3, 140 236 255) / .28) 100%),
       rgb(var(--c-bg));
   }
 
@@ -750,6 +752,15 @@
 
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Inside a horizontal snap rail, a per-card `y: 20 -> 0` reveal fires as each
+     card drifts into view — which, while you are scrolling the page, reads as
+     the card being shoved upward under your thumb, and adds re-snap pressure to
+     the scroller. Cards in a rail fade in only; they never translate. Rails are
+     a mobile-only layout, so the grid from `md` up keeps its full reveal. */
+  @media (max-width: 767px) {
+    .card-rail > * { transform: none !important; }
+  }
 
   /* Living-analysis: slow rotating scan ring (removed in Phase 3 redesign) */
   .animate-scan-spin { animation: scanSpin 8s linear infinite; }
