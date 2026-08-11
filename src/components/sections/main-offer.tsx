@@ -32,7 +32,8 @@ export function MainOffer() {
               transition={{ ...REVEAL, delay: 0.08 }}
               className="card-glow rounded-[24px] p-6 md:p-7"
             >
-              <span className="badge badge-accent">{FACE_MAP_CORE.label}</span>
+              {/* The page's commercial peak — the one badge that gets the spark. */}
+              <span className="badge bg-accent-2-soft text-accent-2">{FACE_MAP_CORE.label}</span>
               <div className="mt-4 flex items-baseline gap-2">
                 <CountUp
                   to={FACE_MAP_CORE.price}

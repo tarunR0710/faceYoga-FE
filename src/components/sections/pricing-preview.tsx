@@ -47,30 +47,30 @@ export function PricingPreview() {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={VIEWPORT}
             transition={REVEAL}
-            className="rounded-[24px] border border-border-soft bg-white shadow-lg shadow-[rgba(105,180,255,0.08)]"
+            className="rounded-[24px] border border-border-soft bg-white shadow-lg shadow-[rgb(var(--g2)/0.08)]"
           >
             <div className="p-3 md:p-4">
               <div
                 className="relative overflow-hidden rounded-[18px] p-6 md:p-8"
                 style={{
                   background:
-                    'linear-gradient(135deg, rgba(107,233,255,0.22) 0%, rgba(105,180,255,0.28) 50%, rgba(140,236,255,0.22) 100%)',
+                    'linear-gradient(135deg, rgb(var(--g1) / 0.22) 0%, rgb(var(--g2) / 0.28) 50%, rgb(var(--g3) / 0.22) 100%)',
                 }}
               >
                 {/* Decorative rings — kept from the existing pricing panel */}
                 <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 -translate-y-1/3 translate-x-1/3">
                   <svg viewBox="0 0 100 100" fill="none" className="h-full w-full">
-                    <circle cx="50" cy="50" r="45" stroke="#69B4FF" strokeWidth="1" opacity="0.3" />
-                    <circle cx="50" cy="50" r="28" stroke="#6BE9FF" strokeWidth="1" opacity="0.35" />
+                    <circle cx="50" cy="50" r="45" stroke="rgb(var(--g2))" strokeWidth="1" opacity="0.3" />
+                    <circle cx="50" cy="50" r="28" stroke="rgb(var(--g1))" strokeWidth="1" opacity="0.35" />
                   </svg>
                 </div>
                 <div className="pointer-events-none absolute bottom-0 left-0 h-20 w-20 -translate-x-1/3 translate-y-1/3">
                   <svg viewBox="0 0 100 100" fill="none" className="h-full w-full">
-                    <circle cx="50" cy="50" r="40" stroke="#69B4FF" strokeWidth="1" opacity="0.25" />
+                    <circle cx="50" cy="50" r="40" stroke="rgb(var(--g2))" strokeWidth="1" opacity="0.25" />
                   </svg>
                 </div>
-                <div className="pointer-events-none absolute left-5 top-5 h-2 w-2 rounded-full bg-[#69B4FF]/35" />
-                <div className="pointer-events-none absolute bottom-6 right-10 h-1.5 w-1.5 rounded-full bg-[#8CECFF]/45" />
+                <div className="pointer-events-none absolute left-5 top-5 h-2 w-2 rounded-full bg-[rgb(var(--g2))]/35" />
+                <div className="pointer-events-none absolute bottom-6 right-10 h-1.5 w-1.5 rounded-full bg-[rgb(var(--g3))]/45" />
 
                 <div className="relative z-10">
                   <span className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-ink/55">

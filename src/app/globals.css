@@ -28,6 +28,12 @@
        near-whites, which is what makes reverting a one-word change. */
     --c-tone-warm: 254 253 251;
     --c-tone-ink: 33 29 24;
+
+    /* A deliberately palette-INDEPENDENT light grey. The trust strip has to
+       read as a plain shelf between the hero and the page, not as another
+       tinted band, so it must not inherit whatever hue the palette is using.
+       Barely warm (R>B) so it sits under a warm page without going cold. */
+    --c-band: 243 242 240;
     --c-border-soft: 243 240 234;/* #F3F0EA even softer warm hairline (cards on white) */
 
     /* Soft card "halo" — separation by light, not by a hard line */
@@ -127,8 +133,11 @@
   [data-palette='aurora'] {
     --c-bg: 255 255 255;
     --c-surface: 255 255 255;
-    --c-surface-2: 236 245 255;   /* #ECF5FF the wash, for chips and pills */
-    --c-surface-alt: 236 245 255;
+    /* Was #ECF5FF — a saturated pale sky that made every chip, pill and inset
+       panel another blue block. Pulled to a near-neutral cool grey so the blue
+       on this palette comes from the accent, not from the furniture. */
+    --c-surface-2: 240 242 245;   /* #F0F2F5 */
+    --c-surface-alt: 240 242 245;
     --c-ink: 19 39 52;            /* #132734 — 15.36:1 on white */
     --c-muted: 74 99 119;         /* #4A6377 — 6.28 white / 5.71 wash / 5.10 glow */
     --c-primary: 19 39 52;
@@ -138,13 +147,252 @@
 
     --c-accent: 26 95 168;        /* #1A5FA8 links, buttons, active states */
     --c-accent-ink: 23 86 154;    /* #17569A hover / accent text */
-    --c-accent-soft: 219 250 255; /* #DBFAFF cyan chip */
-    --c-accent-2: 107 233 255;    /* #6BE9FF the bright cyan — graphic only */
+    --c-accent-soft: 226 237 245; /* #E2EDF5 — was #DBFAFF, a full-strength cyan
+                                     that read as candy at pill size */
+
+    /* SPARK — see the note above the mineral palette. ΔE76 41 from this blue,
+       so it separates even better here than it does from the mineral teal. */
+    --c-accent-2: 90 68 83;       /* #5A4453 Fig */
+    --c-accent-2-soft: 235 226 232;
+    --deep-accent-2: 209 179 199; /* #D1B3C7 */
 
     /* the gradient itself, as tokens, so every band is one recipe at 3 strengths */
     --g1: 107 233 255;            /* #6BE9FF */
     --g2: 105 180 255;            /* #69B4FF */
     --g3: 140 236 255;            /* #8CECFF */
+
+    /* The two poles. Without these, every band recipe fell back to --g1/--g2 —
+       i.e. blue at three strengths — which is why the `wash` under the problem
+       section read as pure cold. The warm pole is a soft greige rather than a
+       true sand: enough to take the chill off the top of a band without
+       turning aurora into mineral. */
+    --g-warm: 214 190 158;        /* #D6BE9E */
+    --g-cool: 143 179 206;        /* #8FB3CE — the sky stop DESATURATED for band
+                                     use. #69B4FF at the wash's 16% composited
+                                     to #E7F3FF, a distinctly blue page; this
+                                     lands on #EDF3F7, which reads as light. The
+                                     bright stops stay available as --g1/--g2/
+                                     --g3 for the pricing panel's own graphic. */
+  }
+
+  /* ── MINERAL — ★ ACTIVE ────────────────────────────────────────────────────
+     AURORA's problem was structural, not a bad blue: ONE hue drove the ground,
+     the ink, the muted text, every band and every hover, so the page had no
+     way to feel like anything but blue. QOVES avoids that without owning a
+     brand colour at all — look at their blocks and almost nothing is
+     saturated (chroma stays under ~10). Variety comes from TEMPERATURE:
+     warm greige next to cool slate, and gradients that DRIFT from one to the
+     other instead of laying a single hue down at two opacities.
+
+     So this palette has two poles, not one hue:
+       warm   Sand #C9AE8E   — ivory ground, sand chips, the `glow` band
+       cool   Mineral #8FA9A3 — mist band, soft pills, the `wash` band
+     and the bands alternate temperature rather than intensity:
+       base   Warm Ivory                       L* 96.9   warm
+       wash   drift, cool-dominant             L* 92.0   cool   Δ 4.9
+       glow   drift, warm-dominant             L* 88.6   warm   Δ 8.3
+       deep   warm graphite w/ a cool middle   L* 12.8
+     Four grounds that read as different rooms in one house — which is the
+     thing a 3-strength ladder of one tint can never do.
+
+     Colour proper is rationed to two jobs, so it never becomes the wallpaper:
+       action  Analysis Teal #3A5D55  links, glyphs, rings   7.30:1 on white ✓
+       spark   Terracotta   #8E5027   ≤4 per page            5.85:1 on ivory ✓
+     Worst ground on the page is the top-right of `glow` (L* 88.6): muted
+     4.89:1, spark 4.71:1 — everything clears AA there, so it clears it
+     everywhere. */
+  [data-palette='mineral'] {
+    /* Surfaces are the brand bible's own six, used at their published values —
+       this is the locked palette made functional, not a new one. */
+    --c-bg: 247 244 239;          /* #F7F4EF Warm Ivory — off-white so cards lift */
+    --c-surface: 255 255 255;
+    --c-surface-2: 232 222 213;   /* #E8DED5 Soft Sand — the WARM chip/tile */
+    --c-surface-alt: 220 231 228; /* #DCE7E4 Map Mist — the COOL panel */
+    --c-ink: 21 36 33;            /* #152421 Deep Ink — 14.65:1 on ivory */
+    --c-muted: 85 96 89;          /* #556059 mineral grey — 5.97 ivory / 4.84 glow ✓ */
+    --c-primary: 21 36 33;
+    --c-primary-ink: 247 244 239;
+    --c-border: 225 219 209;      /* #E1DBD1 warm hairline */
+    --c-border-soft: 235 230 222; /* #EBE6DE */
+
+    /* Analysis Teal, deepened: the bible's #55766F is 4.55:1 on ivory and only
+       3.9:1 on the glow band, so it could not carry text where it mattered. */
+    --c-accent: 58 93 85;         /* #3A5D55 — 7.30 white / 5.39 glow ✓ */
+    --c-accent-ink: 45 74 68;     /* #2D4A44 hover / accent text */
+    --c-accent-soft: 220 231 228; /* Map Mist — the cool pill, counterweight to sand */
+
+    /* SPARK — Fig. The third family, for enumeration and emphasis ONLY: chapter
+       numerals, step numerals, the price badge. Never a link, button, focus
+       ring or active state — those stay the accent's sole job, which is what
+       keeps the page from collapsing back into one-colour-everywhere.
+       Chosen over the obvious warm/terracotta answer for two measured reasons.
+       (1) Chroma: C* 13.4 sits just under the accent's own 14.7 and well under
+       the sand pole's 20.6, so it cannot read as loud; every warm candidate
+       landed at C* 26–40, i.e. 2–3× the house norm.
+       (2) The glow band: two of the three spark moments sit on warm sand, and
+       a warm tint all but disappears there (Kiln Clay scored 4.65 with zero
+       headroom) while Fig holds 6.50.
+       ΔE76 28 from the accent · 49 from the sand pole · 59 from the #c0492f
+       error red. Its one hazard is value, not hue: L* 31.7 against the
+       accent's 36.7, so the two must never meet as fill-on-fill without a
+       hairline or a deliberate value break between them. */
+    --c-accent-2: 90 68 83;       /* #5A4453 — 8.02 ivory / 6.50 glow ✓ */
+    --c-accent-2-soft: 235 226 232; /* #EBE2E8 — L* 90.7, a true peer of Map
+                                     Mist (90.8) and Soft Sand (89.0) */
+    --deep-accent-2: 209 179 199; /* #D1B3C7 lamplight — the deep is 1.8:1 on
+                                     the dark bands and unusable there; this
+                                     is 8.41:1. Defensive: none of the three
+                                     spark moments currently sit on `deep`. */
+
+    /* The two poles every band, hover and wash is built from. */
+    --g-warm: 201 174 142;        /* #C9AE8E */
+    --g-cool: 143 169 163;        /* #8FA9A3 */
+
+    /* Back-compat for the components still reading --g1/--g2/--g3 (pricing
+       panel, context-scene). Ordered cool → warm → bridge, so their existing
+       `g1 → g2 → g3` recipes come out as a drift rather than a flat film. */
+    --g1: 143 169 163;            /* cool */
+    --g2: 201 174 142;            /* warm */
+    --g3: 178 176 165;            /* #B2B0A5 the neutral bridge */
+
+    --c-tone-warm: 232 222 213;
+    --c-tone-ink: 21 36 33;
+
+    /* Deep band — QOVES' dark blocks are warm graphite, never navy. Kept
+       two-temperature: warm at the ends, a cool green-graphite through the
+       middle, so even the anchor is not one colour. */
+    --deep-1: #23211c; --deep-2: #2c312d; --deep-3: #1c1a16;
+    --deep-bg: 35 33 28;
+    --deep-surface: 45 43 37;
+    --deep-surface-2: 56 54 47;
+    --deep-ink: 243 239 232;      /* 14.03:1 on the band */
+    --deep-muted: 173 180 174;    /* 7.59:1 */
+    --deep-border: 66 62 54;
+    --deep-border-soft: 52 49 42;
+    --deep-accent: 211 162 110;   /* #D3A26E — the terracotta opened up to
+                                     lamplight; 7.02:1 here, unusable on light */
+    --deep-accent-ink: 235 214 189;
+    --deep-accent-soft: 60 48 34;
+
+    /* Closing dark band (CTA + footer) — warm graphite, matching `deep`
+       instead of the teal-black the generic mix would produce. */
+    --ink-accent: #23211c;
+    --ink-accent-deep: #151410;
+  }
+
+  /* ── GREEN FAMILY (exploration) ────────────────────────────────────────────
+     Same construction as AURORA — three bright surface stops, one deepened
+     action colour, an inverted dark band — with the hue rotated to green.
+     Deliberately NOT muted: the earlier sage attempt read as sad, and the fix
+     is to keep the brightness/saturation that worked in the cyan.
+     Every `action` below is deepened until it clears 4.5:1 on the GLOW band,
+     which is the strictest light ground on the page. */
+
+  /* VERDANT — mint → spring. The direct analogue of the cyan you liked. */
+  [data-palette='verdant'] {
+    --c-bg: 255 255 255;
+    --c-surface: 255 255 255;
+    --c-surface-2: 233 250 243;   /* #E9FAF3 */
+    --c-surface-alt: 233 250 243;
+    --c-ink: 15 36 28;            /* #0F241C — 16.29:1 on white */
+    --c-muted: 69 107 92;         /* #456B5C — 5.98 / 5.54 / 4.65 ✓ */
+    --c-primary: 15 36 28;
+    --c-primary-ink: 255 255 255;
+    --c-border: 218 236 229;
+    --c-border-soft: 232 244 239;
+
+    --c-accent: 15 107 80;        /* #0F6B50 — 6.48 white / 5.04 glow ✓ */
+    --c-accent-ink: 13 98 73;     /* #0D6249 */
+    --c-accent-soft: 214 248 236; /* #D6F8EC */
+    --c-accent-2: 107 233 196;    /* #6BE9C4 bright mint — graphic only */
+
+    --g1: 107 233 196;            /* #6BE9C4 */
+    --g2: 87 214 160;             /* #57D6A0 */
+    --g3: 140 240 216;            /* #8CF0D8 */
+
+    --deep-1: #0a2a20; --deep-2: #0f3d2e; --deep-3: #09261d;
+    --deep-bg: 10 42 32;
+    --deep-surface: 18 58 44;
+    --deep-surface-2: 26 70 54;
+    --deep-ink: 234 247 241;      /* 13.97:1 on the band */
+    --deep-muted: 156 201 182;    /* 8.38:1 */
+    --deep-border: 44 86 70;
+    --deep-border-soft: 34 70 56;
+    --deep-accent: 107 233 196;   /* 10.31:1 */
+    --deep-accent-ink: 200 244 228;
+    --deep-accent-soft: 20 67 47;
+  }
+
+  /* MEADOW — leaf → grass. The most literally "natural" of the three. */
+  [data-palette='meadow'] {
+    --c-bg: 255 255 255;
+    --c-surface: 255 255 255;
+    --c-surface-2: 239 250 234;   /* #EFFAEA */
+    --c-surface-alt: 239 250 234;
+    --c-ink: 26 40 18;            /* #1A2812 — 15.48:1 */
+    --c-muted: 78 102 64;         /* #4E6640 — 6.37 / 5.92 / 5.09 ✓ */
+    --c-primary: 26 40 18;
+    --c-primary-ink: 255 255 255;
+    --c-border: 226 238 217;
+    --c-border-soft: 238 246 232;
+
+    --c-accent: 55 108 26;        /* #376C1A — 6.32 white / 5.05 glow ✓ */
+    --c-accent-ink: 49 97 22;     /* #316116 */
+    --c-accent-soft: 226 247 210; /* #E2F7D2 */
+    --c-accent-2: 182 236 122;    /* #B6EC7A bright leaf — graphic only */
+
+    --g1: 182 236 122;            /* #B6EC7A */
+    --g2: 132 217 92;             /* #84D95C */
+    --g3: 207 242 166;            /* #CFF2A6 */
+
+    --deep-1: #16301a; --deep-2: #1e4423; --deep-3: #142c18;
+    --deep-bg: 22 48 26;
+    --deep-surface: 30 61 34;
+    --deep-surface-2: 40 74 44;
+    --deep-ink: 237 247 233;      /* 12.96:1 */
+    --deep-muted: 169 199 155;    /* 7.78:1 */
+    --deep-border: 58 92 62;
+    --deep-border-soft: 46 76 50;
+    --deep-accent: 182 236 122;   /* 10.37:1 */
+    --deep-accent-ink: 219 245 196;
+    --deep-accent-soft: 36 69 31;
+  }
+
+  /* GROVE — emerald, with a warm amber partner reserved for the dark bands
+     (footer / CTA). Amber is only 3.04:1 on white so it may never sit on a
+     light ground; on the deep band it is 5.93:1 and reads like lamplight. */
+  [data-palette='grove'] {
+    --c-bg: 255 255 255;
+    --c-surface: 255 255 255;
+    --c-surface-2: 232 248 240;   /* #E8F8F0 */
+    --c-surface-alt: 232 248 240;
+    --c-ink: 18 39 32;            /* #122720 — 15.71:1 */
+    --c-muted: 69 99 88;          /* #456358 — 6.61 / 6.01 / 4.91 ✓ */
+    --c-primary: 18 39 32;
+    --c-primary-ink: 255 255 255;
+    --c-border: 217 234 226;
+    --c-border-soft: 231 243 237;
+
+    --c-accent: 17 99 82;         /* #116352 — 7.17 white / 5.32 glow ✓ */
+    --c-accent-ink: 15 90 74;     /* #0F5A4A */
+    --c-accent-soft: 213 246 233; /* #D5F6E9 */
+    --c-accent-2: 217 149 47;     /* #D9952F amber — dark bands only */
+
+    --g1: 111 224 176;            /* #6FE0B0 */
+    --g2: 79 201 142;             /* #4FC98E */
+    --g3: 155 238 203;            /* #9BEECB */
+
+    --deep-1: #0c2c22; --deep-2: #124030; --deep-3: #0a2a20;
+    --deep-bg: 12 44 34;
+    --deep-surface: 20 58 45;
+    --deep-surface-2: 30 74 58;
+    --deep-ink: 234 247 241;      /* 13.63:1 */
+    --deep-muted: 156 201 182;    /* 8.18:1 */
+    --deep-border: 48 90 74;
+    --deep-border-soft: 36 74 60;
+    --deep-accent: 217 149 47;    /* the amber partner — 5.93:1 here */
+    --deep-accent-ink: 240 205 150;
+    --deep-accent-soft: 58 44 20;
   }
 
   /* ── CLINIC & CLAY — the blueprint's locked palette, made functional ────────
@@ -203,9 +451,12 @@
     --mmf-border: rgb(var(--c-border));
 
     /* Dark accent-tinted "ink" for the closing dark band (CTA + footer).
-       A deep, accent-tinted near-black — re-themes with the palette. */
-    --c-ink-accent: color-mix(in srgb, rgb(var(--c-accent-ink)) 46%, #06100f 54%);
-    --c-ink-accent-deep: color-mix(in srgb, rgb(var(--c-accent-ink)) 26%, #06100f 74%);
+       Derived from the accent by default; a palette can override the pair by
+       setting --ink-accent / --ink-accent-deep. (It cannot set --c-ink-accent
+       directly: this :root block sits AFTER the [data-palette] blocks and has
+       the same specificity, so it would always win.) */
+    --c-ink-accent: var(--ink-accent, color-mix(in srgb, rgb(var(--c-accent-ink)) 46%, #06100f 54%));
+    --c-ink-accent-deep: var(--ink-accent-deep, color-mix(in srgb, rgb(var(--c-accent-ink)) 26%, #06100f 74%));
 
     --background: rgb(var(--c-bg));
     --foreground: rgb(var(--c-ink));
@@ -345,43 +596,54 @@
   }
 
   /* ── SECTION TONE LADDER ───────────────────────────────────────────────────
-     One gradient recipe at three strengths, plus the plain ground. The bands
-     are set from ONE place (`TONE` in app/page.tsx) so the whole rhythm can be
-     re-tuned or dropped without touching a single section file.
+     Bands are set from ONE place (`TONE` in app/page.tsx) so the whole rhythm
+     can be re-tuned or dropped without touching a single section file.
 
-       base   plain white                       L* 100.0   the default
-       wash   the gradient at 10–13%            L*  96.1   Δ 3.9  the alternator
-       glow   the gradient at 28–36%            L*  88.8   Δ 11.2 attention
-              (40% is the hard ceiling: secondary text hits 4.57:1 there,
-               44% drops it to 4.47 and fails AA)
-       deep   the gradient inverted             L*  13.6          anchors
-  */
+     The bands alternate TEMPERATURE, not just intensity. A ladder of one tint
+     at 10% / 30% / inverted is the thing that made the page read as "blue
+     everywhere": three bands, one hue, no travel. So each band is a drift
+     between the palette's two poles — `--g-warm` and `--g-cool` — with a
+     different pole dominant:
+
+       base   the plain ground                  L* 96.9   warm
+       wash   drift, COOL dominant              L* 92.0   Δ 4.9   the alternator
+       glow   drift, WARM dominant              L* 88.6   Δ 8.3   attention
+       deep   warm graphite, cool middle        L* 12.8           anchors
+
+     Ceiling on `glow`: at its darkest corner secondary text is 4.89:1 — the
+     warm stop must not go past .24, or muted drops under AA.
+
+     Fallbacks keep the single-hue palettes (aurora, verdant, …) working: with
+     no poles declared they collapse back onto --g1/--g2. */
   .section-alt { background-color: rgb(var(--c-surface-alt)); }
 
   .tone-wash {
     background:
-      linear-gradient(135deg,
-        rgb(var(--g1, 107 233 255) / .10) 0%,
-        rgb(var(--g2, 105 180 255) / .13) 50%,
-        rgb(var(--g3, 140 236 255) / .10) 100%),
+      linear-gradient(157deg,
+        rgb(var(--g-warm, var(--g2, 105 180 255)) / .07) 0%,
+        rgb(var(--g-cool, var(--g1, 107 233 255)) / .08) 44%,
+        rgb(var(--g-cool, var(--g1, 107 233 255)) / .16) 100%),
       rgb(var(--c-bg));
   }
 
   .tone-glow {
     background:
-      radial-gradient(90% 70% at 88% 0%, rgb(var(--g1, 107 233 255) / .16) 0%, transparent 62%),
-      linear-gradient(135deg,
-        rgb(var(--g1, 107 233 255) / .28) 0%,
-        rgb(var(--g2, 105 180 255) / .36) 50%,
-        rgb(var(--g3, 140 236 255) / .28) 100%),
+      /* warm sun in the top-right… */
+      radial-gradient(92% 74% at 88% 2%, rgb(var(--g-warm, var(--g1, 107 233 255)) / .14) 0%, transparent 64%),
+      /* …cooling as it falls to the bottom-left, the way a QOVES block does */
+      linear-gradient(163deg,
+        rgb(var(--g-warm, var(--g1, 107 233 255)) / .24) 0%,
+        rgb(var(--g-warm, var(--g2, 105 180 255)) / .17) 44%,
+        rgb(var(--g-cool, var(--g3, 140 236 255)) / .15) 100%),
       rgb(var(--c-bg));
   }
 
   /* On a tinted band a card does not need to float — the halo collapses to a
-     hairline, which is a third card texture for free. */
+     hairline, which is a third card texture for free. Warm shadow ink so the
+     hairline belongs to the page rather than greying it. */
   .tone-wash, .tone-glow {
-    --shadow-card: 0 1px 2px rgb(19 39 52 / .04), 0 0 0 1px rgb(19 39 52 / .04);
-    --shadow-sm: 0 1px 2px rgb(19 39 52 / .04), 0 0 0 1px rgb(19 39 52 / .04);
+    --shadow-card: 0 1px 2px rgb(39 32 24 / .05), 0 0 0 1px rgb(39 32 24 / .05);
+    --shadow-sm: 0 1px 2px rgb(39 32 24 / .05), 0 0 0 1px rgb(39 32 24 / .05);
   }
 
   /* DEEP — the same gradient inverted. Re-scopes the role tokens so every
@@ -389,33 +651,35 @@
      no component change. The bright cyan is 1.4:1 on white but 11.06:1 here,
      so this is the only place it gets to be a foreground colour. */
   .tone-deep {
-    /* the flat colour is declared too, so the band never falls back to white if
-       the gradient layers fail to paint — the text here is light */
-    background-color: #0a2536;
+    /* Every value here is a token with the navy as its fallback, so a palette
+       can re-theme the dark band without touching this rule. */
+    background-color: var(--deep-1, #0a2536);
     background-image:
-      radial-gradient(80% 60% at 82% 0%, rgb(var(--g1, 107 233 255) / .16) 0%, transparent 62%),
-      radial-gradient(70% 60% at 8% 100%, rgb(var(--g2, 105 180 255) / .12) 0%, transparent 60%),
-      linear-gradient(150deg, #0a2536 0%, #103049 55%, #0a2434 100%);
+      radial-gradient(80% 60% at 82% 0%, rgb(var(--g-warm, var(--g1, 107 233 255)) / .13) 0%, transparent 62%),
+      radial-gradient(70% 60% at 8% 100%, rgb(var(--g-cool, var(--g2, 105 180 255)) / .11) 0%, transparent 60%),
+      linear-gradient(150deg, var(--deep-1, #0a2536) 0%, var(--deep-2, #103049) 55%, var(--deep-3, #0a2434) 100%);
 
-    --c-bg: 10 37 54;
-    --c-surface: 18 48 67;
-    --c-surface-2: 26 58 78;
-    --c-surface-alt: 10 37 54;
-    --c-ink: 232 246 255;          /* 14.32:1 on the band */
-    --c-muted: 157 196 220;        /* 8.54:1 */
-    --c-border: 46 76 97;
-    --c-border-soft: 36 62 81;
-    --c-primary: 232 246 255;
-    --c-primary-ink: 10 37 54;
+    --c-bg: var(--deep-bg, 10 37 54);
+    --c-surface: var(--deep-surface, 18 48 67);
+    --c-surface-2: var(--deep-surface-2, 26 58 78);
+    --c-surface-alt: var(--deep-bg, 10 37 54);
+    --c-ink: var(--deep-ink, 232 246 255);
+    --c-muted: var(--deep-muted, 157 196 220);
+    --c-border: var(--deep-border, 46 76 97);
+    --c-border-soft: var(--deep-border-soft, 36 62 81);
+    --c-primary: var(--deep-ink, 232 246 255);
+    --c-primary-ink: var(--deep-bg, 10 37 54);
 
-    --c-accent: 107 233 255;       /* the cyan, finally usable — 11.06:1 */
-    --c-accent-ink: 200 244 255;
-    --c-accent-soft: 22 62 84;
+    --c-accent: var(--deep-accent, 107 233 255);
+    --c-accent-ink: var(--deep-accent-ink, 200 244 255);
+    --c-accent-soft: var(--deep-accent-soft, 22 62 84);
+    /* the spark's deep is 1.8:1 here — swap to its lamplight variant */
+    --c-accent-2: var(--deep-accent-2, 209 179 199);
 
     /* --mmf-* resolve where they are declared, so they need redeclaring here */
-    --mmf-border: rgb(46 76 97);
-    --mmf-ink: rgb(232 246 255);
-    --mmf-teal: rgb(107 233 255);
+    --mmf-border: rgb(var(--deep-border, 46 76 97));
+    --mmf-ink: rgb(var(--deep-ink, 232 246 255));
+    --mmf-teal: rgb(var(--deep-accent, 107 233 255));
 
     /* drop shadows do not read on dark — separate with a lit top edge */
     --shadow-card: inset 0 1px 0 rgb(255 255 255 / .07);
@@ -435,6 +699,18 @@
     background-image: none;
     box-shadow: inset 0 1px 0 rgb(255 255 255 / .12);
   }
+
+  /* ── Neutral shelf ─────────────────────────────────────────────────────────
+     The trust strip. Its whole job is to be quiet, so it takes no palette hue
+     at all — see --c-band. The two fades are here rather than as Tailwind
+     `from-*` utilities so the band colour is named in exactly one place. */
+  .band-neutral {
+    background-color: rgb(var(--c-band));
+    border-top: 1px solid rgb(var(--c-ink) / 0.06);
+    border-bottom: 1px solid rgb(var(--c-ink) / 0.06);
+  }
+  .band-fade-l { background: linear-gradient(to right, rgb(var(--c-band)), rgb(var(--c-band) / 0)); }
+  .band-fade-r { background: linear-gradient(to left, rgb(var(--c-band)), rgb(var(--c-band) / 0)); }
 
   /* Soft, wide gradient seam — for white→white section boundaries only */
   .divider-soft {
@@ -486,26 +762,38 @@
 
   /* ── Subtle depth & accent hints (QOVES-style; all re-theme with the palette) ──
      Rule: washes ≤6%, and use .bg-mesh-soft / .card-glow ONCE each per page. */
+  /* These washes used to be the ACCENT at 4–6%, which is how one colour ended
+     up under half the page. They are built from the two poles now, so they add
+     temperature and depth without adding brand colour. */
   .bg-wash-warm { background: linear-gradient(180deg, rgb(var(--c-bg)) 0%, rgb(var(--c-surface-2)) 100%); }
   .bg-glow-tr {
-    background: radial-gradient(120% 90% at 100% 0%, rgb(var(--c-accent) / 0.06) 0%, rgb(var(--c-accent) / 0.02) 35%, transparent 70%), rgb(var(--c-bg));
+    background:
+      radial-gradient(120% 90% at 100% 0%,
+        rgb(var(--g-warm, var(--c-accent)) / 0.10) 0%,
+        rgb(var(--g-warm, var(--c-accent)) / 0.04) 38%, transparent 72%),
+      rgb(var(--c-bg));
   }
   .bg-glow-bl {
-    background: radial-gradient(110% 80% at 0% 100%, rgb(var(--c-accent) / 0.05) 0%, transparent 65%), rgb(var(--c-bg));
+    background:
+      radial-gradient(110% 80% at 0% 100%, rgb(var(--g-cool, var(--c-accent)) / 0.09) 0%, transparent 66%),
+      rgb(var(--c-bg));
   }
   .bg-mesh-soft {
     background:
-      radial-gradient(90% 70% at 85% 15%, rgb(var(--c-accent) / 0.06) 0%, transparent 60%),
-      radial-gradient(80% 70% at 10% 90%, rgb(var(--c-accent-2) / 0.04) 0%, transparent 60%),
+      radial-gradient(90% 70% at 85% 15%, rgb(var(--g-warm, var(--c-accent)) / 0.11) 0%, transparent 60%),
+      radial-gradient(80% 70% at 10% 90%, rgb(var(--g-cool, var(--c-accent-2)) / 0.09) 0%, transparent 60%),
       linear-gradient(180deg, rgb(var(--c-bg)) 0%, rgb(var(--c-surface-2)) 100%);
   }
-  /* The ONE highlighted card: warm structural shadow + faint accent glow */
+  /* The ONE highlighted card: warm structural shadow, with the accent kept to
+     the deepest, widest layer where it reads as warmth under the card rather
+     than as a coloured ring around it. */
   .card-glow {
     background-color: rgb(var(--c-surface));
     box-shadow:
       0 1px 2px rgba(39,32,24,.05),
       0 8px 20px rgba(39,32,24,.07),
-      0 18px 42px -6px rgb(var(--c-accent) / 0.10);
+      0 18px 42px -6px rgba(39,32,24,.10),
+      0 28px 64px -20px rgb(var(--c-accent) / 0.12);
   }
   .divider-accent {
     height: 1px; border: 0;
@@ -514,9 +802,12 @@
   /* ── Pricing: inverted dark "hero" panel — radial spotlight + gradient hairline ── */
   .pricing-panel {
     position: relative;
+    /* Two-temperature spotlight on the dark panel: a warm one overhead, a cool
+       one washing in from the bottom-right. One accent radial made the panel
+       read as a single tinted block. */
     background:
-      radial-gradient(120% 85% at 50% 0%, rgb(var(--c-accent) / 0.16) 0%, transparent 55%),
-      radial-gradient(80% 70% at 100% 100%, rgb(var(--c-accent) / 0.08) 0%, transparent 60%),
+      radial-gradient(120% 85% at 50% 0%, rgb(var(--g-warm, var(--c-accent)) / 0.16) 0%, transparent 55%),
+      radial-gradient(80% 70% at 100% 100%, rgb(var(--g-cool, var(--c-accent)) / 0.12) 0%, transparent 60%),
       rgb(var(--c-ink));
     box-shadow:
       0 2px 4px rgba(39, 32, 24, 0.10),
@@ -542,9 +833,10 @@
     mask-composite: exclude;
     pointer-events: none;
   }
-  /* Highlighter mark under a keyword */
+  /* Highlighter mark under a keyword — the WARM pole, not the accent. A marker
+     stripe is a warm gesture, and it keeps the accent for actions. */
   .accent-mark {
-    background-image: linear-gradient(90deg, rgb(var(--c-accent) / 0.32), rgb(var(--c-accent) / 0.14));
+    background-image: linear-gradient(90deg, rgb(var(--g-warm, var(--c-accent)) / 0.48), rgb(var(--g-warm, var(--c-accent)) / 0.18));
     background-size: 100% 0.32em; background-position: 0 88%; background-repeat: no-repeat;
     -webkit-box-decoration-break: clone; box-decoration-break: clone;
   }
@@ -578,14 +870,24 @@
     transition: border-color .3s ease, box-shadow .3s ease, background-color .3s ease;
   }
   .card-hover-accent:hover {
-    border-color: rgb(var(--c-accent) / 0.22);
-    /* barely-there wash from the top edge — reads as light, not colour */
-    background-image: radial-gradient(120% 100% at 50% 0%, rgb(var(--c-accent) / 0.05) 0%, transparent 62%);
+    /* Neutral hairline: the card gets more DEFINED on hover, not more coloured.
+       An accent-tinted border on every card in every grid was a third of why
+       the page read as one colour. */
+    border-color: rgb(var(--c-ink) / 0.14);
+    /* The only colour is a ~7% drift between the two poles, corner to corner —
+       warm light entering top-left, cooling as it falls to bottom-right. A
+       single-hue radial at this strength reads as a haze sitting ON the card;
+       a two-temperature drift reads as light falling ACROSS it. */
+    background-image: linear-gradient(158deg,
+      rgb(var(--g-warm, var(--g2, 105 180 255)) / .07) 0%,
+      transparent 46%,
+      rgb(var(--g-cool, var(--g1, 107 233 255)) / .085) 100%);
+    /* Lift is carried by a warm neutral shadow, not an accent glow. */
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.6),
+      inset 0 1px 0 rgb(255 255 255 / 0.7),
       0 1px 2px rgba(39,32,24,.05),
-      0 10px 24px rgba(39,32,24,.06),
-      0 20px 44px -22px rgb(var(--c-accent) / 0.35);
+      0 10px 24px rgba(39,32,24,.07),
+      0 24px 48px -24px rgba(39,32,24,.34);
   }
 
   /* .icon-tile-accent — NEUTRAL light-grey tile holding an accent glyph.
@@ -599,7 +901,11 @@
     transition: background-color .3s ease, color .3s ease;
   }
   .group:hover .icon-tile-accent {
-    background-color: rgb(var(--c-ink) / 0.06);  /* stays neutral, just a touch deeper */
+    /* Deepen the tile WITHIN the warm family. Ink at 6% greyed the sand toward
+       cool on hover, which fought the warm-tile / cool-glyph pairing. Mixing
+       from --c-surface-2 (rather than painting a translucent wash) keeps this
+       correct on the deep band too, where surface-2 is already dark. */
+    background-color: color-mix(in srgb, rgb(var(--c-surface-2)) 76%, rgb(var(--g-warm, var(--c-ink))) 24%);
     color: rgb(var(--c-accent));                 /* keep the one light teal — no deepening */
   }
 

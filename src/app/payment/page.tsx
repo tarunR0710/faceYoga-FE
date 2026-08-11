@@ -9,6 +9,7 @@ import { useRazorpay } from '@/hooks/use-razorpay'
 import { FACE_MAP_CORE, FACE_MAP_ADDONS, SITE_CONFIG } from '@/lib/constants'
 import { trackInitiateCheckout, trackPurchase } from '@/lib/meta-pixel'
 import { cn } from '@/lib/utils'
+import { SectionTag } from '@/components/ui/section-tag'
 
 const API_URL = SITE_CONFIG.apiUrl
 
@@ -158,7 +159,9 @@ export default function PaymentPage() {
               className="rounded-[24px] overflow-hidden border border-ink/10"
             >
               <div className="p-5 md:p-6 bg-ink">
-                <p className="text-[11px] uppercase tracking-[0.15em] text-teal mb-3">Build your Face Map</p>
+                <div className="mb-3">
+                  <SectionTag>Build your Face Map</SectionTag>
+                </div>
                 <h1 className="text-[1.4rem] md:text-[1.6rem] leading-tight tracking-[-0.02em] text-ivory" style={{ fontWeight: 400 }}>
                   {firstName}, you&apos;re one step from your Complete Face Map.
                 </h1>

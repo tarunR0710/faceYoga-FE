@@ -112,13 +112,8 @@ export function Hero() {
           className="max-w-2xl"
           style={reduce ? undefined : { opacity: exitOpacity, y: exitY }}
         >
-          {/* Section label — blueprint eyebrow */}
-          <motion.p
-            variants={rise}
-            className="mb-4 text-[10px] md:text-[11px] font-medium uppercase tracking-[0.18em] text-white/60"
-          >
-            Personalised appearance intelligence
-          </motion.p>
+          {/* No section tag here. The hero is the one place the page should
+              open with the promise itself, not with a label naming it. */}
 
           {/* Headline — line-by-line mask reveal */}
           <motion.h1

@@ -3,9 +3,13 @@
 import type { ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { REVEAL, VIEWPORT } from '@/lib/motion'
+import { SectionTag } from '@/components/ui/section-tag'
 
 type SectionHeadingProps = {
-  /** Small uppercase kicker — the blueprint's section label (e.g. "THE PROBLEM"). */
+  /**
+   * The blueprint's section label. Keep it in SENTENCE case — the uppercase is
+   * a CSS transform, so screen readers still get readable words. Four words max.
+   */
   eyebrow: string
   /** First sentence of the headline — full-strength ink. */
   title: ReactNode
@@ -48,9 +52,9 @@ export function SectionHeading({
       transition={REVEAL}
       className={centered ? 'mx-auto max-w-3xl text-center' : 'max-w-2xl'}
     >
-      <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-analysis-teal md:text-[12px]">
-        {eyebrow}
-      </p>
+      <div className="mb-5">
+        <SectionTag>{eyebrow}</SectionTag>
+      </div>
       <h2
         className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
         style={{ fontWeight: 450 }}

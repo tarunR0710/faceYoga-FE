@@ -118,6 +118,11 @@ export const MEDIA = {
   styleMap: '/placeholder/style-map.jpg',
   /** Face Map report cover / spread preview. */
   reportCover: '/placeholder/report-cover.jpg',
+  /** Beta client experiences — the pull-quote panel. NOT a portrait on purpose:
+      the section has no real clients yet, and a stranger's face beside a quote
+      reads as proof whatever the caption says. CC0 (StockSnap / Green Chameleon,
+      stocksnap.io/photo/writing-drawing-8Y0EDX4VP9) so it is safe to ship. */
+  betaNote: '/placeholder/beta-note.jpg',
   /** Expert panel — the still shown at rest on each of the four role cards. */
   panelMedical: '/placeholder/panel-medical.jpg',
   panelResearch: '/placeholder/panel-research.jpg',

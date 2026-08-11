@@ -82,6 +82,10 @@ export default function HomePage() {
         <Hero />      {/* 01  Hero — its own video ground */}
         <TrustBar />  {/* 01b Live / Team / Map / Help */}
 
+        {/* The `note` numbers below are for developers reading this file. They
+            are deliberately NOT surfaced to the reader: a visitor scrolling a
+            landing page is not working through a numbered document, and the
+            counter only invites them to wonder how many are left. */}
         {SECTIONS.map((s, i) => (
           <Tone key={i} tone={s.tone}>
             {s.node}

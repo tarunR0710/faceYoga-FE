@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react'
 
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
+import { SectionTag } from '@/components/ui/section-tag'
 
 const ease = [0.22, 0.61, 0.36, 1] as const
 
@@ -72,9 +73,9 @@ export default function Page() {
               transition={{ duration: 0.6, ease }}
               className="mx-auto max-w-2xl text-center"
             >
-              <span className="mb-5 inline-block text-[11px] font-medium uppercase tracking-wide text-analysis-teal md:text-[13px]">
-                What you receive
-              </span>
+              <div className="mb-5">
+                <SectionTag>What you receive</SectionTag>
+              </div>
 
               <h1
                 className="text-[2rem] leading-[1.12] tracking-[-0.02em] text-ink md:text-[2.75rem] lg:text-[3.25rem]"
@@ -109,9 +110,9 @@ export default function Page() {
               transition={{ duration: 0.6, ease }}
               className="mx-auto max-w-2xl text-center"
             >
-              <span className="mb-4 inline-block text-[11px] font-medium uppercase tracking-wide text-analysis-teal md:text-[13px]">
-                Inside your Face Map
-              </span>
+              <div className="mb-4">
+                <SectionTag>Inside your Face Map</SectionTag>
+              </div>
               <h2
                 className="text-[1.6rem] leading-[1.15] tracking-[-0.02em] text-ink md:text-[2rem]"
                 style={{ fontWeight: 450 }}
@@ -201,9 +202,9 @@ export default function Page() {
               transition={{ duration: 0.6, ease }}
               className="mx-auto max-w-2xl text-center"
             >
-              <p className="mb-4 text-[12px] uppercase tracking-[0.15em] text-teal">
-                Ready when you are
-              </p>
+              <div className="mb-4">
+                <SectionTag variant="on-dark">Ready when you are</SectionTag>
+              </div>
               <h2
                 className="text-[1.75rem] leading-[1.15] tracking-[-0.02em] text-ivory md:text-[2.5rem]"
                 style={{ fontWeight: 450 }}

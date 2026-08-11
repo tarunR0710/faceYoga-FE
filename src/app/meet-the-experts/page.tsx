@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
+import { SectionTag } from '@/components/ui/section-tag'
 
 const easeOut = [0.22, 1, 0.36, 1] as const
 
@@ -81,9 +82,9 @@ export default function Page() {
               transition={{ duration: 0.6, ease: easeOut }}
               className="max-w-3xl"
             >
-              <p className="text-[12px] text-analysis-teal uppercase tracking-[0.18em] mb-5">
-                The MapMyFace expert panel
-              </p>
+              <div className="mb-5">
+                <SectionTag>The MapMyFace expert panel</SectionTag>
+              </div>
               <h1
                 className="text-[2.25rem] md:text-[3rem] leading-[1.1] tracking-[-0.02em] text-ink mb-6"
                 style={{ fontWeight: 450 }}
@@ -140,9 +141,9 @@ export default function Page() {
               transition={{ duration: 0.6, ease: easeOut }}
               className="max-w-2xl mb-14"
             >
-              <p className="text-[12px] text-analysis-teal uppercase tracking-[0.18em] mb-4">
-                How the panel works
-              </p>
+              <div className="mb-4">
+                <SectionTag>How the panel works</SectionTag>
+              </div>
               <h2
                 className="text-[1.9rem] md:text-[2.5rem] leading-[1.15] tracking-[-0.02em] text-ink mb-5"
                 style={{ fontWeight: 450 }}

@@ -6,6 +6,7 @@ import * as AccordionPrimitive from '@radix-ui/react-accordion'
 import { Plus, Mail } from 'lucide-react'
 import { FAQS, FAQ_GROUPS, SITE_CONFIG } from '@/lib/constants'
 import { EASE_OUT, REVEAL, VIEWPORT, stagger } from '@/lib/motion'
+import { SectionTag } from '@/components/ui/section-tag'
 
 export function FAQ() {
   const reduce = useReducedMotion()
@@ -31,9 +32,9 @@ export function FAQ() {
             transition={REVEAL}
             className="lg:sticky lg:top-24 lg:self-start"
           >
-            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-analysis-teal md:text-[12px]">
-              Frequently asked questions
-            </p>
+            <div className="mb-5">
+              <SectionTag>Frequently asked questions</SectionTag>
+            </div>
             <h2
               className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
               style={{ fontWeight: 450 }}

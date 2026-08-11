@@ -157,6 +157,7 @@ renders offline and the optimiser never reaches out.
 | `hair-map.jpg`, `style-map.jpg` | the two add-on panels |
 | `report-cover.jpg` | reserved for a Face Map cover shot |
 | `panel-medical.jpg`, `panel-research.jpg`, `panel-yoga.jpg`, `panel-hair.jpg` | expert panel cards (at-rest still) |
+| `beta-note.jpg` | Beta client experiences pull-quote panel (CC0, StockSnap — safe to ship as-is) |
 
 Every rendered section now references **zero** remote image hosts. The four expert-panel hover clips
 are still remote — they are fetched only on hover, `preload="none"`, and a failed fetch is silent, so

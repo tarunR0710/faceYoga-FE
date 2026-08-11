@@ -127,7 +127,10 @@ export function Outcome() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, ease: EASE_OUT }}
                 >
-                  <span className="text-[38px] leading-none tracking-[-0.03em] text-accent/25 md:text-[46px]" style={{ fontWeight: 500 }}>
+                  {/* Spark, not accent: this numeral is enumeration. The tab
+                      underline and progress rail below stay the accent — they
+                      are interaction state. */}
+                  <span className="text-[38px] leading-none tracking-[-0.03em] text-accent-2/40 md:text-[46px]" style={{ fontWeight: 500 }}>
                     {step.n}
                   </span>
                   <h3

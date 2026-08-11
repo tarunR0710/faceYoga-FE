@@ -13,6 +13,7 @@ import Link from 'next/link'
 import { useRef, useState } from 'react'
 import { ArrowRight, Check } from 'lucide-react'
 import { EASE_OUT_SOFT, REVEAL, SCRUB_SPRING, VIEWPORT, stagger, useIsDesktop } from '@/lib/motion'
+import { SectionTag } from '@/components/ui/section-tag'
 
 // The three things the report opens with, in the blueprint's own labels.
 const parts = [
@@ -145,9 +146,9 @@ function PinnedFaceMap() {
 
           {/* Header + the 3 parts cross-fading on scroll */}
           <div>
-            <p className="mb-4 text-[12px] font-medium uppercase tracking-[0.16em] text-analysis-teal">
-              Your Face Map
-            </p>
+            <div className="mb-5">
+              <SectionTag>Your Face Map</SectionTag>
+            </div>
             <h2
               className="mb-8 text-[1.9rem] leading-[1.14] tracking-[-0.02em] text-ink lg:text-[2.4rem]"
               style={{ fontWeight: 450 }}
@@ -239,9 +240,9 @@ function StackedFaceMap({ reduce }: { reduce: boolean }) {
             viewport={VIEWPORT}
             transition={REVEAL}
           >
-            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-analysis-teal">
-              Your Face Map
-            </p>
+            <div className="mb-5">
+              <SectionTag>Your Face Map</SectionTag>
+            </div>
             <h2
               className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink"
               style={{ fontWeight: 450 }}

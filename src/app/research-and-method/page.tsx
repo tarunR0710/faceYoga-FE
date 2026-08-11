@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react'
 
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
+import { SectionTag } from '@/components/ui/section-tag'
 
 // The five layers of the Face Mapping Method — plain, honest descriptions.
 const layers = [
@@ -86,9 +87,9 @@ export default function Page() {
               transition={{ duration: 0.5, ease: 'easeOut' }}
               className="max-w-2xl mx-auto text-center"
             >
-              <p className="text-[12px] text-analysis-teal uppercase tracking-[0.14em] mb-3">
-                Research &amp; Method
-              </p>
+              <div className="mb-3">
+                <SectionTag>Research &amp; Method</SectionTag>
+              </div>
               <h1
                 className="text-[2rem] md:text-[2.75rem] leading-[1.1] tracking-[-0.02em] text-ink mb-4"
                 style={{ fontWeight: 450 }}
@@ -112,9 +113,9 @@ export default function Page() {
               transition={{ duration: 0.5, ease: 'easeOut' }}
               className="text-center max-w-xl mx-auto mb-12"
             >
-              <p className="text-[12px] text-analysis-teal uppercase tracking-[0.14em] mb-3">
-                The Method
-              </p>
+              <div className="mb-3">
+                <SectionTag>The Method</SectionTag>
+              </div>
               <h2
                 className="text-[1.75rem] md:text-[2.25rem] leading-[1.15] tracking-[-0.02em] text-ink mb-4"
                 style={{ fontWeight: 450 }}
@@ -161,9 +162,9 @@ export default function Page() {
               transition={{ duration: 0.5, ease: 'easeOut' }}
               className="text-center max-w-xl mx-auto mb-12"
             >
-              <p className="text-[12px] text-analysis-teal uppercase tracking-[0.14em] mb-3">
-                The Process
-              </p>
+              <div className="mb-3">
+                <SectionTag>The Process</SectionTag>
+              </div>
               <h2
                 className="text-[1.75rem] md:text-[2.25rem] leading-[1.15] tracking-[-0.02em] text-ink mb-4"
                 style={{ fontWeight: 450 }}
@@ -211,9 +212,9 @@ export default function Page() {
                 transition={{ duration: 0.5, ease: 'easeOut' }}
                 className="max-w-lg"
               >
-                <p className="text-[12px] text-analysis-teal uppercase tracking-[0.14em] mb-3">
-                  Honesty
-                </p>
+                <div className="mb-3">
+                  <SectionTag>Honesty</SectionTag>
+                </div>
                 <h2
                   className="text-[1.75rem] md:text-[2.25rem] leading-[1.15] tracking-[-0.02em] text-ink mb-4"
                   style={{ fontWeight: 450 }}
@@ -255,9 +256,9 @@ export default function Page() {
               transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               className="rounded-[28px] bg-white border border-ink/10 shadow-sm text-center max-w-2xl mx-auto px-6 py-12 md:px-10 md:py-14"
             >
-              <p className="text-[12px] text-teal uppercase tracking-[0.15em] mb-4">
-                Ready when you are
-              </p>
+              <div className="mb-4">
+                <SectionTag>Ready when you are</SectionTag>
+              </div>
               <h2
                 className="text-[1.75rem] md:text-[2.25rem] leading-[1.15] tracking-[-0.02em] text-ink mb-8"
                 style={{ fontWeight: 450 }}

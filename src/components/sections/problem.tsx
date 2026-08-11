@@ -168,10 +168,15 @@ export function Problem() {
                 }
                 transition={{ duration: 0.8, ease: EASE_OUT_SOFT, delay: resolved && !reduce ? 0.3 : 0 }}
                 className={`rounded-[22px] p-5 md:p-6 ${resolved ? '' : 'pointer-events-none'}`}
+                // Was the accent at 22% over white, which on a saturated
+                // palette turned the whole corner into a blue haze. Now it is
+                // the house two-pole drift: warm light entering top-left,
+                // cooling as it falls to the bottom-right, at a third of the
+                // strength. Reads as light on paper rather than tinted paper.
                 style={{
                   background:
-                    'radial-gradient(80% 55% at 15% 6%, rgb(var(--c-accent) / 0.22) 0%, transparent 55%), linear-gradient(180deg, rgb(var(--c-accent) / 0.10) 0%, rgb(var(--c-surface)) 48%, rgb(var(--c-surface)) 100%)',
-                  border: '1px solid rgb(var(--c-accent) / 0.26)',
+                    'radial-gradient(88% 62% at 10% 2%, rgb(var(--g-warm, var(--c-accent)) / 0.34) 0%, transparent 60%), radial-gradient(76% 64% at 104% 104%, rgb(var(--g-cool, var(--c-accent)) / 0.14) 0%, transparent 62%), rgb(var(--c-surface))',
+                  border: '1px solid rgb(var(--c-ink) / 0.10)',
                   boxShadow: 'var(--shadow-lg)',
                 }}
               >

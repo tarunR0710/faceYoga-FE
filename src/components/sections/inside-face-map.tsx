@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { EASE_OUT, REVEAL, VIEWPORT, stagger } from '@/lib/motion'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { CardRail } from '@/components/ui/card-rail'
+import { ReportHud } from '@/components/ui/report-hud'
 
 // The twelve chapters. Titles are the blueprint's; each one-line summary is
 // re-used from the blueprint's own description of that same area elsewhere in
@@ -40,8 +41,15 @@ export function InsideFaceMap() {
           muted="turn analysis into clarity."
         />
 
-        {/* ── Mobile: swipe the chapter deck ──────────────────────────────── */}
+        {/* ── Mobile: the HUD, then the chapter deck ─────────────────────── */}
+        {/* The deck stays exactly what it was — twelve independent chapter
+            cards you swipe through. The HUD sits above it as the section's
+            visual anchor; it does not own or replace the chapter list. */}
         <div className="md:hidden">
+          <ReportHud className="aspect-[4/5] w-full" />
+        </div>
+
+        <div className="mt-6 md:hidden">
           <CardRail cols={3} peek="lg" label="Face Map chapters">
             {chapters.map((c, i) => (
               <motion.article
@@ -53,8 +61,10 @@ export function InsideFaceMap() {
                 className="flex min-h-[176px] flex-col rounded-[20px] border border-border/50 bg-white p-5"
                 style={{ boxShadow: 'var(--shadow-card)' }}
               >
+                {/* Chapter number — indexing, so it takes the spark. The
+                    desktop list's active row keeps the accent: that is state. */}
                 <span
-                  className="text-[40px] leading-none tracking-[-0.04em] text-accent/20"
+                  className="text-[40px] leading-none tracking-[-0.04em] text-accent-2/35"
                   style={{ fontWeight: 500 }}
                 >
                   {c.n}
@@ -72,7 +82,7 @@ export function InsideFaceMap() {
         </div>
 
         {/* ── Desktop: contents page + live preview ───────────────────────── */}
-        <div className="hidden gap-10 md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,340px)] lg:gap-16">
+        <div className="hidden gap-10 md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-16">
           <ol className="grid gap-0 sm:grid-cols-2">
             {chapters.map((c, i) => {
               const on = active === i
@@ -95,8 +105,11 @@ export function InsideFaceMap() {
                     }`}
                   >
                     <span
+                      // Inactive = enumeration, so it takes the spark; active
+                      // stays the accent because that one is selection state.
+                      // /55 reads 2.56:1 vs the ink/30 it replaces at 1.85:1.
                       className={`text-[13px] tabular-nums transition-colors duration-300 ${
-                        on ? 'text-accent' : 'text-ink/30'
+                        on ? 'text-accent' : 'text-accent-2/55'
                       }`}
                       style={{ fontWeight: 500 }}
                     >
@@ -127,51 +140,12 @@ export function InsideFaceMap() {
             transition={{ ...REVEAL, delay: 0.1 }}
             className="md:sticky md:top-24 md:self-start"
           >
-            {/* A report page, not a screenshot — the chapter you are pointing at */}
-            <div className="card-elevated overflow-hidden rounded-[24px]">
-              <div className="flex items-center justify-between border-b border-border/60 px-5 py-3">
-                <span className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-analysis-teal">
-                  Your Face Map
-                </span>
-                <span className="text-[10px] tabular-nums text-ink/35">
-                  {current.n} / 12
-                </span>
-              </div>
-
-              <div className="min-h-[300px] bg-mist px-6 py-7">
-                <motion.div
-                  key={current.n}
-                  initial={reduce ? false : { opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.42, ease: EASE_OUT }}
-                >
-                  <span
-                    className="text-[52px] leading-none tracking-[-0.04em] text-accent/25"
-                    style={{ fontWeight: 500 }}
-                  >
-                    {current.n}
-                  </span>
-                  <h3
-                    className="mt-4 text-[21px] leading-tight tracking-[-0.01em] text-ink"
-                    style={{ fontWeight: 450 }}
-                  >
-                    {current.title}
-                  </h3>
-                  <p className="mt-3 text-[14px] leading-relaxed text-analysis-teal">{current.body}</p>
-
-                  {/* the "written, not scored" texture of a real report page */}
-                  <div className="mt-6 space-y-2" aria-hidden>
-                    {[100, 92, 78, 96, 64].map((w, i) => (
-                      <div
-                        key={i}
-                        className="h-[5px] rounded-full bg-ink/[0.07]"
-                        style={{ width: `${w}%` }}
-                      />
-                    ))}
-                  </div>
-                </motion.div>
-              </div>
-            </div>
+            {/* The report as an interface, not a picture — a tinted portrait with
+                glass panels floating over it and dots pinned to landmarks. The
+                technique is the category's; the payload is not: every reading is
+                a word, never a score, because the section above promises "clear
+                explanations, not unexplained scores". */}
+            <ReportHud className="aspect-[4/5] w-full" />
           </motion.div>
         </div>
 

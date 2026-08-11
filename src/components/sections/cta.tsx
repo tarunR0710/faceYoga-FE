@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { motion, useMotionValue, useMotionTemplate, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
 import { EASE_OUT, REVEAL, VIEWPORT } from '@/lib/motion'
+import { SectionTag } from '@/components/ui/section-tag'
 
 export function CTA() {
   const reduce = useReducedMotion()
@@ -68,9 +69,11 @@ export function CTA() {
           transition={REVEAL}
           className="mx-auto max-w-2xl text-center"
         >
-          <p className="mb-4 text-[11px] uppercase tracking-[0.16em] text-ivory/65 md:text-[12px]">
-            Your plan starts with understanding
-          </p>
+          <div className="mb-5">
+            {/* This band paints its own gradient rather than .tone-deep, so the
+                role tokens never re-scope here — hence the on-dark variant. */}
+            <SectionTag variant="on-dark">Your plan starts with understanding</SectionTag>
+          </div>
           <h2
             className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ivory md:text-[2.5rem]"
             style={{ fontWeight: 450 }}

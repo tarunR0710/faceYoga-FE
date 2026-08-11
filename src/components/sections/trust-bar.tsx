@@ -17,7 +17,9 @@ function Item({ tag, icon: Icon, label }: (typeof items)[number]) {
   const isLive = tag === 'Live'
   return (
     <>
-      <span className="relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-soft/60">
+      {/* Neutral chip: on a colourless shelf, a tinted disc is the one thing
+          that would put the band back into a hue. */}
+      <span className="relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink/[0.055]">
         {isLive && (
           <span
             aria-hidden
@@ -41,11 +43,11 @@ export function TrustBar() {
   // Rendered twice so the -50% marquee loop is seamless on mobile.
   const loop = [...items, ...items]
   return (
-    <section className="bg-mist border-y border-border-soft" aria-label="What every plan includes">
+    <section className="band-neutral" aria-label="What every plan includes">
       {/* Below lg: marquee — the four labels cannot sit side by side until ~1024px */}
       <div className="group relative flex h-[44px] items-center overflow-hidden lg:hidden">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-mist to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-mist to-transparent" />
+        <div className="band-fade-l pointer-events-none absolute inset-y-0 left-0 z-10 w-12" />
+        <div className="band-fade-r pointer-events-none absolute inset-y-0 right-0 z-10 w-12" />
         <ul className="flex shrink-0 items-center animate-marquee-slow will-change-transform group-hover:[animation-play-state:paused]">
           {loop.map((item, i) => (
             <li key={i} className="flex items-center pr-7" aria-hidden={i >= items.length}>

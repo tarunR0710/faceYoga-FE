@@ -35,7 +35,10 @@ const config: Config = {
         bg: 'rgb(var(--c-bg) / <alpha-value>)',
         surface: 'rgb(var(--c-surface) / <alpha-value>)',
         'surface-2': 'rgb(var(--c-surface-2) / <alpha-value>)',
+        // accent-2 is THE SPARK (Fig) — enumeration and emphasis only, never
+        // an action. See the note in globals.css above the mineral palette.
         'accent-2': 'rgb(var(--c-accent-2) / <alpha-value>)',
+        'accent-2-soft': 'rgb(var(--c-accent-2-soft) / <alpha-value>)',
         'accent-soft': 'rgb(var(--c-accent-soft) / <alpha-value>)',
 
         // Descriptive names kept so existing components re-theme automatically:
@@ -70,6 +73,16 @@ const config: Config = {
           'Manrope',
           '-apple-system',
           'sans-serif',
+        ],
+        // The system voice — section tags, indices, the session timer. Without
+        // this key `font-mono` fell through to Tailwind's default OS stack, so
+        // the timer rendered SF Mono on Mac and Consolas on Windows.
+        mono: [
+          'var(--font-plex-mono)',
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'monospace',
         ],
       },
 

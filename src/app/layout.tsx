@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Manrope, Newsreader, Jost } from 'next/font/google'
+import { Manrope, Newsreader, Jost, IBM_Plex_Mono } from 'next/font/google'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { MetaPixel } from '@/components/analytics/meta-pixel'
 import './globals.css'
@@ -20,6 +20,17 @@ const jost = Jost({
   variable: '--font-jost',
   display: 'swap',
   weight: ['300', '400'],
+})
+
+// IBM Plex Mono — NOT a fourth text family; the brand's *system voice*. It is
+// rationed to machine-ish labels: section tags, indices, the session timer,
+// coordinates. Humanist skeleton so it sits beside Manrope rather than against
+// it, real tabular figures, and it holds up at 10px. One weight only.
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  variable: '--font-plex-mono',
+  display: 'swap',
+  weight: ['500'],
 })
 
 const newsreader = Newsreader({
@@ -55,15 +66,21 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // data-palette selects the theme. `aurora` is derived from the pricing-card
-  // gradient (#6BE9FF → #69B4FF → #8CECFF) and is the only palette that also
-  // defines the --g1/--g2/--g3 stops the section tone bands are built from;
-  // every other palette falls back to plain grounds.
-  // Section rhythm itself lives in app/page.tsx → SECTIONS.
-  // all options: aurora · clinic · amber · teal · emerald · coral · azure · onyx
-  //              mahogany · periwinkle · deep-teal · oxblood · lagoon · aqua
+  // data-palette selects the theme. `mineral` is the live one: two low-chroma
+  // poles (warm sand --g-warm / cool mineral --g-cool) that the section bands,
+  // washes and card hovers all drift BETWEEN, plus a rationed teal for actions
+  // and a terracotta spark. It replaced `aurora`, which drove the ground, the
+  // ink, every band and every hover off a single cyan and so could only ever
+  // read as blue. Section rhythm itself lives in app/page.tsx → SECTIONS.
+  // all options: mineral · aurora · clinic · verdant · meadow · grove · amber
+  //              teal · emerald · coral · azure · onyx · mahogany · periwinkle
+  //              deep-teal · oxblood · lagoon · aqua
   return (
-    <html lang="en" data-palette="aurora" className={`${manrope.variable} ${newsreader.variable} ${jost.variable}`}>
+    <html
+      lang="en"
+      data-palette="aurora"
+      className={`${manrope.variable} ${newsreader.variable} ${jost.variable} ${plexMono.variable}`}
+    >
       <head>
         {/* Warm up connections to the media/image hosts for a faster LCP */}
         <link rel="preconnect" href="https://pub-276f99bee0ca472b8c097bf6b9fc7e52.r2.dev" crossOrigin="anonymous" />

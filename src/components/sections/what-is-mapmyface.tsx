@@ -96,9 +96,8 @@ export function WhatIsMapMyFace() {
                   <Icon className="h-5 w-5" strokeWidth={1.5} />
                 </div>
 
-                <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent/60">
-                  {p.n}
-                </p>
+                {/* The ghost numeral above already carries {p.n}; a second copy
+                    here printed the same number twice on one card. */}
                 <h3 className="text-[17px] font-medium tracking-[-0.01em] text-ink md:text-[18px]">
                   {p.title}
                 </h3>

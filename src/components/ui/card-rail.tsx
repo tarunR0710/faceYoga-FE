@@ -3,6 +3,9 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 
 const COLS: Record<number, string> = {
+  // 1 = swipe rail on mobile, plain vertical stack from md up. For rails that
+  // sit inside a column rather than across the container.
+  1: 'md:grid-cols-1',
   2: 'md:grid-cols-2',
   3: 'md:grid-cols-2 lg:grid-cols-3',
   4: 'md:grid-cols-2 lg:grid-cols-4',
@@ -20,7 +23,7 @@ const WIDTHS: Record<string, string> = {
 type CardRailProps = {
   children: ReactNode
   /** Desktop column count. Mobile is always a swipe rail. */
-  cols?: 2 | 3 | 4 | 6
+  cols?: 1 | 2 | 3 | 4 | 6
   /** Mobile card width. */
   peek?: 'sm' | 'md' | 'lg'
   gap?: string
@@ -77,7 +80,10 @@ export function CardRail({
   }, [measure])
 
   return (
-    <div className={className}>
+    // `min-w-0` is load-bearing: as a grid or flex child the rail would other-
+    // wise take its automatic minimum size from the track's content and blow
+    // the column out past the viewport. Harmless when it is a plain block child.
+    <div className={`min-w-0 ${className}`}>
       <div
         ref={trackRef}
         aria-label={label}
