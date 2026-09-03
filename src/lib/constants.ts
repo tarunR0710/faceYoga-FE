@@ -10,6 +10,11 @@ export const FACE_MAP_CORE = {
   price: 2699,
   priceInPaise: 269900,
   priceDisplay: '₹2,699',
+  // Regular price once the founding-client window closes. Shown struck
+  // through next to the founding price so the discount is a fact on the
+  // page, not just implied by the "Founding Client Price" label.
+  originalPrice: 4999,
+  originalPriceDisplay: '₹4,999',
   label: 'Founding Client Price',
   tagline: 'One guided experience from expert conversation to a personalised action plan.',
   summary:

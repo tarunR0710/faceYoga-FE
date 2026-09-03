@@ -66,7 +66,7 @@ export function Hero() {
 
             <motion.h1
               {...rise(0.25)}
-              className="mb-5 text-[2.1rem] leading-[1.06] tracking-[-0.025em] text-white md:text-[2.9rem] lg:text-[3.6rem]"
+              className="mb-5 text-[32px] leading-[1.06] tracking-[-0.025em] text-white"
               style={{ fontWeight: 200 }}
             >
               {HERO.title}
@@ -82,11 +82,11 @@ export function Hero() {
             </motion.p>
 
             {/* Button pair carried over from the mapmyface-blueprint-homepage
-                branch. Three things make it better than what was here: both
-                buttons are flex-1 so they split the width evenly instead of
-                sizing to their labels, the secondary is frosted glass rather
-                than a bare outline (so it echoes the navbar pill instead of
-                fighting it), and both take a press state. */}
+                branch. Both are flex-1 so they split the width evenly instead
+                of sizing to their labels, both take a press state. The
+                secondary sits on a mostly-solid dark fill (bg-black/45) with
+                only a hint of blur — a heavier glass read too washed-out over
+                the busy video behind it. */}
             <motion.div {...rise(0.45)} className="flex flex-row gap-3">
               <Link
                 href="/form"
@@ -96,7 +96,7 @@ export function Hero() {
               </Link>
               <Link
                 href="#how-it-works"
-                className="inline-flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-4 text-[13px] font-medium text-white shadow-lg shadow-black/10 backdrop-blur-md transition-all duration-200 hover:bg-white/20 active:scale-[0.98] sm:h-14 sm:text-[15px]"
+                className="inline-flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-full border border-white/10 bg-black/45 px-4 text-[13px] font-medium text-white shadow-lg shadow-black/20 backdrop-blur-[2px] transition-all duration-200 hover:bg-black/55 active:scale-[0.98] sm:h-14 sm:text-[15px]"
               >
                 See How It Works
               </Link>

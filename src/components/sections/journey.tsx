@@ -82,15 +82,31 @@ export function Journey() {
               return (
                 <Reveal key={n.id} index={3 + i}>
                   <div
-                    className="overflow-hidden rounded-[20px] border transition-colors duration-300"
+                    className="relative overflow-hidden rounded-[20px] border"
                     style={{
                       borderColor: 'rgba(255,255,255,.35)',
-                      boxShadow: '0 12px 32px rgba(10,25,30,.22)',
-                      background: on
-                        ? 'linear-gradient(150deg,#067B9E 0%,#878787 100%)'
-                        : 'rgba(247,244,239,.92)',
+                      boxShadow: '0 4px 14px rgba(10,25,30,.1)',
                     }}
                   >
+                    {/* Two stacked layers, cross-faded with a motion opacity
+                        tween — a plain CSS colour transition can't animate
+                        between a flat colour and a gradient (background-image
+                        never interpolates), so the old version snapped
+                        instantly and read as a flicker. */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0"
+                      style={{ background: 'rgba(247,244,239,.92)' }}
+                    />
+                    <motion.div
+                      aria-hidden="true"
+                      className="absolute inset-0"
+                      style={{ background: 'linear-gradient(150deg,#067B9E 0%,#878787 100%)' }}
+                      initial={false}
+                      animate={{ opacity: on ? 1 : 0 }}
+                      transition={{ duration: 0.35, ease: EASE_OUT }}
+                    />
+                    <div className="relative">
                     <button
                       type="button"
                       onClick={() => setOpen(on ? null : n.id)}
@@ -105,8 +121,8 @@ export function Journey() {
                       </span>
                       <span className="flex flex-col gap-1">
                         <span
-                          className="text-[16px] leading-tight tracking-[-0.01em]"
-                          style={{ fontWeight: 500, color: on ? '#FFFFFF' : '#2C4F58' }}
+                          className="text-[1.1rem] leading-tight tracking-[-0.02em]"
+                          style={{ fontWeight: 300, color: on ? '#FFFFFF' : '#2C4F58' }}
                         >
                           {n.title}
                         </span>
@@ -200,6 +216,7 @@ export function Journey() {
                         </motion.div>
                       )}
                     </AnimatePresence>
+                    </div>
                   </div>
                 </Reveal>
               )

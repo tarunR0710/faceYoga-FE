@@ -99,10 +99,10 @@ function CompareSlider({ before, after }: { before: string; after: string }) {
         />
       </div>
 
-      <span className="absolute left-3 top-3 font-mono text-[9px] tracking-[0.15em] text-white/85 drop-shadow">
+      <span className="absolute left-3 top-3 font-mono text-[12px] font-medium tracking-[0.15em] text-white/85 drop-shadow">
         BEFORE
       </span>
-      <span className="absolute right-3 top-3 font-mono text-[9px] tracking-[0.15em] text-white/85 drop-shadow">
+      <span className="absolute right-3 top-3 font-mono text-[12px] font-medium tracking-[0.15em] text-white/85 drop-shadow">
         AFTER
       </span>
 

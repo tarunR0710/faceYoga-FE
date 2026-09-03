@@ -13,7 +13,7 @@ import {
   computeOrderTotal,
   type AddOnId,
 } from '@/lib/constants'
-import { EASE_OUT, REVEAL, TAP_SPRING, VIEWPORT, stagger } from '@/lib/motion'
+import { EASE_OUT, REVEAL, TAP_SPRING, VIEWPORT, VIEWPORT_TIGHT, stagger } from '@/lib/motion'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { CountUp } from '@/components/ui/count-up'
 import { DetailSheet } from '@/components/ui/detail-sheet'
@@ -102,12 +102,38 @@ export function PricingPreview() {
                   >
                     {FACE_MAP_CORE.name}
                   </h3>
-                  <div className="mt-3 flex items-baseline gap-2">
-                    <CountUp
-                      to={FACE_MAP_CORE.price}
-                      prefix="₹"
+                  <div className="mt-3 flex items-baseline gap-2.5">
+                    {/* The regular price, struck through in place — not a
+                        count-up from zero (reads as the price climbing, not
+                        dropping). The line draws across it, then the founding
+                        price settles in beside it: a price getting CUT, not
+                        one getting totted up. */}
+                    <motion.span
+                      initial={reduce ? { opacity: 1 } : { opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={VIEWPORT_TIGHT}
+                      transition={{ duration: 0.4, ease: EASE_OUT }}
+                      className="relative text-[1.15rem] text-ink/40 tabular-nums md:text-[1.35rem]"
+                    >
+                      {FACE_MAP_CORE.originalPriceDisplay}
+                      <motion.span
+                        aria-hidden="true"
+                        initial={reduce ? { scaleX: 1 } : { scaleX: 0 }}
+                        whileInView={{ scaleX: 1 }}
+                        viewport={VIEWPORT_TIGHT}
+                        transition={{ duration: 0.35, delay: 0.25, ease: EASE_OUT }}
+                        className="absolute inset-x-0 top-1/2 h-[1.5px] origin-left bg-ink/45"
+                      />
+                    </motion.span>
+                    <motion.span
+                      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 6 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={VIEWPORT_TIGHT}
+                      transition={{ duration: 0.45, delay: 0.55, ease: EASE_OUT }}
                       className="text-[2.5rem] tracking-[-0.02em] text-ink tabular-nums md:text-[2.9rem]"
-                    />
+                    >
+                      {FACE_MAP_CORE.priceDisplay}
+                    </motion.span>
                   </div>
                   <p className="mt-2 max-w-md text-[13px] leading-relaxed text-ink/70">
                     {FACE_MAP_CORE.summary}

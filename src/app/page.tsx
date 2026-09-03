@@ -1,6 +1,5 @@
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
-import { StickyCTA } from '@/components/layout/sticky-cta'
 
 import { Hero } from '@/components/sections/hero'
 import { TrustBar } from '@/components/sections/trust-bar'
@@ -65,7 +64,6 @@ export default function HomePage() {
         <CTA />
       </main>
       <Footer />
-      <StickyCTA />
     </>
   )
 }
