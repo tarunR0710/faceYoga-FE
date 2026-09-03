@@ -2,110 +2,108 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { EASE_OUT } from '@/lib/motion'
+import { HERO } from '@/lib/content'
 
 // Hero video assets on Cloudflare R2 (public dev URL).
 // To move to a custom domain later, change only this base — the paths stay the same.
 const ASSET_BASE_URL = 'https://pub-276f99bee0ca472b8c097bf6b9fc7e52.r2.dev'
 
+/** Reveal for the stacked hero copy — one curve, staggered by index. */
+const rise = (delay: number) => ({
+  initial: { opacity: 0, y: 22 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, ease: EASE_OUT, delay },
+})
+
 export function Hero() {
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Background Video */}
-      <div className="absolute inset-0">
-        {/* Video Background */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster={`${ASSET_BASE_URL}/faceyoga-poster.jpg`}
-          className="absolute inset-0 w-full h-full"
-          style={{
-            objectFit: 'cover',
-            objectPosition: 'center top',
-          }}
-        >
-          {/* Hero video from Cloudflare R2 — single 1080p source so it stays crisp
-              on high-DPR phones (the 640/720 encodes looked soft scaled to full screen).
-              The 57 KB poster is the LCP; the video streams in via faststart. */}
-          <source
-            src={`${ASSET_BASE_URL}/faceyoga-1920.mp4`}
-            type="video/mp4"
+    <>
+      {/* Short by exactly the band's height on small screens, full height from
+          md up — the trick from mapmyface-blueprint-homepage. It lets the trust
+          band sit at the bottom edge of the first viewport instead of below the
+          fold, so a phone visitor sees what the plan includes without scrolling.
+          If the band's height changes, this number has to change with it. */}
+      <section className="relative h-[calc(100svh-46px)] w-full overflow-hidden md:h-screen">
+        {/* Background Video */}
+        <div className="absolute inset-0">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster={`${ASSET_BASE_URL}/faceyoga-poster.jpg`}
+            className="absolute inset-0 h-full w-full"
+            style={{ objectFit: 'cover', objectPosition: 'center top' }}
+          >
+            {/* Single 1080p source so it stays crisp on high-DPR phones (the 640/720
+                encodes looked soft scaled to full screen). The 57 KB poster is the
+                LCP; the video streams in via faststart. */}
+            <source src={`${ASSET_BASE_URL}/faceyoga-1920.mp4`} type="video/mp4" />
+          </video>
+
+          {/* Readability gradient — heavier at the base than the old pass, because
+              the headline now sits over two lines plus a lede. */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.12) 62%, transparent 100%)',
+            }}
           />
-        </video>
-        {/* Gradient overlay for text readability */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 60%, transparent 100%)',
-          }}
-        />
+        </div>
 
-      </div>
-
-      {/* Content - positioned at bottom */}
-      <div className="relative h-full flex flex-col justify-end px-6 md:px-12 lg:px-20 pb-8 md:pb-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-2xl"
-        >
-          {/* Badge */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-[13px] text-white/80 mb-3"
-          >
-            Join 50,000+ people
-          </motion.p>
-
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] leading-[1.1] tracking-[-0.02em] text-white mb-4"
-            style={{ fontWeight: 450 }}
-          >
-            Improve your looks
-            <br />
-            <span className="text-white/50">without surgery</span>
-          </motion.h1>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="text-[15px] md:text-[17px] text-white/70 leading-relaxed mb-8 max-w-md"
-          >
-            Get your personalized facial analysis and transformation plan based on your unique features.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="flex flex-row gap-3"
-          >
-            <Link
-              href="/form"
-              className="h-12 sm:h-14 px-6 sm:px-10 inline-flex items-center justify-center bg-white text-[#111] text-[14px] sm:text-[15px] font-medium rounded-full hover:bg-white/90 transition-all duration-200"
+        {/* Copy sits at the base of the frame, out of the subject's face */}
+        <div className="relative flex h-full flex-col justify-end px-6 pb-10 md:px-12 md:pb-14 lg:px-20">
+          <div className="max-w-2xl">
+            <motion.p
+              {...rise(0.15)}
+              className="mb-4 font-mono text-[10px] uppercase leading-none tracking-[0.2em] text-white/70 md:text-[11px]"
             >
-              Start my plan
-            </Link>
-            <Link
-              href="#how-it-works"
-              className="h-12 sm:h-14 px-6 sm:px-10 inline-flex items-center justify-center text-white text-[14px] sm:text-[15px] font-medium rounded-full border border-white/30 hover:bg-white/10 transition-all duration-200"
+              {HERO.eyebrow}
+            </motion.p>
+
+            <motion.h1
+              {...rise(0.25)}
+              className="mb-5 text-[2.1rem] leading-[1.06] tracking-[-0.025em] text-white md:text-[2.9rem] lg:text-[3.6rem]"
+              style={{ fontWeight: 200 }}
             >
-              How it works
-            </Link>
-          </motion.div>
-        </motion.div>      </div>
-    </section>
+              {HERO.title}
+              <br />
+              <span className="text-white/55">{HERO.muted}</span>
+            </motion.h1>
+
+            <motion.p
+              {...rise(0.35)}
+              className="mb-7 max-w-xl text-[14px] leading-relaxed text-white/70 md:text-[16px]"
+            >
+              {HERO.lede}
+            </motion.p>
+
+            {/* Button pair carried over from the mapmyface-blueprint-homepage
+                branch. Three things make it better than what was here: both
+                buttons are flex-1 so they split the width evenly instead of
+                sizing to their labels, the secondary is frosted glass rather
+                than a bare outline (so it echoes the navbar pill instead of
+                fighting it), and both take a press state. */}
+            <motion.div {...rise(0.45)} className="flex flex-row gap-3">
+              <Link
+                href="/form"
+                className="inline-flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-full bg-white px-4 text-[13px] font-medium text-[#111] shadow-lg shadow-black/20 transition-all duration-200 hover:bg-white/90 active:scale-[0.98] sm:h-14 sm:text-[15px]"
+              >
+                Start My Plan
+              </Link>
+              <Link
+                href="#how-it-works"
+                className="inline-flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-4 text-[13px] font-medium text-white shadow-lg shadow-black/10 backdrop-blur-md transition-all duration-200 hover:bg-white/20 active:scale-[0.98] sm:h-14 sm:text-[15px]"
+              >
+                See How It Works
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    </>
   )
 }

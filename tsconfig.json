@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    // No target was set, so TypeScript defaulted to ES5 and rejected the
+    // Unicode property escapes (\p{L}) used by the name validator. Emit is
+    // handled by SWC and `noEmit` is true, so this affects type-checking
+    // only — it does not change a byte of shipped output.
+    "target": "es2020",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,

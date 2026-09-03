@@ -44,7 +44,7 @@ export default function SuccessPage() {
         >
           <h1
             className="text-[1.75rem] md:text-[2rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-3"
-            style={{ fontWeight: 450 }}
+            style={{ fontWeight: 300 }}
           >
             Payment Successful
           </h1>

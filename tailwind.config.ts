@@ -61,6 +61,29 @@ const config: Config = {
           foreground: '#ffffff',
         },
 
+        // Near-black. Headings, dark sections, navbar pill.
+        ink: '#0a0a0a',
+
+        // `brand` no longer carries a hue — it resolves to near-black via
+        // --c-brand. The name is kept so every accent call-site on the page
+        // keeps working, but this palette is deliberately achromatic; see the
+        // note in globals.css before adding a colour back.
+        brand: {
+          DEFAULT: 'rgb(var(--c-brand) / <alpha-value>)',
+          ink: 'rgb(var(--c-brand-ink) / <alpha-value>)',
+          soft: 'rgb(var(--c-brand-soft) / <alpha-value>)',
+        },
+        'ink-muted': '#666666',
+        // Studio backdrop baked into the before/after photos — container fills
+        // match it so there's no grey flash before the image paints. This one is
+        // NOT a theme colour: it has to keep matching the photographs.
+        'photo-bg': '#b2c1c8',
+        mist: '#f5f5f5',
+        // Every section is #FFFFFF now, so card borders are the only thing
+        // describing structure — #ebebeb on white was effectively invisible
+        // once the alternating grey grounds went away.
+        'border-soft': '#e3e3e3',
+
         // Navy for footer
         navy: {
           DEFAULT: '#1a1a2e',
@@ -69,9 +92,11 @@ const config: Config = {
       },
 
       fontFamily: {
+        // var(--font-geist-sans) comes from GeistSans in layout.tsx. Referencing
+        // the variable (not a literal family name) is what binds Tailwind to the
+        // hashed, self-hosted face Next.js emits.
         sans: [
-          'Inter',
-          'PP Neue Montreal',
+          'var(--font-geist-sans)',
           '-apple-system',
           'BlinkMacSystemFont',
           'Segoe UI',
@@ -79,8 +104,7 @@ const config: Config = {
           'sans-serif',
         ],
         display: [
-          'PP Neue Montreal',
-          'Inter',
+          'var(--font-geist-sans)',
           '-apple-system',
           'sans-serif',
         ],

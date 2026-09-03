@@ -10,15 +10,19 @@ import { OtpInput } from './otp-input'
 import { useOtpTimer } from '@/hooks/use-otp-timer'
 import { leadFormSchema, type LeadFormData } from '@/lib/validations'
 import { trackLead } from '@/lib/meta-pixel'
-import { SITE_CONFIG } from '@/lib/constants'
+import { SITE_CONFIG, parseAddonIds } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 type Step = 'form' | 'otp' | 'verified'
 
 const API_URL = SITE_CONFIG.apiUrl
 
-export function LeadForm() {
+export function LeadForm({ addons = '' }: { addons?: string }) {
   const router = useRouter()
+  // Add-on ids arrive as a raw `?addons=` string from the pricing card. Parsing
+  // here (not at the URL) drops anything unrecognised before it can reach
+  // checkout as a line item.
+  const selectedAddons = parseAddonIds(addons)
   const [step, setStep] = useState<Step>('form')
   const [otp, setOtp] = useState('')
   const [otpError, setOtpError] = useState('')
@@ -92,6 +96,7 @@ export function LeadForm() {
         email: formData.email,
         phone: formData.phone,
         phoneToken: verifyData.phoneToken,
+        addons: selectedAddons,
       }))
 
       setStep('verified')

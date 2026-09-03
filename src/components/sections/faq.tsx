@@ -1,147 +1,183 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Minus } from 'lucide-react'
+import { useId, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { Plus } from 'lucide-react'
+import { EASE_OUT, REVEAL, VIEWPORT } from '@/lib/motion'
+import { SectionTag } from '@/components/ui/section-tag'
+import { TabRail, TabPanel } from '@/components/ui/tab-rail'
+import { FAQ_V2 } from '@/lib/content'
 import { SITE_CONFIG } from '@/lib/constants'
 
-const faqs = [
-  {
-    category: 'General',
-    items: [
-      { q: 'What is face yoga?', a: 'Face yoga is a series of targeted facial exercises designed to tone and strengthen the muscles in your face. Consistent practice can help define facial contours, improve skin elasticity, and create a more youthful appearance naturally.' },
-      { q: 'How long until I see results?', a: 'Most users notice subtle improvements within 2-4 weeks of consistent practice. Significant results typically appear after 8-12 weeks, depending on your starting point and consistency.' },
-      { q: 'Is face yoga safe?', a: 'Yes, face yoga is completely safe when done correctly. Our exercises are designed by experts and include detailed video instructions to ensure proper form.' },
-    ],
-  },
-  {
-    category: 'About The Plan',
-    items: [
-      { q: "What's included in my plan?", a: 'Your plan includes a comprehensive facial analysis, customized exercise routines, HD video tutorials, a daily schedule, progress tracking tools, and access to our support team.' },
-      { q: 'How is my plan personalized?', a: 'We analyze your facial structure using 160+ parameters to identify your unique characteristics and target areas, creating a routine specifically designed for your face.' },
-      { q: 'Can I access on mobile?', a: 'Yes! Your plan is fully accessible on any device - desktop, tablet, or smartphone. Practice wherever and whenever convenient.' },
-    ],
-  },
-  {
-    category: 'Pricing & Payment',
-    items: [
-      { q: 'What are the pricing options?', a: 'We offer flexible pricing including one-time purchase and subscription options. All plans include full access to your personalized routine and video tutorials.' },
-      { q: 'Can I get a refund?', a: "Yes, we offer a 14-day satisfaction guarantee. If you're not happy with your plan, contact our support team for a full refund." },
-      { q: 'Is my payment secure?', a: 'Absolutely. We use Razorpay, a trusted payment gateway that encrypts all transactions. Your financial information is never stored on our servers.' },
-    ],
-  },
-]
-
-function FAQItem({ question, answer, isOpen, onToggle }: {
-  question: string
-  answer: string
-  isOpen: boolean
-  onToggle: () => void
-}) {
-  return (
-    <div className="border-b border-[#eee] last:border-b-0">
-      <button
-        onClick={onToggle}
-        className="w-full py-4 flex items-center justify-between text-left group"
-      >
-        <span className="text-[14px] font-medium text-[#111] group-hover:text-[#555] transition-colors pr-4">
-          {question}
-        </span>
-        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#f5f5f5] flex items-center justify-center">
-          {isOpen ? (
-            <Minus className="w-3 h-3 text-[#666]" strokeWidth={2} />
-          ) : (
-            <Plus className="w-3 h-3 text-[#666]" strokeWidth={2} />
-          )}
-        </span>
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden"
-          >
-            <p className="pb-4 text-[13px] text-[#666] leading-relaxed pr-8">
-              {answer}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
-
+/**
+ * FAQ on two axes: category rail, then accordions inside the chosen category.
+ *
+ * Twenty-four answers across seven categories, with only one category mounted
+ * at a time — so the set got BIGGER while the page got shorter. This is the
+ * beat where a considering buyer resolves their last blocker, and it costs
+ * nothing on the surface.
+ *
+ * Layout archetype is deliberately unlike anything above it, which is what
+ * stops the eleventh of twelve sections reading as more of the same.
+ */
 export function FAQ() {
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>({})
+  const reduce = useReducedMotion()
+  const railId = useId()
+  const [cat, setCat] = useState<string>(FAQ_V2.categories[0].id)
+  const [open, setOpen] = useState<string | null>(`${FAQ_V2.categories[0].id}-0`)
 
-  const toggleItem = (key: string) => {
-    setOpenItems((prev) => ({ ...prev, [key]: !prev[key] }))
-  }
+  const category = FAQ_V2.categories.find((c) => c.id === cat) ?? FAQ_V2.categories[0]
 
   return (
-    <section id="faq" className="section bg-[#fafafa]">
+    <section id="faq" className="section bg-white">
       <div className="container-main">
-        {/* Header */}
+        {/* Centred header above the rail + answers. The heading used to live
+            inside the sticky rail, which put its pill flush left. */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center max-w-xl mx-auto mb-12"
+          viewport={VIEWPORT}
+          transition={REVEAL}
+          className="mx-auto mb-12 max-w-3xl text-center md:mb-16"
         >
-          <p className="text-[12px] text-[#999] uppercase tracking-[0.1em] mb-3">
-            FAQ
-          </p>
-          <h2 className="text-[1.75rem] md:text-[2.25rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-4" style={{ fontWeight: 450 }}>
-            Frequently Asked Questions
+          <div className="mb-5">
+            <SectionTag>{FAQ_V2.eyebrow}</SectionTag>
+          </div>
+          <h2
+            className="text-[1.75rem] leading-[1.12] tracking-[-0.02em] text-ink md:text-[2.1rem]"
+            style={{ fontWeight: 300 }}
+          >
+            {FAQ_V2.title} <span className="text-ink/40">{FAQ_V2.muted}</span>
           </h2>
-          <p className="text-[15px] md:text-base text-[#666] leading-relaxed">
-            Everything you need to know about Face Yoga
-          </p>
         </motion.div>
 
-        {/* FAQ Grid */}
-        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
-          {faqs.map((category, categoryIndex) => (
-            <motion.div
-              key={category.category}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: categoryIndex * 0.1 }}
-            >
-              <p className="text-[11px] font-medium text-[#999] uppercase tracking-[0.1em] mb-4">
-                {category.category}
-              </p>
-              <div className="bg-white rounded-xl border border-[#eee] px-5">
-                {category.items.map((faq, index) => (
-                  <FAQItem
-                    key={index}
-                    question={faq.q}
-                    answer={faq.a}
-                    isOpen={openItems[`${categoryIndex}-${index}`] || false}
-                    onToggle={() => toggleItem(`${categoryIndex}-${index}`)}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <div className="grid grid-cols-1 gap-9 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-16">
+          <motion.div
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VIEWPORT}
+            transition={REVEAL}
+            className="lg:sticky lg:top-28 lg:self-start"
+          >
+            {/* Vertical rail on desktop; the shared TabRail handles mobile as a
+                horizontally scrolling strip. */}
+            <div className="hidden lg:block">
+              <ul role="tablist" aria-label="Question categories" className="space-y-0.5">
+                {FAQ_V2.categories.map((c) => {
+                  const on = c.id === cat
+                  return (
+                    <li key={c.id}>
+                      <button
+                        role="tab"
+                        aria-selected={on}
+                        onClick={() => {
+                          setCat(c.id)
+                          setOpen(`${c.id}-0`)
+                        }}
+                        className={`relative w-full border-l-2 py-2 pl-4 text-left text-[13.5px] transition-colors duration-200 ${
+                          on
+                            ? 'border-brand text-ink'
+                            : 'border-border-soft text-ink/50 hover:border-ink/25 hover:text-ink/80'
+                        }`}
+                      >
+                        {c.label}
+                        <span className="ml-2 font-mono text-[10px] tabular-nums text-ink/25">
+                          {c.items.length}
+                        </span>
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
 
-        {/* Contact */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-12 text-center text-[14px] text-[#666]"
-        >
-          Still have questions?{' '}
-          <a href={`mailto:${SITE_CONFIG.email}`} className="text-[#111] font-medium hover:underline">
-            Contact support
-          </a>
-        </motion.p>
+            <p className="mt-7 text-[13px] leading-relaxed text-ink-muted">
+              Still unsure?{' '}
+              <a
+                href={`mailto:${SITE_CONFIG.email}`}
+                className="text-ink underline decoration-ink/25 underline-offset-2 transition-colors hover:decoration-ink/60"
+              >
+                Write to us
+              </a>{' '}
+              before you pay, not after.
+            </p>
+          </motion.div>
+
+          <div>
+            <div className="lg:hidden">
+              <TabRail
+                items={FAQ_V2.categories.map((c) => ({ id: c.id, label: c.label }))}
+                active={cat}
+                onChange={(id) => {
+                  setCat(id)
+                  setOpen(`${id}-0`)
+                }}
+                idBase={railId}
+                ariaLabel="Question categories"
+                className="mb-6"
+              />
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={cat}
+                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
+                transition={{ duration: 0.28, ease: EASE_OUT }}
+              >
+                <TabPanel id={cat} railId={railId}>
+                  <div className="border-t border-ink/12">
+                    {category.items.map((item, i) => {
+                      const key = `${cat}-${i}`
+                      const isOpen = open === key
+                      return (
+                        <div key={key} className="border-b border-border-soft">
+                          <button
+                            onClick={() => setOpen(isOpen ? null : key)}
+                            aria-expanded={isOpen}
+                            className="flex w-full items-start justify-between gap-5 py-4 text-left"
+                          >
+                            <span
+                              className={`text-[14.5px] leading-snug transition-colors duration-200 md:text-[15.5px] ${
+                                isOpen ? 'text-ink' : 'text-ink/80 hover:text-ink'
+                              }`}
+                            >
+                              {item.q}
+                            </span>
+                            <span className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center">
+                              <Plus
+                                className={`h-3.5 w-3.5 text-ink/40 transition-transform duration-300 ${
+                                  isOpen ? 'rotate-45' : ''
+                                }`}
+                                strokeWidth={2}
+                              />
+                            </span>
+                          </button>
+                          <AnimatePresence initial={false}>
+                            {isOpen && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3, ease: EASE_OUT }}
+                                className="overflow-hidden"
+                              >
+                                <p className="max-w-2xl pb-5 pr-6 text-[13.5px] leading-relaxed text-ink-muted md:text-[14.5px]">
+                                  {item.a}
+                                </p>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </TabPanel>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </section>
   )

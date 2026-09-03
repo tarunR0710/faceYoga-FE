@@ -13,9 +13,18 @@ export const emailSchema = z
 
 export const nameSchema = z
   .string()
+  .trim()
   .min(2, 'Name must be at least 2 characters')
   .max(100, 'Name must be less than 100 characters')
-  .regex(/^[a-zA-Z\s]+$/, 'Name can only contain letters and spaces')
+  // Letters, spaces, and the three marks that appear in ordinary Indian names:
+  // a period for initials (R. Sharma), an apostrophe (D'Souza), and a hyphen
+  // (Kaur-Singh). The previous /^[a-zA-Z\s]+$/ rejected all three, at the very
+  // first field of the funnel. Unicode letters are allowed too, so a name typed
+  // in Devanagari or Tamil is not turned away either.
+  .regex(
+    /^[\p{L}\p{M}][\p{L}\p{M}\s.'’-]*$/u,
+    'Please enter your name using letters, spaces, apostrophes, hyphens or initials'
+  )
 
 export const leadFormSchema = z.object({
   name: nameSchema,

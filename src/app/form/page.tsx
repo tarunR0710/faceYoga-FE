@@ -1,6 +1,8 @@
 'use client'
 
+import { Suspense } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { ChevronLeft, Shield, Clock, CheckCircle } from 'lucide-react'
 import { LeadForm } from '@/components/forms/lead-form'
@@ -56,7 +58,7 @@ export default function FormPage() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 }}
                 className="text-[1.5rem] md:text-[1.75rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-2"
-                style={{ fontWeight: 450 }}
+                style={{ fontWeight: 300 }}
               >
                 Start Your Journey
               </motion.h1>
@@ -71,7 +73,9 @@ export default function FormPage() {
             </div>
 
             {/* Form */}
-            <LeadForm />
+            <Suspense fallback={<LeadForm />}>
+              <LeadFormWithAddons />
+            </Suspense>
           </div>
 
           {/* Trust badges */}
@@ -98,4 +102,15 @@ export default function FormPage() {
       </main>
     </div>
   )
+}
+
+/**
+ * Reads the `?addons=` the pricing card appends and hands it to the form.
+ * Split out and Suspense-wrapped because useSearchParams opts a route into
+ * client-side rendering — /form is statically prerendered, and calling the hook
+ * in the page body fails the build with a missing-suspense-boundary error.
+ */
+function LeadFormWithAddons() {
+  const addons = useSearchParams().get('addons') ?? ''
+  return <LeadForm addons={addons} />
 }

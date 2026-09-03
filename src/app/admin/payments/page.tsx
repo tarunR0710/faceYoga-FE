@@ -137,7 +137,7 @@ function TransactionsContent() {
               {transactions.map((txn) => (
                 <tr key={txn.id} className="border-b border-[#f5f5f5] hover:bg-[#fafafa]">
                   <td className="px-4 py-3">
-                    <p className="text-[13px] text-[#111]" style={{ fontWeight: 450 }}>{txn.name}</p>
+                    <p className="text-[13px] text-[#111]" style={{ fontWeight: 500 }}>{txn.name}</p>
                   </td>
                   <td className="px-4 py-3">
                     <p className="text-[13px] text-[#666]">{txn.email}</p>

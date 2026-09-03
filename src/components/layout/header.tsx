@@ -1,20 +1,25 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
-import { SITE_CONFIG } from '@/lib/constants'
+import { X } from 'lucide-react'
+import { SITE_CONFIG, NAV_LINKS } from '@/lib/constants'
+import { EASE_OUT } from '@/lib/motion'
+import { ScrollProgress } from '@/components/layout/scroll-progress'
 
-const navLinks = [
-  { label: 'Why Face Yoga', href: '#transformations' },
-  { label: 'How it works', href: '#how-it-works' },
-  { label: 'FAQ', href: '#faq' },
-]
+const navLinks = NAV_LINKS
 
 export function Header() {
+  const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  // On pages without a dark hero (everything except the homepage), show the solid
+  // pill from the top so the white logo/nav stay visible on the white background.
+  const solid = isScrolled || pathname !== '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,32 +29,63 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Lock the page behind the full-screen mobile menu — without this the page
+  // still scrolls under the fixed overlay, which reads as broken rather than
+  // just "not animated".
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+    const original = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = original
+    }
+  }, [isMobileMenuOpen])
+
   return (
     <>
+      <ScrollProgress />
+
       {/* Navbar container - fixed at top */}
       <div
         className="fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-out"
         style={{
-          padding: isScrolled ? '10px 8px' : '0px',
+          padding: solid ? '10px 8px' : '0px',
         }}
       >
         <motion.header
           initial={{ y: -10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4, ease: EASE_OUT }}
           className="transition-all duration-500 ease-out"
           style={{
-            width: isScrolled ? '98%' : '100%',
-            maxWidth: isScrolled ? '1400px' : '100%',
-            backgroundColor: isScrolled
-              ? 'rgba(55, 55, 55, 0.65)'
-              : 'transparent',
-            backdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
-            WebkitBackdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
-            borderRadius: isScrolled ? '999px' : '0px',
+            width: solid ? '98%' : '100%',
+            maxWidth: solid ? '1400px' : '100%',
+            // ── The frosted-glass pill ────────────────────────────────────
+            // blur(60px) + saturate(350%) is the original recipe and it is what
+            // actually produces the glass: the heavy blur smears whatever
+            // scrolls behind it, and the saturation boost keeps that smear from
+            // going flat and grey. Both restored.
+            //
+            // saturate(350%) was briefly the suspect for the pill looking
+            // brownish. It was not the cause — it amplifies chroma that is
+            // already behind the blur, and now that the page is achromatic
+            // there is none to amplify. The warm cast came from the old
+            // --c-ink (33 29 24), which is gone.
+            //
+            // Alpha is the one number NOT restored to 0.42. Blended over a
+            // white section, 0.42 of #0a0a0a lands near #94-9c grey, which puts
+            // the 13px white nav labels at roughly 2.3:1 — unreadable, and it
+            // was fine before only because the page used to be mostly dark.
+            // 0.55 is the minimum that clears 4.5:1 for small text on white
+            // while still reading as translucent. Drop it back toward 0.42 if
+            // you prefer the look and accept the legibility cost.
+            backgroundColor: solid ? 'rgb(var(--c-ink) / 0.55)' : 'transparent',
+            backdropFilter: solid ? 'blur(60px) saturate(350%)' : 'none',
+            WebkitBackdropFilter: solid ? 'blur(60px) saturate(350%)' : 'none',
+            borderRadius: solid ? '999px' : '0px',
             border: '1px solid',
-            borderColor: isScrolled ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
-            boxShadow: isScrolled ? '0 4px 24px rgba(0, 0, 0, 0.1)' : 'none',
+            borderColor: solid ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+            boxShadow: solid ? '0 6px 28px rgba(0, 0, 0, 0.18)' : 'none',
             outline: 'none',
           }}
         >
@@ -57,15 +93,20 @@ export function Header() {
           <div
             className="flex items-center justify-between transition-all duration-500"
             style={{
-              height: isScrolled ? '52px' : '64px',
-              padding: isScrolled ? '0 20px' : '0 32px',
+              height: solid ? '54px' : '58px',
+              padding: solid ? '0 14px' : '0 10px',
             }}
           >
-            {/* Logo */}
-            <Link href="/" className="flex items-center">
-              <span className="text-[15px] font-semibold text-white tracking-[-0.01em]">
-                {SITE_CONFIG.name}
-              </span>
+            {/* Logo — brand mark only, rendered white for the dark navbar */}
+            <Link href="/" className="flex items-center" aria-label={`${SITE_CONFIG.name} home`}>
+              <Image
+                src="/logo-mark.png"
+                alt={SITE_CONFIG.name}
+                width={52}
+                height={52}
+                priority
+                style={{ filter: 'brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0,0,0,0.35))' }}
+              />
             </Link>
 
             {/* Desktop Navigation - Centered */}
@@ -83,46 +124,48 @@ export function Header() {
 
             {/* Desktop CTAs */}
             <div className="hidden md:flex items-center gap-2">
-              <Link
-                href="/admin/login"
-                className="px-4 py-2 text-[13px] text-white hover:text-white rounded-full hover:bg-white/10 transition-all duration-200"
-              >
-                Login
-              </Link>
               {/* CTA Button */}
               <Link
                 href="/form"
-                className="h-9 px-5 inline-flex items-center text-white text-[13px] font-medium rounded-full hover:bg-white/25 transition-all duration-200"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                }}
+                className="inline-flex items-center bg-white text-ink text-[12px] font-medium rounded-full hover:bg-white/90 transition-colors duration-200"
+                style={{ padding: '8px 16px' }}
               >
-                Start my plan
+                Start My Plan
               </Link>
             </div>
 
-            {/* Mobile: Start my plan + Menu Button */}
+            {/* Mobile: Start My Plan + Menu Button */}
             <div className="flex md:hidden items-center gap-2">
               <Link
                 href="/form"
-                className="h-10 px-4 inline-flex items-center text-white text-[13px] font-medium rounded-full transition-all duration-200"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                }}
+                className="inline-flex items-center bg-white text-ink text-[12px] font-medium rounded-full hover:bg-white/90 transition-colors duration-200"
+                style={{ padding: '8px 16px' }}
               >
-                Start my plan
+                Start My Plan
               </Link>
               <button
-                className="p-2.5 text-white rounded-full hover:bg-white/10 transition-colors"
+                className="p-2 mr-2 text-white rounded-full hover:bg-white/10 transition-colors drop-shadow-[0_1px_3px_rgba(0,0,0,0.35)]"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? (
-                  <X className="h-5 w-5" strokeWidth={1.5} />
+                  <X className="h-6 w-6" strokeWidth={2.25} />
                 ) : (
-                  <Menu className="h-5 w-5" strokeWidth={1.5} />
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="h-6 w-6"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M4 7.5h16M4 16.5h16"
+                      stroke="currentColor"
+                      strokeWidth="2.25"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 )}
               </button>
             </div>
@@ -151,11 +194,12 @@ export function Header() {
                   key={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.5, ease: EASE_OUT, delay: index * 0.06 }}
                 >
                   <Link
                     href={link.href}
-                    className="text-2xl font-medium text-white hover:text-white/70 transition-colors"
+                    className="text-2xl font-light text-white hover:text-white/70 transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}
@@ -165,16 +209,10 @@ export function Header() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.42 }}
                 className="flex flex-col items-center gap-4 mt-6"
               >
-                <Link
-                  href="/admin/login"
-                  className="text-[15px] text-white/70 hover:text-white transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Login
-                </Link>
                 <Link
                   href="/form"
                   className="h-12 px-8 inline-flex items-center text-white text-[15px] font-medium rounded-full hover:bg-white/20 transition-all"
@@ -184,7 +222,7 @@ export function Header() {
                   }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Start my plan
+                  Start My Plan
                 </Link>
               </motion.div>
             </div>
