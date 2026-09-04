@@ -45,7 +45,7 @@ function Item({ tag, label, icon: Icon }: (typeof items)[number]) {
           color: 'rgb(var(--c-brand-ink))',
           fontFamily: "'Inter', sans-serif",
           fontWeight: 500,
-          fontSize: '13.5px',
+          fontSize: '12px',
           letterSpacing: '-0.01em',
         }}
       >

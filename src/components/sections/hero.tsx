@@ -69,9 +69,9 @@ export function Hero() {
               className="mb-5 text-[32px] leading-[1.06] tracking-[-0.025em] text-white"
               style={{ fontWeight: 200 }}
             >
-              {HERO.title}
+              <span style={{ fontWeight: 400 }}>{HERO.title}</span>
               <br />
-              <span className="text-white/55">{HERO.muted}</span>
+              <span className="text-white/55" style={{ fontWeight: 400 }}>{HERO.muted}</span>
             </motion.h1>
 
             <motion.p
