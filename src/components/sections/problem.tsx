@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Instrument_Serif } from 'next/font/google'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { SectionTag } from '@/components/ui/section-tag'
 import { PROBLEM } from '@/lib/content'
 
 // Same italic-serif flourish the static version used for its one soft line —
@@ -70,6 +71,10 @@ export function Problem() {
       />
 
       <div className="relative mx-auto flex max-w-[420px] flex-col gap-[26px]">
+        <div className="flex justify-center px-6">
+          <SectionTag>{PROBLEM.eyebrow}</SectionTag>
+        </div>
+
         {/* ── Portrait + bubbles stage ────────────────────────────────── */}
         <div className="relative mx-4 my-6 h-[300px]">
           {/* Dashed ring — static, just fades in once cleared. */}
@@ -111,7 +116,14 @@ export function Problem() {
               style={{
                 filter: reduce ? 'none' : 'grayscale(0.6)',
                 opacity: allCleared ? 0 : 1,
-                transition: 'opacity 500ms ease',
+                // A slight right tilt while the noise is still up — the
+                // photo straightens out along with everything else once it's
+                // cleared. Scaled up a touch so the rotated square still
+                // covers the circular crop with no gap at the corners.
+                transform: reduce
+                  ? undefined
+                  : `rotate(${allCleared ? 0 : 6}deg) scale(1.12)`,
+                transition: 'opacity 500ms ease, transform 600ms ease',
               }}
             />
             {/* Smiling expression — the payoff, crossfaded in once cleared. */}

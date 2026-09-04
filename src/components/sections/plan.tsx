@@ -71,7 +71,7 @@ export function Plan() {
             boxShadow: '0 24px 48px -28px rgba(44,79,88,.28)',
           }}
         >
-          <h3 className="text-[17px] tracking-[-0.01em] text-ink md:text-[19px]" style={{ fontWeight: 600 }}>
+          <h3 className="text-[17px] tracking-[-0.01em] text-ink/80 md:text-[19px]" style={{ fontWeight: 400 }}>
             {PLAN.subTitle}
           </h3>
           <p className="mt-1.5 text-[13px] leading-relaxed text-ink-muted md:text-[14px]">{PLAN.body}</p>

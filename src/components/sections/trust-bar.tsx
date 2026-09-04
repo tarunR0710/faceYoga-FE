@@ -36,13 +36,12 @@ function Item({ tag, label, icon: Icon }: (typeof items)[number]) {
         )}
         <Icon className="relative h-3.5 w-3.5 text-brand" strokeWidth={1.6} />
       </span>
-      <span className="ml-2.5 shrink-0 font-mono text-[9px] font-medium uppercase tracking-[0.14em] text-brand-ink/70">
+      <span className="ml-2.5 shrink-0 font-mono text-[9px] font-medium uppercase tracking-[0.14em] text-ink/40">
         {tag}
       </span>
       <span
-        className="ml-2 whitespace-nowrap"
+        className="ml-2 whitespace-nowrap text-ink-muted"
         style={{
-          color: 'rgb(var(--c-brand-ink))',
           fontFamily: "'Inter', sans-serif",
           fontWeight: 500,
           fontSize: '12px',

@@ -158,16 +158,30 @@ export function Journey() {
                       </span>
                     </button>
 
-                    <AnimatePresence initial={false}>
-                      {on && (
-                        <motion.div
-                          initial={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                          animate={reduce ? { opacity: 1 } : { height: 'auto', opacity: 1 }}
-                          exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                          transition={{ duration: 0.45, ease: EASE_OUT }}
-                          className="overflow-hidden"
+                    {/* CSS grid-rows, not a framer-motion `height: 'auto'` tween.
+                        Animating measured height is a JS RAF loop that
+                        recalculates layout every frame — on a mid-range phone
+                        that reads as stutter, especially with this much
+                        content (quote block, bullet list, CTA) reflowing
+                        underneath it. `0fr -> 1fr` lets the browser's own
+                        layout engine interpolate the track size natively, so
+                        the content stays mounted (no AnimatePresence) and
+                        just collapses to zero height instead. */}
+                    <div
+                      className="grid"
+                      style={{
+                        gridTemplateRows: on ? '1fr' : '0fr',
+                        transition: reduce ? 'none' : 'grid-template-rows 400ms cubic-bezier(0.16,1,0.3,1)',
+                      }}
+                    >
+                      <div className="overflow-hidden">
+                        <div
+                          className="flex flex-col gap-3.5 px-[18px] pb-5 pt-0.5"
+                          style={{
+                            opacity: on ? 1 : 0,
+                            transition: reduce ? 'none' : `opacity ${on ? '300ms 100ms' : '150ms'} ease`,
+                          }}
                         >
-                          <div className="flex flex-col gap-3.5 px-[18px] pb-5 pt-0.5">
                             <div className="h-px" style={{ background: 'rgba(255,255,255,.12)' }} />
                             <p className="text-[15px] leading-relaxed text-white">{n.text}</p>
 
@@ -213,9 +227,8 @@ export function Journey() {
                               </button>
                             )}
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                      </div>
+                    </div>
                     </div>
                   </div>
                 </Reveal>

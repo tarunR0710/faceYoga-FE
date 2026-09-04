@@ -108,6 +108,17 @@ const config: Config = {
           '-apple-system',
           'sans-serif',
         ],
+        // Geist Mono — clean mono. Every uppercase tag/label on the site
+        // (`font-mono`) was falling back to the browser's default monospace
+        // stack, not an actual chosen typeface.
+        mono: [
+          'var(--font-geist-mono)',
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'Consolas',
+          'monospace',
+        ],
       },
 
       fontSize: {

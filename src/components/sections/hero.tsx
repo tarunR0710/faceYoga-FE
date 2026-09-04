@@ -55,7 +55,7 @@ export function Hero() {
         </div>
 
         {/* Copy sits at the base of the frame, out of the subject's face */}
-        <div className="relative flex h-full flex-col justify-end px-6 pb-10 md:px-12 md:pb-14 lg:px-20">
+        <div className="relative flex h-full flex-col justify-end px-6 pb-8 md:px-12 lg:px-20">
           <div className="max-w-2xl">
             <motion.p
               {...rise(0.15)}
@@ -69,9 +69,9 @@ export function Hero() {
               className="mb-5 text-[32px] leading-[1.06] tracking-[-0.025em] text-white"
               style={{ fontWeight: 200 }}
             >
-              <span style={{ fontWeight: 400 }}>{HERO.title}</span>
+              {HERO.title}
               <br />
-              <span className="text-white/55" style={{ fontWeight: 400 }}>{HERO.muted}</span>
+              <span className="text-white/70">{HERO.muted}</span>
             </motion.h1>
 
             <motion.p

@@ -17,30 +17,28 @@ import type { ReactNode } from 'react'
 
 type Variant = 'default' | 'on-dark' | 'on-media'
 
-// pt-[4px] is an optical correction, not a guess. The label is all-caps mono
-// with `leading-none`, so the line box is exactly 1em tall while the visible
-// glyphs occupy only the cap-height band near its top — there are no
-// descenders to fill the bottom. `items-center` dutifully centres that box,
-// which leaves the ink measurably high: 8.7px of air above versus 13px below.
-// Since Tailwind is border-box, top padding shrinks the centring area and
-// pushes the ink down by half the padding, so 4px buys the ~2px it needs.
-//
-// pr is 2px tighter than pl for the same reason on the other axis: letter-
-// spacing appends a trailing space after the final glyph that padding cannot
-// see, so symmetric padding renders visually left-heavy.
+// The one pill style every section eyebrow shares — padding, size and
+// line-height are set inline below because they're exact spec values
+// (2px 7px / 11px / 12px), not a fit to Tailwind's 4px spacing scale.
 const SHELL =
-  'inline-flex h-[26px] items-center gap-[0.5em] rounded-full border pl-3 pr-[10px] pt-[4px] font-mono text-[10px] font-medium uppercase leading-none tracking-[0.16em] tabular-nums md:h-7 md:text-[11px]'
+  'inline-flex items-center gap-[0.5em] rounded-full font-mono font-medium uppercase tracking-[0.16em] tabular-nums'
 
-const VARIANT: Record<Variant, string> = {
-  // Light ground — the only variant the homepage currently uses.
-  default: 'border-ink/[0.14] bg-white text-ink/70',
+const SHELL_STYLE = { padding: '2px 7px', fontSize: '11px', lineHeight: '12px' } as const
+
+// `default`'s ring is a 1px gradient hairline, not a flat border colour: the
+// pill is a padding-box trick — this gradient paints the OUTER shell, and the
+// inner shell is a solid white fill inset by exactly 1px, so only a 1px ring
+// of the gradient ever shows.
+const HAIRLINE_GRADIENT = 'linear-gradient(120deg, rgba(61,107,118,.45) 0%, rgba(173,199,206,.15) 60%, rgba(230,201,175,.45) 100%)'
+
+const VARIANT: Record<Exclude<Variant, 'default'>, string> = {
   // The final CTA paints its own accent→ink gradient inline, so the role
   // tokens never re-scope there and have to be overridden by hand.
-  'on-dark': 'border-white/20 bg-white/10 text-white/85',
+  'on-dark': 'border border-white/20 bg-white/10 text-white/85',
   // Over media. Currently unused — the hero opens with no tag at all — but
   // kept for any future chip that has to sit on a photo or video: a dark chip
   // stays legible across frames a light one cannot.
-  'on-media': 'border-white/25 bg-black/35 text-white backdrop-blur-[6px]',
+  'on-media': 'border border-white/25 bg-black/35 text-white backdrop-blur-[6px]',
 }
 
 type SectionTagProps = {
@@ -54,5 +52,19 @@ export function SectionTag({
   variant = 'default',
   className = '',
 }: SectionTagProps) {
-  return <span className={`${SHELL} ${VARIANT[variant]} ${className}`}>{children}</span>
+  if (variant === 'default') {
+    return (
+      <span className="inline-flex rounded-full" style={{ padding: '1px', background: HAIRLINE_GRADIENT }}>
+        <span className={`${SHELL} rounded-full bg-white text-[#999999] ${className}`} style={SHELL_STYLE}>
+          {children}
+        </span>
+      </span>
+    )
+  }
+
+  return (
+    <span className={`${SHELL} ${VARIANT[variant]} ${className}`} style={SHELL_STYLE}>
+      {children}
+    </span>
+  )
 }
