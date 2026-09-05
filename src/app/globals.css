@@ -311,44 +311,10 @@
   }
 
   /* ── The trust band under the hero ──────────────────────────────────────
-     Ported from the mapmyface-blueprint-homepage branch, retuned for the
-     achromatic palette (the original used a teal accent and an --c-band
-     surface token that do not exist here).
-
-     The shelf colour is named ONCE, here, because the two edge fades have to
-     match it exactly or the marquee visibly clips at the edges instead of
-     dissolving. */
-  /* The shelf is white like every other section now, so its two hairlines are
-     the ONLY thing separating it from the hero above and the copy below —
-     bumped from 6% to 12% ink to carry that alone. The fades must match the
-     shelf exactly or the marquee visibly clips instead of dissolving. */
-  /* The band now sits at the very top of the page, above the hero video, so it
-     is the first colour a visitor sees. It takes `--c-band-bg`, brand-soft
-     lightened ~80% toward white — full-strength brand-soft (#ADC7CE) and even
-     the 50%-lightened `--c-band-soft` read as a solid teal block this high up
-     the page, so the band goes near-grayscale instead. Its icons still take
-     `brand` (#3D6B76), the darkened shade made for exactly this.
-
-     The two edge fades must resolve to the SAME colour as the shelf or the
-     marquee visibly clips at the edges instead of dissolving into it. */
-  .band-shelf {
-    background-color: rgb(var(--c-band-bg));
-    border-bottom: 1px solid rgb(var(--c-brand) / 0.22);
-  }
-  .band-fade-l {
-    background: linear-gradient(to right, rgb(var(--c-band-bg)), rgb(var(--c-band-bg) / 0));
-  }
-  .band-fade-r {
-    background: linear-gradient(to left, rgb(var(--c-band-bg)), rgb(var(--c-band-bg) / 0));
-  }
-
-  /* Marquee. The list is rendered twice and translated -50%, so the loop is
-     seamless with no jump at the wrap point. */
-  .animate-marquee-slow {
-    animation: marquee 48s linear infinite;
-  }
-  .animate-marquee-fast {
-    animation: marquee 22s linear infinite;
+     One marquee utility. The track is the content repeated four times and
+     translated -50% (see trust-bar.tsx for why four, and why 68s). */
+  .animate-marquee-band {
+    animation: marquee 68s linear infinite;
   }
   @keyframes marquee {
     from {
@@ -578,8 +544,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .animate-marquee-slow,
-    .animate-marquee-fast,
+    .animate-marquee-band,
     .animate-pulse-ring {
       animation: none !important;
     }

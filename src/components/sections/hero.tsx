@@ -24,7 +24,7 @@ export function Hero() {
           band sit at the bottom edge of the first viewport instead of below the
           fold, so a phone visitor sees what the plan includes without scrolling.
           If the band's height changes, this number has to change with it. */}
-      <section className="relative h-[calc(100svh-46px)] w-full overflow-hidden md:h-screen">
+      <section className="relative h-[calc(100svh-64px)] w-full overflow-hidden md:h-screen">
         {/* Background Video */}
         <div className="absolute inset-0">
           <video
