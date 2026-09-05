@@ -66,12 +66,13 @@ export function Hero() {
 
             <motion.h1
               {...rise(0.25)}
-              className="mb-5 text-[35px] leading-[1.06] tracking-[-0.025em] text-white"
-              style={{ fontWeight: 150 }}
+              className="mb-5 text-[34px] leading-[1.05] tracking-[-0.03em] text-white"
+              style={{ fontWeight: 300 }}
             >
               {HERO.title}
-              <br />
-              <span className="text-white/70">{HERO.muted}</span>
+              {/* Own block so `text-wrap: balance` acts on this line alone —
+                  on a 430px phone it otherwise wraps to leave "you." orphaned. */}
+              <span className="block text-balance text-white/65">{HERO.muted}</span>
             </motion.h1>
 
             <motion.p

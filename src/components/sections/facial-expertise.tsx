@@ -31,7 +31,7 @@ export function FacialExpertise() {
           lede={FACIAL_EXPERTISE.lede}
         />
 
-        <div className="mx-auto flex max-w-[420px] flex-col gap-3.5">
+        <div className="mx-auto flex max-w-[420px] flex-col gap-6">
           <LiveSessionCard />
           <OrbitCard />
           <AnalysisCard />
@@ -46,15 +46,18 @@ function CardShell({ visual, title, text }: { visual: React.ReactNode; title: st
   return (
     <div
       className="relative overflow-hidden rounded-[22px] bg-white"
-      style={{ border: '1px solid rgba(61,107,118,.1)', boxShadow: '0 20px 40px -28px rgba(44,79,88,.28)', isolation: 'isolate' }}
+      style={{ border: '1px solid rgba(61,107,118,.1)', boxShadow: '0 18px 48px -30px rgba(44,79,88,.14)', isolation: 'isolate' }}
     >
       <div className="relative overflow-hidden" style={{ height: 260, background: VISUAL_WASH }}>
         {visual}
       </div>
       <div className="relative flex flex-col gap-2 bg-white" style={{ padding: '18px 22px 22px' }}>
-        <span style={{ fontSize: '21px', lineHeight: 1.15, letterSpacing: '-0.02em', fontWeight: 500, color: '#1E353B' }}>
+        {/* Same voice as every other card title on the page (Full Picture,
+            How It Works): light weight, ink, tight tracking — not a bold
+            dark heading. */}
+        <h3 className="text-[19px] leading-[1.15] tracking-[-0.02em] text-ink" style={{ fontWeight: 300 }}>
           {title}
-        </span>
+        </h3>
         <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.5, color: '#5C7278' }}>{text}</p>
       </div>
     </div>

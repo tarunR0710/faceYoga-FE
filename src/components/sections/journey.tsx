@@ -1,11 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Instrument_Serif } from 'next/font/google'
 import { X, ChevronDown } from 'lucide-react'
-import { EASE_OUT } from '@/lib/motion'
 import { Reveal } from '@/components/ui/reveal'
 import { SectionTag } from '@/components/ui/section-tag'
 import { JOURNEY } from '@/lib/content'
@@ -17,6 +16,21 @@ const instrumentSerif = Instrument_Serif({
   weight: '400',
   style: ['normal', 'italic'],
 })
+
+// Radial profile of a 320px disc after `filter: blur(80px)` (sigma 80), sampled
+// every 40px from the centre out to r=400 where it reaches zero — computed by
+// integrating the Gaussian over the disc, not eyeballed. Fed to a closest-side
+// radial-gradient on an 800px box, the 11 linear stops sit within ~1/255 alpha
+// of the real blur at every radius.
+const GLOW_PROFILE = [0.865, 0.831, 0.731, 0.576, 0.397, 0.232, 0.113, 0.045, 0.015, 0.004, 0]
+
+function glow(rgb: string, opacity: number) {
+  const stops = GLOW_PROFILE.map((v, i) => `rgb(${rgb} / ${(v * opacity).toFixed(3)}) ${i * 10}%`)
+  return `radial-gradient(circle closest-side, ${stops.join(', ')})`
+}
+
+const GLOW_TEAL = glow('173 199 206', 0.5) // was #ADC7CE at opacity-50
+const GLOW_SAND = glow('230 201 175', 0.6) // was #E6C9AF at opacity-60
 
 /**
  * How a Face Map gets made (design handoff, option 3b). One accordion list
@@ -42,15 +56,26 @@ export function Journey() {
           'linear-gradient(160deg, rgba(173,199,206,0.22) 0%, rgba(247,244,239,0.55) 45%, #ffffff 100%)',
       }}
     >
+      {/* Two soft colour glows. These were 320px solid discs under
+          `filter: blur(80px)`. Safari re-blurs or re-composites a filtered
+          element on every frame the section changes height, and the content
+          painted over the discs gets promoted into its own layer and fully
+          repainted each frame as well — the largest single cost behind the
+          accordion jank on iPhone. `glow()` reproduces the exact falloff the
+          blur produced, as a plain background: no filter, no compositing
+          layer. The boxes are 800px so the glow reaches the same r=400 the
+          blur did, and they are positioned so each centre lands where the
+          old disc's centre was (96px in from the right / 80px down; 64px in
+          from the left / 120px up from the bottom). */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-16 -top-20 h-80 w-80 rounded-full opacity-50 blur-[80px]"
-        style={{ background: '#ADC7CE' }}
+        className="pointer-events-none absolute -right-[304px] -top-[320px] h-[800px] w-[800px]"
+        style={{ background: GLOW_TEAL }}
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-10 -left-24 h-80 w-80 rounded-full opacity-60 blur-[80px]"
-        style={{ background: '#E6C9AF' }}
+        className="pointer-events-none absolute -bottom-[280px] -left-[336px] h-[800px] w-[800px]"
+        style={{ background: GLOW_SAND }}
       />
 
       <div className="container-main relative">
@@ -83,30 +108,34 @@ export function Journey() {
                 <Reveal key={n.id} index={3 + i}>
                   <div
                     className="relative overflow-hidden rounded-[20px] border"
-                    style={{
-                      borderColor: 'rgba(255,255,255,.35)',
-                      boxShadow: '0 4px 14px rgba(10,25,30,.1)',
-                    }}
+                    style={
+                      {
+                        // White -> gradient cross-fade as ONE paint-only background.
+                        // `background-image` never interpolates, so this used to be
+                        // two stacked layers with a framer opacity tween on the
+                        // gradient one. Safari composites an animating opacity into
+                        // its own layer; that layer filled a card whose height was
+                        // mid-animation, so it was re-rasterised every frame, and
+                        // the content painted over it got promoted into a layer
+                        // that repainted whole every frame too. Now the gradient's
+                        // alpha is fed by a registered custom property
+                        // (`@property --journey-on` in globals.css) transitioning
+                        // 0 -> 1: identical blend, same 400ms curve, no compositing
+                        // layer. Browsers without @property (iOS < 16.4) snap
+                        // between the two fills instead of fading.
+                        '--journey-on': on ? 1 : 0,
+                        transition: '--journey-on 400ms cubic-bezier(0.16,1,0.3,1)',
+                        background:
+                          'linear-gradient(150deg, rgb(6 123 158 / var(--journey-on)) 0%, rgb(135 135 135 / var(--journey-on)) 100%), #FFFFFF',
+                        // Stop at the padding box like the old inset-0 layers did,
+                        // so the 35% white hairline keeps showing the section
+                        // behind it rather than the card fill.
+                        backgroundClip: 'padding-box',
+                        borderColor: 'rgba(255,255,255,.35)',
+                        boxShadow: '0 4px 14px rgba(10,25,30,.1)',
+                      } as CSSProperties
+                    }
                   >
-                    {/* Two stacked layers, cross-faded with a motion opacity
-                        tween — a plain CSS colour transition can't animate
-                        between a flat colour and a gradient (background-image
-                        never interpolates), so the old version snapped
-                        instantly and read as a flicker. */}
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-0"
-                      style={{ background: '#FFFFFF' }}
-                    />
-                    <motion.div
-                      aria-hidden="true"
-                      className="absolute inset-0"
-                      style={{ background: 'linear-gradient(150deg,#067B9E 0%,#878787 100%)' }}
-                      initial={false}
-                      animate={{ opacity: on ? 1 : 0 }}
-                      transition={{ duration: 0.4, ease: EASE_OUT }}
-                    />
-                    <div className="relative">
                     <button
                       type="button"
                       onClick={() => setOpen(on ? null : n.id)}
@@ -167,7 +196,14 @@ export function Journey() {
                         underneath it. `0fr -> 1fr` lets the browser's own
                         layout engine interpolate the track size natively, so
                         the content stays mounted (no AnimatePresence) and
-                        just collapses to zero height instead. */}
+                        just collapses to zero height instead. It is still a
+                        layout animation, though — every frame re-lays-out and
+                        repaints everything below the card on the main thread.
+                        What makes that affordable on an iPhone is that nothing
+                        in this section creates a compositing layer any more
+                        (see the glow and card-fill comments above): Safari then
+                        repaints only the dirty strip of the page each frame,
+                        instead of re-rasterising whole promoted layers. */}
                     <div
                       className="grid"
                       style={{
@@ -229,7 +265,6 @@ export function Journey() {
                             )}
                           </div>
                       </div>
-                    </div>
                     </div>
                   </div>
                 </Reveal>

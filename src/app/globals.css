@@ -622,3 +622,15 @@
   outline: none;
   box-shadow: 0 0 0 2px white, 0 0 0 4px #111;
 }
+
+/* Journey ("How it works") card fill. Registering the property makes the number
+   interpolate, so the gradient alpha it feeds in journey.tsx can transition —
+   a paint-only cross-fade with no compositing layer, which is what keeps the
+   accordion smooth on iPhone. Where @property is unsupported (iOS < 16.4) the
+   value still applies, it just snaps instead of fading. Kept outside @layer so
+   Tailwind leaves the at-rule alone. */
+@property --journey-on {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
