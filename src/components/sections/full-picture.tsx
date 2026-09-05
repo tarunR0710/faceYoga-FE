@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { animate, motion, useMotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { EASE_OUT } from '@/lib/motion'
+import { animate, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { EASE_OUT, SCRUB_SPRING } from '@/lib/motion'
 import { Reveal } from '@/components/ui/reveal'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { FULL_PICTURE } from '@/lib/content'
@@ -54,7 +54,15 @@ function PictureCard({ item }: { item: (typeof FULL_PICTURE.items)[number] }) {
   // in-between state for most of the scroll — it read as grey first, colour
   // second. Snapping quickly to full strength shows the real gradient
   // almost immediately instead of dwelling on the pale edge of it.
-  const scrollFill = useTransform(scrollYProgress, [0, 0.42, 0.5, 0.58, 1], [0, 0, 1, 0, 0])
+  const scrollFillRaw = useTransform(scrollYProgress, [0, 0.42, 0.5, 0.58, 1], [0, 0, 1, 0, 0])
+  // On a real phone, touch-scroll delivers scrollYProgress in irregular,
+  // sometimes large per-frame jumps (momentum scrolling isn't sampled every
+  // paint) — reading a spike this narrow straight off that raw signal meant
+  // a fast flick could land ON either side of the peak in consecutive
+  // frames with nothing in between, which reads as a flicker rather than a
+  // rise and fall. Routing it through the same scroll-scrub spring used
+  // elsewhere smooths that out into a continuous curve.
+  const scrollFill = useSpring(scrollFillRaw, SCRUB_SPRING)
 
   // Hover and scroll both feed the same 0-1 value, so a mouse user and a
   // scrolling reader drive the exact same highlight instead of two competing

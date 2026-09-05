@@ -34,7 +34,7 @@ export function Difference() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="rounded-2xl p-6 md:p-8 bg-[#fafafa] border border-[#f0f0f0]"
+            className="rounded-2xl p-4 bg-[#fafafa] border border-[#f0f0f0]"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-8 rounded-full bg-ink/5 flex items-center justify-center">
@@ -64,7 +64,7 @@ export function Difference() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="rounded-2xl p-6 md:p-8 relative overflow-hidden"
+            className="rounded-2xl p-4 relative overflow-hidden"
             style={{
               background:
                 'linear-gradient(180deg, rgba(255, 212, 185, 0.5) 0%, rgba(255, 255, 255, 0.9) 45%, #ffffff 100%)',

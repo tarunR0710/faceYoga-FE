@@ -66,7 +66,7 @@ export function Hero() {
 
             <motion.h1
               {...rise(0.25)}
-              className="mb-5 text-[32px] leading-[1.06] tracking-[-0.025em] text-white"
+              className="mb-5 text-[35px] leading-[1.06] tracking-[-0.025em] text-white"
               style={{ fontWeight: 150 }}
             >
               {HERO.title}

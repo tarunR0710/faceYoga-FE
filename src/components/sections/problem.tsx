@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Instrument_Serif } from 'next/font/google'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Leaf, Sparkles, Sun } from 'lucide-react'
 import { SectionTag } from '@/components/ui/section-tag'
 import { PROBLEM } from '@/lib/content'
 
@@ -18,6 +18,9 @@ const instrumentSerif = Instrument_Serif({
 })
 
 const DISMISS_EASE = [0.2, 0.7, 0.2, 1] as const
+
+// Content order is fixed: lead tile first, then the two small ones.
+const [faceTile, skinTile, climateTile] = PROBLEM.answer.grid
 
 /**
  * "Noise → Clarity" — the interactive redesign of the recognition beat
@@ -50,13 +53,7 @@ export function Problem() {
   }
 
   return (
-    <section
-      className="relative overflow-hidden pb-10 pt-[70px]"
-      style={{
-        background:
-          'linear-gradient(160deg,rgba(173,199,206,.22) 0%,rgba(247,244,239,.55) 45%,#ffffff 100%)',
-      }}
-    >
+    <section className="relative overflow-hidden bg-white pb-10 pt-[70px]">
       {/* Two blurred blobs behind the glass card — without them the backdrop
           blur has nothing to diffuse. */}
       <div
@@ -188,7 +185,7 @@ export function Problem() {
                   aria-label={`Dismiss: ${b.text}`}
                   exit={reduce ? { opacity: 0 } : { scale: 0.6, opacity: 0 }}
                   transition={{ duration: 0.35, ease: DISMISS_EASE }}
-                  className="absolute whitespace-nowrap rounded-full px-[13px] py-[9px] text-[13px] font-medium shadow-[0_10px_30px_-12px_rgba(44,79,88,0.4)]"
+                  className="absolute whitespace-nowrap rounded-full px-[10px] py-[6px] text-[11px] font-medium shadow-[0_10px_30px_-12px_rgba(44,79,88,0.4)]"
                   style={{
                     left: b.left,
                     top: b.top,
@@ -257,15 +254,94 @@ export function Problem() {
             {PROBLEM.answer.quote}
           </p>
 
-          <div className="grid grid-cols-3 gap-2">
-            {PROBLEM.answer.grid.map((cell) => (
-              <div key={cell.title} className="rounded-[12px] bg-[#3D6B76]/[0.08] px-[10px] py-3">
-                <p className="text-[14px] leading-[1.35] text-ink" style={{ fontWeight: 500 }}>
-                  {cell.title}
-                </p>
-                <p className="mt-1 text-[12px] leading-[1.35] text-ink-muted">{cell.text}</p>
-              </div>
-            ))}
+          {/* Three tiles per design handoff 23c: "Your face" leads as a tall
+              teal tile spanning both rows; Skin and Climate stack beside it.
+              Values are scoped to this card on purpose — the sage and sand
+              tints appear nowhere else on the page. */}
+          <div className="grid gap-2" style={{ gridTemplateColumns: '1.15fr 1fr', gridTemplateRows: '1fr 1fr' }}>
+            {/* Lead — Your face */}
+            <div
+              className="row-span-2 flex flex-col justify-between gap-3 rounded-[16px] text-white"
+              style={{
+                padding: '14px 14px 12px',
+                background: 'linear-gradient(160deg, #5E8E9A 0%, #3D6B76 60%, #2C4F58 100%)',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,.3)',
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="flex h-[34px] w-[34px] items-center justify-center rounded-[11px]"
+                style={{ background: 'rgba(255,255,255,.18)', border: '1px solid rgba(255,255,255,.28)' }}
+              >
+                <Sparkles className="h-[18px] w-[18px]" strokeWidth={1.6} />
+              </span>
+              <span className="flex flex-col gap-1">
+                <span className={`${instrumentSerif.className} text-[22px] leading-none`} style={{ fontStyle: 'italic' }}>
+                  {faceTile.title}
+                </span>
+                <span className="text-[11.5px] leading-[1.4]" style={{ color: 'rgba(255,255,255,.78)' }}>
+                  {faceTile.text}
+                </span>
+              </span>
+            </div>
+
+            {/* Skin */}
+            <div
+              className="flex items-center gap-[10px] rounded-[16px]"
+              style={{
+                padding: '11px 12px',
+                background: 'linear-gradient(160deg, rgba(201,217,180,.55), rgba(201,217,180,.22))',
+                border: '1px solid rgba(125,154,94,.25)',
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[11px]"
+                style={{ background: 'rgba(255,255,255,.85)' }}
+              >
+                <Leaf className="h-[18px] w-[18px]" strokeWidth={1.6} style={{ color: '#3D6B76' }} />
+              </span>
+              <span className="flex flex-col gap-[2px]">
+                <span
+                  className={`${instrumentSerif.className} text-[17px] leading-none`}
+                  style={{ fontStyle: 'italic', color: '#3F5A2E' }}
+                >
+                  {skinTile.title}
+                </span>
+                <span className="text-[11px] leading-[1.35]" style={{ color: '#6B7F5B' }}>
+                  {skinTile.text}
+                </span>
+              </span>
+            </div>
+
+            {/* Climate */}
+            <div
+              className="flex items-center gap-[10px] rounded-[16px]"
+              style={{
+                padding: '11px 12px',
+                background: 'linear-gradient(160deg, rgba(230,201,175,.5), rgba(247,244,239,.6))',
+                border: '1px solid rgba(198,160,125,.28)',
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[11px]"
+                style={{ background: 'rgba(255,255,255,.85)' }}
+              >
+                <Sun className="h-[18px] w-[18px]" strokeWidth={1.6} style={{ color: '#3D6B76' }} />
+              </span>
+              <span className="flex flex-col gap-[2px]">
+                <span
+                  className={`${instrumentSerif.className} text-[17px] leading-none`}
+                  style={{ fontStyle: 'italic', color: '#5C3F2A' }}
+                >
+                  {climateTile.title}
+                </span>
+                <span className="text-[11px] leading-[1.35]" style={{ color: '#8B6A4E' }}>
+                  {climateTile.text}
+                </span>
+              </span>
+            </div>
           </div>
 
           <button

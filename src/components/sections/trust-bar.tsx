@@ -40,7 +40,7 @@ function Item({ tag, label, icon: Icon }: (typeof items)[number]) {
         {tag}
       </span>
       <span
-        className="ml-2 whitespace-nowrap text-ink-muted"
+        className="ml-2 whitespace-nowrap text-[#999999]"
         style={{
           fontFamily: "'Inter', sans-serif",
           fontWeight: 500,

@@ -96,7 +96,7 @@ export function Journey() {
                     <div
                       aria-hidden="true"
                       className="absolute inset-0"
-                      style={{ background: 'rgba(247,244,239,.92)' }}
+                      style={{ background: '#FFFFFF' }}
                     />
                     <motion.div
                       aria-hidden="true"
@@ -104,7 +104,7 @@ export function Journey() {
                       style={{ background: 'linear-gradient(150deg,#067B9E 0%,#878787 100%)' }}
                       initial={false}
                       animate={{ opacity: on ? 1 : 0 }}
-                      transition={{ duration: 0.35, ease: EASE_OUT }}
+                      transition={{ duration: 0.4, ease: EASE_OUT }}
                     />
                     <div className="relative">
                     <button
@@ -121,7 +121,7 @@ export function Journey() {
                       </span>
                       <span className="flex flex-col gap-1">
                         <span
-                          className="text-[1.1rem] leading-tight tracking-[-0.02em]"
+                          className="text-[1rem] leading-tight tracking-[-0.02em]"
                           style={{ fontWeight: 300, color: on ? '#FFFFFF' : '#2C4F58' }}
                         >
                           {n.title}
@@ -147,11 +147,12 @@ export function Journey() {
                         </span>
                       </span>
                       <span
-                        className="flex h-[30px] w-[30px] items-center justify-center rounded-full border transition-transform duration-[400ms]"
+                        className="flex h-[30px] w-[30px] items-center justify-center rounded-full border"
                         style={{
                           borderColor: on ? 'rgba(255,255,255,.22)' : 'rgba(61,107,118,.35)',
                           color: on ? '#FFFFFF' : '#2C4F58',
                           transform: on ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 400ms cubic-bezier(0.16,1,0.3,1), border-color 400ms ease, color 400ms ease',
                         }}
                       >
                         <ChevronDown className="h-3 w-3" strokeWidth={1.8} />
@@ -179,7 +180,7 @@ export function Journey() {
                           className="flex flex-col gap-3.5 px-[18px] pb-5 pt-0.5"
                           style={{
                             opacity: on ? 1 : 0,
-                            transition: reduce ? 'none' : `opacity ${on ? '300ms 100ms' : '150ms'} ease`,
+                            transition: reduce ? 'none' : 'opacity 280ms cubic-bezier(0.16,1,0.3,1)',
                           }}
                         >
                             <div className="h-px" style={{ background: 'rgba(255,255,255,.12)' }} />

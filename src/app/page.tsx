@@ -8,6 +8,7 @@ import { Difference } from '@/components/sections/difference'
 import { FullPicture } from '@/components/sections/full-picture'
 import { Plan } from '@/components/sections/plan'
 import { Proof } from '@/components/sections/proof'
+import { FacialExpertise } from '@/components/sections/facial-expertise'
 import { Believe } from '@/components/sections/believe'
 import { Journey } from '@/components/sections/journey'
 import { FaceMapSection } from '@/components/sections/face-map'
@@ -53,6 +54,7 @@ export default function HomePage() {
         <Difference />
         <FullPicture />
         <Plan />
+        <FacialExpertise />
         <Believe />
         <Journey />
         <FaceMapSection />

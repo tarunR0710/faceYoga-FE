@@ -86,8 +86,8 @@ export const PROBLEM = {
   // #3D6B76 · #2C4F58 · #ADC7CE. Sand (#E9D8B4) is the one warm note kept so
   // the "family" bubble still reads as a different voice from the rest.
   bubbles: [
-    { id: 'a', text: '10-step routine ✦', left: '4%', top: '6%', rotate: -6, bg: '#FFFFFF', fg: '#3D6B76' },
-    { id: 'b', text: 'Get the ₹4,000 facial', left: '54%', top: '2%', rotate: 4, bg: '#3D6B76', fg: '#FFFFFF' },
+    { id: 'a', text: '10-step routine ✦', left: '10%', top: '12%', rotate: -6, bg: '#FFFFFF', fg: '#3D6B76' },
+    { id: 'b', text: 'Get the ₹4,000 facial', left: '50%', top: '5%', rotate: 4, bg: '#3D6B76', fg: '#FFFFFF' },
     { id: 'c', text: 'Ice your face daily', left: '0%', top: '44%', rotate: 3, bg: '#2C4F58', fg: '#FFFFFF' },
     { id: 'd', text: 'Glow in 7 days · Ad', left: '60%', top: '48%', rotate: -3, bg: '#FFFFFF', fg: '#1E353B' },
     { id: 'e', text: 'Haldi + besan, beta', left: '10%', top: '84%', rotate: -2, bg: '#E9D8B4', fg: '#1E353B' },
@@ -100,9 +100,9 @@ export const PROBLEM = {
     // Categories the plan actually considers — not a claim about any specific
     // visitor's skin, which nobody has looked at yet at this point in the page.
     grid: [
-      { title: 'Your skin', text: 'type, sensitivity, routine' },
-      { title: 'Your climate', text: 'humidity, water, pollution' },
-      { title: 'Your face', text: 'structure, proportions, tension' },
+      { title: 'Your face', text: 'structure, proportions, tension — read by a person' },
+      { title: 'Skin', text: 'type, sensitivity, routine' },
+      { title: 'Climate', text: 'humidity, water, pollution' },
     ],
     ctaDefault: 'Clear the noise',
     ctaCleared: 'Map my face · 2 min',
@@ -541,7 +541,7 @@ export const DIFFERENCE = {
     {
       label: 'Priority',
       generic: 'A long list, in no particular order',
-      ours: 'Start / Stop / Continue and First / Next / Later',
+      ours: 'Clear priority: what to do first, next and later',
     },
     {
       label: 'Support',
@@ -1004,6 +1004,61 @@ export const BELIEVE = {
     ],
     turn:
       'None of this is a reason to panic about your face. It is a reason to stop guessing at it, and to spend your effort on the few changes that actually apply to you.',
+  },
+} as const
+
+// ── Facial Expertise — four visual proofs that a person, not an algorithm,
+// does the reading. Sits right before Believe, which makes the same claim in
+// words (the four-role panel, the nine assessment factors) — these cards show
+// it instead. The scrolling checklist reuses BELIEVE.method's own factor
+// labels rather than inventing a second list of "what gets assessed".
+//
+// Section header (eyebrow/title/lede) is the site's own copy, unchanged from
+// the original brief. Only the four cards below follow design handoff turn
+// 18a exactly ("Mobile section — the four cards stacked at one shared
+// size"): shared 260px visual / white-footer geometry, in the order
+// session -> understanding -> what's looked at -> review.
+// ═════════════════════════════════════════════════════════════════════════════
+export const FACIAL_EXPERTISE = {
+  eyebrow: 'Facial Expertise',
+  title: 'How we read',
+  muted: 'your face.',
+  lede: 'Your plan starts with a careful study of your facial features, balance and proportions — done by real specialists, not an algorithm.',
+  analysis: {
+    title: 'What the expert looks at',
+    text: 'Symmetry, muscle tension, skin condition and proportion — read by a person, not a scanner.',
+    items: BELIEVE.method.factors.map(([label]) => label),
+  },
+  orbit: {
+    title: 'Feature-level understanding',
+    text: 'Eyes, brows, nose, lips, jawline and skin are reviewed in context, not in isolation.',
+    items: ['Eyes', 'Brows', 'Nose', 'Lips', 'Jawline', 'Skin'],
+  },
+  reviewed: {
+    title: 'Reviewed by a person',
+    text: 'Every Face Map is read and signed off by an expert before it reaches you — for clarity, consistency and honesty.',
+    tiles: [
+      ['Tension', 'Left side'],
+      ['Chewing side', 'Right'],
+      ['Clench pattern', 'Night'],
+      ['Muscle tone', 'Uneven'],
+    ],
+    rangeValue: 'Slightly tight',
+    rangeFrom: 'Relaxed',
+    rangeTo: 'Tight',
+    forehead: {
+      tiles: [
+        ['Rest tension', 'Raised brows'],
+        ['Line pattern', 'Horizontal'],
+        ['Priority', 'Start here'],
+      ],
+    },
+    signoff: 'Signed off by a specialist',
+  },
+  live: {
+    title: 'Live expert session',
+    text: 'A specialist spends focused time with you to understand your face and real-life context.',
+    tag: 'Live · 1:1',
   },
 } as const
 

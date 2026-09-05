@@ -380,6 +380,85 @@
     }
   }
 
+  /* Facial Expertise section — the orbiting feature pills and the report
+     card's breathing badge / staggered tile rise. */
+  .animate-orbit {
+    animation: feOrbit 40s linear infinite;
+  }
+  .animate-orbit-r {
+    animation: feOrbitR 40s linear infinite;
+  }
+  @keyframes feOrbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes feOrbitR {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  .animate-breathe {
+    animation: feBreathe 6s ease-in-out infinite;
+  }
+  @keyframes feBreathe {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.04);
+    }
+  }
+  .animate-rise {
+    animation: feRise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  @keyframes feRise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .animate-review-drift {
+    animation: feReview 18s ease-in-out infinite alternate;
+  }
+  @keyframes feReview {
+    0%,
+    8% {
+      transform: translateY(0);
+    }
+    92%,
+    100% {
+      transform: translateY(-150px);
+    }
+  }
+  .animate-scan {
+    animation: feScan 7s linear infinite;
+  }
+  @keyframes feScan {
+    from {
+      top: -80px;
+    }
+    to {
+      top: 100%;
+    }
+  }
+  .animate-range-marker {
+    animation: feMarker 5s ease-in-out infinite alternate;
+  }
+  @keyframes feMarker {
+    from {
+      left: 44%;
+    }
+    to {
+      left: 60%;
+    }
+  }
+
   /* MapMyFace wordmark — ported from mapmyface-blueprint-homepage, retuned
      for the achromatic palette: the original was a warm champagne/bronze
      shine built for a dark footer band. This is a graphite shine using
@@ -419,6 +498,67 @@
     animation: wordmarkShine 3.8s cubic-bezier(0.45, 0, 0.25, 1) infinite;
   }
 
+  /* Heading shine — the same clipped-gradient + travelling glint as the
+     wordmark, but in the page's teal and tuned for a small heading inside a
+     card: the glint is narrower, the sweep is slower and rests for most of
+     the cycle, so it reads as an occasional catch of light rather than a
+     loop. `width: fit-content` keeps the gradient spanning the words, not the
+     whole card row. */
+  .heading-shine {
+    width: fit-content;
+    max-width: 100%;
+
+    background-image:
+      linear-gradient(
+        108deg,
+        transparent 38%,
+        rgba(255, 255, 255, 0.25) 45%,
+        rgba(255, 255, 255, 0.62) 50%,
+        rgba(255, 255, 255, 0.25) 55%,
+        transparent 62%
+      ),
+      linear-gradient(120deg, #067b9e 0%, #3d6b76 55%, #2c4f58 100%);
+
+    background-size: 220% 100%, 100% 100%;
+    background-repeat: no-repeat;
+    background-position: 112% 0, center;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+
+    animation: headingShine 6.5s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+  }
+
+  @keyframes headingShine {
+    0% {
+      background-position: 112% 0, center;
+    }
+    38% {
+      background-position: -12% 0, center;
+    }
+    100% {
+      background-position: -12% 0, center;
+    }
+  }
+
+  /* Spark twinkle — a slow breathe on the small inline spark that prefixes
+     a quiet closing line. Opacity + a hair of scale only; nothing travels. */
+  .spark-twinkle {
+    animation: sparkTwinkle 2.8s ease-in-out infinite alternate;
+  }
+  @keyframes sparkTwinkle {
+    from {
+      opacity: 0.45;
+      transform: translateY(-1px) scale(0.88);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(-1px) scale(1);
+    }
+  }
+
   @keyframes wordmarkShine {
     0% {
       background-position: 108% 0, center;
@@ -446,6 +586,14 @@
     .wordmark-shine {
       animation: none !important;
       background-position: 66% 0, center;
+    }
+    .heading-shine {
+      animation: none !important;
+      background-position: 50% 0, center;
+    }
+    .spark-twinkle {
+      animation: none !important;
+      opacity: 0.8;
     }
   }
 }

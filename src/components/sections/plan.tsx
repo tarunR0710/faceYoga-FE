@@ -1,6 +1,7 @@
 'use client'
 
 import { Instrument_Serif } from 'next/font/google'
+import { Sparkle } from 'lucide-react'
 import { Reveal } from '@/components/ui/reveal'
 import { SectionTag } from '@/components/ui/section-tag'
 import { PLAN } from '@/lib/content'
@@ -71,7 +72,7 @@ export function Plan() {
             boxShadow: '0 24px 48px -28px rgba(44,79,88,.28)',
           }}
         >
-          <h3 className="text-[17px] tracking-[-0.01em] text-ink/80 md:text-[19px]" style={{ fontWeight: 400 }}>
+          <h3 className="heading-shine text-[18px] tracking-[-0.01em] md:text-[21px]" style={{ fontWeight: 400 }}>
             {PLAN.subTitle}
           </h3>
           <p className="mt-1.5 text-[13px] leading-relaxed text-ink-muted md:text-[14px]">{PLAN.body}</p>
@@ -87,7 +88,7 @@ export function Plan() {
                 }`}
               >
                 <span
-                  className={`${instrumentSerif.className} text-[19px] leading-[1.1] text-brand`}
+                  className={`${instrumentSerif.className} text-[16px] leading-[1.1] text-brand`}
                   style={{ fontStyle: 'italic' }}
                 >
                   {row.keyword}
@@ -98,12 +99,21 @@ export function Plan() {
           </div>
         </Reveal>
 
+        {/* Closing line — deliberately quiet: a sign-off, not a second
+            heading. The spark sits inline so the group stays centred when
+            the line wraps; its twinkle is the only motion here. */}
         <Reveal
           index={4}
           as="p"
-          className={`${instrumentSerif.className} mx-auto mt-10 max-w-md text-center text-[20px] leading-snug text-[#2C4F58]`}
-          style={{ fontStyle: 'italic' }}
+          className={`${instrumentSerif.className} mx-auto mt-14 max-w-md py-4 text-center text-[16px] leading-snug md:mt-16 md:text-[17px]`}
+          style={{ fontStyle: 'italic', color: 'rgba(44,79,88,.72)' }}
         >
+          <Sparkle
+            aria-hidden="true"
+            className="spark-twinkle mr-2 inline-block h-[13px] w-[13px] -translate-y-[1px]"
+            strokeWidth={1.6}
+            style={{ color: '#3D6B76' }}
+          />
           {PLAN.closing}
         </Reveal>
       </div>
