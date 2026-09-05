@@ -76,7 +76,7 @@ function LiveSessionCard() {
             style={{ transformOrigin: '50% 30%' }}
           >
             <Image
-              src="/session-live.png"
+              src="/session-live.webp"
               alt="A live video call between a client and a specialist, mid-conversation"
               fill
               sizes="420px"
