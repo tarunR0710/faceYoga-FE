@@ -13,7 +13,7 @@ import { Believe } from '@/components/sections/believe'
 import { WhatWeMap } from '@/components/sections/what-we-map'
 import { ContextFactors } from '@/components/sections/context-factors'
 import { Journey } from '@/components/sections/journey'
-import { VisualDirection } from '@/components/sections/visual-direction'
+// import { VisualDirection } from '@/components/sections/visual-direction' // hidden 2026-09-20, see below
 import { Guidance } from '@/components/sections/guidance'
 import { Experiences } from '@/components/sections/experiences'
 import { FaceMapSection } from '@/components/sections/face-map'
@@ -65,7 +65,10 @@ export default function HomePage() {
         <ContextFactors />
         <Journey />
         <FaceMapSection />
-        <VisualDirection />
+        {/* Visual Direction is hidden for now (founder call, 2026-09-20). The
+            section and its content stay in place — re-enable by restoring the
+            import above and this line. */}
+        {/* <VisualDirection /> */}
         <Guidance />
         <Protocol />
         <Believe />
