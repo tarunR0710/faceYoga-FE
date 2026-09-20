@@ -255,32 +255,35 @@ export function Problem() {
           </p>
 
           {/* Three tiles per design 23c (canvas as of 2026-09-20): "Your face"
-              leads as a tall teal tile spanning both rows; Skin and Climate
-              stack beside it on solid sage and sand gradients, each with its
-              own green / amber type and icon. Values are scoped to this card on
-              purpose — these tints appear nowhere else on the page. */}
+              leads as a tall lavender tile spanning both rows; Skin and Climate
+              stack beside it on sage and sand. Titles are upright Geist, not the
+              serif italic, as on the canvas. The sage and sand sit a step
+              quieter than the canvas values (which read lime / orange on the
+              phone) — pulled toward the site's own #BFCDB6 / #E6C9AF tints.
+              Values are scoped to this card on purpose. */}
           <div className="grid gap-2" style={{ gridTemplateColumns: '1.15fr 1fr', gridTemplateRows: '1fr 1fr' }}>
             {/* Lead — Your face */}
             <div
-              className="row-span-2 flex flex-col justify-between gap-3 rounded-[16px] text-white"
+              className="row-span-2 flex flex-col justify-between gap-3 rounded-[16px]"
               style={{
                 padding: '14px 14px 12px',
-                background: 'linear-gradient(150deg, #78ADB7 0%, #3D6B76 52%, #27454E 100%)',
-                boxShadow: 'inset 0 1px 0 rgba(255,255,255,.3)',
+                background: 'linear-gradient(150deg, #E4DCF0 0%, #F1ECF8 100%)',
+                border: '1px solid rgba(110,86,150,.28)',
+                color: '#3A2E52',
               }}
             >
               <span
                 aria-hidden="true"
                 className="flex h-[34px] w-[34px] items-center justify-center rounded-[11px]"
-                style={{ background: 'rgba(255,255,255,.18)', border: '1px solid rgba(255,255,255,.28)' }}
+                style={{ background: '#FFFFFF', boxShadow: '0 2px 6px -3px rgba(88,64,132,.55)' }}
               >
-                <Sparkles className="h-[18px] w-[18px]" strokeWidth={1.6} />
+                <Sparkles className="h-[18px] w-[18px]" strokeWidth={1.6} style={{ color: '#7A5BAE' }} />
               </span>
               <span className="flex flex-col gap-1">
-                <span className={`${instrumentSerif.className} text-[22px] leading-none`} style={{ fontStyle: 'italic' }}>
+                <span className="text-[19px] leading-[1.1] tracking-[-0.01em]" style={{ fontWeight: 500 }}>
                   {faceTile.title}
                 </span>
-                <span className="text-[11.5px] leading-[1.4]" style={{ color: 'rgba(255,255,255,.78)' }}>
+                <span className="text-[11.5px] leading-[1.4]" style={{ color: '#6A5B88' }}>
                   {faceTile.text}
                 </span>
               </span>
@@ -291,25 +294,22 @@ export function Problem() {
               className="flex items-center gap-[10px] rounded-[16px]"
               style={{
                 padding: '11px 12px',
-                background: 'linear-gradient(150deg, #D9EAC1 0%, #EEF5E2 100%)',
-                border: '1px solid rgba(109,140,74,.3)',
+                background: 'linear-gradient(150deg, #DCE5D3 0%, #EEF2EA 100%)',
+                border: '1px solid rgba(109,140,74,.22)',
               }}
             >
               <span
                 aria-hidden="true"
                 className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[11px]"
-                style={{ background: '#FFFFFF', boxShadow: '0 2px 6px -3px rgba(79,110,52,.5)' }}
+                style={{ background: '#FFFFFF', boxShadow: '0 2px 6px -3px rgba(79,110,52,.35)' }}
               >
-                <Leaf className="h-[18px] w-[18px]" strokeWidth={1.6} style={{ color: '#4E7A31' }} />
+                <Leaf className="h-[18px] w-[18px]" strokeWidth={1.6} style={{ color: '#5E7A45' }} />
               </span>
               <span className="flex flex-col gap-[2px]">
-                <span
-                  className={`${instrumentSerif.className} text-[17px] leading-none`}
-                  style={{ fontStyle: 'italic', color: '#31541E' }}
-                >
+                <span className="text-[15.5px] leading-[1.1] tracking-[-0.01em]" style={{ fontWeight: 500, color: '#3F5A2E' }}>
                   {skinTile.title}
                 </span>
-                <span className="text-[11px] leading-[1.35]" style={{ color: '#5E7A45' }}>
+                <span className="text-[11px] leading-[1.35]" style={{ color: '#6B7F5B' }}>
                   {skinTile.text}
                 </span>
               </span>
@@ -320,25 +320,22 @@ export function Problem() {
               className="flex items-center gap-[10px] rounded-[16px]"
               style={{
                 padding: '11px 12px',
-                background: 'linear-gradient(150deg, #FBDFC2 0%, #FDF3E7 100%)',
-                border: '1px solid rgba(198,140,70,.32)',
+                background: 'linear-gradient(150deg, #F0DECB 0%, #F8F0E6 100%)',
+                border: '1px solid rgba(198,140,70,.24)',
               }}
             >
               <span
                 aria-hidden="true"
                 className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[11px]"
-                style={{ background: '#FFFFFF', boxShadow: '0 2px 6px -3px rgba(166,106,45,.5)' }}
+                style={{ background: '#FFFFFF', boxShadow: '0 2px 6px -3px rgba(166,106,45,.35)' }}
               >
-                <Sun className="h-[18px] w-[18px]" strokeWidth={1.6} style={{ color: '#C07A2E' }} />
+                <Sun className="h-[18px] w-[18px]" strokeWidth={1.6} style={{ color: '#A97A4B' }} />
               </span>
               <span className="flex flex-col gap-[2px]">
-                <span
-                  className={`${instrumentSerif.className} text-[17px] leading-none`}
-                  style={{ fontStyle: 'italic', color: '#7A4718' }}
-                >
+                <span className="text-[15.5px] leading-[1.1] tracking-[-0.01em]" style={{ fontWeight: 500, color: '#6E4A28' }}>
                   {climateTile.title}
                 </span>
-                <span className="text-[11px] leading-[1.35]" style={{ color: '#9C7247' }}>
+                <span className="text-[11px] leading-[1.35]" style={{ color: '#8B6A4E' }}>
                   {climateTile.text}
                 </span>
               </span>
