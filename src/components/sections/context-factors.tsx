@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useReducedMotion } from 'framer-motion'
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
@@ -56,11 +56,20 @@ export function ContextFactors() {
   // peek at the edges are dimmed, as in the design. `null` until the observer
   // has reported, so the server render and first paint show everything lit.
   const [inView, setInView] = useState<Set<string> | null>(null)
+  // The card index the arrows are heading for while a smooth scroll is still
+  // in flight. A second tap chains from here, not from wherever the rail
+  // happens to be mid-animation — otherwise it lands between snap points and
+  // the card it meant to show stays dimmed. Cleared once the rail settles.
+  const pending = useRef<number | null>(null)
+  const settle = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const rail = railRef.current
     if (!rail) return
     const cards = Array.from(rail.querySelectorAll<HTMLElement>('[data-card]'))
+    // 0.9, not 0.95: a snapped card sits exactly on the root's content edge,
+    // and Safari reports that as fractionally short of 1.
+    const LIT = 0.9
     const io = new IntersectionObserver(
       (entries) => {
         setInView((prev) => {
@@ -68,20 +77,47 @@ export function ContextFactors() {
           for (const e of entries) {
             const id = (e.target as HTMLElement).dataset.card
             if (!id) continue
-            if (e.intersectionRatio >= 0.95) next.add(id)
+            if (e.intersectionRatio >= LIT) next.add(id)
             else next.delete(id)
           }
           return next
         })
       },
-      { root: rail, threshold: [0.95] },
+      { root: rail, threshold: [LIT] },
     )
     cards.forEach((el) => io.observe(el))
-    return () => io.disconnect()
+
+    // Any scroll — ours or a swipe — resets the pending target once it stops.
+    const onScroll = () => {
+      if (settle.current) clearTimeout(settle.current)
+      settle.current = setTimeout(() => { pending.current = null }, 160)
+    }
+    rail.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      io.disconnect()
+      rail.removeEventListener('scroll', onScroll)
+      if (settle.current) clearTimeout(settle.current)
+    }
   }, [])
 
-  const step = (dir: 1 | -1) =>
-    railRef.current?.scrollBy({ left: dir * (CARD_W + GAP), behavior: reduce ? 'auto' : 'smooth' })
+  // Arrows go to a card, not by a distance: the target is the snap position
+  // of the next or previous index, so the rail always lands on a card and the
+  // observer always lights it. The first card's snap position is scrollLeft 0
+  // (scroll-padding matches the rail's own padding), so index i sits at
+  // i × (card + gap); the browser clamps the last one to the end of the rail.
+  const step = useCallback(
+    (dir: 1 | -1) => {
+      const rail = railRef.current
+      if (!rail) return
+      const count = rail.querySelectorAll('[data-card]').length
+      const pitch = CARD_W + GAP
+      const base = pending.current ?? Math.round(rail.scrollLeft / pitch)
+      const next = Math.max(0, Math.min(count - 1, base + dir))
+      pending.current = next
+      rail.scrollTo({ left: next * pitch, behavior: reduce ? 'auto' : 'smooth' })
+    },
+    [reduce],
+  )
 
   return (
     <section id="context-factors" className="section relative overflow-hidden bg-white">
