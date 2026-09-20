@@ -140,10 +140,6 @@ export function PricingPreview() {
                   </motion.div>
                 ))}
               </div>
-              <p className="mt-5 border-t border-border-soft pt-4 text-[12.5px] leading-relaxed text-ink/60">
-                <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-ink/45">Your deliverable · </span>
-                {FACE_MAP_CORE.deliverable}
-              </p>
             </div>
           </motion.div>
 

@@ -39,8 +39,7 @@ export const FACE_MAP_CORE = {
   priceDisplay: '₹3,499',
   label: 'One-time · GST-inclusive',
   tagline: 'One plan. No tiers to decode.',
-  summary:
-    'Face Mapping Session, Expert Mapping Review, Face Map, Appearance Protocol and clarification call.',
+  summary: 'Live Face Mapping Session + Expert Review + Face Map + Appearance Protocol + Clarification call',
   // The number here is already the whole number, so say that — never promise
   // the "final" figure arrives later, which is the shape of drip pricing.
   gstNote: 'GST included. ₹3,499 is the total — nothing is added at checkout',
@@ -72,7 +71,7 @@ export const FACE_MAP_CORE = {
     'Clarification call included',
   ],
   deliverable:
-    'A personalised Face Map that explains your findings, what they mean, what deserves attention, what to do First / Next / Later — and, where useful, helps you see the recommended direction.',
+    'A personalised Face Map that explains your findings, what deserves attention, and what to do First / Next / Later — with Visual Direction where useful.',
 } as const
 
 export const FACE_MAP_ADDONS = [
@@ -95,7 +94,7 @@ export const FACE_MAP_ADDONS = [
     priceDisplay: '₹999',
     tagline: 'A clear hair direction built around your face.',
     description:
-      'Haircut, length, parting, volume and facial-hair direction built around your face, hair characteristics and maintenance preferences — with Visual Direction on you.',
+      'Haircut, length, parting, volume and facial-hair direction built around your face — with Visual Direction on you.',
   },
   {
     id: 'style_colour_map',
@@ -106,7 +105,7 @@ export const FACE_MAP_ADDONS = [
     priceDisplay: '₹999',
     tagline: 'Colours, clothing shapes and presentation that work with you.',
     description:
-      'Colour, clothing shape, occasion and detail direction that works with your appearance, lifestyle and goals — with selected Visual Direction.',
+      'Colour, clothing shape, occasion and detail direction that works with your appearance and goals — with selected Visual Direction.',
   },
 ] as const
 
