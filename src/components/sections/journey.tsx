@@ -170,7 +170,10 @@ export function Journey() {
                       <span className="flex items-baseline justify-between gap-2">
                         <span
                           className="text-[16px] leading-[1.2] tracking-[-0.01em]"
-                          style={{ fontWeight: 500, color: INK }}
+                          // Regular weight in a softened ink: six medium-weight
+                          // titles in a column read as a bold list, and the dot
+                          // already carries the emphasis.
+                          style={{ fontWeight: 400, color: 'rgba(30,53,59,.8)' }}
                         >
                           {s.title}
                         </span>
