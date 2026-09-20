@@ -187,7 +187,7 @@ export function Journey() {
                         className="text-[13px] leading-[1.4]"
                         style={{ color: on ? GREY : GHOST, textWrap: 'pretty', transition: colour === 'none' ? 'none' : `color ${colour}` }}
                       >
-                        {s.text}
+                        {s.meta}
                       </span>
                     </span>
                   </button>
