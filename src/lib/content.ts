@@ -868,38 +868,28 @@ export const ANCHOR = {
   title: 'You are already spending this.',
   muted: 'Just not once.',
   legend: 'Dots = times you pay it in a year',
-  /**
-   * Design 37: each row carries a tinted icon coin, a cadence tag saying how
-   * often the spend comes back, and twelve dots of which `times` are filled —
-   * an illustration of how much of a year it eats, not data.
-   */
+  /** Design 37 (canvas export 2026-09-20): copy verbatim; `times` fills that many of twelve dots. */
   rows: [
     {
       label: 'A dermatologist visit',
-      value: '₹500 – ₹2,000',
-      note: 'Per consultation (₹2,000–₹5,000 at metro hospitals). Skin only. The clock is short.',
-      tint: 'mist',
-      icon: 'stethoscope',
-      times: 4,
-      cadence: 'Every few months',
+      value: '₹1,000 – ₹5,000 a visit',
+      cadence: '2× a year',
+      times: 2,
+      note: 'From ₹1,000 a consultation at a clinic, more at metro hospitals. Skin only, and the clock is short.',
     },
     {
       label: 'One serum a reel told you to buy',
-      value: 'Again next month',
-      note: 'Bought without knowing if it suits you. Most of the drawer is this.',
-      tint: 'blush',
-      icon: 'flask',
+      value: '₹600 – ₹2,500 each',
+      cadence: '12× a year',
       times: 12,
-      cadence: 'Every month',
+      note: 'Bought without knowing if it suits you. Most of the drawer is this.',
     },
     {
       label: 'A haircut that does not suit your face',
-      value: 'Six weeks of it',
-      note: 'The money is the small part.',
-      tint: 'straw',
-      icon: 'scissors',
+      value: '₹600 – ₹2,000 each',
+      cadence: '8× a year',
       times: 8,
-      cadence: 'Every six weeks',
+      note: 'The money is the small part.',
     },
   ],
   plan: {
@@ -1372,11 +1362,7 @@ export const CONTEXT = {
       city: 'Delhi',
       when: 'Winter',
       feel: 'Cold · Dry · Higher pollution',
-      changes: [
-        'Barrier repair moves ahead of actives',
-        'Richer moisturisation matters more',
-        'Comfort before aggressive treatments',
-      ],
+      changes: ['Barrier repair moves ahead of actives', 'Richer moisturisation matters more', 'Comfort before aggressive treatments'],
     },
     {
       id: 'chennai',
@@ -1384,11 +1370,7 @@ export const CONTEXT = {
       city: 'Chennai',
       when: 'Humidity',
       feel: 'Warm · Sticky · High humidity',
-      changes: [
-        'Lighter textures are preferred',
-        'Oil control and breathability matter more',
-        'Heavy products can feel uncomfortable',
-      ],
+      changes: ['Lighter textures are preferred', 'Oil control and breathability matter more', 'Heavy products can feel uncomfortable'],
     },
     {
       id: 'water',
@@ -1396,11 +1378,7 @@ export const CONTEXT = {
       city: 'Hard-water city',
       when: 'Any season',
       feel: 'Mineral-heavy water',
-      changes: [
-        'Cleansing and barrier support need more care',
-        'Product performance can shift',
-        'Rinse-off products become more relevant',
-      ],
+      changes: ['Cleansing and barrier support need more care', 'Product performance can shift', 'Rinse-off products become more relevant'],
     },
   ],
   /** The anti-upsell promise, planted immediately before the price. */

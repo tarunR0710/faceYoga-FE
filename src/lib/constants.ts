@@ -125,16 +125,22 @@ export const REFUND_POLICY = {
   detailParts: REFUND_DETAIL,
   /** … and as one string (refund page). */
   detail: REFUND_DETAIL.join(' '),
-  /** Design 37: the same policy as three labelled moments, each with a coin. */
+  /** Design 37 (canvas export 2026-09-20): the policy as three labelled moments, copy verbatim. */
   moments: [
-    { when: 'Before', head: 'Full refund, no questions asked', body: REFUND_DETAIL[0], tint: 'mist', icon: 'undo' },
-    { when: 'After', head: 'The fee stands', body: REFUND_DETAIL[1], tint: 'straw', icon: 'clipboard' },
+    {
+      when: 'Before your session',
+      head: 'Full refund, no questions',
+      body: 'Cancel any time before your Face Mapping Session starts and the whole amount comes back.',
+    },
+    {
+      when: 'After your session',
+      head: 'The work has started',
+      body: 'The expert review and your report are already in progress, so the fee is no longer refundable — unless we fail to deliver the Face Map as described.',
+    },
     {
       when: 'If plans change',
       head: 'Rescheduling is free',
-      body: 'Rescheduling is free. If we cancel or miss a booked session, you can choose a new slot or take a full refund.',
-      tint: 'blush',
-      icon: 'calendar',
+      body: 'And if we ever cancel or miss a booked session, you choose a new slot or take a full refund.',
     },
   ],
   reschedule:
