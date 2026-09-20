@@ -872,13 +872,13 @@ export const ANCHOR = {
     {
       label: 'A dermatologist visit',
       value: '₹500 – ₹2,000',
-      note: 'Per consultation, and ₹2,000–₹5,000 at metro corporate hospitals. Skin only, and the clock is short.',
+      note: 'Per consultation (₹2,000–₹5,000 at metro hospitals). Skin only. The clock is short.',
       kind: 'compare',
     },
     {
       label: 'One serum a reel told you to buy',
       value: 'Again next month',
-      note: 'Bought without knowing whether it suits you. Most of the drawer is this.',
+      note: 'Bought without knowing if it suits you. Most of the drawer is this.',
       kind: 'compare',
     },
     {
@@ -890,12 +890,12 @@ export const ANCHOR = {
     {
       label: 'Complete MapMyFace Plan',
       value: '₹3,499',
-      note: 'A live 45–60 minute expert session, 400+ facial assessments read against 100+ context factors, your Face Map with Visual Direction where relevant, the Appearance Protocol and a clarification call. GST-inclusive, paid once.',
+      note: 'A live 45–60 min expert session, 400+ facial assessments, 100+ context factors, your Face Map with Visual Direction, Appearance Protocol and a clarification call. GST-inclusive. Paid once.',
       kind: 'ours',
     },
   ],
   reassurance: [
-    'We sell no products and take no commission — a named product is a recommendation, not a sale',
+    'We sell no products and take no commission',
     'One payment — no subscription, no renewals',
     'Final GST-inclusive amount shown before you pay',
   ],

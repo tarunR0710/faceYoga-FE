@@ -117,9 +117,9 @@ export const REFUND_POLICY = {
   headline: 'Full refund any time before your session begins.',
   short: 'Full refund before your session — no questions asked',
   detail:
-    'Cancel at any point before your Face Mapping Session starts and you get the whole amount back, no questions asked. Once the session has happened, the expert review and your report are already being written, so the fee is no longer refundable — except where we fail to deliver your Face Map to the scope described here, in which case the report portion is refunded.',
+    'Cancel before your Face Mapping Session starts and you get the full amount back — no questions asked. Once the session has happened, the expert review and your report are already in progress, so the fee is no longer refundable (except if we fail to deliver your Face Map as described).',
   reschedule:
-    'Rescheduling is free. If we ever cancel or miss a booked session, you choose a new slot or take a full refund.',
+    'Rescheduling is free. If we cancel or miss a booked session, you can choose a new slot or take a full refund.',
 } as const
 
 /** Payment methods actually offered, for the trust row beside the price. */
