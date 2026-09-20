@@ -599,3 +599,12 @@
   inherits: false;
   initial-value: 0;
 }
+
+/* ── Built for your context — weather cards (design 36a) ─────────────────────
+   Transform / opacity only, so each streak, drop and ripple animates on the
+   compositor. Only the focused card runs; the rest sit at `paused`. */
+@keyframes wxDrift { from { transform: translateX(-60%); } to { transform: translateX(160%); } }
+@keyframes wxFall { 0% { transform: translateY(-24px); opacity: 0; } 12% { opacity: .75; } 88% { opacity: .75; } 100% { transform: translateY(240px); opacity: 0; } }
+@keyframes wxRipple { 0% { transform: scale(.35); opacity: .45; } 100% { transform: scale(1.7); opacity: 0; } }
+@keyframes wxGlow { 0%, 100% { opacity: .5; transform: scale(1); } 50% { opacity: .85; transform: scale(1.06); } }
+@keyframes wxHaze { 0%, 100% { transform: translateX(-12px); } 50% { transform: translateX(12px); } }

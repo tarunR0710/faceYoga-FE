@@ -1343,47 +1343,56 @@ export const CONTEXT = {
   title: 'The same face,',
   muted: 'in a different city, needs a different plan.',
   lede:
-    'This is the part generic advice cannot do. A routine that works in Bengaluru fails in a Delhi winter, and the same haircut behaves differently in Chennai humidity.',
-  columns: ['Delhi winter', 'Chennai humidity', 'Hard water', 'Night shifts'],
-  rows: [
+    'This is the part generic advice cannot do. A routine that works in Bengaluru can fail in a Delhi winter, and the same products can feel completely different in Chennai humidity.',
+  /**
+   * Design 36a — one weather card per context. `weather` picks the sky and the
+   * animation (wind streaks / rain lines / drops into ripples). Card copy is a
+   * stand-in drawn from the old matrix notes until the canvas export lands.
+   */
+  cards: [
     {
-      label: 'Skin',
-      /** true where the recommendation genuinely changes. */
-      cells: [true, true, true, true],
-      notes: [
+      id: 'delhi',
+      weather: 'wind',
+      city: 'Delhi',
+      when: 'a winter evening',
+      feel: 'Cold · dry · static air',
+      changes: [
         'Barrier repair moves ahead of actives',
-        'Gel textures; anything occlusive is counter-productive',
-        'Cleanser choice changes before anything else does',
-        'Timing shifts — the routine follows your sleep, not the clock',
-      ],
-    },
-    {
-      label: 'Hair',
-      cells: [true, true, true, false],
-      notes: [
         'Static and dryness change the cut you can maintain',
-        'Volume collapses — length and layering get reconsidered',
-        'Scalp buildup changes wash frequency and product',
-        'No meaningful change',
+        'Occlusive textures come back into the routine',
       ],
     },
     {
-      label: 'Routine',
-      cells: [false, true, false, true],
-      notes: [
-        'No meaningful change',
+      id: 'chennai',
+      weather: 'rain',
+      city: 'Chennai',
+      when: 'the monsoon months',
+      feel: 'Warm · humid · hazy',
+      changes: [
+        'Gel textures; anything occlusive is counter-productive',
+        'Volume collapses — length and layering get reconsidered',
         'Fewer steps, more often, beats more steps once',
-        'No meaningful change',
-        'Rebuilt around when you are actually awake',
+      ],
+    },
+    {
+      id: 'water',
+      weather: 'drip',
+      city: 'Hard water',
+      when: 'wherever the tap is',
+      feel: 'Mineral · drying · builds up',
+      changes: [
+        'Cleanser choice changes before anything else does',
+        'Scalp buildup changes wash frequency and product',
+        'A final rinse becomes part of the routine',
       ],
     },
   ],
-  legend: ['Recommendation changes', 'No meaningful change'],
   /** The anti-upsell promise, planted immediately before the price. */
   antiUpsell: {
     title: 'We sell one thing.',
-    body:
-      'The Face Map. We do not sell skincare, we do not stock products, and we take no commission from any brand we mention. If the honest answer is that your current routine is fine, that is what your report will say.',
+    accent: 'The Face Map.',
+    lines: ['We do not sell skincare.', 'We do not stock products.', 'We take no commission from any brand we mention.'],
+    body: 'If the honest answer is that your current routine is fine, that is exactly what your report will say.',
   },
 } as const
 
@@ -1430,6 +1439,10 @@ export const PRIVACY_PATH = {
 // ═════════════════════════════════════════════════════════════════════════════
 export const CLOSE = {
   eyebrow: 'Your face deserves more than guesswork',
+  // The full line is 38 mono characters at 0.16em tracking — wider than the
+  // panel's content area on a phone, so the pill wraps or clips. Below `md`
+  // the tag shows this shorter cut instead.
+  eyebrowMobile: 'More than guesswork',
   title: 'Understand what matters. Know what suits you.',
   muted: 'Leave with a plan.',
   body:
