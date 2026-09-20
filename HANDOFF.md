@@ -16,7 +16,7 @@ than printed on the page surface.
 | 5 | How it works | `journey.tsx` | stepper + modal | How does it happen |
 | 6 | The Face Map | `face-map.tsx` | modal | What do I receive |
 | 7 | Appearance Protocol | `protocol.tsx` | — | In what order |
-| 8 | Built for your context | `context-fit.tsx` | matrix + toggle | Will it apply to ME |
+| 8 | Built for your context | `context-fit.tsx` | three weather cards, swipe/tap focus | Will it apply to ME |
 | 9 | Pricing | `pricing-preview.tsx` | modal | The money |
 | 10 | Your face stays yours | `privacy-trust.tsx` | none, deliberately | Can I trust you |
 | 11 | Questions | `faq.tsx` | rail + accordion | Anything unresolved |
@@ -189,7 +189,12 @@ not touched. From `WhatWeMap` down, the page follows the new blueprint:
   **30c** (white ground, 300px swipe rail, illustration slot per card with the
   design's ten Pexels photos in `public/context/`, question list folded behind
   the arrow row); How it works follows **31a** (one hairline, six dots, timing
-  column, auto-advance every 2.2s while in view, no cards). Site type is kept
+  column, auto-advance every 2.2s while in view, no cards); Built for your
+  context follows **36a** (three 292px weather cards — Delhi wind streaks,
+  Chennai rain through haze, hard-water drops into ripples — copy verbatim,
+  weather runs only in the focused card, the others pause mid-frame at
+  .965 scale; particle geometry is the canvas's seeded values as literals).
+  Site type is kept
   everywhere: the pill tag, Geist 300 headline with muted tail, Geist Mono
   labels — only structure, colour and spacing come from the canvas. The old
   `ui/region-accordion.tsx` is gone. Soft glows use `lib/glow.ts` (radial
