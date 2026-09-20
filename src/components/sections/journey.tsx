@@ -153,7 +153,7 @@ export function Journey() {
                       <span
                         aria-hidden="true"
                         className="relative w-px flex-1 overflow-hidden"
-                        style={{ marginTop: 6, background: HAIRLINE, opacity: last ? 0 : 1 }}
+                        style={{ marginTop: 8, background: HAIRLINE, opacity: last ? 0 : 1 }}
                       >
                         <span
                           className="absolute inset-0"
@@ -170,7 +170,7 @@ export function Journey() {
                     {/* name · who · meta */}
                     <span
                       className="flex min-w-0 flex-col"
-                      style={{ gap: 3, paddingBottom: 24 }}
+                      style={{ gap: 5, paddingBottom: 40 }}
                     >
                       <span className="flex items-baseline justify-between gap-2">
                         <span
@@ -178,9 +178,6 @@ export function Journey() {
                           style={{ fontWeight: 500, color: on ? INK : GREY, transition: colour === 'none' ? 'none' : `color ${colour}` }}
                         >
                           {s.title}
-                        </span>
-                        <span className="whitespace-nowrap text-[11px]" style={{ color: GHOST }}>
-                          {s.who}
                         </span>
                       </span>
                       <span
