@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { Instrument_Serif } from 'next/font/google'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Check, ArrowRight, Plus, Scissors, Palette, Zap } from 'lucide-react'
 import {
@@ -17,6 +18,18 @@ import { SectionHeading } from '@/components/ui/section-heading'
 import { CountUp } from '@/components/ui/count-up'
 import { DetailSheet } from '@/components/ui/detail-sheet'
 import { ADDON_DETAIL, ANCHOR } from '@/lib/content'
+
+// The one soft line in this section — the serif italic the site already uses
+// for its single quiet sentence elsewhere (see plan.tsx, problem.tsx).
+const serif = Instrument_Serif({ subsets: ['latin'], weight: '400', style: ['italic'] })
+
+// Design 33/34 colour budget: ink, two greys and hairlines. Teal is spent once,
+// on the Start My Plan button above.
+const INK = '#1E353B'
+const NOTE = '#5C7278'
+const LABEL = '#7E959B'
+const GHOST = '#98A6AB'
+const HAIRLINE = 'rgba(30,53,59,.1)'
 
 const addonIcons: Record<AddOnId, typeof Scissors> = {
   priority_delivery: Zap,
@@ -196,23 +209,25 @@ export function PricingPreview() {
                     type="button"
                     onClick={() => toggle(addon.id)}
                     aria-pressed={on}
-                    className={`mt-3 inline-flex h-10 items-center justify-center gap-1.5 rounded-full text-[13px] font-medium transition-colors duration-200 ${
-                      on
-                        ? 'bg-brand text-white hover:bg-brand-ink'
-                        : 'border border-border bg-white text-ink hover:bg-mist'
-                    }`}
+                    className="mt-3 flex h-10 flex-none items-center gap-2.5 self-end rounded-full border bg-white text-[13.5px] transition-[border-color,background-color] duration-200 hover:bg-[#F6F8F9] active:translate-y-px"
+                    style={{ padding: '0 5px 0 14px', borderColor: on ? INK : 'rgba(30,53,59,.2)', color: INK, fontWeight: 500 }}
                   >
-                    {on ? (
-                      <>
-                        <Check className="h-3.5 w-3.5" strokeWidth={2.5} />
-                        Added
-                      </>
-                    ) : (
-                      <>
-                        <Plus className="h-3.5 w-3.5" strokeWidth={2.5} />
-                        Add {addon.name === 'Style & Colour Map' ? 'Style Map' : addon.name}
-                      </>
-                    )}
+                    <span className="flex items-center gap-1.5">
+                      {on ? <Check className="h-[13px] w-[13px]" strokeWidth={2} /> : <Plus className="h-[13px] w-[13px]" strokeWidth={2} />}
+                      {on ? 'Added' : 'Add'}
+                    </span>
+                    <span
+                      className="rounded-full border font-mono text-[12.5px] tabular-nums transition-[background-color,color,border-color] duration-200"
+                      style={{
+                        padding: '6px 10px',
+                        fontWeight: 500,
+                        background: on ? INK : '#F6F8F9',
+                        color: on ? '#FFFFFF' : INK,
+                        borderColor: on ? INK : 'rgba(30,53,59,.12)',
+                      }}
+                    >
+                      +{addon.priceDisplay}
+                    </span>
                   </button>
                 </motion.div>
               )
@@ -305,75 +320,76 @@ export function PricingPreview() {
           </div>
         </motion.div>
 
-        {/* ── What it costs, against what it replaces ────────────────────── */}
+        {/* ── What it costs · If you change your mind (design 34) ───────────
+            Two hairline cards, stacked on mobile (34b), 1.2fr / 1fr on desktop
+            (34a). Left is a ledger: name, mono price, one-line note per row,
+            the plan row on a faint ink tint, the bottom line in the serif.
+            Right is prose, then a hairline before the three reassurance lines.
+            No colour beyond ink and grey — the CTA above already spent the teal. */}
         <motion.div
           initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
           transition={{ ...REVEAL, delay: 0.08 }}
-          className="mt-4 grid grid-cols-1 gap-4 lg:mt-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-6"
+          className="mt-4 grid grid-cols-1 gap-4 lg:mt-6 lg:grid-cols-[1.2fr_1fr] lg:gap-7"
         >
-          <div className="rounded-[24px] border border-border-soft bg-mist p-6 md:p-7">
-            <p className="mb-5 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/45">
+          <div
+            className="flex flex-col gap-3.5 rounded-[22px] border px-5 py-[22px] lg:gap-[18px] lg:rounded-[24px] lg:px-[30px] lg:pb-[26px] lg:pt-7"
+            style={{ borderColor: HAIRLINE }}
+          >
+            <p className="font-mono text-[10px] uppercase tracking-[0.1em] lg:text-[10.5px]" style={{ color: LABEL }}>
               {ANCHOR.eyebrow}
             </p>
-            <ul className="space-y-0">
+            <ul className="flex flex-col">
               {ANCHOR.rows.map((row) => {
                 const ours = row.kind === 'ours'
                 return (
                   <li
                     key={row.label}
-                    className={`border-t border-ink/[0.08] py-3 ${ours ? 'mt-1 border-t-2 border-t-brand/40' : ''}`}
+                    className="-mx-3 grid grid-cols-[1fr_auto] gap-x-3 gap-y-1 rounded-[14px] px-3 py-3.5 lg:-mx-3.5 lg:gap-x-6 lg:px-3.5 lg:py-4"
+                    style={{ background: ours ? 'rgba(30,53,59,.04)' : 'transparent', borderBottom: '1px solid rgba(30,53,59,.07)' }}
                   >
-                    <div className="flex items-baseline justify-between gap-4">
-                      <span
-                        className={`text-[13.5px] ${ours ? 'text-ink' : 'text-ink/55'}`}
-                        style={ours ? { fontWeight: 500 } : undefined}
-                      >
-                        {row.label}
-                      </span>
-                      <span
-                        className={`shrink-0 text-[13px] tabular-nums ${
-                          ours ? 'text-ink' : 'text-ink/45'
-                        }`}
-                        style={ours ? { fontWeight: 500 } : undefined}
-                      >
-                        {row.value}
-                      </span>
-                    </div>
-                    <p className="mt-1 max-w-md text-[12px] leading-relaxed text-ink/45">
+                    <span className="text-[14.5px] tracking-[-0.01em] lg:text-[16px]" style={{ color: INK, fontWeight: ours ? 500 : 400 }}>
+                      {row.label}
+                    </span>
+                    <span className="whitespace-nowrap text-right font-mono text-[12px] tabular-nums lg:text-[13.5px]" style={{ color: INK }}>
+                      {row.value}
+                    </span>
+                    <span className="col-span-2 max-w-[520px] text-[12.5px] leading-[1.5] lg:text-[13.5px]" style={{ color: NOTE, textWrap: 'pretty' }}>
                       {row.note}
-                    </p>
+                    </span>
                   </li>
                 )
               })}
             </ul>
-            <p className="mt-5 border-t border-ink/[0.08] pt-4 text-[13px] text-ink/70">
+            <p className={`${serif.className} mt-auto text-[18px] italic leading-[1.3] lg:text-[20px]`} style={{ color: INK }}>
               {ANCHOR.recurrence}
             </p>
           </div>
 
-          <div className="rounded-[24px] border border-border-soft bg-white p-6 md:p-7">
-            <p className="mb-5 font-mono text-[9.5px] uppercase tracking-[0.2em] text-brand/80">
+          <div
+            className="flex flex-col gap-3 rounded-[22px] border px-5 py-[22px] lg:gap-4 lg:rounded-[24px] lg:px-[30px] lg:pb-[26px] lg:pt-7"
+            style={{ borderColor: HAIRLINE }}
+          >
+            <p className="font-mono text-[10px] uppercase tracking-[0.1em] lg:text-[10.5px]" style={{ color: LABEL }}>
               If you change your mind
             </p>
-            <h3
-              className="text-[1.05rem] leading-snug tracking-[-0.01em] text-ink md:text-[1.2rem]"
-              style={{ fontWeight: 400 }}
-            >
+            <h3 className="text-[20px] leading-[1.2] tracking-[-0.02em] lg:text-[24px]" style={{ color: INK, fontWeight: 400, textWrap: 'pretty' }}>
               {REFUND_POLICY.headline}
             </h3>
-            <p className="mt-3 text-[13px] leading-relaxed text-ink-muted">
-              {REFUND_POLICY.detail}
-            </p>
-            <p className="mt-3.5 border-t border-border-soft pt-3.5 text-[12.5px] leading-relaxed text-ink/55">
+            {REFUND_POLICY.detailParts.map((para) => (
+              <p key={para} className="text-[13.5px] leading-[1.55] lg:text-[14px] lg:leading-[1.6]" style={{ color: NOTE, textWrap: 'pretty' }}>
+                {para}
+              </p>
+            ))}
+            <p className="text-[13.5px] leading-[1.55] lg:text-[14px] lg:leading-[1.6]" style={{ color: NOTE, textWrap: 'pretty' }}>
               {REFUND_POLICY.reschedule}
             </p>
-            <ul className="mt-4 space-y-1.5">
+            <ul className="mt-auto flex flex-col gap-2 border-t pt-3.5 lg:pt-[18px]" style={{ borderColor: 'rgba(30,53,59,.08)' }}>
               {ANCHOR.reassurance.map((r) => (
-                <li key={r} className="flex items-baseline gap-2.5">
-                  <span aria-hidden="true" className="mt-[8px] h-px w-2.5 shrink-0 bg-brand/60" />
-                  <span className="text-[12.5px] leading-snug text-ink/65">{r}</span>
+                <li key={r} className="flex gap-2.5 text-[13px] leading-[1.45] lg:text-[13.5px]" style={{ color: INK }}>
+                  <span aria-hidden="true" style={{ color: GHOST }}>—</span>
+                  <span>{r}</span>
                 </li>
               ))}
             </ul>

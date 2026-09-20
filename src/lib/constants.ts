@@ -113,11 +113,18 @@ export const FACE_MAP_ADDONS = [
  * The refund terms, in ONE place. Founder decision: session-contingent.
  * Anything that shows refund terms to a customer must read them from here.
  */
+const REFUND_DETAIL = [
+  'Cancel before your Face Mapping Session starts and you get the full amount back — no questions asked.',
+  'Once the session has happened, the expert review and your report are already in progress, so the fee is no longer refundable (except if we fail to deliver your Face Map as described).',
+] as const
+
 export const REFUND_POLICY = {
   headline: 'Full refund any time before your session begins.',
   short: 'Full refund before your session — no questions asked',
-  detail:
-    'Cancel before your Face Mapping Session starts and you get the full amount back — no questions asked. Once the session has happened, the expert review and your report are already in progress, so the fee is no longer refundable (except if we fail to deliver your Face Map as described).',
+  /** The policy as two paragraphs (pricing card) … */
+  detailParts: REFUND_DETAIL,
+  /** … and as one string (refund page). */
+  detail: REFUND_DETAIL.join(' '),
   reschedule:
     'Rescheduling is free. If we cancel or miss a booked session, you can choose a new slot or take a full refund.',
 } as const
