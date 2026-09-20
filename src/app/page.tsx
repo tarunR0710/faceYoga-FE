@@ -20,6 +20,7 @@ import { FaceMapSection } from '@/components/sections/face-map'
 import { Protocol } from '@/components/sections/protocol'
 import { ContextFit } from '@/components/sections/context-fit'
 import { PricingPreview } from '@/components/sections/pricing-preview'
+import { Money } from '@/components/sections/money'
 import { PrivacyTrust } from '@/components/sections/privacy-trust'
 import { FAQ } from '@/components/sections/faq'
 import { CTA } from '@/components/sections/cta'
@@ -75,6 +76,7 @@ export default function HomePage() {
         <ContextFit />
         <Experiences />
         <PricingPreview />
+        <Money />
         <PrivacyTrust />
         <FAQ />
         <CTA />
