@@ -48,6 +48,31 @@ export function Protocol() {
           </p>
         </motion.div>
 
+        {/* The six chips, each with the blueprint's one-word meaning. Start and
+            Stop get their definitions here — the schedule diagram below can only
+            draw them as glyphs. */}
+        <motion.ul
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEWPORT}
+          transition={REVEAL}
+          className="mx-auto mb-12 grid max-w-4xl grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-6"
+        >
+          {PROTOCOL.chips.map((c) => (
+            <li
+              key={c.label}
+              className="flex flex-col gap-1 rounded-[14px] border bg-white px-3.5 py-3"
+              style={{ borderColor: 'rgba(61,107,118,.14)' }}
+            >
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink" style={{ fontWeight: 600 }}>
+                {c.label}
+              </span>
+              <span className="text-[12.5px] italic text-brand">{c.meaning}</span>
+              <span className="mt-1 text-[12px] leading-snug text-ink-muted">{c.text}</span>
+            </li>
+          ))}
+        </motion.ul>
+
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center lg:gap-16">
           <motion.div
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: 22 }}

@@ -85,7 +85,7 @@ export function PrivacyTrust() {
         <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-16">
           <div>
             <p className="mb-5 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/45">
-              Who sees your photographs
+              Who sees your session and images
             </p>
             <ul className="border-t border-ink/12">
               {PRIVACY_PATH.access.map((a, i) => (
@@ -118,7 +118,7 @@ export function PrivacyTrust() {
 
           <div>
             <p className="mb-5 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/45">
-              What we will never do
+              What you can hold us to
             </p>
             <ul className="space-y-3">
               {PRIVACY_PATH.covenant.map((c, i) => (

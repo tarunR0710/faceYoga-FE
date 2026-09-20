@@ -3,11 +3,10 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { Check, ArrowRight, Plus, Scissors, Palette, Sparkles } from 'lucide-react'
+import { Check, ArrowRight, Plus, Scissors, Palette, Zap } from 'lucide-react'
 import {
   FACE_MAP_CORE,
   FACE_MAP_ADDONS,
-  ADDON_BUNDLE,
   REFUND_POLICY,
   PAYMENT_METHODS,
   computeOrderTotal,
@@ -20,6 +19,7 @@ import { DetailSheet } from '@/components/ui/detail-sheet'
 import { ADDON_DETAIL, ANCHOR } from '@/lib/content'
 
 const addonIcons: Record<AddOnId, typeof Scissors> = {
+  priority_delivery: Zap,
   hair_map: Scissors,
   style_colour_map: Palette,
 }
@@ -38,8 +38,7 @@ export function PricingPreview() {
 
   // Priced in one place (lib/constants) so this card and the payment page can
   // never disagree about what the order costs.
-  const { addons, total } = computeOrderTotal(selected)
-  const both = addons.bundled
+  const { total } = computeOrderTotal(selected)
 
   // Carries the chosen Maps into the funnel: /form reads `addons` and hands it
   // to /payment via checkoutData, where the same helper re-prices the order.
@@ -51,9 +50,9 @@ export function PricingPreview() {
         <SectionHeading
           eyebrow="Pricing"
           align="center"
-          title="Choose how complete"
-          muted="you want your Map to be."
-          lede="One clear main plan. Add specialist Maps when you want them — no competing packages to decode."
+          title="One plan."
+          muted="No tiers to decode."
+          lede="From onboarding to clarification, everything essential to the core Face Map experience is included. Priority Delivery, a Hair Map or a Style & Colour Map are optional — add them only if you want them."
         />
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-6">
@@ -63,7 +62,7 @@ export function PricingPreview() {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={VIEWPORT}
             transition={REVEAL}
-            className="rounded-[24px] border border-border-soft bg-white shadow-lg shadow-[rgba(56,189,248,0.12)]"
+            className="rounded-[24px] border border-border-soft bg-white shadow-lg shadow-[rgba(56,189,248,0.12)] lg:self-start"
           >
             <div className="p-3 md:p-4">
               <div
@@ -102,38 +101,19 @@ export function PricingPreview() {
                   >
                     {FACE_MAP_CORE.name}
                   </h3>
-                  <div className="mt-3 flex items-baseline gap-2.5">
-                    {/* The regular price, struck through in place — not a
-                        count-up from zero (reads as the price climbing, not
-                        dropping). The line draws across it, then the founding
-                        price settles in beside it: a price getting CUT, not
-                        one getting totted up. */}
-                    <motion.span
-                      initial={reduce ? { opacity: 1 } : { opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={VIEWPORT_TIGHT}
-                      transition={{ duration: 0.4, ease: EASE_OUT }}
-                      className="relative text-[1.15rem] text-ink/40 tabular-nums md:text-[1.35rem]"
-                    >
-                      {FACE_MAP_CORE.originalPriceDisplay}
-                      <motion.span
-                        aria-hidden="true"
-                        initial={reduce ? { scaleX: 1 } : { scaleX: 0 }}
-                        whileInView={{ scaleX: 1 }}
-                        viewport={VIEWPORT_TIGHT}
-                        transition={{ duration: 0.35, delay: 0.25, ease: EASE_OUT }}
-                        className="absolute inset-x-0 top-1/2 h-[1.5px] origin-left bg-ink/45"
-                      />
-                    </motion.span>
+                  <div className="mt-3 flex items-baseline gap-3">
                     <motion.span
                       initial={reduce ? { opacity: 1 } : { opacity: 0, y: 6 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={VIEWPORT_TIGHT}
-                      transition={{ duration: 0.45, delay: 0.55, ease: EASE_OUT }}
+                      transition={{ duration: 0.45, ease: EASE_OUT }}
                       className="text-[2.5rem] tracking-[-0.02em] text-ink tabular-nums md:text-[2.9rem]"
                     >
                       {FACE_MAP_CORE.priceDisplay}
                     </motion.span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/55">
+                      one-time · GST-inclusive
+                    </span>
                   </div>
                   <p className="mt-2 max-w-md text-[13px] leading-relaxed text-ink/70">
                     {FACE_MAP_CORE.summary}
@@ -160,11 +140,15 @@ export function PricingPreview() {
                   </motion.div>
                 ))}
               </div>
+              <p className="mt-5 border-t border-border-soft pt-4 text-[12.5px] leading-relaxed text-ink/60">
+                <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-ink/45">Your deliverable · </span>
+                {FACE_MAP_CORE.deliverable}
+              </p>
             </div>
           </motion.div>
 
           {/* ── Add-ons ──────────────────────────────────────────────────── */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-1">
             {FACE_MAP_ADDONS.map((addon, i) => {
               const Icon = addonIcons[addon.id]
               const on = selected.includes(addon.id)
@@ -186,7 +170,7 @@ export function PricingPreview() {
                       <Icon className="h-4 w-4" strokeWidth={1.6} />
                     </span>
                     <span className="text-[9.5px] font-medium uppercase tracking-[0.16em] text-ink-muted">
-                      Add-on
+                      {addon.kind === 'delivery' ? 'Optional' : 'Optional specialist Map'}
                     </span>
                     <span
                       className="ml-auto text-[15px] tabular-nums text-ink"
@@ -275,24 +259,6 @@ export function PricingPreview() {
                     </motion.div>
                   ))}
 
-                  {both && (
-                    <motion.div
-                      key="bundle"
-                      initial={reduce ? { opacity: 0 } : { opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={reduce ? { opacity: 0 } : { opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3, ease: EASE_OUT }}
-                      className="flex items-baseline justify-between gap-4 overflow-hidden text-[13.5px]"
-                    >
-                      <dt className="flex items-center gap-1.5 text-brand-ink">
-                        <Sparkles className="h-3.5 w-3.5" strokeWidth={1.8} />
-                        Both Maps bundle
-                      </dt>
-                      <dd className="tabular-nums text-brand-ink">
-                        −{ADDON_BUNDLE.savingDisplay}
-                      </dd>
-                    </motion.div>
-                  )}
                 </AnimatePresence>
 
                 <div className="flex items-baseline justify-between gap-4 border-t border-border pt-3">
@@ -315,23 +281,6 @@ export function PricingPreview() {
             </div>
 
             <div className="flex flex-col items-stretch gap-3 md:w-[260px]">
-              {!both && (
-                <motion.button
-                  type="button"
-                  onClick={() => setSelected(FACE_MAP_ADDONS.map((a) => a.id))}
-                  whileTap={reduce ? undefined : { scale: 0.98 }}
-                  transition={TAP_SPRING}
-                  className="rounded-[14px] border border-brand/30 bg-brand-soft/40 px-4 py-3 text-left transition-colors duration-200 hover:bg-brand-soft/70"
-                >
-                  <p className="text-[12.5px] text-ink" style={{ fontWeight: 500 }}>
-                    Add both Maps for {ADDON_BUNDLE.priceDisplay}
-                  </p>
-                  <p className="mt-0.5 text-[11px] text-ink-muted">
-                    {ADDON_BUNDLE.label} · save {ADDON_BUNDLE.savingDisplay}
-                  </p>
-                </motion.button>
-              )}
-
               <Link href={startHref} className="btn-primary group w-full">
                 Start My Plan
                 <ArrowRight

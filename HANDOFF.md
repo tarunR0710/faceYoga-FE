@@ -159,3 +159,40 @@ than printed on the page surface.
   Cloudflare R2 (see commit history); the rest of `public/` — transformations,
   problem-section photos, full-picture images, logo mark — has not. Move these
   to R2 in the next phase, same as the video, for the CDN/caching benefit.
+
+## Phase 2 — "Final 8-Figure Website Blueprint" (t 22.pdf), 2026-09-05
+
+Everything from Hero through Facial Expertise is **frozen** (founder call) and was
+not touched. From `WhatWeMap` down, the page follows the new blueprint:
+
+- Offer: **₹3,499 one-time, GST-inclusive**, no anchor price, no bundle. Add-ons
+  **Priority Delivery +₹500** (24–48h target after the completed session and
+  required inputs), **Hair Map +₹999**, **Style & Colour Map +₹999**. Timings live
+  in `TIMINGS` in `src/lib/constants.ts`: onboarding within ~30 min during service
+  hours, session normally within 7 days, 45–60 min, delivery up to 7 days,
+  clarification as a short call / video call.
+- **BLOCKING: the backend must carry the same prices** for `complete_face_map`,
+  `priority_delivery`, `hair_map` and `style_colour_map`. `/payment` aborts with a
+  "Price mismatch" error whenever the API's amount differs from the quote.
+- New sections: `what-we-map.tsx` (400+ assessments, 8 regions),
+  `context-factors.tsx` (100+ factors, 10 groups); `visual-direction.tsx`;
+  `guidance.tsx`; `experiences.tsx` (renders nothing until `EXPERIENCES.stories`
+  holds a real, consented story — then add `Results` to `NAV_LINKS`).
+- Rewritten: Journey (6 steps, 18-question modal removed in favour of the
+  context section), Face Map (13 sections, five questions, Visual Direction
+  spread), Protocol (six chips), Believe (new role set + philosophy tab),
+  Privacy, FAQ (all 13 blueprint questions), CTA, footer, and the success /
+  terms / privacy / form pages. Old face-yoga-course copy is gone.
+- Design directions (Claude Design canvas "Face Yoga - Random Advice",
+  2026-09-20): What We Map follows option **28a** (flat ledger, one quiet tint
+  per region, chips at 33% when open, no stat card); Context Factors follows
+  **30c** (white ground, 300px swipe rail, illustration slot per card with the
+  design's ten Pexels photos in `public/context/`, question list folded behind
+  the arrow row); How it works follows **31a** (one hairline, six dots, timing
+  column, auto-advance every 2.2s while in view, no cards). Site type is kept
+  everywhere: the pill tag, Geist 300 headline with muted tail, Geist Mono
+  labels — only structure, colour and spacing come from the canvas. The old
+  `ui/region-accordion.tsx` is gone. Soft glows use `lib/glow.ts` (radial
+  gradients, never `filter: blur`) — see the iPhone notes in `journey.tsx`.
+- Still needs the founder: expert names + credentials, the missed-session
+  (no-show) policy, retention period + grievance officer, a real customer story.

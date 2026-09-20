@@ -58,7 +58,7 @@ function CardShell({ visual, title, text }: { visual: React.ReactNode; title: st
         <h3 className="text-[19px] leading-[1.15] tracking-[-0.02em] text-ink" style={{ fontWeight: 300 }}>
           {title}
         </h3>
-        <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.5, color: '#5C7278' }}>{text}</p>
+        <p className="m-0 text-[14px] leading-[1.5] text-ink-muted">{text}</p>
       </div>
     </div>
   )

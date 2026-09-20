@@ -460,19 +460,18 @@ export const FACE_MAP = {
 // ── The Appearance Protocol ──────────────────────────────────────────────────
 export const PROTOCOL = {
   eyebrow: 'Your Appearance Protocol',
-  title: 'Know exactly',
-  muted: 'what to do next.',
+  title: 'A plan you can',
+  muted: 'actually follow.',
   lede:
-    'Analysis is only useful when it leads to action. Your Appearance Protocol sorts every recommendation by priority, so you are not trying to change eleven things at once and giving up by week three.',
-  decide: [
-    { label: 'Start', text: 'New actions and routines recommended for you.' },
-    { label: 'Stop', text: 'Habits, products or approaches that are not supporting your goals.' },
-    { label: 'Continue', text: 'The things already working — worth protecting, not replacing.' },
-  ],
-  order: [
-    { label: 'First', text: 'The highest-priority changes. Foundation before anything else.' },
-    { label: 'Next', text: 'What to introduce once the foundation is actually holding.' },
-    { label: 'Later', text: 'Optional and lower-priority improvements, kept honestly optional.' },
+    'Every recommendation is sorted by what to start, stop or keep — and by what deserves attention now versus later. Analysis is only useful when it leads to action.',
+  /** The six chips, with the one-word meaning the blueprint gives each. */
+  chips: [
+    { label: 'Start', meaning: 'introduce', text: 'New actions and routines recommended for you.' },
+    { label: 'Stop', meaning: 'remove', text: 'Habits, products or approaches that are not supporting your goals.' },
+    { label: 'Continue', meaning: 'keep', text: 'The things already working — protected, not replaced.' },
+    { label: 'First', meaning: 'priority', text: 'The highest-priority changes. Foundation before anything else.' },
+    { label: 'Next', meaning: 'after foundation', text: 'What to introduce once the foundation is actually holding.' },
+    { label: 'Later', meaning: 'optional', text: 'Optional and lower-priority improvements, kept honestly optional.' },
   ],
   quote: 'A better plan is not the longest plan. It is the clearest one.',
 } as const
@@ -598,38 +597,51 @@ export const ADDON_DETAIL = {
   title: 'Complete your Map',
   muted: 'when you want the rest of the picture.',
   lede:
-    'The Complete MapMyFace Plan stands on its own. These two specialist Maps go further, and are reviewed alongside the same case — not sold as separate services.',
+    'The Complete MapMyFace Plan stands on its own. Priority Delivery, the Hair Map and the Style & Colour Map are optional, and the two specialist Maps are reviewed alongside the same case — not sold as separate services.',
   items: [
+    {
+      id: 'priority_delivery',
+      name: 'Priority Delivery',
+      price: '+₹500',
+      tagline: 'Need it sooner?',
+      text:
+        'Move your Face Map to a 24–48 hour target after your completed Face Mapping Session and required inputs. Same Face Map, same expert review — only the queue changes.',
+      includes: [
+        '24–48 hour delivery target',
+        'Clock starts after the session and any required inputs are complete',
+        'Same Face Map and Expert Mapping Review, delivered sooner',
+      ],
+    },
     {
       id: 'hair_map',
       name: 'Hair Map',
-      price: '+₹699',
-      tagline: 'Discover the hair direction designed around your face.',
+      price: '+₹999',
+      tagline: 'A clear hair direction built around your face.',
       text:
-        'Personalised haircut, hairstyle and facial-hair direction, based on your facial structure, proportions, hair characteristics, lifestyle and how much maintenance you actually want.',
+        'A clear haircut, length, parting, volume and facial-hair direction built around your face, hair characteristics and maintenance preferences — with Visual Direction on you.',
       includes: [
-        'Suitable haircut structures',
-        'Recommended hair length',
-        'Parting, volume and shape',
-        'Hairstyle references',
-        'Styles to consider and avoid',
-        'Facial-hair direction where relevant',
+        'Haircut structure',
+        'Length',
+        'Parting',
+        'Volume',
+        'Style direction',
+        'Facial hair',
+        'Visual Direction on you',
       ],
     },
     {
       id: 'style_colour_map',
       name: 'Style & Colour Map',
-      price: '+₹699',
-      tagline: 'Understand the colours and styles that work with you.',
+      price: '+₹999',
+      tagline: 'Colours, clothing shapes and presentation that work with you.',
       text:
-        'Personalised clothing, colour and presentation guidance based on your appearance, your lifestyle and where you actually need to show up.',
+        'Colours, clothing shapes and presentation direction that work with your appearance, lifestyle and goals — with selected visual examples so you can see the recommended presentation direction on you.',
       includes: [
-        'Suitable colour direction',
-        'Clothing silhouettes and necklines',
-        'Casual and professional styling',
-        'Accessories and presentation',
-        'Occasion-based direction',
-        'Styles to consider and avoid',
+        'Colour — direction and combinations that support your overall presentation',
+        'Clothing shape — silhouettes, necklines and proportions to consider',
+        'Occasion — casual, professional and event-based presentation where useful',
+        'Details — accessories, styling choices and styles to consider or avoid',
+        'Visual Direction — selected visual examples on you',
       ],
     },
   ],
@@ -853,11 +865,8 @@ export const EVIDENCE = {
 // qualitative comparison, deliberately unquantified.
 export const ANCHOR = {
   eyebrow: 'What it costs',
-  title: 'One fee. No products to buy from us.',
+  title: 'One fee. One plan.',
   muted: 'Nothing recurring.',
-  // The argument is RECURRENCE, not "cheaper than the alternatives" — someone
-  // who has already wasted more than ₹2,699 on a salon package has heard the
-  // cheaper-than line before, from the thing that wasted it.
   recurrence: 'Everything above repeats. This does not.',
   rows: [
     {
@@ -880,13 +889,13 @@ export const ANCHOR = {
     },
     {
       label: 'Complete MapMyFace Plan',
-      value: '₹2,699',
-      note: 'Live expert session, multidisciplinary review, your full Face Map, prioritised protocol, and clarification support afterwards. GST-inclusive, paid once.',
+      value: '₹3,499',
+      note: 'A live 45–60 minute expert session, 400+ facial assessments read against 100+ context factors, your Face Map with Visual Direction where relevant, the Appearance Protocol and a clarification call. GST-inclusive, paid once.',
       kind: 'ours',
     },
   ],
   reassurance: [
-    'We do not sell products, so we have nothing to push',
+    'We sell no products and take no commission — a named product is a recommendation, not a sale',
     'One payment — no subscription, no renewals',
     'Final GST-inclusive amount shown before you pay',
   ],
@@ -924,31 +933,39 @@ export const PROOF = {
 // answering the same buyer question: why should I believe you.
 // ═════════════════════════════════════════════════════════════════════════════
 export const BELIEVE = {
-  eyebrow: 'Personalized Plan',
-  title: 'Specialists study your face, skin and lifestyle —',
-  muted: 'then shape every recommendation.',
+  eyebrow: 'The people behind your Map',
+  title: 'Credentials you can see.',
+  muted: 'Roles you can understand.',
   tabs: [
     { id: 'people', label: 'The people' },
+    { id: 'philosophy', label: 'The philosophy' },
     { id: 'method', label: 'The method' },
     { id: 'evidence', label: 'The evidence' },
   ],
   people: {
-    // States what the panel DOES. The previous version explained why there are
-    // no photographs ("the panel is still being finalised"), which told a
-    // prospective buyer the team was not hired — a fact they would never have
-    // inferred on their own. Not fabricating credentials is the rule; narrating
-    // the gap is not required by it.
     lede:
-      'Your case is not read by one person. Four areas of expertise review it together, then agree on a single direction — so what reaches you is one plan, not four opinions to reconcile yourself.',
-    /** TODO(founder): replace with approved names, credentials and photographs. */
+      'Your Face Mapping Session is led by a MapMyFace expert. Relevant specialist input is added where your plan requires it, and every public profile shows exactly who is contributing and why.',
+    /** TODO(founder): add approved names, qualifications, experience and photographs. Roles only until then. */
     roles: [
-      { mono: 'MS', role: 'Medical & Skin', text: 'Skin context, safety boundaries and appropriate review.' },
-      { mono: 'FA', role: 'Facial Analysis', text: 'Structure, relationships, balance and evidence-informed reading.' },
-      { mono: 'FY', role: 'Face Yoga', text: 'Movement chosen around your features and what you can keep up.' },
-      { mono: 'HS', role: 'Hair & Style', text: 'Reviewed when you have added a Hair Map or Style & Colour Map.' },
+      { mono: 'LE', role: 'Lead Appearance Expert', text: 'Leads the session, connects the findings and owns the final personal direction.' },
+      { mono: 'SC', role: 'Skin & Appearance Context', text: 'Reviews relevant skin, routine and appearance context within MapMyFace’s professional boundaries.' },
+      { mono: 'FA', role: 'Facial Analysis & Research', text: 'Supports structured facial assessment, feature relationships and evidence-informed interpretation.' },
+      { mono: 'MS', role: 'Movement / Specialist Input', text: 'Contributes relevant face-yoga or specialist review when it belongs in your plan.' },
     ],
     closing:
       'Every recommendation has to work with the others, because they all land on the same person.',
+  },
+  philosophy: {
+    eyebrow: 'The MapMyFace philosophy',
+    title: 'We measure to understand. Not to rank.',
+    lede:
+      'You are not a beauty score. A difference is not automatically a problem. And not everything we can measure needs to be changed.',
+    principles: [
+      ['Measure what is useful.', 'Use structure, proportions, surface and relationships to understand the face — not to manufacture flaws.'],
+      ['Understand the person.', 'Context changes which recommendations are sensible, realistic and worth making.'],
+      ['Recommend with priority.', 'The goal is not the longest list. It is the clearest route to the outcome you care about.'],
+    ],
+    mantra: ['Understand.', 'Interpret.', 'Prioritise.', 'Visualise.', 'Act.'],
   },
   method: {
     lede:
@@ -1070,75 +1087,90 @@ export const FACIAL_EXPERTISE = {
 // ═════════════════════════════════════════════════════════════════════════════
 export const JOURNEY = {
   eyebrow: 'How it works',
-  title: 'A real conversation,',
-  muted: 'then a coordinated review.',
+  title: 'From booking',
+  muted: 'to your Face Map.',
   denial:
-    'No automated score. No app scanning your selfie. A person looks at your face and talks to you about it.',
+    'No automated score. A real expert, a real conversation of 45–60 minutes, and a Face Map built after it — not generated during it.',
   nodes: [
     {
       id: 'book',
-      when: 'Day 0',
-      title: 'Book and get contacted',
+      timing: 'Today',
+      who: 'You',
+      when: 'Step 01',
+      title: 'Book',
       kind: 'admin',
-      text: 'Pay, see exactly what happens next, then a MapMyFace team member calls to walk you through it and help you pick a slot.',
+      text: 'Choose the Complete MapMyFace Plan and any add-ons. The GST-inclusive total is shown before you pay.',
       detail: [
+        'Priority Delivery, Hair Map and Style & Colour Map are offered on the next step',
         'Confirmation on screen immediately after checkout',
+      ],
+    },
+    {
+      id: 'onboarding',
+      timing: '+30 min',
+      who: 'Our team',
+      when: 'Within ~30 minutes',
+      title: 'Onboarding',
+      kind: 'admin',
+      text: 'Typically within 30 minutes during service hours, a MapMyFace team member explains the process, the consultation platform, preparation and next steps.',
+      detail: [
         'A person contacts you — you are not left with an email receipt',
-        'You choose the earliest session slot that suits you',
+        'Keep your current products handy for the session — we will ask what you actually use',
       ],
     },
     {
       id: 'session',
-      when: 'Your slot',
-      title: 'Face Mapping Session',
+      timing: '≤ 7 days',
+      who: 'Your expert',
+      when: 'Normally within 7 days',
+      title: 'Meet your expert',
       kind: 'human',
-      text: 'A private video consultation. An expert speaks with you, observes your face and skin, and understands the reasons behind your concerns.',
-      quote: 'We do not analyse only your photographs. We understand the person behind them.',
+      text: 'A private live video session of 45–60 minutes. Your expert sees how your face presents, hears what you have tried, and asks the questions a form cannot.',
+      quote: 'A structured conversation, with room to go deeper.',
       detail: [
-        'Private one-to-one video call, not a group session',
-        'Structured conversation, with room to go deeper where your case needs it',
-        'Keep your current products handy — we will ask what you actually use',
+        'Scheduled according to availability, normally within 7 days',
+        'Your expert follows the areas that matter to your situation rather than forcing every customer through the same script',
+        'Goals, routine, history, environment, products, lifestyle, preferences and maintenance',
       ],
-      /** The 18 questions, grouped. Behind a control, not printed on the page. */
-      askedAbout: [
-        ['Your goals', ['What you would actually like to improve', 'What concerns you most right now', 'The result you are hoping for']],
-        ['Skincare history', ['Everything you use at the moment', 'What you used over the past year', 'Reactions, sensitivities, and what did nothing']],
-        ['Daily routine', ['Your morning and night routine, honestly', 'Work environment, sleep and stress', 'Sun exposure and physical activity']],
-        ['Lifestyle', ['Food habits and how much water you really drink', 'Travel frequency and daily schedule', 'Smoking or alcohol, where relevant']],
-        ['Environment', ['Your city, its climate and humidity', 'Pollution levels and seasonal changes', 'Places you travel to regularly']],
-        ['Personal context', ['Concerns you choose to share', 'Grooming and face-yoga history', 'Budget, and how much upkeep you actually want']],
-      ],
+      link: { label: 'See the 100+ context factors', href: '#context-factors' },
     },
     {
       id: 'review',
-      when: 'After',
+      timing: 'After the call',
+      who: 'Your expert',
+      when: 'After the call',
       title: 'Expert Mapping Review',
       kind: 'human',
-      text: 'The relevant specialists study your complete case together — so you get one direction, not four opinions to reconcile yourself.',
+      text: 'The call ends. The analysis doesn’t. Findings are connected, weighed against your context, and turned into priorities that work together.',
       detail: [
-        'Medical and skin context where your concerns call for it',
-        'Facial analysis and evidence-informed interpretation',
-        'Face-yoga direction, and hair or style if you added a specialist Map',
+        'Facial architecture and feature relationships',
+        'Skin & routine, read with your personal context',
+        'Grooming and face yoga — hair and style when added',
+        'Not everything we can measure needs to be changed. The job is to decide what matters, what does not, and what deserves priority.',
       ],
     },
     {
       id: 'deliver',
-      when: '3–5 working days',
-      title: 'Your Face Map arrives',
+      timing: '≤ 7 days',
+      who: 'Our team',
+      when: 'Up to 7 days',
+      title: 'Receive your Face Map',
       kind: 'human',
-      text: 'Your analysis, your recommendations and your Appearance Protocol, as one organised report.',
+      text: 'Standard delivery may take up to 7 days after your session. Priority Delivery moves it to a 24–48 hour target.',
       detail: [
-        'Delivered 3–5 working days after your session',
-        'Adding a specialist Map can take longer — we say so before you pay',
-        'Written in plain language, reviewed before it reaches you',
+        'Thirteen sections, region by region, in plain language',
+        'Visual Direction where a visual makes a recommendation easier to understand',
+        'Your Appearance Protocol: Start / Stop / Continue and First / Next / Later',
       ],
     },
     {
       id: 'ask',
-      when: 'Ongoing',
-      title: 'Ask us anything unclear',
+      timing: 'Included',
+      who: 'Your expert',
+      when: 'Included',
+      title: 'Clarify anything',
       kind: 'human',
-      text: 'Clarification support is included. If something in your Face Map does not make sense, you message the team.',
+      text: 'Use the included short clarification call — or video call — if anything in your Face Map needs explaining.',
       detail: [
         'Included in the plan — not charged separately',
         'For anything inside your delivered Face Map that is not clear',
@@ -1146,7 +1178,7 @@ export const JOURNEY = {
     },
   ],
   boundary:
-    'MapMyFace gives appearance, routine and educational guidance. Anything needing a diagnosis or medical treatment belongs with a qualified doctor, and we will say so plainly rather than guess.',
+    'MapMyFace stays inside appearance guidance. Dental, surgical or medical concerns that require diagnosis or treatment are directed to the appropriate qualified professional.',
 } as const
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -1161,44 +1193,60 @@ export const JOURNEY = {
 // that. See HANDOFF.md.
 // ═════════════════════════════════════════════════════════════════════════════
 export const FACE_MAP_REPORT = {
-  eyebrow: 'What you receive',
-  title: 'Your complete analysis,',
-  muted: 'organised into one personal report.',
+  eyebrow: 'Your Face Map',
+  title: 'Your analysis,',
+  muted: 'turned into direction.',
   lede:
-    'Written after your session and the expert review. It says what the team observed, what it means, and what to do about it — in plain language, not scores out of ten.',
-  chapterCount: 12,
+    'Each important finding answers five questions. The fifth appears only when a visual makes the recommendation easier to understand. The report goes into detail where your case needs it; the structure stays consistent so you always know what you are looking at and why it matters.',
+  chapterCount: 13,
   cta: 'Look inside a Face Map',
   sampleNotice:
     'Sample layout — illustrative structure with placeholder findings. Your Face Map is written from your own session.',
-  /** Twelve chapters in four buckets. Nobody reads a flat list of twelve. */
+  /** The five questions every important finding answers. */
+  questions: [
+    { n: '01', title: 'What we mapped', text: 'Observation / measurement / relationship' },
+    { n: '02', title: 'What it means', text: 'How it works with the rest of your appearance' },
+    { n: '03', title: 'What matters', text: 'Expert significance for you' },
+    { n: '04', title: 'Your direction', text: 'Keep / change / stop / introduce / leave alone' },
+    { n: '05', title: 'Visual Direction', text: 'Where useful, see the recommended direction on you' },
+  ],
+  /** Thirteen sections in four buckets. Nobody reads a flat list of thirteen. */
   buckets: [
     {
       id: 'you',
       label: 'Understanding you',
       range: '01–02',
-      summary: 'What you told us, and the overall read of your face before any detail.',
-      chapters: ['Your Profile & Goals', 'Facial Overview'],
+      summary: 'Your starting point, priorities and what you want — then how the complete face presents before we go region by region.',
+      chapters: ['Profile & Goals', 'Facial Overview'],
     },
     {
-      id: 'analysis',
-      label: 'The analysis',
-      range: '03–05',
-      summary: 'Feature by feature, then how those features relate, then your skin and current routine.',
-      chapters: ['Feature-by-Feature Analysis', 'Facial Balance & Proportions', 'Skin & Routine Review'],
+      id: 'regions',
+      label: 'Region by region',
+      range: '03–09',
+      summary: 'Upper face, eyes and brows, nose and midface, cheeks, lips and smile, jaw and profile, then skin and surface — each read in context.',
+      chapters: [
+        'Upper Face & Forehead',
+        'Eyes, Brows & Under-Eyes',
+        'Nose & Midface',
+        'Cheeks & Facial Volume',
+        'Lips & Smile',
+        'Jaw, Chin & Profile',
+        'Skin & Surface',
+      ],
     },
     {
       id: 'direction',
-      label: 'What to change',
-      range: '06–09',
-      summary: 'Skincare direction, grooming decisions, lifestyle observations, and the face yoga that is actually relevant to you.',
-      chapters: ['Skincare Direction', 'Grooming Guidance', 'Lifestyle Observations', 'Your Face-Yoga Plan'],
+      label: 'What to do',
+      range: '10–11',
+      summary: 'The practical routine and presentation decisions that follow, and only the face-yoga movements your expert considers relevant, with instructions and frequency.',
+      chapters: ['Skincare, Grooming & Lifestyle', 'Face Yoga'],
     },
     {
       id: 'plan',
-      label: 'In what order',
-      range: '10–12',
-      summary: 'Everything sorted by priority, so you are not trying to change eleven things at once.',
-      chapters: ['Your Appearance Protocol', 'First, Next & Later', 'Recommended Follow-Through'],
+      label: 'See it, then act',
+      range: '12–13',
+      summary: 'Visual Direction where useful, then your Appearance Protocol: Start / Stop / Continue, First / Next / Later, your order of action.',
+      chapters: ['Visual Direction', 'Appearance Protocol'],
     },
   ],
   /** Sample spreads for the preview. Placeholder findings, real structure. */
@@ -1212,29 +1260,47 @@ export const FACE_MAP_REPORT = {
       fields: [
         ['Prepared for', 'Your name'],
         ['Session date', 'Your session date'],
-        ['Reviewed by', 'Your expert panel'],
-        ['Chapters', '12'],
+        ['Led by', 'Your Lead Appearance Expert'],
+        ['Sections', '13'],
       ],
     },
     {
       id: 'analysis',
       kind: 'analysis',
-      label: 'Analysis spread',
-      chapter: '04 · Facial Balance & Proportions',
+      label: 'Nose & Midface',
+      chapter: '05 · Nose & Midface',
       observations: [
-        ['Midface', 'Balanced relative to lower third. No action indicated.'],
-        ['Jaw definition', 'Softening along the lower border, consistent with reported sleep and hydration patterns.'],
-        ['Brow position', 'Slight asymmetry, within normal range. Grooming can address the visible part.'],
-        ['Under-eye', 'Pigmentation rather than volume loss. Changes the product category entirely.'],
+        ['What we mapped', 'Bridge, projection, tip rotation and the nose-to-lip and nose-to-chin relationships, from the front and in profile.'],
+        ['What it means', 'The nose reads in proportion to the midface; the lower third, not the nose, is what shortens the profile.'],
+        ['What matters', 'Nothing about the nose itself deserves attention. The lower-third balance does.'],
+        ['Your direction', 'Leave alone. Address balance through the beard line and lower face — see chapter 08.'],
       ],
       note:
-        'Each observation is written as what was seen and what it means — never as a score, and never as a diagnosis.',
+        'Each finding is written as what was seen, what it means, what matters and what to do — never as a score, and never as a diagnosis.',
+    },
+    {
+      id: 'visual',
+      kind: 'visual',
+      label: 'Visual Direction',
+      chapter: '12 · Visual Direction',
+      panels: [
+        { label: 'Current', tags: [] },
+        {
+          label: 'Your Visual Direction',
+          tags: [
+            ['Hair / frame', 'Recommended visual direction'],
+            ['Skin / grooming', 'Selected target changes'],
+          ],
+        },
+      ],
+      note:
+        'Visual Direction is an illustrative direction to help you understand a recommendation before you act on it — not a guarantee of future appearance or results.',
     },
     {
       id: 'protocol',
       kind: 'protocol',
       label: 'Appearance Protocol',
-      chapter: '10 · Your Appearance Protocol',
+      chapter: '13 · Appearance Protocol',
       actions: [
         { action: 'Add a dedicated sunscreen, reapplied at lunch', state: 'start', phase: 'First' },
         { action: 'Stop the third exfoliant — it is the reason your barrier is reacting', state: 'stop', phase: 'First' },
@@ -1247,10 +1313,10 @@ export const FACE_MAP_REPORT = {
     {
       id: 'clarify',
       kind: 'clarify',
-      label: 'Clarification',
-      chapter: '12 · Recommended Follow-Through',
+      label: 'Clarification call',
+      chapter: 'Included with your plan',
       text:
-        'If any part of this report is unclear, message the team and a specialist will explain it. Clarification support is included in your plan — there is no extra charge and no time limit inside the scope of this report.',
+        'If any part of this report needs explaining, use the included short clarification call or video call and your expert will walk you through it. There is no extra charge inside the scope of this report.',
       bullets: [
         'What to do if a product causes a reaction',
         'How to tell whether something is working',
@@ -1321,29 +1387,30 @@ export const CONTEXT = {
 // click is the opposite of the point.
 // ═════════════════════════════════════════════════════════════════════════════
 export const PRIVACY_PATH = {
-  eyebrow: 'Privacy',
-  title: 'Your face and your information',
-  muted: 'stay yours.',
+  eyebrow: 'Built around something personal',
+  title: 'Your face. Your information.',
+  muted: 'Your control.',
   lede:
-    'You are about to send photographs of your own face to strangers on the internet. That deserves a straight answer here, not a paragraph buried in a policy page.',
-  /** Four stages of where a photograph actually goes. */
+    'Trust is not a badge at checkout. It is how the service is designed, from the first call to the way your report and images are handled.',
+  /** Four stages of where a photograph or recording actually goes. */
   stages: [
-    { label: 'You send it', text: 'Uploaded over an encrypted connection during onboarding.' },
-    { label: 'The panel opens it', text: 'Only the roles reviewing your case. Named below.' },
+    { label: 'You share it', text: 'On the live session and during onboarding, over an encrypted connection.' },
+    { label: 'The team opens it', text: 'Only the people required to deliver your MapMyFace experience. Named below.' },
     { label: 'It is held', text: 'For as long as your report and clarification support are active.' },
     { label: 'You can end it', text: 'Ask us to delete it and we delete it. One email.' },
   ],
-  /** Who sees a photograph — the conditional row is what proves it is a policy. */
+  /** Who sees your material — the conditional row is what proves it is a policy. */
   access: [
-    { mono: 'MS', role: 'Medical & Skin', sees: 'Yes' },
-    { mono: 'FA', role: 'Facial Analysis', sees: 'Yes' },
-    { mono: 'FY', role: 'Face Yoga', sees: 'Yes' },
-    { mono: 'HS', role: 'Hair & Style', sees: 'Only if you added a specialist Map' },
+    { mono: 'LE', role: 'Lead Appearance Expert', sees: 'Yes' },
+    { mono: 'SC', role: 'Skin & Appearance Context', sees: 'Yes' },
+    { mono: 'FA', role: 'Facial Analysis & Research', sees: 'Yes' },
+    { mono: 'MS', role: 'Movement / Specialist Input', sees: 'Only when your plan calls for it' },
   ],
   covenant: [
-    'Never used in marketing without separate, explicit written permission',
-    'Buying the service gives us no right to publish your images',
-    'No diagnosis or treatment is promised through appearance analysis',
+    'Purchasing MapMyFace does not give permission to use your images, video, report or feedback publicly — marketing use is a separate decision',
+    'Dental, surgical or medical concerns that require diagnosis or treatment are directed to the appropriate qualified professional',
+    'The GST-inclusive total and any selected add-ons are shown before payment is completed',
+    'You can contact MapMyFace for service questions, privacy requests and data-deletion requests',
   ],
   /** TODO(founder): confirm the actual retention window and name a grievance officer. */
   pending:
@@ -1356,23 +1423,21 @@ export const PRIVACY_PATH = {
 // last sentence before the button reintroduces the anxiety you just resolved.
 // ═════════════════════════════════════════════════════════════════════════════
 export const CLOSE = {
-  eyebrow: 'One last thing',
-  title: 'Is it vain to want to look',
-  muted: 'like the best version of yourself?',
+  eyebrow: 'Your face deserves more than guesswork',
+  title: 'Understand what matters. Know what suits you.',
+  muted: 'Leave with a plan.',
   body:
-    'We do not think so. Most people are not chasing a different face — they are tired of guessing, and tired of spending money on advice that was never about them. Knowing what genuinely suits you is not vanity. It is just information you have never been given.',
+    'Expert-led facial analysis and appearance guidance built around the person, not a generic ideal. One live session, one coordinated review, one Face Map that shows what matters, what suits you and what to do next.',
   notFor: {
     title: 'This is not for you if',
     items: [
-      'You want a surgical or injectable recommendation',
-      'You want a diagnosis for a medical skin condition',
-      'You want one product name and nothing else',
+      'You want a dental, surgical or injectable recommendation',
+      'You want a diagnosis or treatment for a medical skin condition',
+      'You want a beauty score rather than a plan',
     ],
   },
-  // What the reader gets to feel, not what the product does — sits as floating
-  // labels around the body copy above. Kept short; these are read in passing.
   traits: ['Confident', 'Calm', 'Radiant', 'Present', 'Enough'],
-  cta: 'Start my Face Map',
+  cta: 'Start My Plan',
   secondary: 'Look inside a Face Map',
 } as const
 
@@ -1383,9 +1448,9 @@ export const CLOSE = {
 // is mounted at a time. Refund and delivery answers now state real terms.
 // ═════════════════════════════════════════════════════════════════════════════
 export const FAQ_V2 = {
-  eyebrow: 'Questions & Answers',
-  title: 'Everything worth knowing',
-  muted: 'before you pay.',
+  eyebrow: 'Questions, answered clearly',
+  title: 'The practical questions',
+  muted: 'that remove uncertainty.',
   categories: [
     {
       id: 'service',
@@ -1393,19 +1458,23 @@ export const FAQ_V2 = {
       items: [
         {
           q: 'What exactly is MapMyFace?',
-          a: 'An expert-led personalised facial analysis service. A real expert meets you in a Face Mapping Session, the relevant specialists study your complete context together, and you receive a personalised Face Map with an Appearance Protocol telling you what to do first, next and later.',
+          a: 'An expert-led appearance-analysis service. We combine 400+ facial assessments, 100+ personal context factors and a live Face Mapping Session to create one personalised Face Map showing what matters, what suits you and what to do next.',
         },
         {
           q: 'Is this an AI face scanner?',
-          a: 'No. There is no algorithm scoring your face out of ten. Technology supports parts of the process, but the consultation, the interpretation and the review are done by people. If an automated score is what you want, this is not it.',
+          a: 'No. There is no algorithm scoring your face out of ten. Technology supports parts of the process, but the session, the interpretation and the review are done by people. If an automated score is what you want, this is not it.',
+        },
+        {
+          q: 'What do the 400+ facial assessments cover?',
+          a: 'The framework covers facial structure, proportions, individual features, soft tissue, visible skin and surface characteristics, symmetry, profile, expression and feature-to-feature relationships.',
+        },
+        {
+          q: 'What are the 100+ personal context factors?',
+          a: 'The relevant information a photograph cannot explain: environment, routine, skincare history, products, reactions, lifestyle, sleep, stress, travel, grooming, maintenance preferences, budget, goals and other context relevant to your situation.',
         },
         {
           q: 'Can both men and women use MapMyFace?',
           a: 'Yes. It is built for anyone who wants personalised clarity about what genuinely suits them.',
-        },
-        {
-          q: 'Is this only for people with a problem?',
-          a: 'No. Plenty of people arrive with nothing wrong and simply want to stop guessing. If the honest answer is that your routine is already fine, your report says that.',
         },
       ],
     },
@@ -1414,16 +1483,24 @@ export const FAQ_V2 = {
       label: 'Your session',
       items: [
         {
-          q: 'Who conducts the Face Mapping Session?',
-          a: 'An appropriate MapMyFace expert or trained lead specialist, who gathers everything the review team needs. It is a private one-to-one video call, not a group session.',
+          q: 'What happens after payment?',
+          a: 'A MapMyFace team member typically contacts you within approximately 30 minutes during service hours to explain the process, the consultation platform, preparation and next steps.',
+        },
+        {
+          q: 'When will I speak with my expert?',
+          a: 'Your Face Mapping Session is scheduled according to availability, normally within 7 days.',
+        },
+        {
+          q: 'How long does the Face Mapping Session take?',
+          a: 'Most sessions are planned for approximately 45–60 minutes, on a private live video call.',
+        },
+        {
+          q: 'Does everyone receive the same questions?',
+          a: 'No. The session follows a structured framework, but it is a real conversation. Your expert goes deeper wherever your individual situation requires it.',
         },
         {
           q: 'Do I have to be on camera?',
-          a: 'Yes — the expert needs to see your face and skin, which is the entire point of speaking rather than sending photographs. Join from somewhere quiet and well lit.',
-        },
-        {
-          q: 'What should I prepare?',
-          a: 'Keep your current skincare products within reach, along with rough details of what you have used before. If any additional photographs are needed we tell you exactly what during onboarding.',
+          a: 'Yes — the expert needs to see how your face presents, which is the entire point of speaking rather than sending photographs. Join from somewhere quiet and well lit, with your current products within reach.',
         },
         {
           q: 'What if I need to reschedule?',
@@ -1436,20 +1513,24 @@ export const FAQ_V2 = {
       label: 'Your Face Map',
       items: [
         {
-          q: 'When does it arrive?',
-          a: 'Within 3 to 5 working days of your Face Mapping Session. Adding a specialist Map can take longer, and we tell you that before you pay rather than after.',
+          q: 'How long does the Face Map take?',
+          a: 'After your session, the expert may take up to 7 days to review the findings and prepare your personalised Face Map. Priority Delivery moves it to a 24–48 hour target after your completed session and required inputs.',
         },
         {
           q: 'What is included in the main plan?',
-          a: 'Onboarding, the Face Mapping Session, facial analysis, skin and routine review, skincare direction, grooming guidance, relevant face yoga, the Expert Mapping Review, your Face Map, your Appearance Protocol, and clarification support afterwards.',
+          a: 'Personal onboarding, the live 45–60 minute Face Mapping Session, 400+ facial assessments, 100+ personal context factors, the Expert Mapping Review, skin and routine review, skincare and product direction where appropriate, grooming guidance, relevant face-yoga direction, lifestyle and environmental observations, Visual Direction where relevant, your Appearance Protocol and a short expert clarification call.',
         },
         {
-          q: 'Can I ask questions after I receive it?',
-          a: 'Yes, and it is included rather than charged separately. If something inside your delivered Face Map is not clear, you message the team and a specialist explains it.',
+          q: 'Will you recommend specific skincare products?',
+          a: 'Where appropriate, yes. Your expert may recommend specific products or brands, or give formulation, ingredient, strength, texture or SPF direction based on your skin, environment and complete routine. We sell nothing and take no commission, so a named product is a recommendation, not a sale.',
         },
         {
-          q: 'Will it just tell me to buy things?',
-          a: 'We sell no products and take no commission from any brand, so there is nothing for us to push. Recommendations are written as categories and direction you can shop for yourself.',
+          q: 'What is Visual Direction?',
+          a: 'Where useful, Visual Direction shows a personalised visual representation of selected recommendations so you can understand the intended direction before you act. It is illustrative, not a guarantee of future appearance or results.',
+        },
+        {
+          q: 'Can I clarify something after receiving my Face Map?',
+          a: 'Yes. Use the included short expert clarification call or video call if anything in your Face Map needs explaining. It is part of the plan, not charged separately.',
         },
       ],
     },
@@ -1458,16 +1539,16 @@ export const FAQ_V2 = {
       label: 'Add-ons',
       items: [
         {
-          q: 'Is the Hair Map included?',
-          a: 'No, it is an optional add-on at ₹699 covering haircut structure, hairstyle, parting, volume and facial-hair direction where relevant.',
+          q: 'Are Hair Map and Style & Colour Map included?',
+          a: 'They are optional specialist add-ons at ₹999 each. You can choose them on the next step after selecting the Complete MapMyFace Plan, and they are reviewed as part of the same case as your Face Map.',
         },
         {
-          q: 'Is the Style & Colour Map included?',
-          a: 'No, it is an optional add-on at ₹699 covering clothing colours, silhouettes, necklines, accessories and presentation guidance.',
+          q: 'What is Priority Delivery?',
+          a: 'An optional ₹500 add-on that moves your Face Map to a 24–48 hour target after your completed Face Mapping Session and required inputs. Same Face Map, same review — only the queue changes.',
         },
         {
           q: 'Do I have to decide now?',
-          a: 'You choose add-ons before payment. They are reviewed as part of the same case as your Face Map rather than delivered as separate services.',
+          a: 'No. Add-ons are offered on the step after you select the plan, and you can continue without any of them.',
         },
       ],
     },
@@ -1480,8 +1561,8 @@ export const FAQ_V2 = {
           a: 'Yes — cancel any time before your Face Mapping Session begins and you get the whole amount back, no questions asked. Once the session has happened, the expert review and your report are already being written, so the fee is no longer refundable. The exception is if we fail to deliver your Face Map to the scope described on this page, in which case the report portion is refunded.',
         },
         {
-          q: 'Is ₹2,699 the final amount?',
-          a: 'Yes. GST is included and nothing is added at checkout. It is a single payment — there is no subscription and nothing renews.',
+          q: 'Is ₹3,499 the final amount?',
+          a: 'Yes. GST is included and nothing is added at checkout. Any add-ons you choose are shown in the order summary before you pay. It is a single payment — there is no subscription and nothing renews.',
         },
         {
           q: 'How can I pay?',
@@ -1494,12 +1575,12 @@ export const FAQ_V2 = {
       label: 'Privacy & photos',
       items: [
         {
-          q: 'Who actually sees my photographs?',
-          a: 'Only the specialists reviewing your case. The hair and style specialist sees them solely if you have added a Hair Map or Style & Colour Map.',
+          q: 'Who actually sees my session and photographs?',
+          a: 'Only the people required to deliver your MapMyFace experience: your Lead Appearance Expert and the specialists reviewing your case. Access is need-to-know.',
         },
         {
-          q: 'Can my photos be used publicly?',
-          a: 'Only with separate, explicit written permission. Buying the service gives us no right whatsoever to use your images for marketing.',
+          q: 'Can my images be used publicly?',
+          a: 'Only with separate, explicit permission. Purchasing MapMyFace does not automatically give permission to use your images, video, report or feedback publicly.',
         },
         {
           q: 'Can I have my data deleted?',
@@ -1512,18 +1593,491 @@ export const FAQ_V2 = {
       label: 'Boundaries',
       items: [
         {
+          q: 'What if I have a dental, surgical or medical concern?',
+          a: 'MapMyFace stays within appearance guidance and directs concerns that require diagnosis or treatment to the appropriate qualified professional.',
+        },
+        {
           q: 'Will you recommend surgery?',
           a: 'No. MapMyFace is not a surgical-recommendation service and does not position itself as one.',
         },
         {
-          q: 'Do you diagnose skin conditions?',
-          a: 'No. We give appearance, routine and educational guidance. Anything needing diagnosis or treatment belongs with a qualified medical professional, and we say so plainly rather than guess.',
-        },
-        {
           q: 'Are results guaranteed?',
-          a: 'No, and anyone promising that is selling you something else. What is guaranteed is the process: a real session, a multidisciplinary review, and a prioritised plan written for your face.',
+          a: 'No, and anyone promising that is selling you something else. Visual Direction is illustrative, not a guarantee. What is guaranteed is the process: a real session, a coordinated expert review, and a prioritised plan written for your face.',
         },
       ],
     },
   ],
+} as const
+
+// ═════════════════════════════════════════════════════════════════════════════
+// PHASE 2 — "Final 8-Figure Website Blueprint" (t 22.pdf). Everything below is
+// new to that blueprint. The two headline figures (400+ / 100+) are its own
+// published claims, so they may appear here; the earlier no-figures rule applied
+// to numbers the blueprint had NOT approved.
+// ═════════════════════════════════════════════════════════════════════════════
+
+/** One card per facial region: summary line, intro, and the assessment list. */
+export const WHAT_WE_MAP = {
+  eyebrow: '400+ facial assessments',
+  title: 'One face.',
+  muted: 'Hundreds of things to understand.',
+  lede:
+    'We assess each region on its own — then read it in relation to the whole. That is how a single face naturally becomes hundreds of meaningful observations and measurements.',
+  figure: '400+',
+  figureLabel: 'Facial assessments',
+  figureNote: 'Structure / features / proportions / soft tissue / skin / symmetry / profile / expression / relationships',
+  hint: 'Tap a region to see what sits underneath the label.',
+  regions: [
+    {
+      id: 'upper',
+      title: 'Upper Face',
+      summary: 'Forehead, temples, hairline, upper-face balance',
+      intro: 'The upper face sets the frame for everything below it.',
+      items: [
+        'Forehead height, width and overall shape',
+        'Hairline position and relationship to the forehead',
+        'Temple contour and visible fullness',
+        'Upper-face proportions and facial thirds',
+        'Brow position relative to forehead and eyes',
+        'Frontal and three-quarter contour',
+        'Visible skin and surface characteristics',
+        'Relationship with eyes, brows and midface',
+      ],
+    },
+    {
+      id: 'eyes',
+      title: 'Eyes & Brows',
+      summary: 'Shape, spacing, position, brow-eye relationship',
+      intro: 'We read the eyes and brows as one connected upper-face system.',
+      items: [
+        'Eye shape, opening and visible size',
+        'Inter-eye spacing and position',
+        'Canthal tilt and horizontal relationship',
+        'Visible eyelid and crease characteristics',
+        'Eye depth / projection and surrounding support',
+        'Under-eye volume, shadow and surface appearance',
+        'Visible left-right symmetry',
+        'Brow height, thickness, shape, arch and tail',
+        'Brow-to-eye relationship',
+        'Relationship with cheeks and midface',
+      ],
+    },
+    {
+      id: 'nose',
+      title: 'Nose',
+      summary: 'Structure, surface, frontal and profile relationships',
+      intro: 'The nose is assessed as a structure, a surface and a relationship — not one measurement.',
+      items: [
+        'Overall structure and shape',
+        'Nasal length and width',
+        'Radix / root position',
+        'Bridge height, width and contour',
+        'Dorsal line / profile contour',
+        'Projection',
+        'Tip definition and shape',
+        'Tip rotation',
+        'Alar width and flare',
+        'Nostril shape, show and symmetry',
+        'Columella appearance',
+        'Frontal symmetry',
+        'Visible soft-tissue thickness / fullness',
+        'Skin texture, pores or redness where relevant',
+        'Forehead-to-nose relationship',
+        'Eye / cheek / midface relationship',
+        'Nose-to-lip relationship',
+        'Nose-to-chin and profile balance',
+      ],
+    },
+    {
+      id: 'cheeks',
+      title: 'Cheeks & Midface',
+      summary: 'Projection, volume, contours and transitions',
+      intro: 'Midface analysis looks at shape, support, volume and the transitions between regions.',
+      items: [
+        'Cheekbone position and projection',
+        'Visible malar width',
+        'Midface height and proportions',
+        'Soft-tissue volume and fullness',
+        'Distribution of facial volume',
+        'Under-eye-to-cheek transition',
+        'Nasolabial area and surrounding contours',
+        'Frontal and three-quarter contour',
+        'Visible symmetry',
+        'Relationship with eyes and under-eyes',
+        'Relationship with nose and lips',
+        'Relationship with jaw and lower face',
+      ],
+    },
+    {
+      id: 'lips',
+      title: 'Lips & Smile',
+      summary: 'Shape, fullness, expression and surrounding balance',
+      intro: 'The mouth is understood at rest and, where useful, in expression.',
+      items: [
+        'Lip width and overall shape',
+        'Upper-to-lower lip relationship',
+        'Visible fullness and vermilion show',
+        'Cupid’s bow and lip definition',
+        'Lip projection',
+        'Philtrum length and visible relationship',
+        'Mouth-corner position',
+        'Visible left-right symmetry',
+        'Smile width and presentation',
+        'How expression changes the lower face',
+        'Relationship with the nose',
+        'Relationship with chin and jaw',
+      ],
+    },
+    {
+      id: 'jaw',
+      title: 'Jaw & Chin',
+      summary: 'Width, projection, contour and lower-face balance',
+      intro: 'The lower face is read from the front, three-quarter view and profile.',
+      items: [
+        'Jaw width and overall shape',
+        'Mandibular contour and angle appearance',
+        'Visible jaw definition',
+        'Chin width and height',
+        'Chin projection',
+        'Lower facial-third proportions',
+        'Soft-tissue fullness around lower face',
+        'Jaw-to-neck transition',
+        'Visible left-right symmetry',
+        'Labiomental relationship',
+        'Relationship with lips',
+        'Relationship with cheeks and midface',
+        'Relationship with nose and complete profile',
+      ],
+    },
+    {
+      id: 'skin',
+      title: 'Skin & Surface',
+      summary: 'Texture, tone, pores, marks and visible behaviour',
+      intro: 'Surface analysis is visual — then interpreted alongside your routine, history and environment.',
+      items: [
+        'Visible texture and smoothness',
+        'Tone and visible evenness',
+        'Pore appearance',
+        'Oiliness / dryness appearance',
+        'Redness where visible',
+        'Pigmentation and uneven colour',
+        'Marks and post-blemish appearance',
+        'Visible acne-related presentation',
+        'Visible scarring',
+        'Fine lines and surface creasing',
+        'Under-eye surface appearance',
+        'Lip surface condition',
+        'Visible sun-related appearance where relevant',
+        'How surface findings fit with the rest of the face',
+      ],
+    },
+    {
+      id: 'profile',
+      title: 'Profile & Balance',
+      summary: 'How the complete face works together',
+      intro: 'This is where separate findings become one face.',
+      items: [
+        'Facial thirds and overall vertical balance',
+        'Horizontal relationships and facial width',
+        'Front / three-quarter / profile consistency',
+        'Visible symmetry and asymmetry',
+        'Forehead, nose, lips and chin relationship',
+        'Midface and lower-face projection',
+        'Feature prominence relative to the whole',
+        'Jaw, chin and neck balance',
+        'How expression changes overall presentation',
+        'How features support or compete with one another',
+        'Overall facial harmony and distinctive characteristics',
+        'Which findings actually deserve attention',
+      ],
+    },
+  ],
+} as const
+
+/** The 100+ personal context factors, in the blueprint's ten groups. */
+export const CONTEXT_FACTORS = {
+  eyebrow: '100+ personal context factors',
+  title: 'Your face tells us what we see.',
+  muted: 'You tell us the rest.',
+  lede:
+    'The same face can need a different plan in a different climate, routine, budget or lifestyle. Your session gives the analysis the context a photograph cannot.',
+  figure: '100+',
+  figureLabel: 'Context factors considered',
+  figureNote: 'The framework is broad. The conversation follows what actually matters to you.',
+  hint: 'Tap a group to see what we ask about.',
+  regions: [
+    {
+      id: 'live',
+      title: 'Where you live',
+      summary: 'Climate, humidity, pollution, seasons',
+      intro: 'Your environment changes what your skin and routine are exposed to.',
+      items: [
+        'City / region and regular locations',
+        'Temperature patterns',
+        'Humidity and dryness',
+        'Seasonal changes',
+        'Pollution exposure',
+        'UV / sun intensity',
+        'Indoor air-conditioning or heating',
+        'Coastal / dry / high-humidity conditions',
+        'Regular travel environments',
+        'How quickly your environment changes',
+      ],
+    },
+    {
+      id: 'history',
+      title: 'Skincare history',
+      summary: 'What you use, used and how your skin responded',
+      intro: 'We look at the routine you have actually lived with — not only what is on your shelf today.',
+      items: [
+        'Current products and brands',
+        'Past products and product categories',
+        'Active ingredients already in use',
+        'How often each product is used',
+        'How long products were used',
+        'Reactions and sensitivities',
+        'What clearly helped',
+        'What clearly did not',
+        'Products stopped and why',
+        'Morning vs evening use',
+        'Consistency and adherence',
+        'Treatments / procedures voluntarily disclosed where relevant',
+      ],
+    },
+    {
+      id: 'routine',
+      title: 'Daily routine',
+      summary: 'Work, exposure, exercise and everyday habits',
+      intro: 'Recommendations have to fit the life you actually lead.',
+      items: [
+        'Morning and evening schedule',
+        'Work hours and work environment',
+        'Indoor vs outdoor time',
+        'Commute and travel time',
+        'Cleansing / washing habits',
+        'Exercise and sweating',
+        'Shaving or facial-hair routine',
+        'Screen / late-night schedule where relevant',
+        'Time available for skincare',
+        'Weekend vs weekday differences',
+      ],
+    },
+    {
+      id: 'sleep',
+      title: 'Sleep & stress',
+      summary: 'Patterns that change what is realistic or relevant',
+      intro: 'The aim is not to diagnose. It is to understand context that can influence appearance or follow-through.',
+      items: [
+        'Average sleep duration',
+        'Sleep schedule and consistency',
+        'Late nights / shift work',
+        'Perceived stress level',
+        'High-stress periods',
+        'Travel-related sleep disruption',
+        'How stress changes routine adherence',
+        'Whether the plan needs to stay very simple',
+      ],
+    },
+    {
+      id: 'food',
+      title: 'Food & hydration',
+      summary: 'Relevant habits, not generic wellness advice',
+      intro: 'We only use lifestyle information when it is relevant to your goals and plan.',
+      items: [
+        'General eating pattern',
+        'Meal regularity',
+        'Hydration habits',
+        'High-salt / high-sugar patterns where relevant',
+        'Frequent eating out',
+        'Diet restrictions voluntarily disclosed',
+        'Caffeine habits where relevant',
+        'Whether lifestyle recommendations are realistic',
+        'Changes you are willing to make',
+      ],
+    },
+    {
+      id: 'travel',
+      title: 'Travel & change',
+      summary: 'How often your environment changes',
+      intro: 'A routine that works at home may need adjustment when the environment changes.',
+      items: [
+        'Travel frequency',
+        'Common destinations',
+        'Climate differences',
+        'Flight / long-journey frequency',
+        'Hotel / temporary routine changes',
+        'Sun exposure during travel',
+        'Product portability and convenience',
+        'How much the routine can realistically change',
+      ],
+    },
+    {
+      id: 'sun',
+      title: 'Sun & exposure',
+      summary: 'Outdoor time, UV habits and protection',
+      intro: 'Sun behaviour is understood as part of the full routine, not as one isolated question.',
+      items: [
+        'Time spent outdoors',
+        'Typical exposure hours',
+        'Commute exposure',
+        'Current sunscreen use',
+        'Application habits',
+        'Reapplication habits',
+        'Hats / shade / physical protection',
+        'Outdoor sports or exercise',
+        'Seasonal changes in exposure',
+        'Travel-related sun exposure',
+      ],
+    },
+    {
+      id: 'grooming',
+      title: 'Grooming & maintenance',
+      summary: 'Shaving, facial hair, face yoga, upkeep',
+      intro: 'What suits you also has to be something you will actually maintain.',
+      items: [
+        'Shaving frequency',
+        'Beard / moustache habits',
+        'Preferred facial-hair length',
+        'Eyebrow grooming',
+        'Current haircut maintenance',
+        'Face-yoga history',
+        'Daily time available',
+        'Tolerance for frequent upkeep',
+        'Preferred level of grooming effort',
+        'What you do not want to change',
+      ],
+    },
+    {
+      id: 'budget',
+      title: 'Budget & access',
+      summary: 'What you can realistically buy and maintain',
+      intro: 'The best recommendation is useless if you cannot reasonably buy or maintain it.',
+      items: [
+        'Comfortable monthly product spend',
+        'Preference for pharmacy / premium / mass products',
+        'Availability in your location',
+        'Willingness to order online',
+        'Number of products you want to manage',
+        'Maintenance cost tolerance',
+        'Preference for simple vs advanced routines',
+        'Replacement frequency and practicality',
+      ],
+    },
+    {
+      id: 'goals',
+      title: 'Goals & preferences',
+      summary: 'What you want to improve and how far you want to go',
+      intro: 'The Map is built around the outcome you actually want — not an assumed ideal.',
+      items: [
+        'Primary appearance goal',
+        'Main concern',
+        'What you want to keep',
+        'What you do not want to change',
+        'Desired level of improvement',
+        'Preference for subtle vs noticeable change',
+        'Upcoming events or timelines where relevant',
+        'Professional / social presentation goals',
+        'Comfort and personal style',
+        'How much effort you are willing to invest',
+        'What “looking better” means to you personally',
+      ],
+    },
+  ],
+} as const
+
+/** Visual Direction — the blueprint's new product feature. */
+export const VISUAL_DIRECTION = {
+  eyebrow: 'Visual Direction',
+  title: 'Do not just read the recommendation.',
+  muted: 'See what your expert means.',
+  lede:
+    'For selected recommendations, your Face Map includes personalised visual direction to help you understand how a suggested change could alter your overall presentation before you act on it.',
+  panels: [
+    { label: 'Current', tags: [] },
+    {
+      label: 'Your Visual Direction',
+      tags: [
+        ['Hair / frame', 'Recommended visual direction'],
+        ['Skin / grooming', 'Selected target changes'],
+      ],
+    },
+  ],
+  disclaimer:
+    'Visual Direction is designed to explain selected recommendations and how they may work together. It is an illustrative direction, not a guarantee of future appearance or results.',
+} as const
+
+/** Personalised guidance — the four "Not just…" cards. */
+export const GUIDANCE = {
+  eyebrow: 'Personalised guidance',
+  title: 'Personalised should',
+  muted: 'feel specific.',
+  lede:
+    'The Map does not stop at “use sunscreen” or “try a different beard.” It explains what kind of change fits your plan, why, and when to introduce it.',
+  cards: [
+    {
+      label: 'Skincare',
+      notJust: 'Not just: “Wear sunscreen.”',
+      text: 'Your Map can specify SPF direction, texture, formulation, timing, reapplication and suitable options — coordinated with the rest of your routine.',
+    },
+    {
+      label: 'Products',
+      notJust: 'Not just: “Add an active.”',
+      text: 'Where useful, your expert can name specific products or give ingredient, strength and formulation guidance that fits what you already use.',
+    },
+    {
+      label: 'Grooming',
+      notJust: 'Not just: “Change your beard.”',
+      text: 'Direction can cover length, shape, maintenance and presentation based on lower-face structure and the look you want to maintain.',
+    },
+    {
+      label: 'Face yoga + lifestyle',
+      notJust: 'Not generic wellness advice.',
+      text: 'Only relevant movements and lifestyle-related actions are included, with clear frequency or timing where it helps you follow the plan.',
+    },
+  ],
+} as const
+
+/**
+ * MapMyFace experiences — the blueprint's case-study format ("Results" in the
+ * nav). The section renders NOTHING until `stories` holds a real, consented
+ * customer story: a fabricated case study is the same class of object as a
+ * fabricated testimonial. Fill one entry with the customer's real words and the
+ * section, and its nav item, appear on their own.
+ */
+export type ExperienceStory = {
+  id: string
+  /** First name or initials, and city — only with consent. */
+  who: string
+  /** Primary goal in the customer's own words. */
+  goal: string
+  /** What they were confused about, what they had tried, what they wanted help deciding. */
+  before: string
+  /** 3–5 meaningful findings that show the reasoning without publishing the full report. */
+  found: readonly string[]
+  /** The highest-impact actions from First / Next / Later. */
+  first: readonly string[]
+  /** The genuine changes the customer chose to follow. */
+  implemented: readonly string[]
+  /** Verbatim, approved. */
+  quote: string
+  /** Optional consented images. */
+  images?: { before: string; direction: string }
+}
+
+export const EXPERIENCES = {
+  eyebrow: 'MapMyFace experiences',
+  title: 'See how',
+  muted: 'MapMyFace thinks.',
+  lede:
+    'A useful customer story shows more than a result. It shows what the expert noticed, what was prioritised, what was visualised and what the customer actually changed.',
+  labels: {
+    before: 'Before MapMyFace',
+    found: 'What the Map found',
+    first: 'What came first',
+    implemented: 'What they implemented',
+    quote: 'In their words',
+    imageBefore: 'Before',
+    imageDirection: 'Visual Direction',
+  },
+  stories: [] as readonly ExperienceStory[],
 } as const

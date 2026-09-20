@@ -65,7 +65,32 @@ export function FaceMapSection() {
             viewport={VIEWPORT}
             transition={REVEAL}
           >
-            {/* Twelve chapters as four buckets. */}
+            {/* The five questions every important finding answers. */}
+            <ol className="mb-8 space-y-0">
+              {FACE_MAP_REPORT.questions.map((q, i) => (
+                <motion.li
+                  key={q.n}
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={VIEWPORT}
+                  transition={{ duration: 0.5, ease: EASE_OUT, delay: stagger(i, 0.06) }}
+                  className={`grid grid-cols-[46px_minmax(0,1fr)] items-baseline gap-x-3 border-t border-border-soft py-2.5 last:border-b ${
+                    i === 4 ? 'text-ink/60' : ''
+                  }`}
+                >
+                  <span className="font-mono text-[10px] tabular-nums tracking-[0.1em] text-ink/30">{q.n}</span>
+                  <span className="flex flex-wrap items-baseline gap-x-2">
+                    <span className="text-[14.5px] text-ink">{q.title}</span>
+                    <span className="text-[12.5px] text-ink-muted">{q.text}</span>
+                  </span>
+                </motion.li>
+              ))}
+            </ol>
+
+            <p className="mb-3 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/45">
+              {FACE_MAP_REPORT.chapterCount} sections, in four parts
+            </p>
+            {/* Thirteen sections as four buckets. */}
             <ul className="space-y-0">
               {FACE_MAP_REPORT.buckets.map((b, i) => (
                 <motion.li
@@ -153,7 +178,7 @@ export function FaceMapSection() {
 
                 <div className="mt-10 flex items-baseline justify-between border-t border-ink/[0.09] pt-4">
                   <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/45">
-                    {FACE_MAP_REPORT.chapterCount} chapters
+                    {FACE_MAP_REPORT.chapterCount} sections · Visual Direction
                   </span>
                   <span className="text-[12px] text-ink/55 underline decoration-ink/20 underline-offset-2 transition-colors group-hover:decoration-ink/60">
                     Look inside
@@ -172,7 +197,7 @@ export function FaceMapSection() {
         onOpenChange={setOpen}
         eyebrow="Sample"
         title="Inside a Face Map"
-        lede={`${FACE_MAP_REPORT.chapterCount} chapters, delivered ${FACE_MAP_CORE.deliveryShort}.`}
+        lede={`${FACE_MAP_REPORT.chapterCount} sections, delivered ${FACE_MAP_CORE.deliveryShort}.`}
       >
         {/* Stated before anything else, and again under every spread. */}
         <div className="mb-6 flex items-start gap-2.5 rounded-[14px] border border-brand/25 bg-brand-soft/30 px-4 py-3">
@@ -268,6 +293,42 @@ function Spread({ spread }: { spread: SpreadData }) {
               </motion.li>
             ))}
           </ul>
+          <p className="mt-5 text-[12px] leading-relaxed text-ink/45">{spread.note}</p>
+        </div>
+      )}
+
+      {spread.kind === 'visual' && 'panels' in spread && (
+        <div>
+          <div className="grid grid-cols-2 gap-2.5">
+            {spread.panels.map((panel, i) => {
+              const direction = i === 1
+              return (
+                <div
+                  key={panel.label}
+                  className="flex min-h-[150px] flex-col justify-between rounded-[14px] border p-3.5"
+                  style={{
+                    borderColor: direction ? 'rgba(255,255,255,.35)' : 'rgba(61,107,118,.14)',
+                    background: direction ? 'linear-gradient(150deg,#067B9E 0%,#878787 100%)' : '#ffffff',
+                  }}
+                >
+                  <span
+                    className="font-mono text-[9px] uppercase tracking-[0.16em]"
+                    style={{ color: direction ? '#E6C9AF' : '#3D6B76', fontWeight: 600 }}
+                  >
+                    {panel.label}
+                  </span>
+                  <div className="flex flex-col gap-1.5">
+                    {panel.tags.map(([tag, text]) => (
+                      <p key={tag} className="text-[11.5px] leading-snug text-white">
+                        <span style={{ color: 'rgba(255,255,255,.7)' }}>{tag} · </span>
+                        {text}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
           <p className="mt-5 text-[12px] leading-relaxed text-ink/45">{spread.note}</p>
         </div>
       )}

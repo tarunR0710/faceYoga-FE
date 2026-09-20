@@ -2,31 +2,30 @@ import Link from 'next/link'
 import { SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants'
 
 /**
- * Footer columns follow the blueprint: Explore / Support / Legal / Connect.
- *
- * Support and the two extra legal documents point at anchors and pages that do
- * not exist yet — each one is marked below so they can be wired up as those
- * pages land, rather than shipping links that quietly 404.
+ * Footer columns follow the blueprint: Explore / Support / Legal, plus the
+ * Connect column the earlier blueprint asked for (the social handles are
+ * approved, so it stays). Every link resolves: Rescheduling lands on the
+ * refund page's rescheduling section and Consent & Image Use on the privacy
+ * page's consent section.
  */
 const columns = [
   {
     title: 'Explore',
     links: [
       { label: 'How it works', href: '/#how-it-works' },
+      { label: 'What we map', href: '/#what-we-map' },
       { label: 'Your Face Map', href: '/#face-map' },
       { label: 'Experts', href: '/#experts' },
-      { label: 'Add-ons', href: '/#add-ons' },
       { label: 'Pricing', href: '/#pricing' },
     ],
   },
   {
     title: 'Support',
     links: [
-      { label: 'Contact', href: `mailto:${SITE_CONFIG.email}` },
-      { label: 'Clarification support', href: `mailto:${SITE_CONFIG.email}?subject=Clarification` },
-      // TODO: point at the rescheduling policy page when it exists.
-      { label: 'Rescheduling', href: '/#faq' },
       { label: 'FAQ', href: '/#faq' },
+      { label: 'Contact', href: `mailto:${SITE_CONFIG.email}` },
+      { label: 'Rescheduling', href: '/refund#rescheduling' },
+      { label: 'Clarification call', href: `mailto:${SITE_CONFIG.email}?subject=Clarification%20call` },
     ],
   },
   {
@@ -35,9 +34,7 @@ const columns = [
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms', href: '/terms' },
       { label: 'Refund Policy', href: '/refund' },
-      // TODO: consent & image policy needs its own page — currently folded
-      // into /privacy so the link is not dead.
-      { label: 'Consent & Image Policy', href: '/privacy' },
+      { label: 'Consent & Image Use', href: '/privacy#consent' },
     ],
   },
 ]
@@ -133,8 +130,9 @@ export function Footer() {
               &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
             </p>
             <p className="max-w-xl text-[11.5px] leading-relaxed text-ink/40 md:text-right">
-              MapMyFace provides appearance, routine and educational guidance. It does not diagnose
-              or treat medical conditions. Payments secured by Razorpay.
+              MapMyFace stays inside appearance guidance. Dental, surgical or medical concerns that need
+              diagnosis or treatment are directed to a qualified professional. Visual Direction is
+              illustrative, not a guarantee. Payments secured by Razorpay.
             </p>
           </div>
         </div>

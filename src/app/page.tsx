@@ -10,7 +10,12 @@ import { Plan } from '@/components/sections/plan'
 import { Proof } from '@/components/sections/proof'
 import { FacialExpertise } from '@/components/sections/facial-expertise'
 import { Believe } from '@/components/sections/believe'
+import { WhatWeMap } from '@/components/sections/what-we-map'
+import { ContextFactors } from '@/components/sections/context-factors'
 import { Journey } from '@/components/sections/journey'
+import { VisualDirection } from '@/components/sections/visual-direction'
+import { Guidance } from '@/components/sections/guidance'
+import { Experiences } from '@/components/sections/experiences'
 import { FaceMapSection } from '@/components/sections/face-map'
 import { Protocol } from '@/components/sections/protocol'
 import { ContextFit } from '@/components/sections/context-fit'
@@ -55,11 +60,17 @@ export default function HomePage() {
         <FullPicture />
         <Plan />
         <FacialExpertise />
-        <Believe />
+        {/* ── Phase 2 (t 22 blueprint) starts here. Everything above is frozen. ── */}
+        <WhatWeMap />
+        <ContextFactors />
         <Journey />
         <FaceMapSection />
+        <VisualDirection />
+        <Guidance />
         <Protocol />
+        <Believe />
         <ContextFit />
+        <Experiences />
         <PricingPreview />
         <PrivacyTrust />
         <FAQ />

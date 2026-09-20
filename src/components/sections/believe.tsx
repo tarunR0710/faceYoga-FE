@@ -52,6 +52,7 @@ export function Believe() {
           >
             <TabPanel id={tab} railId={railId}>
               {tab === 'people' && <People />}
+              {tab === 'philosophy' && <Philosophy />}
               {tab === 'method' && <Method />}
               {tab === 'evidence' && <Evidence />}
             </TabPanel>
@@ -117,7 +118,46 @@ function People() {
   )
 }
 
-/* ── Tab 2 · the nine assessment factors ─────────────────────────────────── */
+/* ── Tab 2 · the philosophy — measure to understand, not to rank ──────────── */
+function Philosophy() {
+  const { philosophy } = BELIEVE
+  return (
+    <div>
+      <p className="mb-2 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/45">{philosophy.eyebrow}</p>
+      <h3 className="mb-4 text-[1.35rem] leading-tight tracking-[-0.02em] text-ink md:text-[1.6rem]" style={{ fontWeight: 300 }}>
+        {philosophy.title}
+      </h3>
+      <PanelLede>{philosophy.lede}</PanelLede>
+
+      <ol className="grid grid-cols-1 gap-x-10 border-t border-ink/12 md:grid-cols-3">
+        {philosophy.principles.map(([title, text], i) => (
+          <motion.li
+            key={title}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VIEWPORT_TIGHT}
+            transition={{ duration: 0.45, ease: EASE_OUT, delay: stagger(i, 0.06) }}
+            className="border-b border-border-soft py-4"
+          >
+            <p className="flex items-baseline gap-2.5">
+              <span className="font-mono text-[9.5px] tracking-[0.14em] text-ink/25">{String(i + 1).padStart(2, '0')}</span>
+              <span className="text-[14.5px] text-ink">{title}</span>
+            </p>
+            <p className="mt-1.5 pl-[26px] text-[13px] leading-relaxed text-ink-muted">{text}</p>
+          </motion.li>
+        ))}
+      </ol>
+
+      <p className="mt-7 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
+        {philosophy.mantra.map((w) => (
+          <span key={w}>{w}</span>
+        ))}
+      </p>
+    </div>
+  )
+}
+
+/* ── Tab 3 · the nine assessment factors ─────────────────────────────────── */
 function Method() {
   const { method } = BELIEVE
   return (
@@ -152,7 +192,7 @@ function Method() {
   )
 }
 
-/* ── Tab 3 · three verified studies on a real time axis ──────────────────── */
+/* ── Tab 4 · three verified studies on a real time axis ──────────────────── */
 function Evidence() {
   const { evidence } = BELIEVE
   const { from, to } = evidence.axis
