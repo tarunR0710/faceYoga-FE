@@ -60,7 +60,7 @@ export default function FormPage() {
                 className="text-[1.5rem] md:text-[1.75rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-2"
                 style={{ fontWeight: 300 }}
               >
-                Start Your Journey
+                Build your Map.
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -68,7 +68,7 @@ export default function FormPage() {
                 transition={{ delay: 0.2 }}
                 className="text-[14px] text-[#666]"
               >
-                Enter your details to get your personalized plan
+                Your Complete MapMyFace Plan is selected. Verify your number to continue to secure payment — add-ons come on the next step.
               </motion.p>
             </div>
 

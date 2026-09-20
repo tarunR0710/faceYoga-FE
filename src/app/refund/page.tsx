@@ -30,7 +30,7 @@ export default function RefundPage() {
           </h2>
           <p>{REFUND_POLICY.detail}</p>
 
-          <h2 className="text-[18px] font-normal text-[#111] mt-8 mb-4">Rescheduling</h2>
+          <h2 id="rescheduling" className="text-[18px] font-normal text-[#111] mt-8 mb-4">Rescheduling</h2>
           <p>{REFUND_POLICY.reschedule}</p>
 
           <h2 className="text-[18px] font-normal text-[#111] mt-8 mb-4">In short</h2>

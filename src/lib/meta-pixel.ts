@@ -2,8 +2,6 @@
 // All event functions are SSR-safe and no-op when the pixel isn't configured
 // or hasn't loaded yet, so they can be called freely from client components.
 
-import type { PlanId } from '@/lib/constants'
-import { FACE_MAP_CORE } from '@/lib/constants'
 
 declare global {
   interface Window {
@@ -25,7 +23,7 @@ export function pageview() {
 export function trackInitiateCheckout(params: {
   value: number
   currency?: string
-  planId?: PlanId | typeof FACE_MAP_CORE.id
+  planId?: string
 }) {
   fbq('track', 'InitiateCheckout', {
     value: params.value,
@@ -41,7 +39,7 @@ export function trackLead() {
 export function trackPurchase(params: {
   value: number
   currency?: string
-  planId?: PlanId | typeof FACE_MAP_CORE.id
+  planId?: string
   contentName?: string
 }) {
   fbq('track', 'Purchase', {

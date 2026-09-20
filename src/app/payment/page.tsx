@@ -4,12 +4,11 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ChevronLeft, Check, Loader2, Shield, Sparkles, Plus, Scissors, Palette } from 'lucide-react'
+import { ChevronLeft, Check, Loader2, Shield, Plus, Scissors, Palette, Zap } from 'lucide-react'
 import { useRazorpay } from '@/hooks/use-razorpay'
 import {
   FACE_MAP_CORE,
   FACE_MAP_ADDONS,
-  ADDON_BUNDLE,
   SITE_CONFIG,
   REFUND_POLICY,
   computeOrderTotal,
@@ -22,6 +21,7 @@ import { cn } from '@/lib/utils'
 const API_URL = SITE_CONFIG.apiUrl
 
 const addonIcons: Record<AddOnId, typeof Scissors> = {
+  priority_delivery: Zap,
   hair_map: Scissors,
   style_colour_map: Palette,
 }
@@ -214,7 +214,7 @@ export default function PaymentPage() {
               Confirm your order
             </h1>
             <p className="text-[15px] text-[#666]">
-              Welcome back, {checkoutData.name} — add or remove Maps before paying
+Welcome back, {checkoutData.name} — add anything useful below, or continue without add-ons
             </p>
           </motion.div>
 
@@ -249,7 +249,7 @@ export default function PaymentPage() {
           </motion.div>
 
           {/* Add-ons — still changeable here, matching the homepage card */}
-          <div className="mb-4 grid gap-4 sm:grid-cols-2">
+          <div className="mb-4 grid gap-4 sm:grid-cols-3">
             {FACE_MAP_ADDONS.map((addon, index) => {
               const Icon = addonIcons[addon.id]
               const on = selected.includes(addon.id)
@@ -269,7 +269,7 @@ export default function PaymentPage() {
                       <Icon className="h-4 w-4" strokeWidth={1.6} />
                     </span>
                     <span className="text-[9.5px] font-medium uppercase tracking-[0.16em] text-ink-muted">
-                      Add-on
+                      {addon.kind === 'delivery' ? 'Optional' : 'Optional specialist Map'}
                     </span>
                     <span className="ml-auto text-[15px] tabular-nums text-ink" style={{ fontWeight: 500 }}>
                       +{addon.priceDisplay}
@@ -326,15 +326,6 @@ export default function PaymentPage() {
                   <dd className="tabular-nums text-ink">+{a.priceDisplay}</dd>
                 </div>
               ))}
-              {quote.addons.bundled && (
-                <div className="flex items-baseline justify-between gap-4 text-[13.5px]">
-                  <dt className="flex items-center gap-1.5 text-brand-ink">
-                    <Sparkles className="h-3.5 w-3.5" strokeWidth={1.8} />
-                    Both Maps bundle
-                  </dt>
-                  <dd className="tabular-nums text-brand-ink">−{ADDON_BUNDLE.savingDisplay}</dd>
-                </div>
-              )}
               <div className="flex items-baseline justify-between gap-4 border-t border-border pt-3">
                 <dt className="text-[13.5px] text-ink" style={{ fontWeight: 500 }}>
                   Total
@@ -344,7 +335,7 @@ export default function PaymentPage() {
                 </dd>
               </div>
             </dl>
-            <p className="mt-2.5 text-[12px] text-ink-muted">{FACE_MAP_CORE.gstNote}.</p>
+            <p className="mt-2.5 text-[12px] text-ink-muted">{FACE_MAP_CORE.gstNote}. No hidden recommendation fees.</p>
           </motion.div>
 
           {/* Error message */}
@@ -387,7 +378,7 @@ export default function PaymentPage() {
                   Processing...
                 </>
               ) : (
-                <>Pay ₹{quote.total.toLocaleString('en-IN')}</>
+                <>Continue to secure payment · ₹{quote.total.toLocaleString('en-IN')}</>
               )}
             </button>
 
