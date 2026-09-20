@@ -125,6 +125,18 @@ export const REFUND_POLICY = {
   detailParts: REFUND_DETAIL,
   /** … and as one string (refund page). */
   detail: REFUND_DETAIL.join(' '),
+  /** Design 37: the same policy as three labelled moments, each with a coin. */
+  moments: [
+    { when: 'Before', head: 'Full refund, no questions asked', body: REFUND_DETAIL[0], tint: 'mist', icon: 'undo' },
+    { when: 'After', head: 'The fee stands', body: REFUND_DETAIL[1], tint: 'straw', icon: 'clipboard' },
+    {
+      when: 'If plans change',
+      head: 'Rescheduling is free',
+      body: 'Rescheduling is free. If we cancel or miss a booked session, you can choose a new slot or take a full refund.',
+      tint: 'blush',
+      icon: 'calendar',
+    },
+  ],
   reschedule:
     'Rescheduling is free. If we cancel or miss a booked session, you can choose a new slot or take a full refund.',
 } as const

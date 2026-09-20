@@ -864,36 +864,51 @@ export const EVIDENCE = {
 // from multiple Indian clinic fee listings, 2026). Everything else here is a
 // qualitative comparison, deliberately unquantified.
 export const ANCHOR = {
-  eyebrow: 'What it costs',
-  title: 'One fee. One plan.',
-  muted: 'Nothing recurring.',
-  recurrence: 'Everything above repeats. This does not.',
+  eyebrow: 'Money, honestly',
+  title: 'You are already spending this.',
+  muted: 'Just not once.',
+  legend: 'Dots = times you pay it in a year',
+  /**
+   * Design 37: each row carries a tinted icon coin, a cadence tag saying how
+   * often the spend comes back, and twelve dots of which `times` are filled —
+   * an illustration of how much of a year it eats, not data.
+   */
   rows: [
     {
       label: 'A dermatologist visit',
       value: '₹500 – ₹2,000',
       note: 'Per consultation (₹2,000–₹5,000 at metro hospitals). Skin only. The clock is short.',
-      kind: 'compare',
+      tint: 'mist',
+      icon: 'stethoscope',
+      times: 4,
+      cadence: 'Every few months',
     },
     {
       label: 'One serum a reel told you to buy',
       value: 'Again next month',
       note: 'Bought without knowing if it suits you. Most of the drawer is this.',
-      kind: 'compare',
+      tint: 'blush',
+      icon: 'flask',
+      times: 12,
+      cadence: 'Every month',
     },
     {
       label: 'A haircut that does not suit your face',
       value: 'Six weeks of it',
       note: 'The money is the small part.',
-      kind: 'compare',
-    },
-    {
-      label: 'Complete MapMyFace Plan',
-      value: '₹3,499',
-      note: 'A live 45–60 min expert session, 400+ facial assessments, 100+ context factors, your Face Map with Visual Direction, Appearance Protocol and a clarification call. GST-inclusive. Paid once.',
-      kind: 'ours',
+      tint: 'straw',
+      icon: 'scissors',
+      times: 8,
+      cadence: 'Every six weeks',
     },
   ],
+  plan: {
+    label: 'Complete MapMyFace Plan',
+    value: '₹3,499',
+    note: 'A live 45–60 min expert session, 400+ facial assessments, 100+ context factors, your Face Map with Visual Direction, the Appearance Protocol and a clarification call. GST-inclusive.',
+    times: 1,
+    cadence: '1× — that’s it',
+  },
   reassurance: [
     'We sell no products and take no commission',
     'One payment — no subscription, no renewals',
@@ -1345,45 +1360,46 @@ export const CONTEXT = {
   lede:
     'This is the part generic advice cannot do. A routine that works in Bengaluru can fail in a Delhi winter, and the same products can feel completely different in Chennai humidity.',
   /**
-   * Design 36a — one weather card per context. `weather` picks the sky and the
-   * animation (wind streaks / rain lines / drops into ripples). Card copy is a
-   * stand-in drawn from the old matrix notes until the canvas export lands.
+   * Design 36a — one weather card per context, copy verbatim from the canvas
+   * export (turn 36, 2026-09-20). `weather` picks the sky and the animation:
+   * wind streaks / rain lines through haze / drops falling into ripples.
+   * `feel` is the card's mono line, already joined the way the design joins it.
    */
   cards: [
     {
       id: 'delhi',
       weather: 'wind',
       city: 'Delhi',
-      when: 'a winter evening',
-      feel: 'Cold · dry · static air',
+      when: 'Winter',
+      feel: 'Cold · Dry · Higher pollution',
       changes: [
         'Barrier repair moves ahead of actives',
-        'Static and dryness change the cut you can maintain',
-        'Occlusive textures come back into the routine',
+        'Richer moisturisation matters more',
+        'Comfort before aggressive treatments',
       ],
     },
     {
       id: 'chennai',
       weather: 'rain',
       city: 'Chennai',
-      when: 'the monsoon months',
-      feel: 'Warm · humid · hazy',
+      when: 'Humidity',
+      feel: 'Warm · Sticky · High humidity',
       changes: [
-        'Gel textures; anything occlusive is counter-productive',
-        'Volume collapses — length and layering get reconsidered',
-        'Fewer steps, more often, beats more steps once',
+        'Lighter textures are preferred',
+        'Oil control and breathability matter more',
+        'Heavy products can feel uncomfortable',
       ],
     },
     {
       id: 'water',
       weather: 'drip',
-      city: 'Hard water',
-      when: 'wherever the tap is',
-      feel: 'Mineral · drying · builds up',
+      city: 'Hard-water city',
+      when: 'Any season',
+      feel: 'Mineral-heavy water',
       changes: [
-        'Cleanser choice changes before anything else does',
-        'Scalp buildup changes wash frequency and product',
-        'A final rinse becomes part of the routine',
+        'Cleansing and barrier support need more care',
+        'Product performance can shift',
+        'Rinse-off products become more relevant',
       ],
     },
   ],

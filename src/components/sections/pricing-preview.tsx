@@ -2,9 +2,8 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { Instrument_Serif } from 'next/font/google'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { Check, ArrowRight, Plus, Scissors, Palette, Zap } from 'lucide-react'
+import { Check, ArrowRight, Plus, Scissors, Palette, Zap, Stethoscope, FlaskConical, Undo2, ClipboardCheck, CalendarClock } from 'lucide-react'
 import {
   FACE_MAP_CORE,
   FACE_MAP_ADDONS,
@@ -15,13 +14,10 @@ import {
 } from '@/lib/constants'
 import { EASE_OUT, REVEAL, TAP_SPRING, VIEWPORT, VIEWPORT_TIGHT, stagger } from '@/lib/motion'
 import { SectionHeading } from '@/components/ui/section-heading'
+import { SectionTag } from '@/components/ui/section-tag'
 import { CountUp } from '@/components/ui/count-up'
 import { DetailSheet } from '@/components/ui/detail-sheet'
 import { ADDON_DETAIL, ANCHOR } from '@/lib/content'
-
-// The one soft line in this section — the serif italic the site already uses
-// for its single quiet sentence elsewhere (see plan.tsx, problem.tsx).
-const serif = Instrument_Serif({ subsets: ['latin'], weight: '400', style: ['italic'] })
 
 // Design 33/34 colour budget: ink, two greys and hairlines. Teal is spent once,
 // on the Start My Plan button above.
@@ -30,6 +26,24 @@ const NOTE = '#5C7278'
 const LABEL = '#7E959B'
 const GHOST = '#98A6AB'
 const HAIRLINE = 'rgba(30,53,59,.1)'
+
+// Design 37 tints — all existing site tints — for the icon coins.
+const TINT: Record<string, string> = { mist: '173 199 206', blush: '228 200 191', straw: '226 214 178' }
+const coin = (t: string) => ({ background: `rgb(${TINT[t]} / 0.45)`, border: `1px solid rgb(${TINT[t]} / 0.9)` })
+const ROW_ICON: Record<string, typeof Scissors> = { stethoscope: Stethoscope, flask: FlaskConical, scissors: Scissors }
+const MOMENT_ICON: Record<string, typeof Scissors> = { undo: Undo2, clipboard: ClipboardCheck, calendar: CalendarClock }
+const DOTS = 12
+
+/** Twelve 6px dots, `on` of them filled — how often a spend comes back in a year. */
+function Dots({ on, fill }: { on: number; fill: string }) {
+  return (
+    <span aria-hidden="true" className="flex gap-1">
+      {Array.from({ length: DOTS }, (_, i) => (
+        <span key={i} className="h-1.5 w-1.5 rounded-full" style={{ background: i < on ? fill : 'rgba(30,53,59,.12)' }} />
+      ))}
+    </span>
+  )
+}
 
 const addonIcons: Record<AddOnId, typeof Scissors> = {
   priority_delivery: Zap,
@@ -124,9 +138,6 @@ export function PricingPreview() {
                     >
                       {FACE_MAP_CORE.priceDisplay}
                     </motion.span>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/55">
-                      one-time · GST-inclusive
-                    </span>
                   </div>
                   <p className="mt-2 max-w-md text-[13px] leading-relaxed text-ink/70">
                     {FACE_MAP_CORE.summary}
@@ -175,7 +186,7 @@ export function PricingPreview() {
                   }`}
                 >
                   <div className="mb-3 flex items-center gap-2.5">
-                    <span className="icon-tile-brand flex h-8 w-8 shrink-0 items-center justify-center rounded-xl">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-border-soft bg-white text-brand">
                       <Icon className="h-4 w-4" strokeWidth={1.6} />
                     </span>
                     <span className="text-[9.5px] font-medium uppercase tracking-[0.16em] text-ink-muted">
@@ -196,39 +207,44 @@ export function PricingPreview() {
                     {addon.description}
                   </p>
 
-                  <button
-                    type="button"
-                    onClick={() => setDetail(addon.id)}
-                    className="mt-2.5 self-start text-[12px] text-ink/55 underline decoration-ink/20 underline-offset-2 transition-colors hover:text-ink hover:decoration-ink/50"
-                  >
-                    See the {ADDON_DETAIL.items.find((d) => d.id === addon.id)?.includes.length ?? 6}{' '}
-                    things you receive
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => toggle(addon.id)}
-                    aria-pressed={on}
-                    className="mt-3 flex h-10 flex-none items-center gap-2.5 self-end rounded-full border bg-white text-[13.5px] transition-[border-color,background-color] duration-200 hover:bg-[#F6F8F9] active:translate-y-px"
-                    style={{ padding: '0 5px 0 14px', borderColor: on ? INK : 'rgba(30,53,59,.2)', color: INK, fontWeight: 500 }}
-                  >
-                    <span className="flex items-center gap-1.5">
-                      {on ? <Check className="h-[13px] w-[13px]" strokeWidth={2} /> : <Plus className="h-[13px] w-[13px]" strokeWidth={2} />}
-                      {on ? 'Added' : 'Add'}
-                    </span>
-                    <span
-                      className="rounded-full border font-mono text-[12.5px] tabular-nums transition-[background-color,color,border-color] duration-200"
-                      style={{
-                        padding: '6px 10px',
-                        fontWeight: 500,
-                        background: on ? INK : '#F6F8F9',
-                        color: on ? '#FFFFFF' : INK,
-                        borderColor: on ? INK : 'rgba(30,53,59,.12)',
-                      }}
+                  {/* One row: the detail link on the left, the Add toggle on
+                      the right. The link takes the brand teal so it reads as
+                      a link and not as a muted caption. In the sm–lg band the
+                      cards sit three across and are too narrow for the pair,
+                      so there the link stacks above a right-aligned button. */}
+                  <div className="mt-3 flex items-center justify-between gap-3 sm:flex-col sm:items-start sm:gap-2.5 lg:flex-row lg:items-center lg:justify-between lg:gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setDetail(addon.id)}
+                      className="text-left text-[12px] text-brand underline decoration-brand/30 underline-offset-2 transition-colors hover:text-brand-ink hover:decoration-brand-ink/60"
                     >
-                      +{addon.priceDisplay}
-                    </span>
-                  </button>
+                      See the {ADDON_DETAIL.items.find((d) => d.id === addon.id)?.includes.length ?? 6}{' '}
+                      things you receive
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => toggle(addon.id)}
+                      aria-pressed={on}
+                      className={`inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 text-[13px] font-medium transition-colors duration-200 sm:self-end lg:self-auto ${
+                        on
+                          ? 'bg-brand text-white hover:bg-brand-ink'
+                          : 'border border-border bg-white text-ink hover:bg-mist'
+                      }`}
+                    >
+                      {on ? (
+                        <>
+                          <Check className="h-3.5 w-3.5" strokeWidth={2.5} />
+                          Added
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="h-3.5 w-3.5" strokeWidth={2.5} />
+                          Add
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </motion.div>
               )
             })}
@@ -320,79 +336,131 @@ export function PricingPreview() {
           </div>
         </motion.div>
 
-        {/* ── What it costs · If you change your mind (design 34) ───────────
-            Two hairline cards, stacked on mobile (34b), 1.2fr / 1fr on desktop
-            (34a). Left is a ledger: name, mono price, one-line note per row,
-            the plan row on a faint ink tint, the bottom line in the serif.
-            Right is prose, then a hairline before the three reassurance lines.
-            No colour beyond ink and grey — the CTA above already spent the teal. */}
+        {/* ── You are already spending this (design 37) ───────────────────
+            The point is not the price, it is that the other spending repeats.
+            Each row: tinted icon coin, name, mono price, one-line note, then
+            twelve dots (filled = times a year) with a cadence tag. The plan row
+            is ink-ringed with a single filled dot. Right: the refund policy as
+            three labelled moments, each with its own coin, then the three
+            reassurance lines. Teal is still spent only on the CTA above. */}
         <motion.div
           initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
           transition={{ ...REVEAL, delay: 0.08 }}
-          className="mt-4 grid grid-cols-1 gap-4 lg:mt-6 lg:grid-cols-[1.2fr_1fr] lg:gap-7"
+          className="mt-12 flex flex-col gap-5 lg:mt-16 lg:gap-[30px]"
         >
-          <div
-            className="flex flex-col gap-3.5 rounded-[22px] border px-5 py-[22px] lg:gap-[18px] lg:rounded-[24px] lg:px-[30px] lg:pb-[26px] lg:pt-7"
-            style={{ borderColor: HAIRLINE }}
-          >
-            <p className="font-mono text-[10px] uppercase tracking-[0.1em] lg:text-[10.5px]" style={{ color: LABEL }}>
-              {ANCHOR.eyebrow}
-            </p>
-            <ul className="flex flex-col">
+          <div className="flex max-w-[760px] flex-col items-start gap-4">
+            <SectionTag>{ANCHOR.eyebrow}</SectionTag>
+            <h3 className="text-[1.75rem] leading-[1.1] tracking-[-0.02em] text-ink md:text-[2.25rem]" style={{ fontWeight: 300 }}>
+              {ANCHOR.title} <span className="text-ink/40">{ANCHOR.muted}</span>
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.3fr_1fr] lg:gap-[26px] lg:items-stretch">
+            {/* left — the ledger */}
+            <div className="flex flex-col gap-2.5 lg:gap-3">
+              <p className="px-1 font-mono text-[10px] uppercase tracking-[0.1em] lg:text-[10.5px]" style={{ color: LABEL }}>
+                {ANCHOR.legend}
+              </p>
               {ANCHOR.rows.map((row) => {
-                const ours = row.kind === 'ours'
+                const Icon = ROW_ICON[row.icon]
                 return (
-                  <li
+                  <div
                     key={row.label}
-                    className="-mx-3 grid grid-cols-[1fr_auto] gap-x-3 gap-y-1 rounded-[14px] px-3 py-3.5 lg:-mx-3.5 lg:gap-x-6 lg:px-3.5 lg:py-4"
-                    style={{ background: ours ? 'rgba(30,53,59,.04)' : 'transparent', borderBottom: '1px solid rgba(30,53,59,.07)' }}
+                    className="grid grid-cols-[38px_1fr_auto] items-start gap-x-3 gap-y-1 rounded-[18px] border p-4 lg:grid-cols-[44px_1fr_auto] lg:gap-x-4 lg:rounded-[20px] lg:px-5 lg:py-[18px]"
+                    style={{ borderColor: HAIRLINE }}
                   >
-                    <span className="text-[14.5px] tracking-[-0.01em] lg:text-[16px]" style={{ color: INK, fontWeight: ours ? 500 : 400 }}>
+                    <span className="row-span-3 flex h-[38px] w-[38px] items-center justify-center rounded-[12px] lg:h-11 lg:w-11 lg:rounded-[14px]" style={coin(row.tint)}>
+                      <Icon className="h-[17px] w-[17px] lg:h-[19px] lg:w-[19px]" strokeWidth={1.5} style={{ color: INK }} />
+                    </span>
+                    <span className="text-[15px] leading-[1.25] tracking-[-0.01em] lg:text-[17px]" style={{ color: INK, fontWeight: 500 }}>
                       {row.label}
                     </span>
                     <span className="whitespace-nowrap text-right font-mono text-[12px] tabular-nums lg:text-[13.5px]" style={{ color: INK }}>
                       {row.value}
                     </span>
-                    <span className="col-span-2 max-w-[520px] text-[12.5px] leading-[1.5] lg:text-[13.5px]" style={{ color: NOTE, textWrap: 'pretty' }}>
+                    <span className="col-span-2 col-start-2 text-[12.5px] leading-[1.5] lg:text-[13.5px]" style={{ color: NOTE, textWrap: 'pretty' }}>
                       {row.note}
                     </span>
-                  </li>
+                    <span className="col-span-2 col-start-2 flex items-center gap-2.5 pt-2.5">
+                      <Dots on={row.times} fill={INK} />
+                      <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.08em] lg:text-[10.5px]" style={{ color: LABEL }}>
+                        {row.cadence}
+                      </span>
+                    </span>
+                  </div>
                 )
               })}
-            </ul>
-            <p className={`${serif.className} mt-auto text-[18px] italic leading-[1.3] lg:text-[20px]`} style={{ color: INK }}>
-              {ANCHOR.recurrence}
-            </p>
-          </div>
 
-          <div
-            className="flex flex-col gap-3 rounded-[22px] border px-5 py-[22px] lg:gap-4 lg:rounded-[24px] lg:px-[30px] lg:pb-[26px] lg:pt-7"
-            style={{ borderColor: HAIRLINE }}
-          >
-            <p className="font-mono text-[10px] uppercase tracking-[0.1em] lg:text-[10.5px]" style={{ color: LABEL }}>
-              If you change your mind
-            </p>
-            <h3 className="text-[20px] leading-[1.2] tracking-[-0.02em] lg:text-[24px]" style={{ color: INK, fontWeight: 400, textWrap: 'pretty' }}>
-              {REFUND_POLICY.headline}
-            </h3>
-            {REFUND_POLICY.detailParts.map((para) => (
-              <p key={para} className="text-[13.5px] leading-[1.55] lg:text-[14px] lg:leading-[1.6]" style={{ color: NOTE, textWrap: 'pretty' }}>
-                {para}
-              </p>
-            ))}
-            <p className="text-[13.5px] leading-[1.55] lg:text-[14px] lg:leading-[1.6]" style={{ color: NOTE, textWrap: 'pretty' }}>
-              {REFUND_POLICY.reschedule}
-            </p>
-            <ul className="mt-auto flex flex-col gap-2 border-t pt-3.5 lg:pt-[18px]" style={{ borderColor: 'rgba(30,53,59,.08)' }}>
-              {ANCHOR.reassurance.map((r) => (
-                <li key={r} className="flex gap-2.5 text-[13px] leading-[1.45] lg:text-[13.5px]" style={{ color: INK }}>
-                  <span aria-hidden="true" style={{ color: GHOST }}>—</span>
-                  <span>{r}</span>
-                </li>
-              ))}
-            </ul>
+              <div
+                className="grid grid-cols-[38px_1fr_auto] items-start gap-x-3 gap-y-1.5 rounded-[18px] border p-4 lg:grid-cols-[44px_1fr_auto] lg:gap-x-4 lg:rounded-[20px] lg:p-5"
+                style={{ borderColor: INK, background: 'rgba(30,53,59,.03)' }}
+              >
+                <span className="row-span-3 flex h-[38px] w-[38px] items-center justify-center rounded-[12px] lg:h-11 lg:w-11 lg:rounded-[14px]" style={{ background: INK }}>
+                  <Check className="h-[17px] w-[17px] text-white lg:h-[19px] lg:w-[19px]" strokeWidth={1.6} />
+                </span>
+                <span className="text-[15.5px] leading-[1.25] tracking-[-0.01em] lg:text-[18px]" style={{ color: INK, fontWeight: 500 }}>
+                  {ANCHOR.plan.label}
+                </span>
+                <span className="whitespace-nowrap text-right text-[24px] leading-none tracking-[-0.02em] tabular-nums lg:text-[30px]" style={{ color: INK, fontWeight: 300 }}>
+                  {ANCHOR.plan.value}
+                </span>
+                <span className="col-span-2 col-start-2 text-[12.5px] leading-[1.5] lg:text-[13.5px]" style={{ color: NOTE, textWrap: 'pretty' }}>
+                  {ANCHOR.plan.note}
+                </span>
+                <span className="col-span-2 col-start-2 flex items-center gap-2.5 pt-2.5">
+                  <Dots on={ANCHOR.plan.times} fill={INK} />
+                  <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.08em] lg:text-[10.5px]" style={{ color: INK }}>
+                    {ANCHOR.plan.cadence}
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            {/* right — if you change your mind */}
+            <div
+              className="mt-1 flex flex-col gap-4 rounded-[20px] border p-5 lg:mt-0 lg:gap-[18px] lg:rounded-[24px] lg:px-[26px] lg:pb-[22px] lg:pt-[26px]"
+              style={{ borderColor: HAIRLINE }}
+            >
+              <div className="flex flex-col gap-1.5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.1em] lg:text-[10.5px]" style={{ color: LABEL }}>
+                  If you change your mind
+                </p>
+                <h4 className="text-[20px] leading-[1.2] tracking-[-0.02em] lg:text-[23px]" style={{ color: INK, fontWeight: 400, textWrap: 'pretty' }}>
+                  {REFUND_POLICY.headline}
+                </h4>
+              </div>
+              <div className="flex flex-col gap-4 lg:gap-3.5">
+                {REFUND_POLICY.moments.map((m) => {
+                  const Icon = MOMENT_ICON[m.icon]
+                  return (
+                    <div key={m.when} className="grid grid-cols-[34px_1fr] items-start gap-x-3 gap-y-[3px] lg:grid-cols-[36px_1fr] lg:gap-y-1">
+                      <span className="row-span-3 flex h-[34px] w-[34px] items-center justify-center rounded-[11px] lg:h-9 lg:w-9 lg:rounded-[12px]" style={coin(m.tint)}>
+                        <Icon className="h-[15px] w-[15px] lg:h-4 lg:w-4" strokeWidth={1.6} style={{ color: INK }} />
+                      </span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.1em]" style={{ color: LABEL }}>
+                        {m.when}
+                      </span>
+                      <span className="text-[14.5px] leading-[1.25] tracking-[-0.01em] lg:text-[15px]" style={{ color: INK, fontWeight: 500 }}>
+                        {m.head}
+                      </span>
+                      <span className="text-[12.5px] leading-[1.5] lg:text-[13px]" style={{ color: NOTE, textWrap: 'pretty' }}>
+                        {m.body}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+              <ul className="mt-auto flex flex-col gap-2 border-t pt-3.5 lg:pt-4" style={{ borderColor: 'rgba(30,53,59,.08)' }}>
+                {ANCHOR.reassurance.map((r) => (
+                  <li key={r} className="flex gap-2.5 text-[12.5px] leading-[1.45] lg:text-[13px]" style={{ color: INK }}>
+                    <Check className="mt-[3px] h-3.5 w-3.5 shrink-0" strokeWidth={2} style={{ color: GHOST }} />
+                    <span>{r}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </motion.div>
 
