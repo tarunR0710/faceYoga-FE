@@ -14,7 +14,6 @@ const GLOW_SAND = glow('230 201 175', 0.6) // was #E6C9AF at opacity-60
 const TEAL = '#3D6B76'
 const INK = '#1E353B'
 const GREY = '#5C7278'
-const GHOST = '#98A6AB'
 const LABEL = '#7E959B'
 const HAIRLINE = 'rgba(30,53,59,.14)'
 
@@ -129,7 +128,7 @@ export function Journey() {
                     {/* when */}
                     <span
                       className="font-mono text-[11px] leading-[1.3] text-right tabular-nums"
-                      style={{ paddingTop: 3, color: on ? INK : GHOST, transition: colour === 'none' ? 'none' : `color ${colour}` }}
+                      style={{ paddingTop: 3, color: GREY }}
                     >
                       {s.timing}
                     </span>
@@ -175,14 +174,14 @@ export function Journey() {
                       <span className="flex items-baseline justify-between gap-2">
                         <span
                           className="text-[16px] leading-[1.2] tracking-[-0.01em]"
-                          style={{ fontWeight: 500, color: on ? INK : GREY, transition: colour === 'none' ? 'none' : `color ${colour}` }}
+                          style={{ fontWeight: 500, color: INK }}
                         >
                           {s.title}
                         </span>
                       </span>
                       <span
                         className="text-[13px] leading-[1.4]"
-                        style={{ color: on ? GREY : GHOST, textWrap: 'pretty', transition: colour === 'none' ? 'none' : `color ${colour}` }}
+                        style={{ color: GREY, textWrap: 'pretty' }}
                       >
                         {s.meta}
                       </span>
