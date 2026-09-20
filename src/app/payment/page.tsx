@@ -181,14 +181,14 @@ export default function PaymentPage() {
           <div className="flex h-14 items-center justify-between">
             <Link
               href="/form"
-              className="flex items-center gap-2 text-[#888] hover:text-[#111] transition-colors"
+              className="flex items-center gap-2 text-[#888] hover:text-ink transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
               <span className="text-[13px]">Back</span>
             </Link>
             <Link
               href="/"
-              className="text-[17px] text-[#111]"
+              className="text-[17px] text-ink"
               style={{ fontWeight: 500 }}
             >
               {SITE_CONFIG.name}
@@ -208,7 +208,7 @@ export default function PaymentPage() {
             className="text-center mb-10"
           >
             <h1
-              className="text-[1.75rem] md:text-[2rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-2"
+              className="text-[1.75rem] md:text-[2rem] leading-[1.15] tracking-[-0.02em] text-ink mb-2"
               style={{ fontWeight: 300 }}
             >
               Confirm your order
@@ -368,7 +368,7 @@ Welcome back, {checkoutData.name} — add anything useful below, or continue wit
                 'inline-flex items-center justify-center h-14 px-12 rounded-full text-[15px] font-medium transition-all',
                 isLoading || !razorpayLoaded
                   ? 'bg-[#999] cursor-not-allowed'
-                  : 'bg-[#111] hover:bg-[#333]'
+                  : 'bg-ink hover:bg-ink/90'
               )}
               style={{ color: 'white' }}
             >

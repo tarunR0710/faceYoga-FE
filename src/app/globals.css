@@ -40,9 +40,14 @@
        Channels are space-separated so Tailwind's <alpha-value> and bare rgb()
        can both consume them. */
 
-    /* Near-black. Navbar pill, dark sections, headings — body text stays
-       achromatic on purpose; only the accent carries colour now. */
-    --c-ink: 10 10 10;
+    /* Dark slate, not black. Navbar pill, dark sections, headings, card
+       text, solid buttons — body text stays achromatic on purpose; only the
+       accent carries colour. #1D1F21: pure black on a white screen is the
+       harshest contrast the eye can meet and tires it fast; a deep slate
+       keeps the weight without the glare. Every dark on the site — the
+       Tailwind `ink` token and the shadcn `foreground`/`primary`/`ring`
+       tokens — reads this one value, so change it here and nowhere else. */
+    --c-ink: 29 31 33;
 
     /* Dusty sage-teal accent (#ADC7CE family). DEFAULT is a darkened, more
        saturated shade so `bg-brand text-white` buttons keep real contrast —
@@ -125,7 +130,7 @@
   }
 
   ::selection {
-    @apply bg-[#111] text-white;
+    @apply bg-ink text-white;
   }
 }
 
@@ -150,14 +155,14 @@
   .btn-primary {
     @apply inline-flex items-center justify-center;
     @apply h-12 px-7;
-    @apply bg-[#111] text-white;
+    @apply bg-ink text-white;
     @apply text-[14px] font-medium tracking-[-0.01em];
     @apply rounded-[10px];
     @apply transition-all duration-150 ease-out;
   }
 
   .btn-primary:hover {
-    @apply bg-[#222];
+    @apply bg-ink/90;
     transform: translateY(-1px);
   }
 
@@ -168,7 +173,7 @@
   .btn-secondary {
     @apply inline-flex items-center justify-center;
     @apply h-12 px-7;
-    @apply bg-transparent text-[#111];
+    @apply bg-transparent text-ink;
     @apply text-[14px] font-medium tracking-[-0.01em];
     @apply rounded-[10px];
     @apply transition-all duration-150;
@@ -181,7 +186,7 @@
   .btn-outline {
     @apply inline-flex items-center justify-center;
     @apply h-12 px-7;
-    @apply bg-white text-[#111];
+    @apply bg-white text-ink;
     @apply text-[14px] font-medium tracking-[-0.01em];
     @apply rounded-[10px] border border-[#e5e5e5];
     @apply transition-all duration-150;
@@ -226,7 +231,7 @@
   }
 
   .badge-dark {
-    @apply bg-[#111] text-white;
+    @apply bg-ink text-white;
   }
 
   /* Input */
@@ -234,13 +239,13 @@
     @apply w-full h-12 px-4;
     @apply bg-white;
     @apply border border-[#e5e5e5] rounded-[10px];
-    @apply text-[15px] text-[#111] placeholder:text-[#999];
+    @apply text-[15px] text-ink placeholder:text-[#999];
     @apply transition-all duration-150;
     @apply outline-none;
   }
 
   .input-field:focus {
-    @apply border-[#111];
+    @apply border-ink;
     box-shadow: 0 0 0 3px rgba(17,17,17,0.06);
   }
 
@@ -268,9 +273,9 @@
 
   /* Link */
   .link {
-    @apply text-[#111] font-medium;
-    @apply underline decoration-[#111]/20 underline-offset-2;
-    @apply hover:decoration-[#111]/60;
+    @apply text-ink font-medium;
+    @apply underline decoration-ink/20 underline-offset-2;
+    @apply hover:decoration-ink/60;
     @apply transition-all duration-150;
   }
 }
@@ -585,7 +590,7 @@
 /* Focus states - subtle */
 *:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px white, 0 0 0 4px #111;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(var(--c-ink));
 }
 
 /* Journey ("How it works") card fill. Registering the property makes the number

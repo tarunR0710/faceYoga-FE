@@ -146,8 +146,8 @@ export function LeadForm({ addons = '' }: { addons?: string }) {
 
   const inputClasses = cn(
     'w-full h-12 px-4 rounded-xl bg-[#f5f5f5] border border-transparent',
-    'text-[15px] text-[#111] placeholder:text-[#999]',
-    'focus:outline-none focus:border-[#111] focus:bg-white',
+    'text-[15px] text-ink placeholder:text-[#999]',
+    'focus:outline-none focus:border-ink focus:bg-white',
     'transition-all duration-200'
   )
 
@@ -235,7 +235,7 @@ export function LeadForm({ addons = '' }: { addons?: string }) {
                 'w-full h-12 rounded-full text-[14px] font-medium flex items-center justify-center gap-2 transition-all',
                 isLoading || !phone || phone.length !== 10
                   ? 'bg-[#ccc] text-[#888] cursor-not-allowed'
-                  : 'bg-[#111] text-white hover:bg-[#333]'
+                  : 'bg-ink text-white hover:bg-ink/90'
               )}
             >
               {isLoading ? (
@@ -253,8 +253,8 @@ export function LeadForm({ addons = '' }: { addons?: string }) {
 
             <p className="text-[11px] text-center text-[#999]">
               By continuing, you agree to our{' '}
-              <a href="#" className="text-[#666] hover:text-[#111]">Terms</a> and{' '}
-              <a href="#" className="text-[#666] hover:text-[#111]">Privacy Policy</a>
+              <a href="#" className="text-[#666] hover:text-ink">Terms</a> and{' '}
+              <a href="#" className="text-[#666] hover:text-ink">Privacy Policy</a>
             </p>
           </motion.form>
         )}
@@ -269,7 +269,7 @@ export function LeadForm({ addons = '' }: { addons?: string }) {
           >
             <div className="text-center">
               <h3
-                className="text-[17px] text-[#111] mb-1"
+                className="text-[17px] text-ink mb-1"
                 style={{ fontWeight: 500 }}
               >
                 Verify Your Number
@@ -293,7 +293,7 @@ export function LeadForm({ addons = '' }: { addons?: string }) {
                 'w-full h-12 rounded-full text-[14px] font-medium flex items-center justify-center gap-2 transition-all',
                 isLoading || otp.length !== 6
                   ? 'bg-[#ccc] text-[#888] cursor-not-allowed'
-                  : 'bg-[#111] text-white hover:bg-[#333]'
+                  : 'bg-ink text-white hover:bg-ink/90'
               )}
             >
               {isLoading ? (
@@ -311,7 +311,7 @@ export function LeadForm({ addons = '' }: { addons?: string }) {
                 <button
                   type="button"
                   onClick={resendOtp}
-                  className="text-[13px] text-[#666] hover:text-[#111] transition-colors"
+                  className="text-[13px] text-[#666] hover:text-ink transition-colors"
                 >
                   Resend OTP
                 </button>

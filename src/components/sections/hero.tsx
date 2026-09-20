@@ -91,7 +91,7 @@ export function Hero() {
             <motion.div {...rise(0.45)} className="flex flex-row gap-3">
               <Link
                 href="/form"
-                className="inline-flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-full bg-white px-4 text-[13px] font-medium text-[#111] shadow-lg shadow-black/20 transition-all duration-200 hover:bg-white/90 active:scale-[0.98] sm:h-14 sm:text-[15px]"
+                className="inline-flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-full bg-white px-4 text-[13px] font-medium text-ink shadow-lg shadow-black/20 transition-all duration-200 hover:bg-white/90 active:scale-[0.98] sm:h-14 sm:text-[15px]"
               >
                 Start My Plan
               </Link>

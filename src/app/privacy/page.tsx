@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/constants'
 
-const H = 'text-[18px] font-normal text-[#111] mt-8 mb-4'
+const H = 'text-[18px] font-normal text-ink mt-8 mb-4'
 
 /**
  * Written to the blueprint's six trust promises: private by default,
@@ -20,12 +20,12 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-3xl mx-auto px-6 py-16">
-        <Link href="/" className="inline-flex items-center gap-2 text-[14px] text-[#666] hover:text-[#111] mb-8">
+        <Link href="/" className="inline-flex items-center gap-2 text-[14px] text-[#666] hover:text-ink mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back to home
         </Link>
 
-        <h1 className="text-[2rem] font-light text-[#111] mb-8">Privacy Policy</h1>
+        <h1 className="text-[2rem] font-light text-ink mb-8">Privacy Policy</h1>
 
         <div className="prose prose-gray max-w-none text-[15px] text-[#555] leading-relaxed space-y-6">
           <p>Last updated: September 2026</p>

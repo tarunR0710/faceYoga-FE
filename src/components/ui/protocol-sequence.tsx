@@ -57,7 +57,7 @@ export function ProtocolSequence({ className = '' }: { className?: string }) {
       <div className="no-scrollbar -mx-5 overflow-x-auto px-5 md:mx-0 md:overflow-visible md:px-0">
       <svg
         viewBox={`0 0 640 ${height}`}
-        className="h-auto w-full min-w-[600px]"
+        className="h-auto w-full min-w-[600px] text-ink"
         role="img"
         aria-label="A schedule diagram. A Continue band runs the full width underneath, representing what is already working and is protected throughout. First begins immediately and continues. Next begins later and continues. Later begins last, is drawn as an outline, and is optional."
       >
@@ -74,7 +74,7 @@ export function ProtocolSequence({ className = '' }: { className?: string }) {
                 x2={TRACK_X + TRACK_W}
                 y1={y + BAR_H / 2}
                 y2={y + BAR_H / 2}
-                stroke="#0a0a0a"
+                stroke="currentColor"
                 strokeOpacity={0.09}
                 strokeDasharray="2 4"
               />
@@ -94,9 +94,9 @@ export function ProtocolSequence({ className = '' }: { className?: string }) {
                 y={y}
                 height={BAR_H}
                 rx={BAR_H / 2}
-                fill={band.optional ? 'transparent' : '#0a0a0a'}
+                fill={band.optional ? 'transparent' : 'currentColor'}
                 fillOpacity={band.optional ? 0 : 0.92 - i * 0.18}
-                stroke={band.optional ? '#0a0a0a' : 'none'}
+                stroke={band.optional ? 'currentColor' : 'none'}
                 strokeOpacity={band.optional ? 0.28 : 0}
                 strokeDasharray={band.optional ? '4 4' : undefined}
                 initial={reduce ? { opacity: 0, width: w } : { width: 0 }}
@@ -152,12 +152,12 @@ export function ProtocolSequence({ className = '' }: { className?: string }) {
             x2={TRACK_W - 8}
             y1={0}
             y2={0}
-            stroke="#0a0a0a"
+            stroke="currentColor"
             strokeOpacity={0.18}
           />
           <path
             d={`M${TRACK_W - 9} -3.5 L${TRACK_W} 0 L${TRACK_W - 9} 3.5 Z`}
-            fill="#0a0a0a"
+            fill="currentColor"
             fillOpacity={0.28}
           />
           <text x={0} y={18} className="fill-ink/45 text-[11px]">

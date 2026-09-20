@@ -49,9 +49,9 @@ export function VisualDirection() {
                 >
                   {/* Contour motif standing in for the portrait — the one place a
                       face silhouette is drawn rather than photographed. */}
-                  <svg viewBox="0 0 200 200" className="pointer-events-none absolute -right-8 -top-6 h-48 w-48" fill="none" aria-hidden="true" style={{ opacity: direction ? 0.22 : 0.16 }}>
-                    <ellipse cx="100" cy="100" rx="70" ry="88" stroke={direction ? '#fff' : '#0a0a0a'} />
-                    <ellipse cx="100" cy="100" rx="48" ry="62" stroke={direction ? '#fff' : '#0a0a0a'} strokeDasharray={direction ? '4 4' : undefined} />
+                  <svg viewBox="0 0 200 200" className="pointer-events-none absolute -right-8 -top-6 h-48 w-48 text-ink" fill="none" aria-hidden="true" style={{ opacity: direction ? 0.22 : 0.16 }}>
+                    <ellipse cx="100" cy="100" rx="70" ry="88" stroke={direction ? '#fff' : 'currentColor'} />
+                    <ellipse cx="100" cy="100" rx="48" ry="62" stroke={direction ? '#fff' : 'currentColor'} strokeDasharray={direction ? '4 4' : undefined} />
                   </svg>
                   <span
                     className="relative font-mono text-[10px] uppercase tracking-[0.18em]"

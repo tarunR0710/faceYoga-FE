@@ -31,7 +31,7 @@ export function FacialExpertise() {
           lede={FACIAL_EXPERTISE.lede}
         />
 
-        <div className="mx-auto flex max-w-[420px] flex-col gap-6">
+        <div className="mx-auto flex max-w-[420px] flex-col gap-8">
           <LiveSessionCard />
           <OrbitCard />
           <AnalysisCard />

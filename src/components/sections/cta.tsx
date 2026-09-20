@@ -46,7 +46,10 @@ export function CTA() {
           style={{ boxShadow: 'var(--shadow-card)' }}
         >
           <div className="relative mx-auto max-w-4xl text-center">
-            <SectionTag>{CLOSE.eyebrow}</SectionTag>
+            <SectionTag>
+              <span className="md:hidden">{CLOSE.eyebrowMobile}</span>
+              <span className="hidden md:inline">{CLOSE.eyebrow}</span>
+            </SectionTag>
 
             <h2
               className="mt-6 text-[1.85rem] leading-[1.1] tracking-[-0.025em] text-ink md:text-[2.5rem]"

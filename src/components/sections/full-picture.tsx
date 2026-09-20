@@ -79,7 +79,8 @@ function PictureCard({ item }: { item: (typeof FULL_PICTURE.items)[number] }) {
   // full strength, rather than blending linearly black -> white — a linear
   // blend passes straight through literal grey for most of its range, which
   // is the other half of the "grey first" look.
-  const titleColor = useTransform(fill, [0.25, 0.45], ['#0a0a0a', '#ffffff'])
+  // Literal because framer tweens colours, not CSS variables: mirrors --c-ink.
+  const titleColor = useTransform(fill, [0.25, 0.45], ['#1D1F21', '#ffffff'])
   const bodyColor = useTransform(fill, [0.25, 0.45], ['#666666', 'rgba(255,255,255,.75)'])
 
   if (reduce) {

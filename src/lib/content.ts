@@ -865,39 +865,47 @@ export const EVIDENCE = {
 // qualitative comparison, deliberately unquantified.
 export const ANCHOR = {
   eyebrow: 'Money, honestly',
-  title: 'You are already spending this.',
+  title: 'You’re already spending this.',
   muted: 'Just not once.',
-  legend: 'Dots = times you pay it in a year',
-  /** Design 37 (canvas export 2026-09-20): copy verbatim; `times` fills that many of twelve dots. */
+  /** Design 37 (canvas export 2026-09-20 23:16): copy verbatim. */
+  usual: {
+    label: 'The usual way',
+    totalLabel: 'Roughly a year of it',
+    totalSub: 'At the lowest prices, before anything works',
+    total: '≈ ₹14,000+',
+  },
   rows: [
     {
       label: 'A dermatologist visit',
       value: '₹1,000 – ₹5,000 a visit',
       cadence: '2× a year',
-      times: 2,
+      short: 'Skin only, and the clock is short.',
       note: 'From ₹1,000 a consultation at a clinic, more at metro hospitals. Skin only, and the clock is short.',
     },
     {
       label: 'One serum a reel told you to buy',
       value: '₹600 – ₹2,500 each',
       cadence: '12× a year',
-      times: 12,
+      short: 'Bought without knowing if it suits you.',
       note: 'Bought without knowing if it suits you. Most of the drawer is this.',
     },
     {
       label: 'A haircut that does not suit your face',
       value: '₹600 – ₹2,000 each',
       cadence: '8× a year',
-      times: 8,
+      short: 'The money is the small part.',
       note: 'The money is the small part.',
     },
   ],
   plan: {
+    ourWay: 'Our way',
+    paidOnce: 'Paid once',
+    once: 'Once',
     label: 'Complete MapMyFace Plan',
     value: '₹3,499',
+    gst: 'GST-inclusive · nothing added at checkout',
+    includes: ['A live 45–60 min expert session', '400+ assessments, 100+ context factors', 'Your Face Map, Protocol and a clarification call'],
     note: 'A live 45–60 min expert session, 400+ facial assessments, 100+ context factors, your Face Map with Visual Direction, the Appearance Protocol and a clarification call. GST-inclusive.',
-    times: 1,
-    cadence: '1× — that’s it',
   },
   reassurance: [
     'We sell no products and take no commission',

@@ -68,7 +68,7 @@ export default function SuccessPage() {
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="text-center mb-8">
           <h1
-            className="text-[1.75rem] md:text-[2rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-3"
+            className="text-[1.75rem] md:text-[2rem] leading-[1.15] tracking-[-0.02em] text-ink mb-3"
             style={{ fontWeight: 300 }}
           >
             You’re booked in.
@@ -84,7 +84,7 @@ export default function SuccessPage() {
           transition={{ delay: 0.4 }}
           className="bg-white rounded-xl border border-[#eee] p-6 mb-8"
         >
-          <h2 className="text-[15px] text-[#111] mb-5" style={{ fontWeight: 500 }}>
+          <h2 className="text-[15px] text-ink mb-5" style={{ fontWeight: 500 }}>
             From here to your Face Map
           </h2>
           <ol className="space-y-5">
@@ -94,7 +94,7 @@ export default function SuccessPage() {
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
-                  <h3 className="text-[14px] text-[#111] mb-0.5" style={{ fontWeight: 500 }}>
+                  <h3 className="text-[14px] text-ink mb-0.5" style={{ fontWeight: 500 }}>
                     {s.title} <span className="text-[12px] font-normal text-[#999]">· {s.when}</span>
                   </h3>
                   <p className="text-[13px] text-[#888] leading-relaxed">{s.text}</p>
@@ -107,7 +107,7 @@ export default function SuccessPage() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-center">
           <Link
             href="/"
-            className="inline-flex items-center justify-center h-12 px-8 bg-[#111] text-white text-[14px] font-medium rounded-full hover:bg-[#333] transition-colors group"
+            className="inline-flex items-center justify-center h-12 px-8 bg-ink text-white text-[14px] font-medium rounded-full hover:bg-ink/90 transition-colors group"
           >
             Back to homepage
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -115,7 +115,7 @@ export default function SuccessPage() {
 
           <p className="text-[13px] text-[#999] mt-6">
             Need to reschedule or ask anything?{' '}
-            <a href={`mailto:${SITE_CONFIG.email}`} className="text-[#666] hover:text-[#111] transition-colors">
+            <a href={`mailto:${SITE_CONFIG.email}`} className="text-[#666] hover:text-ink transition-colors">
               {SITE_CONFIG.email}
             </a>
           </p>

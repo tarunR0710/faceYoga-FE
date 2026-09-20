@@ -12,14 +12,14 @@ export default function Error({
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="text-center max-w-md">
         <p className="text-[12px] text-[#999] uppercase tracking-[0.1em] mb-3">Error</p>
-        <h1 className="text-[2rem] font-light text-[#111] mb-4">Something went wrong</h1>
+        <h1 className="text-[2rem] font-light text-ink mb-4">Something went wrong</h1>
         <p className="text-[15px] text-[#666] mb-8">
           We encountered an unexpected error. Please try again.
         </p>
         <div className="flex gap-3 justify-center">
           <button
             onClick={() => reset()}
-            className="h-11 px-6 bg-[#111] text-white text-[14px] font-medium rounded-full hover:bg-[#222] transition-colors"
+            className="h-11 px-6 bg-ink text-white text-[14px] font-medium rounded-full hover:bg-ink/90 transition-colors"
           >
             Try again
           </button>

@@ -17,14 +17,14 @@ export default function FormPage() {
           <div className="flex h-14 items-center justify-between">
             <Link
               href="/"
-              className="flex items-center gap-2 text-[#888] hover:text-[#111] transition-colors"
+              className="flex items-center gap-2 text-[#888] hover:text-ink transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
               <span className="text-[13px]">Back</span>
             </Link>
             <Link
               href="/"
-              className="text-[17px] text-[#111]"
+              className="text-[17px] text-ink"
               style={{ fontWeight: 500 }}
             >
               {SITE_CONFIG.name}
@@ -57,7 +57,7 @@ export default function FormPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 }}
-                className="text-[1.5rem] md:text-[1.75rem] leading-[1.15] tracking-[-0.02em] text-[#111] mb-2"
+                className="text-[1.5rem] md:text-[1.75rem] leading-[1.15] tracking-[-0.02em] text-ink mb-2"
                 style={{ fontWeight: 300 }}
               >
                 Build your Map.

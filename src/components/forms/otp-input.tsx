@@ -106,10 +106,10 @@ export function OtpInput({
                 error
                   ? 'bg-red-50 border border-red-300 text-red-600'
                   : isFocused
-                    ? 'bg-white border-2 border-[#111] text-[#111]'
+                    ? 'bg-white border-2 border-ink text-ink'
                     : isFilled
-                      ? 'bg-[#f0f0f0] border border-[#ddd] text-[#111]'
-                      : 'bg-[#f5f5f5] border border-transparent text-[#111]'
+                      ? 'bg-[#f0f0f0] border border-[#ddd] text-ink'
+                      : 'bg-[#f5f5f5] border border-transparent text-ink'
               )}
               style={{ fontWeight: 500 }}
             />

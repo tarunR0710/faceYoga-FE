@@ -9,7 +9,6 @@ import { EASE_OUT } from '@/lib/motion'
 import { glow } from '@/lib/glow'
 
 const GLOW_TEAL = glow('173 199 206', 0.5) // was #ADC7CE at opacity-50
-const GLOW_SAND = glow('230 201 175', 0.6) // was #E6C9AF at opacity-60
 
 const TEAL = '#3D6B76'
 const INK = '#1E353B'
@@ -69,26 +68,23 @@ export function Journey() {
       className="relative overflow-hidden py-20 md:py-28"
       style={{
         background:
-          'linear-gradient(160deg, rgba(173,199,206,0.22) 0%, rgba(247,244,239,0.55) 45%, #ffffff 100%)',
+          'linear-gradient(160deg, rgba(173,199,206,0.22) 0%, rgba(173,199,206,0.08) 45%, #ffffff 100%)',
       }}
     >
-      {/* Two soft colour glows, painted as plain radial gradients rather than
-          blurred discs — see glow.ts for why a `filter` here costs frames on
-          iPhone. Boxes are 800px so the falloff reaches the same radius. */}
+      {/* One soft teal glow, painted as a plain radial gradient rather than a
+          blurred disc — see glow.ts for why a `filter` here costs frames on
+          iPhone. The box is 800px so the falloff reaches the same radius. The
+          sand glow that used to sit bottom-left is gone: this section is teal
+          only. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-[304px] -top-[320px] h-[800px] w-[800px]"
         style={{ background: GLOW_TEAL }}
       />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-[280px] -left-[336px] h-[800px] w-[800px]"
-        style={{ background: GLOW_SAND }}
-      />
 
       <div className="container-main relative">
         <div className="mx-auto flex max-w-[640px] flex-col gap-7">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col items-center gap-4 text-center">
             <Reveal index={0}>
               <SectionTag>{JOURNEY.eyebrow}</SectionTag>
             </Reveal>

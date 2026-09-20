@@ -154,14 +154,14 @@ export function FaceMapSection() {
                   a brand mark and starts reading as filler. */}
               <svg
                 viewBox="0 0 220 220"
-                className="pointer-events-none absolute -bottom-14 -right-12 h-64 w-64 opacity-[0.18]"
+                className="pointer-events-none absolute -bottom-14 -right-12 h-64 w-64 text-ink opacity-[0.18]"
                 fill="none"
                 aria-hidden="true"
               >
-                <ellipse cx="110" cy="110" rx="98" ry="86" stroke="#0a0a0a" />
-                <ellipse cx="110" cy="110" rx="74" ry="63" stroke="#0a0a0a" />
-                <ellipse cx="110" cy="110" rx="50" ry="41" stroke="#0a0a0a" />
-                <ellipse cx="110" cy="110" rx="26" ry="20" stroke="#0a0a0a" />
+                <ellipse cx="110" cy="110" rx="98" ry="86" stroke="currentColor" />
+                <ellipse cx="110" cy="110" rx="74" ry="63" stroke="currentColor" />
+                <ellipse cx="110" cy="110" rx="50" ry="41" stroke="currentColor" />
+                <ellipse cx="110" cy="110" rx="26" ry="20" stroke="currentColor" />
               </svg>
 
               <div className="relative">

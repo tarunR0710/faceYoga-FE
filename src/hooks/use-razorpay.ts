@@ -87,7 +87,7 @@ export function useRazorpay() {
         order_id: options.orderId,
         prefill: options.prefill,
         theme: {
-          color: '#000000',
+          color: '#1D1F21', // mirrors --c-ink
         },
         handler: options.onSuccess,
         modal: {

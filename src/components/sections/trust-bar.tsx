@@ -7,8 +7,9 @@ import { HERO } from '@/lib/content'
  * quiet uppercase marquee.
  *
  * Design handoff: #F6F8F9 band, 64px tall, no fades, no borders. Items are
- * 11.5px/600 uppercase at .14em in #98A6AB with 30px padding each side (60px
- * between items). The track is the content repeated and translated -50%, so
+ * 600 uppercase at .14em in #98A6AB with 30px padding each side (60px
+ * between items). The handoff set them at 11.5px; they run at 10.5px here,
+ * one step quieter. The track is the content repeated and translated -50%, so
  * the wrap point is seamless.
  *
  * The handoff duplicates the content once and runs 34s. One copy of these
@@ -36,7 +37,7 @@ export function TrustBar() {
             // Repeats are decorative — a screen reader hears the four once.
             aria-hidden={i >= HERO.pillars.length}
             className="whitespace-nowrap px-[30px] uppercase"
-            style={{ fontSize: '11.5px', lineHeight: 1, fontWeight: 600, letterSpacing: '0.14em', color: '#98A6AB' }}
+            style={{ fontSize: '10.5px', lineHeight: 1, fontWeight: 600, letterSpacing: '0.14em', color: '#98A6AB' }}
           >
             {p.label}
           </li>

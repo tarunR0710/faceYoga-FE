@@ -95,7 +95,7 @@ function TransactionsContent() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-[1.25rem] text-[#111]" style={{ fontWeight: 500 }}>
+          <h1 className="text-[1.25rem] text-ink" style={{ fontWeight: 500 }}>
             Transactions
           </h1>
           <p className="text-[13px] text-[#888]">{pagination.total.toLocaleString()} total</p>
@@ -109,7 +109,7 @@ function TransactionsContent() {
               className={cn(
                 'px-3 py-1.5 text-[12px] rounded-full transition-colors',
                 status === s
-                  ? 'bg-[#111] text-white'
+                  ? 'bg-ink text-white'
                   : 'bg-[#f5f5f5] text-[#666] hover:bg-[#eee]'
               )}
             >
@@ -137,7 +137,7 @@ function TransactionsContent() {
               {transactions.map((txn) => (
                 <tr key={txn.id} className="border-b border-[#f5f5f5] hover:bg-[#fafafa]">
                   <td className="px-4 py-3">
-                    <p className="text-[13px] text-[#111]" style={{ fontWeight: 500 }}>{txn.name}</p>
+                    <p className="text-[13px] text-ink" style={{ fontWeight: 500 }}>{txn.name}</p>
                   </td>
                   <td className="px-4 py-3">
                     <p className="text-[13px] text-[#666]">{txn.email}</p>
@@ -146,7 +146,7 @@ function TransactionsContent() {
                     <p className="text-[13px] text-[#666]">+91 {txn.phone}</p>
                   </td>
                   <td className="px-4 py-3">
-                    <p className="text-[13px] text-[#111]" style={{ fontWeight: 500 }}>{formatPrice(txn.amount / 100)}</p>
+                    <p className="text-[13px] text-ink" style={{ fontWeight: 500 }}>{formatPrice(txn.amount / 100)}</p>
                   </td>
                   <td className="px-4 py-3">
                     <Badge

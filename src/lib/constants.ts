@@ -125,6 +125,9 @@ export const REFUND_POLICY = {
   detailParts: REFUND_DETAIL,
   /** … and as one string (refund page). */
   detail: REFUND_DETAIL.join(' '),
+  /** Design 37b's compact card: the policy in one line under the three moments. */
+  footnote:
+    'Once the session has happened the report is already being written, so the fee is no longer refundable — unless we fail to deliver it as described. Rescheduling is always free.',
   /** Design 37 (canvas export 2026-09-20): the policy as three labelled moments, copy verbatim. */
   moments: [
     {

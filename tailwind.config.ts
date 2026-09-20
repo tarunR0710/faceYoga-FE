@@ -10,20 +10,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // QOVES-inspired color palette
+        // QOVES-inspired color palette. Every dark below is `--c-ink` (see
+        // globals.css) — one variable, so the site's black is changed in one place.
         background: '#ffffff',
-        foreground: '#0a0a0a',
+        foreground: 'rgb(var(--c-ink) / <alpha-value>)',
 
-        // Primary - Dark charcoal/black for buttons
+        // Primary - dark slate for buttons
         primary: {
-          DEFAULT: '#0a0a0a',
+          DEFAULT: 'rgb(var(--c-ink) / <alpha-value>)',
           foreground: '#ffffff',
         },
 
         // Secondary - Light gray
         secondary: {
           DEFAULT: '#f5f5f5',
-          foreground: '#0a0a0a',
+          foreground: 'rgb(var(--c-ink) / <alpha-value>)',
         },
 
         // Muted text colors
@@ -35,19 +36,19 @@ const config: Config = {
         // Accent
         accent: {
           DEFAULT: '#f5f5f5',
-          foreground: '#0a0a0a',
+          foreground: 'rgb(var(--c-ink) / <alpha-value>)',
         },
 
         // Card backgrounds
         card: {
           DEFAULT: '#ffffff',
-          foreground: '#0a0a0a',
+          foreground: 'rgb(var(--c-ink) / <alpha-value>)',
         },
 
         // Border colors
         border: '#e5e5e5',
         input: '#e5e5e5',
-        ring: '#0a0a0a',
+        ring: 'rgb(var(--c-ink) / <alpha-value>)',
 
         // Destructive/Error
         destructive: {
@@ -61,8 +62,8 @@ const config: Config = {
           foreground: '#ffffff',
         },
 
-        // Near-black. Headings, dark sections, navbar pill.
-        ink: '#0a0a0a',
+        // Dark slate (#1D1F21 via --c-ink). Headings, card text, dark sections, navbar pill.
+        ink: 'rgb(var(--c-ink) / <alpha-value>)',
 
         // `brand` no longer carries a hue — it resolves to near-black via
         // --c-brand. The name is kept so every accent call-site on the page

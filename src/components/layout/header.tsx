@@ -73,7 +73,7 @@ export function Header() {
             // --c-ink (33 29 24), which is gone.
             //
             // Alpha is the one number NOT restored to 0.42. Blended over a
-            // white section, 0.42 of #0a0a0a lands near #94-9c grey, which puts
+            // white section, 0.42 of --c-ink lands near #94-9c grey, which puts
             // the 13px white nav labels at roughly 2.3:1 — unreadable, and it
             // was fine before only because the page used to be mostly dark.
             // 0.55 is the minimum that clears 4.5:1 for small text on white
