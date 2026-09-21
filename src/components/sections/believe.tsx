@@ -152,15 +152,17 @@ function People() {
                 aria-label={c.name}
                 className="relative block h-full w-full overflow-hidden rounded-[22px] border text-left"
                 style={{
-                  // A clean, near-white capsule. The old warm grey read as dust
-                  // against the white open card.
-                  borderColor: on ? 'rgba(10,10,10,.1)' : 'rgba(10,10,10,.08)',
-                  background: on ? '#FFFFFF' : '#F7F8F8',
+                  // A closed capsule is white, like the open one. Any grey fill
+                  // read as dust next to it, so the closed state is carried by
+                  // the hairline, the index and the chevron instead — and the
+                  // open state by its shadow and its contents.
+                  borderColor: on ? 'rgba(10,10,10,.1)' : 'rgba(10,10,10,.11)',
+                  background: '#FFFFFF',
                   boxShadow: on ? '0 24px 44px -30px rgba(10,10,10,.5)' : '0 0 0 0 rgba(10,10,10,0)',
                   // Paint containment keeps the repaint inside the card while
                   // the row re-flows.
                   contain: 'paint',
-                  transition: t(`background-color ${WIDTH_MS}ms ease, border-color ${WIDTH_MS}ms ease`),
+                  transition: t(`border-color ${WIDTH_MS}ms ease`),
                 }}
               >
                 {/* Closed — index, one word on its side, chevron. */}
