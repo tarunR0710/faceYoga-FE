@@ -199,5 +199,11 @@ not touched. From `WhatWeMap` down, the page follows the new blueprint:
   labels — only structure, colour and spacing come from the canvas. The old
   `ui/region-accordion.tsx` is gone. Soft glows use `lib/glow.ts` (radial
   gradients, never `filter: blur`) — see the iPhone notes in `journey.tsx`.
+- **The people behind your Map** follows design **38a**: one rail, four panels,
+  and a horizontal accordion of four role cards that expand on tap. The four
+  photographs in `public/team` are **licensed Pexels stock standing in for the
+  real practitioners** — they must be replaced with approved photographs, names
+  and credentials before this page is advertised, or the section implies a team
+  we have not named. Card copy is the role, not a person.
 - Still needs the founder: expert names + credentials, the missed-session
   (no-show) policy, retention period + grievance officer, a real customer story.

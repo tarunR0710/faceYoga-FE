@@ -956,21 +956,62 @@ export const BELIEVE = {
     { id: 'evidence', label: 'The evidence' },
   ],
   people: {
+    leadIn: 'Your Map brings together different kinds of expertise.',
     lede:
-      'Your Face Mapping Session is led by a MapMyFace expert. Relevant specialist input is added where your plan requires it, and every public profile shows exactly who is contributing and why.',
-    /** TODO(founder): add approved names, qualifications, experience and photographs. Roles only until then. */
-    roles: [
-      { mono: 'LE', role: 'Lead Appearance Expert', text: 'Leads the session, connects the findings and owns the final personal direction.' },
-      { mono: 'SC', role: 'Skin & Appearance Context', text: 'Reviews relevant skin, routine and appearance context within MapMyFace’s professional boundaries.' },
-      { mono: 'FA', role: 'Facial Analysis & Research', text: 'Supports structured facial assessment, feature relationships and evidence-informed interpretation.' },
-      { mono: 'MS', role: 'Movement / Specialist Input', text: 'Contributes relevant face-yoga or specialist review when it belongs in your plan.' },
+      'Your Face Mapping Session has a lead practitioner, with specialist input added where your plan calls for it. Every profile shows who is contributing, what they bring, and why their input matters.',
+    /**
+     * Design 42a: the spine is ONE word so it reads vertically at a glance;
+     * the full role sits on the portrait once the card opens.
+     *
+     * TODO(founder): these are ROLES, not people. The photographs in
+     * `public/team` are licensed Pexels stock standing in for the real
+     * practitioners — swap them, and add approved names, qualifications and
+     * experience, before this page is advertised.
+     */
+    cards: [
+      {
+        id: 'lead',
+        spine: 'Lead',
+        name: 'Lead Appearance Expert',
+        photo: '/team/lead.webp',
+        desc: 'Leads the session, connects the findings across every region and owns the final personal direction you receive.',
+        tags: ['Session lead', 'Final direction', 'Whole-face view'],
+      },
+      {
+        id: 'skin',
+        spine: 'Skin',
+        name: 'Skin & Appearance Context',
+        photo: '/team/skin.webp',
+        desc: 'Reviews relevant skin, routine and appearance context within MapMyFace’s professional boundaries.',
+        tags: ['Skin behaviour', 'Routine review', 'Product context'],
+      },
+      {
+        id: 'analysis',
+        spine: 'Analysis',
+        name: 'Facial Analysis & Research',
+        photo: '/team/analysis.webp',
+        desc: 'Supports structured facial assessment, feature relationships and evidence-informed interpretation.',
+        tags: ['Reference points', 'Proportion', 'Evidence-informed'],
+      },
+      {
+        id: 'specialist',
+        spine: 'Movement',
+        name: 'Movement / Specialist Input',
+        photo: '/team/specialist.webp',
+        desc: 'Contributes relevant face-yoga or specialist review when it genuinely belongs in your plan.',
+        tags: ['Face yoga', 'Targeted review', 'Only when relevant'],
+      },
     ],
-    closing:
-      'Every recommendation has to work with the others, because they all land on the same person.',
+    closing: {
+      title: 'Different expertise. One Map.',
+      body:
+        'Every contribution has to make sense alongside the others — because every recommendation ultimately lands on the same person: you.',
+    },
   },
   philosophy: {
     eyebrow: 'The MapMyFace philosophy',
-    title: 'We measure to understand. Not to rank.',
+    title: 'We measure to understand.',
+    muted: 'Not to rank.',
     lede:
       'You are not a beauty score. A difference is not automatically a problem. And not everything we can measure needs to be changed.',
     principles: [
@@ -978,11 +1019,11 @@ export const BELIEVE = {
       ['Understand the person.', 'Context changes which recommendations are sensible, realistic and worth making.'],
       ['Recommend with priority.', 'The goal is not the longest list. It is the clearest route to the outcome you care about.'],
     ],
-    mantra: ['Understand.', 'Interpret.', 'Prioritise.', 'Visualise.', 'Act.'],
+    mantra: ['Understand', 'Interpret', 'Prioritise', 'Visualise', 'Act'],
   },
   method: {
-    lede:
-      'Nine things get assessed. Not an algorithm scoring your face out of ten — a structured read, interpreted by people.',
+    leadIn: 'Nine things get assessed.',
+    lede: 'Not an algorithm scoring your face — a structured read, interpreted in context.',
     /** Nine assessment factors, kept as short pairs. */
     factors: [
       ['Facial reference points', 'Where meaningful points sit, and how they relate.'],
@@ -995,17 +1036,15 @@ export const BELIEVE = {
       ['Preferences', 'Your goals, taste, comfort and the direction you want.'],
       ['Practical fit', 'Budget, upkeep, and whether you will realistically keep it up.'],
     ],
-    // Was an internal note about an unfinished methodology audit. Simply not
-    // quoting a figure achieves the same thing invisibly; announcing that we
-    // are withholding one advertises that the method is unfinished.
-    closing:
-      'Nine inputs, weighed against each other by people who do this for a living. That is the part a scan cannot do.',
+    closing: {
+      title: 'Nine inputs. One interpretation.',
+      body: 'That’s the part a scan alone cannot provide.',
+    },
   },
   evidence: {
+    leadIn: 'Research that informs the way we think about appearance.',
     lede:
-      'Three findings, cited in full, that we checked ourselves. They describe how appearance behaves in the world — not results MapMyFace promises you.',
-    /** Plotted on a 1990–2020 axis so three studies read as a body of work. */
-    axis: { from: 1990, to: 2025 },
+      'Not proof of a MapMyFace outcome. These findings describe how appearance can influence perception, judgement and treatment in the world. They inform our thinking; they are not promises about what MapMyFace will achieve for you.',
     studies: [
       {
         year: 1994,
@@ -1032,8 +1071,10 @@ export const BELIEVE = {
         source: 'Gunnell & Ceci, Behavioral Sciences & the Law',
       },
     ],
-    turn:
-      'None of this is a reason to panic about your face. It is a reason to stop guessing at it, and to spend your effort on the few changes that actually apply to you.',
+    turn: {
+      title: 'None of this is a reason to panic about your face.',
+      body: 'It is a reason to stop guessing at it, and to spend your effort on the few changes that actually apply to you.',
+    },
   },
 } as const
 

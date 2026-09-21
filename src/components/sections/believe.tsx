@@ -1,23 +1,26 @@
 'use client'
 
 import { useId, useState } from 'react'
+import Image from 'next/image'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { EASE_OUT, REVEAL, VIEWPORT, VIEWPORT_TIGHT, stagger } from '@/lib/motion'
+import { Check, ChevronRight } from 'lucide-react'
+import { EASE_OUT, VIEWPORT_TIGHT, stagger } from '@/lib/motion'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { TabRail, TabPanel } from '@/components/ui/tab-rail'
 import { BELIEVE } from '@/lib/content'
 
 /**
- * "Why believe us yet" — one section where four used to be.
+ * "The people behind your Map" — design 38a, in the site's own type.
  *
- * research-stats, experts, methodology and founding were four separate beats
- * all answering the same buyer question, and between them they printed roughly
- * forty flat items. They are peers, so they belong on a rail: the buyer picks
- * the kind of proof they personally need instead of scrolling past three kinds
- * they do not.
- *
- * The order of the tabs is deliberate — people first, because "who are you" is
+ * Four trust questions on one rail: who you are dealing with, what we believe,
+ * how we read a face, and what the research actually says. They are peers, so
+ * the buyer picks the kind of proof they personally need instead of scrolling
+ * past three kinds they do not. People comes first, because "who are you" is
  * the question a pre-launch business is actually being asked.
+ *
+ * Layout and structure are 38a's, with the people panel refined to 42a; every
+ * size, weight and colour is ours —
+ * Geist at 300/400, mono labels at the house 10px / 0.16em, ink and ink-muted.
  */
 export function Believe() {
   const reduce = useReducedMotion()
@@ -27,20 +30,9 @@ export function Believe() {
   return (
     <section id="experts" className="section bg-white">
       <div className="container-main">
-        <SectionHeading
-          eyebrow={BELIEVE.eyebrow}
-          title={BELIEVE.title}
-          muted={BELIEVE.muted}
-        />
+        <SectionHeading eyebrow={BELIEVE.eyebrow} title={BELIEVE.title} muted={BELIEVE.muted} />
 
-        <TabRail
-          items={BELIEVE.tabs}
-          active={tab}
-          onChange={setTab}
-          idBase={railId}
-          ariaLabel="Kinds of proof"
-          className="mb-8"
-        />
+        <TabRail items={BELIEVE.tabs} active={tab} onChange={setTab} idBase={railId} ariaLabel="Kinds of proof" className="mb-8" />
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -63,73 +55,188 @@ export function Believe() {
   )
 }
 
-function PanelLede({ children }: { children: React.ReactNode }) {
+/** Panel lede. `leadIn` is the one phrase that carries ink; the rest is muted. */
+function PanelLede({ leadIn, children }: { leadIn?: string; children: React.ReactNode }) {
   return (
     <p className="mb-7 max-w-2xl text-[14px] leading-relaxed text-ink-muted md:text-[15.5px]">
+      {leadIn ? <span className="text-ink">{leadIn} </span> : null}
       {children}
     </p>
   )
 }
 
-/* ── Tab 1 · the panel of roles ──────────────────────────────────────────── */
+/* ── Tab 1 · the people ──────────────────────────────────────────────────── */
+
+// The open card's share of the row is carried by one CSS property, flex-grow,
+// so a single transition drives the whole motion. The ratio lives on the row as
+// --open / --shut, because desktop wants a less extreme split than a phone
+// does: 100/13 leaves the closed cards as spines, 100/20 keeps them readable
+// once there is room.
+//
+// Slower and softer than the canvas's .55s — EASE_OUT_SOFT is the curve the
+// rest of the site uses for large elements, and the extra 70ms keeps the width
+// change from outrunning the cross-fade inside it.
+const WIDTH_MS = 620
+const EASE_SOFT = 'cubic-bezier(0.22,1,0.36,1)'
+
+/**
+ * Design 42a — the refined filmstrip. A closed card is a spine: an index, one
+ * word set on its side, and a chevron, on a tinted ground. The open card turns
+ * white and leads with a full-bleed portrait, the role sitting on a scrim over
+ * it, then the description and a short list of what that person brings.
+ */
 function People() {
   const { people } = BELIEVE
+  const reduce = useReducedMotion()
+  const [open, setOpen] = useState<string>(people.cards[0].id)
+  const t = (props: string) => (reduce ? 'none' : props)
+
   return (
     <div>
-      <PanelLede>{people.lede}</PanelLede>
+      <PanelLede leadIn={people.leadIn}>{people.lede}</PanelLede>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {people.roles.map((r, i) => (
-          <motion.div
-            key={r.mono}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={VIEWPORT_TIGHT}
-            transition={{ duration: 0.5, ease: EASE_OUT, delay: stagger(i, 0.06) }}
-            className="flex flex-col overflow-hidden rounded-[18px] border border-border-soft bg-white"
-          >
-            {/* Typographic plate, not a photograph. No stock faces stand in for
-                people who have not signed on — that is the one placeholder that
-                would undermine the whole page. */}
-            <div
-              className="flex h-[84px] items-end px-5 pb-3.5"
+      <ul className="flex h-[clamp(470px,120vw,570px)] max-w-[1120px] gap-1.5 [--open:100] [--shut:13] md:gap-2 lg:h-[540px] lg:[--shut:20]">
+        {people.cards.map((c, i) => {
+          const on = c.id === open
+          return (
+            <motion.li
+              key={c.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={VIEWPORT_TIGHT}
+              transition={{ duration: 0.5, ease: EASE_OUT, delay: stagger(i, 0.06) }}
+              className="min-w-0"
               style={{
-                background:
-                  'linear-gradient(150deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.04) 60%, #ffffff 100%)',
+                flexGrow: on ? 'var(--open)' : 'var(--shut)',
+                flexBasis: 0,
+                transition: t(`flex-grow ${WIDTH_MS}ms ${EASE_SOFT}`),
               }}
             >
-              <span
-                aria-hidden="true"
-                className="font-mono text-[24px] leading-none tracking-[-0.02em] text-ink/25"
+              <button
+                type="button"
+                onClick={() => setOpen(c.id)}
+                aria-expanded={on}
+                aria-label={c.name}
+                className="relative block h-full w-full overflow-hidden rounded-[22px] border text-left"
+                style={{
+                  borderColor: on ? 'rgba(10,10,10,.1)' : 'rgba(10,10,10,.07)',
+                  background: on ? '#FFFFFF' : '#F4F4F3',
+                  boxShadow: on ? '0 24px 44px -30px rgba(10,10,10,.5)' : 'none',
+                  transition: t(`background-color ${WIDTH_MS}ms ease, border-color ${WIDTH_MS}ms ease, box-shadow ${WIDTH_MS}ms ease`),
+                }}
               >
-                {r.mono}
-              </span>
-            </div>
-            <div className="px-5 py-4">
-              <h3 className="text-[14.5px] font-normal tracking-[-0.01em] text-ink">{r.role}</h3>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-ink-muted">{r.text}</p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+                {/* Closed — index, one word on its side, chevron. */}
+                <span
+                  aria-hidden={on}
+                  className="absolute inset-0 flex flex-col items-center justify-between py-[18px]"
+                  style={{
+                    opacity: on ? 0 : 1,
+                    pointerEvents: 'none',
+                    transition: t(`opacity ${on ? 180 : 300}ms ease ${on ? '0ms' : '220ms'}`),
+                  }}
+                >
+                  <span className="font-mono text-[10px] tabular-nums tracking-[0.16em] text-ink/35">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span
+                    className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/65"
+                    style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+                  >
+                    {c.spine}
+                  </span>
+                  <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full border border-ink/15">
+                    <ChevronRight className="h-3 w-3 text-ink/50" strokeWidth={2} />
+                  </span>
+                </span>
 
-      <p className="mt-7 max-w-xl text-[13.5px] leading-relaxed text-ink/60">{people.closing}</p>
+                {/* Open — portrait, role on a scrim, description, expertise. */}
+                <span
+                  aria-hidden={!on}
+                  className="absolute inset-0 flex flex-col overflow-hidden"
+                  style={{
+                    opacity: on ? 1 : 0,
+                    visibility: on ? 'visible' : 'hidden',
+                    transition: t(`opacity 400ms ease ${on ? '180ms' : '0ms'}, visibility 0ms linear ${on ? '0ms' : '400ms'}`),
+                  }}
+                >
+                  {/* Full-bleed, and flexible so the card can never clip its
+                      own text on a narrow phone — the photo absorbs the slack. */}
+                  <span className="relative block min-h-[150px] flex-1 overflow-hidden bg-mist">
+                    <Image
+                      src={c.photo}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 560px, 72vw"
+                      className="object-cover"
+                      style={{ objectPosition: 'center 26%' }}
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-x-0 bottom-0 h-[120px]"
+                      style={{ background: 'linear-gradient(180deg, rgba(16,16,16,0), rgba(16,16,16,.88))' }}
+                    />
+                    <span
+                      className="absolute inset-x-5 bottom-4 flex flex-col gap-1.5"
+                      style={{
+                        transform: on ? 'translateY(0)' : 'translateY(8px)',
+                        transition: t(`transform 480ms ${EASE_SOFT} 200ms`),
+                      }}
+                    >
+                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/65">{c.spine}</span>
+                      <span className="text-[1.15rem] leading-snug tracking-[-0.02em] text-white md:text-[1.3rem]" style={{ fontWeight: 400 }}>
+                        {c.name}
+                      </span>
+                    </span>
+                  </span>
+
+                  <span
+                    className="flex flex-none flex-col px-5 pb-5 pt-4"
+                    style={{
+                      transform: on ? 'translateY(0)' : 'translateY(10px)',
+                      transition: t(`transform 520ms ${EASE_SOFT} 250ms`),
+                    }}
+                  >
+                    <span className="text-[13.5px] leading-relaxed text-ink-muted">{c.desc}</span>
+
+                    <span className="mt-4 flex flex-col">
+                      <span className="pb-1 font-mono text-[9.5px] uppercase tracking-[0.18em] text-ink/45">Expertise</span>
+                      {c.tags.map((tag) => (
+                        <span key={tag} className="flex items-center gap-3 border-t border-border-soft py-2.5 text-[13.5px] leading-tight text-ink/80">
+                          <Check className="h-3.5 w-3.5 flex-none text-ink/35" strokeWidth={2} />
+                          <span>{tag}</span>
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </motion.li>
+          )
+        })}
+      </ul>
+
+      <div className="mt-7 flex max-w-xl flex-col gap-1.5">
+        <h3 className="text-[1.05rem] leading-snug tracking-[-0.02em] text-ink md:text-[1.2rem]" style={{ fontWeight: 400 }}>
+          {people.closing.title}
+        </h3>
+        <p className="text-[13.5px] leading-relaxed text-ink-muted md:text-[14px]">{people.closing.body}</p>
+      </div>
     </div>
   )
 }
 
-/* ── Tab 2 · the philosophy — measure to understand, not to rank ──────────── */
+/* ── Tab 2 · the philosophy ──────────────────────────────────────────────── */
 function Philosophy() {
   const { philosophy } = BELIEVE
   return (
     <div>
-      <p className="mb-2 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/45">{philosophy.eyebrow}</p>
+      <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink/45">{philosophy.eyebrow}</p>
       <h3 className="mb-4 text-[1.35rem] leading-tight tracking-[-0.02em] text-ink md:text-[1.6rem]" style={{ fontWeight: 300 }}>
-        {philosophy.title}
+        {philosophy.title} <span className="text-ink/40">{philosophy.muted}</span>
       </h3>
       <PanelLede>{philosophy.lede}</PanelLede>
 
-      <ol className="grid grid-cols-1 gap-x-10 border-t border-ink/12 md:grid-cols-3">
+      <ol className="grid grid-cols-1 gap-x-10 md:grid-cols-3">
         {philosophy.principles.map(([title, text], i) => (
           <motion.li
             key={title}
@@ -137,34 +244,30 @@ function Philosophy() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT_TIGHT}
             transition={{ duration: 0.45, ease: EASE_OUT, delay: stagger(i, 0.06) }}
-            className="border-b border-border-soft py-4"
+            className="grid grid-cols-[32px_1fr] content-start gap-x-3 gap-y-1 border-t border-border-soft pt-3.5 md:pb-1"
           >
-            <p className="flex items-baseline gap-2.5">
-              <span className="font-mono text-[9.5px] tracking-[0.14em] text-ink/25">{String(i + 1).padStart(2, '0')}</span>
-              <span className="text-[14.5px] text-ink">{title}</span>
-            </p>
-            <p className="mt-1.5 pl-[26px] text-[13px] leading-relaxed text-ink-muted">{text}</p>
+            <span className="row-span-2 font-mono text-[11.5px] tabular-nums text-ink/40">{String(i + 1).padStart(2, '0')}</span>
+            <span className="text-[14.5px] leading-snug tracking-[-0.01em] text-ink">{title}</span>
+            <span className="text-[13px] leading-relaxed text-ink-muted">{text}</span>
           </motion.li>
         ))}
       </ol>
 
-      <p className="mt-7 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
-        {philosophy.mantra.map((w) => (
-          <span key={w}>{w}</span>
-        ))}
+      <p className="mt-7 border-t border-border-soft pt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-ink/70">
+        {philosophy.mantra.join(' · ')}
       </p>
     </div>
   )
 }
 
-/* ── Tab 3 · the nine assessment factors ─────────────────────────────────── */
+/* ── Tab 3 · the method ──────────────────────────────────────────────────── */
 function Method() {
   const { method } = BELIEVE
   return (
     <div>
-      <PanelLede>{method.lede}</PanelLede>
+      <PanelLede leadIn={method.leadIn}>{method.lede}</PanelLede>
 
-      <dl className="grid grid-cols-1 gap-x-12 border-t border-ink/12 sm:grid-cols-2 lg:grid-cols-3">
+      <dl className="grid grid-cols-1 gap-x-12 sm:grid-cols-2 lg:grid-cols-3">
         {method.factors.map(([title, text], i) => (
           <motion.div
             key={title}
@@ -172,68 +275,33 @@ function Method() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT_TIGHT}
             transition={{ duration: 0.45, ease: EASE_OUT, delay: stagger(i, 0.04) }}
-            className="border-b border-border-soft py-3.5"
+            className="grid grid-cols-[32px_1fr] content-start gap-x-3 gap-y-0.5 border-b border-border-soft py-3"
           >
-            <dt className="flex items-baseline gap-2.5">
-              <span className="font-mono text-[9.5px] tracking-[0.14em] text-ink/25">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <span className="text-[14px] text-ink">{title}</span>
-            </dt>
-            <dd className="mt-1 pl-[26px] text-[13px] leading-relaxed text-ink-muted">{text}</dd>
+            <dt className="row-span-2 font-mono text-[11px] tabular-nums text-ink/40">{String(i + 1).padStart(2, '0')}</dt>
+            <dd className="text-[14px] leading-snug tracking-[-0.01em] text-ink">{title}</dd>
+            <dd className="text-[12.5px] leading-relaxed text-ink-muted">{text}</dd>
           </motion.div>
         ))}
       </dl>
 
-      <p className="mt-6 max-w-3xl text-[12.5px] leading-relaxed text-ink/45">
-        {method.closing}
-      </p>
+      <div className="mt-7 flex max-w-xl flex-col gap-1.5">
+        <h3 className="text-[1.05rem] leading-snug tracking-[-0.02em] text-ink md:text-[1.2rem]" style={{ fontWeight: 400 }}>
+          {method.closing.title}
+        </h3>
+        <p className="text-[13.5px] leading-relaxed text-ink-muted md:text-[14px]">{method.closing.body}</p>
+      </div>
     </div>
   )
 }
 
-/* ── Tab 4 · three verified studies on a real time axis ──────────────────── */
+/* ── Tab 4 · the evidence ────────────────────────────────────────────────── */
 function Evidence() {
   const { evidence } = BELIEVE
-  const { from, to } = evidence.axis
-  const span = to - from
-  const pos = (year: number) => ((year - from) / span) * 100
-
   return (
     <div>
-      <PanelLede>{evidence.lede}</PanelLede>
+      <PanelLede leadIn={evidence.leadIn}>{evidence.lede}</PanelLede>
 
-      {/* A dot plot rather than a list: three marks across thirty years read as
-          a body of work, which is the honest answer to "only three?" after the
-          twenty-four inherited citations failed checking. */}
-      <div className="mb-9 pt-2">
-        <div className="relative h-[52px]">
-          <div className="absolute inset-x-0 top-[26px] h-px bg-ink/15" />
-          {[from, 2000, 2010, to].map((y) => (
-            <span
-              key={y}
-              className="absolute top-[34px] -translate-x-1/2 font-mono text-[10.5px] tabular-nums text-ink/45"
-              style={{ left: `${pos(y)}%` }}
-            >
-              {y}
-            </span>
-          ))}
-          {evidence.studies.map((st, i) => (
-            <motion.span
-              key={st.year}
-              initial={{ opacity: 0, scale: 0.4 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={VIEWPORT_TIGHT}
-              transition={{ duration: 0.4, ease: EASE_OUT, delay: 0.15 + i * 0.12 }}
-              className="absolute top-[26px] h-[11px] w-[11px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-mist bg-brand"
-              style={{ left: `${pos(st.year)}%` }}
-              aria-hidden="true"
-            />
-          ))}
-        </div>
-      </div>
-
-      <ol className="space-y-0">
+      <ol className="grid grid-cols-1 gap-x-10 lg:grid-cols-3">
         {evidence.studies.map((st, i) => (
           <motion.li
             key={st.year}
@@ -241,24 +309,27 @@ function Evidence() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT_TIGHT}
             transition={{ duration: 0.5, ease: EASE_OUT, delay: stagger(i, 0.07) }}
-            className="grid grid-cols-1 gap-x-8 gap-y-1.5 border-t border-border-soft py-4 md:grid-cols-[110px_minmax(0,1fr)]"
+            className="flex flex-col gap-2 border-t border-border-soft pt-4"
           >
-            <div>
-              <p className="font-mono text-[12px] tabular-nums text-ink">{st.year}</p>
-              <p className="mt-0.5 text-[11px] leading-snug text-ink/40">{st.scope}</p>
-            </div>
-            <div>
-              <h3 className="text-[14.5px] text-ink">{st.claim}</h3>
-              <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink-muted">{st.detail}</p>
-              <p className="mt-2 text-[11.5px] italic text-ink/40">{st.source}</p>
-            </div>
+            <span className="flex items-baseline gap-2.5">
+              <span className="font-mono text-[15px] tabular-nums text-ink">{st.year}</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/45">{st.scope}</span>
+            </span>
+            <h3 className="text-[15.5px] leading-snug tracking-[-0.01em] text-ink" style={{ fontWeight: 400 }}>
+              {st.claim}
+            </h3>
+            <p className="text-[13px] leading-relaxed text-ink-muted">{st.detail}</p>
+            <p className="font-mono text-[10.5px] leading-relaxed text-ink/45">{st.source}</p>
           </motion.li>
         ))}
       </ol>
 
-      <p className="mt-7 max-w-2xl border-l-2 border-brand pl-5 text-[13.5px] leading-relaxed text-ink/70 md:text-[14.5px]">
-        {evidence.turn}
-      </p>
+      <div className="mt-8 flex max-w-2xl flex-col gap-2 rounded-[20px] bg-mist p-5 md:p-6">
+        <h3 className="text-[1.05rem] leading-snug tracking-[-0.02em] text-ink md:text-[1.2rem]" style={{ fontWeight: 400 }}>
+          {evidence.turn.title}
+        </h3>
+        <p className="text-[13.5px] leading-relaxed text-ink-muted md:text-[14px]">{evidence.turn.body}</p>
+      </div>
     </div>
   )
 }
