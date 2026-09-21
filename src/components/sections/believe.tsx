@@ -1,6 +1,6 @@
 'use client'
 
-import { useId, useState } from 'react'
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Check, ChevronRight } from 'lucide-react'
@@ -56,7 +56,7 @@ export function Believe() {
 }
 
 /** Panel lede. `leadIn` is the one phrase that carries ink; the rest is muted. */
-function PanelLede({ leadIn, children }: { leadIn?: string; children: React.ReactNode }) {
+function PanelLede({ leadIn, children }: { leadIn?: string; children?: React.ReactNode }) {
   return (
     <p className="mb-7 max-w-2xl text-[14px] leading-relaxed text-ink-muted md:text-[15.5px]">
       {leadIn ? <span className="text-ink">{leadIn} </span> : null}
@@ -91,11 +91,44 @@ function People() {
   const [open, setOpen] = useState<string>(people.cards[0].id)
   const t = (props: string) => (reduce ? 'none' : props)
 
+  // The open card's contents are pinned to the width the open card WILL have,
+  // not to the card itself. Without this the portrait is re-scaled on every
+  // frame of the width transition, which is what made the expansion stutter on
+  // a phone: resampling a full-bleed bitmap 60 times a second is the whole
+  // cost. Held at a fixed width the image is merely revealed, and the only
+  // thing the browser recomputes per frame is the flex line itself.
+  const railRef = useRef<HTMLUListElement>(null)
+  const [openW, setOpenW] = useState(0)
+
+  const measure = useCallback(() => {
+    const rail = railRef.current
+    if (!rail) return
+    const cs = getComputedStyle(rail)
+    const grow = Number(cs.getPropertyValue('--open')) || 100
+    const shut = Number(cs.getPropertyValue('--shut')) || 13
+    const gap = parseFloat(cs.columnGap) || 0
+    const n = people.cards.length
+    const free = rail.clientWidth - gap * (n - 1)
+    setOpenW(Math.max(0, Math.round((free * grow) / (grow + shut * (n - 1)))))
+  }, [people.cards.length])
+
+  useLayoutEffect(measure, [measure])
+  useEffect(() => {
+    const rail = railRef.current
+    if (!rail || typeof ResizeObserver === 'undefined') return
+    const ro = new ResizeObserver(measure)
+    ro.observe(rail)
+    return () => ro.disconnect()
+  }, [measure])
+
   return (
     <div>
-      <PanelLede leadIn={people.leadIn}>{people.lede}</PanelLede>
+      <PanelLede>{people.lede}</PanelLede>
 
-      <ul className="flex h-[clamp(470px,120vw,570px)] max-w-[1120px] gap-1.5 [--open:100] [--shut:13] md:gap-2 lg:h-[540px] lg:[--shut:20]">
+      <ul
+        ref={railRef}
+        className="flex h-[clamp(470px,120vw,570px)] max-w-[1120px] gap-1.5 [--open:100] [--shut:13] md:gap-2 lg:h-[540px] lg:[--shut:20]"
+      >
         {people.cards.map((c, i) => {
           const on = c.id === open
           return (
@@ -119,10 +152,15 @@ function People() {
                 aria-label={c.name}
                 className="relative block h-full w-full overflow-hidden rounded-[22px] border text-left"
                 style={{
-                  borderColor: on ? 'rgba(10,10,10,.1)' : 'rgba(10,10,10,.07)',
-                  background: on ? '#FFFFFF' : '#F4F4F3',
-                  boxShadow: on ? '0 24px 44px -30px rgba(10,10,10,.5)' : 'none',
-                  transition: t(`background-color ${WIDTH_MS}ms ease, border-color ${WIDTH_MS}ms ease, box-shadow ${WIDTH_MS}ms ease`),
+                  // A clean, near-white capsule. The old warm grey read as dust
+                  // against the white open card.
+                  borderColor: on ? 'rgba(10,10,10,.1)' : 'rgba(10,10,10,.08)',
+                  background: on ? '#FFFFFF' : '#F7F8F8',
+                  boxShadow: on ? '0 24px 44px -30px rgba(10,10,10,.5)' : '0 0 0 0 rgba(10,10,10,0)',
+                  // Paint containment keeps the repaint inside the card while
+                  // the row re-flows.
+                  contain: 'paint',
+                  transition: t(`background-color ${WIDTH_MS}ms ease, border-color ${WIDTH_MS}ms ease`),
                 }}
               >
                 {/* Closed — index, one word on its side, chevron. */}
@@ -152,8 +190,11 @@ function People() {
                 {/* Open — portrait, role on a scrim, description, expertise. */}
                 <span
                   aria-hidden={!on}
-                  className="absolute inset-0 flex flex-col overflow-hidden"
+                  className="absolute bottom-0 left-0 top-0 flex flex-col overflow-hidden"
                   style={{
+                    // Before the first measurement, fall back to the card's own
+                    // box so the server render and first paint are complete.
+                    width: openW || '100%',
                     opacity: on ? 1 : 0,
                     visibility: on ? 'visible' : 'hidden',
                     transition: t(`opacity 400ms ease ${on ? '180ms' : '0ms'}, visibility 0ms linear ${on ? '0ms' : '400ms'}`),
@@ -166,7 +207,7 @@ function People() {
                       src={c.photo}
                       alt=""
                       fill
-                      sizes="(min-width: 1024px) 560px, 72vw"
+                      sizes="(min-width: 1024px) 640px, 78vw"
                       className="object-cover"
                       style={{ objectPosition: 'center 26%' }}
                     />
@@ -199,10 +240,12 @@ function People() {
                     <span className="text-[13.5px] leading-relaxed text-ink-muted">{c.desc}</span>
 
                     <span className="mt-4 flex flex-col">
-                      <span className="pb-1 font-mono text-[9.5px] uppercase tracking-[0.18em] text-ink/45">Expertise</span>
+                      {/* The label carries the block, so it is set a step up
+                          from the items rather than a step down. */}
+                      <span className="pb-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/60">Expertise</span>
                       {c.tags.map((tag) => (
-                        <span key={tag} className="flex items-center gap-3 border-t border-border-soft py-2.5 text-[13.5px] leading-tight text-ink/80">
-                          <Check className="h-3.5 w-3.5 flex-none text-ink/35" strokeWidth={2} />
+                        <span key={tag} className="flex items-center gap-2.5 border-t border-border-soft py-2.5 text-[13px] leading-tight text-ink/80">
+                          <Check className="h-3.5 w-3.5 flex-none text-ink/30" strokeWidth={2} />
                           <span>{tag}</span>
                         </span>
                       ))}

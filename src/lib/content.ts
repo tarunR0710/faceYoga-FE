@@ -956,9 +956,7 @@ export const BELIEVE = {
     { id: 'evidence', label: 'The evidence' },
   ],
   people: {
-    leadIn: 'Your Map brings together different kinds of expertise.',
-    lede:
-      'Your Face Mapping Session has a lead practitioner, with specialist input added where your plan calls for it. Every profile shows who is contributing, what they bring, and why their input matters.',
+    lede: 'Your Map brings together different kinds of expertise.',
     /**
      * Design 42a: the spine is ONE word so it reads vertically at a glance;
      * the full role sits on the portrait once the card opens.
