@@ -153,16 +153,18 @@ function People() {
                 className="relative block h-full w-full overflow-hidden rounded-[22px] border text-left"
                 style={{
                   // A closed capsule is white, like the open one. Any grey fill
-                  // read as dust next to it, so the closed state is carried by
-                  // the hairline, the index and the chevron instead — and the
-                  // open state by its shadow and its contents.
-                  borderColor: on ? 'rgba(10,10,10,.1)' : 'rgba(10,10,10,.11)',
+                  // read as dust next to it — and on white, a crisp hairline is
+                  // the next thing to read as hard, so the edge is barely there
+                  // and a soft shadow does the separating instead.
+                  borderColor: on ? 'rgba(10,10,10,.06)' : 'rgba(10,10,10,.045)',
                   background: '#FFFFFF',
-                  boxShadow: on ? '0 24px 44px -30px rgba(10,10,10,.5)' : '0 0 0 0 rgba(10,10,10,0)',
+                  boxShadow: on
+                    ? '0 24px 44px -30px rgba(10,10,10,.5)'
+                    : '0 2px 14px -9px rgba(10,10,10,.3)',
                   // Paint containment keeps the repaint inside the card while
                   // the row re-flows.
                   contain: 'paint',
-                  transition: t(`border-color ${WIDTH_MS}ms ease`),
+                  transition: t(`border-color ${WIDTH_MS}ms ease, box-shadow ${WIDTH_MS}ms ease`),
                 }}
               >
                 {/* Closed — index, one word on its side, chevron. */}
@@ -175,17 +177,17 @@ function People() {
                     transition: t(`opacity ${on ? 180 : 300}ms ease ${on ? '0ms' : '220ms'}`),
                   }}
                 >
-                  <span className="font-mono text-[10px] tabular-nums tracking-[0.16em] text-ink/35">
+                  <span className="font-mono text-[10px] tabular-nums tracking-[0.16em] text-ink/30">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span
-                    className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/65"
+                    className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/45"
                     style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
                   >
                     {c.spine}
                   </span>
-                  <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full border border-ink/15">
-                    <ChevronRight className="h-3 w-3 text-ink/50" strokeWidth={2} />
+                  <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full border border-ink/[0.09]">
+                    <ChevronRight className="h-3 w-3 text-ink/35" strokeWidth={2} />
                   </span>
                 </span>
 
