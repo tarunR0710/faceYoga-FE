@@ -17,7 +17,7 @@ import { Journey } from '@/components/sections/journey'
 import { Guidance } from '@/components/sections/guidance'
 import { Experiences } from '@/components/sections/experiences'
 import { FaceMapSection } from '@/components/sections/face-map'
-import { Protocol } from '@/components/sections/protocol'
+// import { Protocol } from '@/components/sections/protocol' // cut 2026-09-22, see below
 import { ContextFit } from '@/components/sections/context-fit'
 import { PricingPreview } from '@/components/sections/pricing-preview'
 import { Money } from '@/components/sections/money'
@@ -71,7 +71,12 @@ export default function HomePage() {
             import above and this line. */}
         {/* <VisualDirection /> */}
         <Guidance />
-        <Protocol />
+        {/* Appearance Protocol is cut (2026-09-22, homepage audit). It was a
+            chapter of the Face Map section directly above: chapter 13 of that
+            report already shows Start / Stop / Continue and First / Next /
+            Later, against real example actions rather than chip definitions.
+            The component and PROTOCOL content stay in place. */}
+        {/* <Protocol /> */}
         <Believe />
         <ContextFit />
         <Experiences />

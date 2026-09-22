@@ -205,5 +205,9 @@ not touched. From `WhatWeMap` down, the page follows the new blueprint:
   real practitioners** — they must be replaced with approved photographs, names
   and credentials before this page is advertised, or the section implies a team
   we have not named. Card copy is the role, not a person.
+- Cut from the homepage (2026-09-22, see `HOMEPAGE-AUDIT.md`): the standalone
+  **Appearance Protocol** section. It duplicated chapter 13 of the Face Map
+  section immediately above it. Component and content kept; re-enable by
+  restoring the import and the call in `page.tsx`.
 - Still needs the founder: expert names + credentials, the missed-session
   (no-show) policy, retention period + grievance officer, a real customer story.
