@@ -127,7 +127,7 @@ function People() {
 
       <ul
         ref={railRef}
-        className="flex h-[clamp(470px,120vw,570px)] max-w-[1120px] gap-1.5 [--open:100] [--shut:13] md:gap-2 lg:h-[540px] lg:[--shut:20]"
+        className="flex h-[clamp(396px,102vw,470px)] max-w-[1120px] gap-1.5 [--open:100] [--shut:13] md:gap-2 lg:h-[452px] lg:[--shut:20]"
       >
         {people.cards.map((c, i) => {
           const on = c.id === open
@@ -206,7 +206,7 @@ function People() {
                 >
                   {/* Full-bleed, and flexible so the card can never clip its
                       own text on a narrow phone — the photo absorbs the slack. */}
-                  <span className="relative block min-h-[150px] flex-1 overflow-hidden bg-mist">
+                  <span className="relative block min-h-[132px] flex-1 overflow-hidden bg-mist">
                     <Image
                       src={c.photo}
                       alt=""
@@ -217,7 +217,7 @@ function People() {
                     />
                     <span
                       aria-hidden="true"
-                      className="absolute inset-x-0 bottom-0 h-[120px]"
+                      className="absolute inset-x-0 bottom-0 h-[104px]"
                       style={{ background: 'linear-gradient(180deg, rgba(16,16,16,0), rgba(16,16,16,.88))' }}
                     />
                     <span
@@ -228,27 +228,27 @@ function People() {
                       }}
                     >
                       <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/65">{c.spine}</span>
-                      <span className="text-[1.15rem] leading-snug tracking-[-0.02em] text-white md:text-[1.3rem]" style={{ fontWeight: 400 }}>
+                      <span className="text-[1.05rem] leading-snug tracking-[-0.02em] text-white md:text-[1.2rem]" style={{ fontWeight: 400 }}>
                         {c.name}
                       </span>
                     </span>
                   </span>
 
                   <span
-                    className="flex flex-none flex-col px-5 pb-5 pt-4"
+                    className="flex flex-none flex-col px-5 pb-4 pt-3.5"
                     style={{
                       transform: on ? 'translateY(0)' : 'translateY(10px)',
                       transition: t(`transform 520ms ${EASE_SOFT} 250ms`),
                     }}
                   >
-                    <span className="text-[13.5px] leading-relaxed text-ink-muted">{c.desc}</span>
+                    <span className="text-[13px] leading-[1.55] text-ink-muted">{c.desc}</span>
 
-                    <span className="mt-4 flex flex-col">
+                    <span className="mt-3.5 flex flex-col">
                       {/* The label carries the block, so it is set a step up
                           from the items rather than a step down. */}
-                      <span className="pb-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/60">Expertise</span>
+                      <span className="pb-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/60">Expertise</span>
                       {c.tags.map((tag) => (
-                        <span key={tag} className="flex items-center gap-2.5 border-t border-border-soft py-2.5 text-[13px] leading-tight text-ink/80">
+                        <span key={tag} className="flex items-center gap-2.5 border-t border-border-soft py-2 text-[12.5px] leading-tight text-ink/80">
                           <Check className="h-3.5 w-3.5 flex-none text-ink/30" strokeWidth={2} />
                           <span>{tag}</span>
                         </span>
