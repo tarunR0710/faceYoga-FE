@@ -127,7 +127,7 @@ function People() {
 
       <ul
         ref={railRef}
-        className="flex h-[clamp(396px,102vw,470px)] max-w-[1120px] gap-1.5 [--open:100] [--shut:13] md:gap-2 lg:h-[452px] lg:[--shut:20]"
+        className="flex h-[clamp(404px,104vw,478px)] max-w-[1120px] gap-1.5 [--open:100] [--shut:13] md:gap-2 lg:h-[460px] lg:[--shut:20]"
       >
         {people.cards.map((c, i) => {
           const on = c.id === open
@@ -170,24 +170,24 @@ function People() {
                 {/* Closed — index, one word on its side, chevron. */}
                 <span
                   aria-hidden={on}
-                  className="absolute inset-0 flex flex-col items-center justify-between py-[18px]"
+                  className="absolute inset-0 flex flex-col items-center justify-between py-5"
                   style={{
                     opacity: on ? 0 : 1,
                     pointerEvents: 'none',
                     transition: t(`opacity ${on ? 180 : 300}ms ease ${on ? '0ms' : '220ms'}`),
                   }}
                 >
-                  <span className="font-mono text-[10px] tabular-nums tracking-[0.16em] text-ink/30">
+                  <span className="font-mono text-[10px] tabular-nums tracking-[0.16em] text-ink/25">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span
-                    className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/45"
+                    className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/45"
                     style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
                   >
                     {c.spine}
                   </span>
-                  <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full border border-ink/[0.09]">
-                    <ChevronRight className="h-3 w-3 text-ink/35" strokeWidth={2} />
+                  <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full border border-ink/[0.08]">
+                    <ChevronRight className="h-3 w-3 text-ink/30" strokeWidth={1.8} />
                   </span>
                 </span>
 
@@ -217,17 +217,20 @@ function People() {
                     />
                     <span
                       aria-hidden="true"
-                      className="absolute inset-x-0 bottom-0 h-[104px]"
-                      style={{ background: 'linear-gradient(180deg, rgba(16,16,16,0), rgba(16,16,16,.88))' }}
+                      className="absolute inset-x-0 bottom-0 h-[118px]"
+                      style={{
+                        background:
+                          'linear-gradient(180deg, rgba(16,16,16,0) 0%, rgba(16,16,16,.34) 42%, rgba(16,16,16,.82) 100%)',
+                      }}
                     />
                     <span
-                      className="absolute inset-x-5 bottom-4 flex flex-col gap-1.5"
+                      className="absolute inset-x-5 bottom-[18px] flex flex-col gap-1"
                       style={{
                         transform: on ? 'translateY(0)' : 'translateY(8px)',
                         transition: t(`transform 480ms ${EASE_SOFT} 200ms`),
                       }}
                     >
-                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/65">{c.spine}</span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/60">{c.spine}</span>
                       <span className="text-[1.05rem] leading-snug tracking-[-0.02em] text-white md:text-[1.2rem]" style={{ fontWeight: 400 }}>
                         {c.name}
                       </span>
@@ -235,21 +238,21 @@ function People() {
                   </span>
 
                   <span
-                    className="flex flex-none flex-col px-5 pb-4 pt-3.5"
+                    className="flex flex-none flex-col px-5 pb-[18px] pt-[18px]"
                     style={{
                       transform: on ? 'translateY(0)' : 'translateY(10px)',
                       transition: t(`transform 520ms ${EASE_SOFT} 250ms`),
                     }}
                   >
-                    <span className="text-[13px] leading-[1.55] text-ink-muted">{c.desc}</span>
+                    <span className="text-[13px] leading-[1.6] text-ink-muted">{c.desc}</span>
 
-                    <span className="mt-3.5 flex flex-col">
+                    <span className="mt-4 flex flex-col">
                       {/* The label carries the block, so it is set a step up
                           from the items rather than a step down. */}
-                      <span className="pb-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/60">Expertise</span>
+                      <span className="pb-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink/55">Expertise</span>
                       {c.tags.map((tag) => (
-                        <span key={tag} className="flex items-center gap-2.5 border-t border-border-soft py-2 text-[12.5px] leading-tight text-ink/80">
-                          <Check className="h-3.5 w-3.5 flex-none text-ink/30" strokeWidth={2} />
+                        <span key={tag} className="flex items-center gap-2.5 border-t border-border-soft py-[9px] text-[13px] leading-snug text-ink/75">
+                          <Check className="h-3.5 w-3.5 flex-none text-ink/25" strokeWidth={1.9} />
                           <span>{tag}</span>
                         </span>
                       ))}
