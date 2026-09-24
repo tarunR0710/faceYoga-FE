@@ -1392,48 +1392,108 @@ export const FACE_MAP_REPORT = {
 // ═════════════════════════════════════════════════════════════════════════════
 export const CONTEXT = {
   eyebrow: 'Built for your context',
-  title: 'The same face,',
-  muted: 'in a different city, needs a different plan.',
+  title: 'The same face, in a different life,',
+  muted: 'needs a different plan.',
   lede:
-    'This is the part generic advice cannot do. A routine that works in Bengaluru can fail in a Delhi winter, and the same products can feel completely different in Chennai humidity.',
+    'This is the part generic advice cannot do. Where you live, what you already use, how your days run and what you want — each one changes what goes into your plan.',
   /**
-   * Design 36a — one weather card per context, copy verbatim from the canvas
-   * export (turn 36, 2026-09-20). `weather` picks the sky and the animation:
-   * wind streaks / rain lines through haze / drops falling into ripples.
-   * `feel` is the card's mono line, already joined the way the design joins it.
+   * Design 43a — four scenarios, one system. The city cards never worked
+   * because they were categories; they worked because each was a concrete
+   * scenario with a sky that showed the condition. So every card is a
+   * scenario now, and each gets its own condition drawn in the same register.
+   *
+   * Environment keeps all three cities behind a switch inside one card. The
+   * other three are new: their copy is written here in the canvas's register
+   * pending the exact lines from the next handoff export.
    */
   cards: [
     {
-      id: 'delhi',
-      weather: 'wind',
-      city: 'Delhi',
-      when: 'Winter',
-      feel: 'Cold · Dry · Higher pollution',
-      changes: ['Barrier repair moves ahead of actives', 'Richer moisturisation matters more', 'Comfort before aggressive treatments'],
+      id: 'env',
+      kind: 'env',
+      cat: 'Where you live',
+      /** Title, condition and changes all swap with the selected city. */
+      cities: [
+        {
+          id: 'delhi',
+          pill: 'Delhi',
+          weather: 'wind',
+          title: 'Delhi in winter',
+          cond: 'Cold · Dry · Higher pollution',
+          changes: [
+            'Barrier repair moves ahead of actives',
+            'Richer moisturisation matters more',
+            'Comfort before aggressive treatments',
+          ],
+        },
+        {
+          id: 'chennai',
+          pill: 'Chennai',
+          weather: 'rain',
+          title: 'Chennai in the monsoon',
+          cond: 'Warm · Sticky · High humidity',
+          changes: [
+            'Lighter textures are preferred',
+            'Oil control and breathability matter more',
+            'Heavy products can feel uncomfortable',
+          ],
+        },
+        {
+          id: 'water',
+          pill: 'Hard water',
+          weather: 'drip',
+          title: 'A hard-water city',
+          cond: 'Mineral-heavy water',
+          changes: [
+            'Cleansing and barrier support need more care',
+            'Product performance can shift',
+            'Rinse-off products become more relevant',
+          ],
+        },
+      ],
     },
     {
-      id: 'chennai',
-      weather: 'rain',
-      city: 'Chennai',
-      when: 'Humidity',
-      feel: 'Warm · Sticky · High humidity',
-      changes: ['Lighter textures are preferred', 'Oil control and breathability matter more', 'Heavy products can feel uncomfortable'],
+      id: 'skin',
+      kind: 'skin',
+      cat: 'What you already use',
+      title: 'Nine products deep',
+      cond: 'Layered · Overlapping · Untested',
+      changes: [
+        'What you already own is kept, not replaced',
+        'Actives are sequenced around what your barrier tolerates',
+        'Anything that has already reacted comes out first',
+      ],
     },
     {
-      id: 'water',
-      weather: 'drip',
-      city: 'Hard-water city',
-      when: 'Any season',
-      feel: 'Mineral-heavy water',
-      changes: ['Cleansing and barrier support need more care', 'Product performance can shift', 'Rinse-off products become more relevant'],
+      id: 'life',
+      kind: 'life',
+      cat: 'How your days run',
+      title: 'Six hours of sleep',
+      cond: 'Late nights · Little time',
+      changes: [
+        'The routine follows your sleep, not the clock',
+        'Fewer steps, more often, beats more steps once',
+        'Effort goes where it survives a bad week',
+      ],
+    },
+    {
+      id: 'goals',
+      kind: 'goals',
+      cat: 'What you want',
+      title: 'Eight weeks',
+      cond: 'One date · Subtle · Reversible',
+      changes: [
+        'The order changes — foundation before refinement',
+        'Subtle direction is chosen over noticeable change',
+        'Anything slower than your deadline is marked Later',
+      ],
     },
   ],
   /** The anti-upsell promise, planted immediately before the price. */
   antiUpsell: {
     title: 'We sell one thing.',
     accent: 'The Face Map.',
-    lines: ['We do not sell skincare.', 'We do not stock products.', 'We take no commission from any brand we mention.'],
-    body: 'If the honest answer is that your current routine is fine, that is exactly what your report will say.',
+    body: 'We do not sell skincare. We do not stock products. We take no commission from any brand we mention.',
+    closing: 'If the honest answer is that your current routine is fine, that is exactly what your report will say.',
   },
 } as const
 

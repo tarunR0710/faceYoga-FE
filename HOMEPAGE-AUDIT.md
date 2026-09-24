@@ -73,7 +73,9 @@ A third telling of "what the recommendations look like", after the Face Map's th
 
 Renders nothing. `EXPERIENCES.stories` is an empty array and the component returns null until a real consented story exists. Take it out of the page tree and put it back the day you have a story.
 
-### Merge — _Built for your context_ (#16) beside the 100+ factors (#10)
+### Merge — _Built for your context_ (#16) beside the 100+ factors (#10) ✅ half done 2026-09-25
+
+**Done, one half.** The section was rebuilt to design 43a on 2026-09-25 and now carries four scenario cards instead of three cities: Environment (all three cities behind a switch), Skin & routine, Lifestyle, Goals & preferences. Every card keeps the "what changes" payload, so it stays distinct from the 100+ section. **Still to do:** delete "What we take into account", whose five items this section now absorbs, and move this section up beside the 100+ factors. Both need the freeze lifted.
 
 Both make the argument that context changes the plan, six sections apart.
 

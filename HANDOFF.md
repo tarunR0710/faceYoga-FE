@@ -214,5 +214,15 @@ not touched. From `WhatWeMap` down, the page follows the new blueprint:
   the FAQ, the pricing GST note or "Where we stop". Its one unique block — the
   path a photograph takes — is now the first answer under "Privacy & photos"
   in the FAQ. Component and content kept.
+- **Built for your context** is now design **43a**: four scenario cards in one
+  row, each with its own condition drawn in the same register. Environment
+  holds all three cities behind a switch inside one card (wind / rain /
+  ripples swap with the city); Skin & routine is three layers settling;
+  Lifestyle is a sun on a 24-hour arc; Goals is twelve points gathering into
+  three. Motion runs only on the card in focus. This section absorbed **What
+  we take into account** — that section is now fully redundant and should be
+  deleted, but it sits in the frozen range, so it needs the founder.
+  Card copy for the three new cards is written in the canvas's register and
+  should be checked against the next handoff export.
 - Still needs the founder: expert names + credentials, the missed-session
   (no-show) policy, retention period + grievance officer, a real customer story.

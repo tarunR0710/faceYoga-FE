@@ -613,3 +613,15 @@
 @keyframes wxRipple { 0% { transform: scale(.35); opacity: .45; } 100% { transform: scale(1.7); opacity: 0; } }
 @keyframes wxGlow { 0%, 100% { opacity: .5; transform: scale(1); } 50% { opacity: .85; transform: scale(1.06); } }
 @keyframes wxHaze { 0%, 100% { transform: translateX(-12px); } 50% { transform: translateX(12px); } }
+
+/* ── Built for your context — the other three conditions (design 43a) ────────
+   Transform / opacity only, same as the weather above. Skin: three translucent
+   layers settle one on top of another, then clear. Lifestyle: a sun travels a
+   24-hour arc over a horizon line. Goals: twelve scattered points pull
+   together into three, then scatter again. */
+@keyframes ctxLayer { 0% { transform: translateY(-14px); opacity: 0; } 16%, 72% { transform: translateY(0); opacity: 1; } 92%, 100% { transform: translateY(0); opacity: 0; } }
+@keyframes ctxArc { from { transform: rotate(0deg); } to { transform: rotate(180deg); } }
+@keyframes ctxG1 { 0%, 100% { transform: translate(-70px, 30px); opacity: .3; } 50%, 78% { transform: translate(0, 0); opacity: 1; } }
+@keyframes ctxG2 { 0%, 100% { transform: translate(62px, -26px); opacity: .3; } 50%, 78% { transform: translate(0, 0); opacity: 1; } }
+@keyframes ctxG3 { 0%, 100% { transform: translate(-44px, -34px); opacity: .3; } 50%, 78% { transform: translate(0, 0); opacity: 1; } }
+@keyframes ctxG4 { 0%, 100% { transform: translate(80px, 36px); opacity: .3; } 50%, 78% { transform: translate(0, 0); opacity: 1; } }
