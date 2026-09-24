@@ -21,7 +21,7 @@ import { FaceMapSection } from '@/components/sections/face-map'
 import { ContextFit } from '@/components/sections/context-fit'
 import { PricingPreview } from '@/components/sections/pricing-preview'
 import { Money } from '@/components/sections/money'
-import { PrivacyTrust } from '@/components/sections/privacy-trust'
+// import { PrivacyTrust } from '@/components/sections/privacy-trust' // cut 2026-09-24, see below
 import { FAQ } from '@/components/sections/faq'
 import { CTA } from '@/components/sections/cta'
 
@@ -82,7 +82,15 @@ export default function HomePage() {
         <Experiences />
         <PricingPreview />
         <Money />
-        <PrivacyTrust />
+        {/* "Built around something personal" is cut (2026-09-24, homepage
+            audit). Four of its five blocks were already said elsewhere: the
+            access table repeated the four role cards in the experts section
+            and a FAQ answer, and all four covenant lines repeated the FAQ,
+            the pricing GST note or "Where we stop" in How It Works. The one
+            thing it alone carried — where a photograph actually goes — is now
+            the first answer under "Privacy & photos" in the FAQ directly
+            below. The component and PRIVACY_PATH stay in place. */}
+        {/* <PrivacyTrust /> */}
         <FAQ />
         <CTA />
       </main>

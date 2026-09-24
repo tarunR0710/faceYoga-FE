@@ -115,7 +115,7 @@ Counted across the content blocks that are actually rendered.
 
 ---
 
-## 3 · The privacy section — _Built around something personal_ (#20)
+## 3 · The privacy section — _Built around something personal_ (#20) ✅ cut 2026-09-24
 
 Four of its five blocks are stated elsewhere.
 
@@ -130,7 +130,9 @@ Four of its five blocks are stated elsewhere.
 
 It also sits immediately above a FAQ that has a category called **Privacy & photos**.
 
-**Recommendation — shrink, do not delete.** Keep the header and the four-stage path (_you share it → the team opens it → it is held → you can end it_), drop the access table and all four covenant lines, and close with one link to the privacy policy. Roughly a full screen becomes a third of one.
+**Done — cut, with the unique block relocated (2026-09-24).** The section was removed from `page.tsx` and its one irreplaceable fact moved into the FAQ. A new first answer under **Privacy & photos** — _"What happens to my photographs?"_ — now carries the whole lifecycle: the encrypted connection, who opens them, how long they are held, and that one email deletes them. "Over an encrypted connection" appeared exactly once in the entire codebase, in this section, so it had to survive. The component and `PRIVACY_PATH` stay in the repo, commented out at the call site.
+
+**Original recommendation, kept for the record — shrink, do not delete.** Keep the header and the four-stage path (_you share it → the team opens it → it is held → you can end it_), drop the access table and all four covenant lines, and close with one link to the privacy policy. Roughly a full screen becomes a third of one.
 
 **Why not delete it.** This page asks people to upload photographs of their face. The section's own code comment makes the case: it is the one section deliberately given no tap-to-reveal, because putting a privacy promise behind a click is functionally the same as burying it in a policy page. Moving all of it into the FAQ does exactly that.
 
@@ -184,7 +186,7 @@ That is worth more than every cut in this document combined, and it is blocked o
 
 | | Before | After |
 |---|---|---|
-| Sections rendered | 22 → **21** | ~16 |
+| Sections rendered | 22 → **20** | ~16 |
 | Sections before the price | 17 | ~12 |
 | Consecutive "what you get" sections | 10 | 6 |
 | Dead content blocks | 16 | 0 |

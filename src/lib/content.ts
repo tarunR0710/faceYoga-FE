@@ -1635,6 +1635,13 @@ export const FAQ_V2 = {
       label: 'Privacy & photos',
       items: [
         {
+          // Carries the four stages the homepage privacy section used to show
+          // (PRIVACY_PATH, cut 2026-09-24). Encryption in transit is stated
+          // nowhere else on the site, so it has to survive here.
+          q: 'What happens to my photographs?',
+          a: 'You share them on the live session and during onboarding, over an encrypted connection. Only the people delivering your MapMyFace experience open them. They are held for as long as your report and clarification support are active. Ask us to delete them and we delete them — one email.',
+        },
+        {
           q: 'Who actually sees my session and photographs?',
           a: 'Only the people required to deliver your MapMyFace experience: your Lead Appearance Expert and the specialists reviewing your case. Access is need-to-know.',
         },

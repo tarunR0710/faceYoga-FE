@@ -209,5 +209,10 @@ not touched. From `WhatWeMap` down, the page follows the new blueprint:
   **Appearance Protocol** section. It duplicated chapter 13 of the Face Map
   section immediately above it. Component and content kept; re-enable by
   restoring the import and the call in `page.tsx`.
+- Cut from the homepage (2026-09-24, see `HOMEPAGE-AUDIT.md`): **Built around
+  something personal**. Four of its five blocks repeated the experts section,
+  the FAQ, the pricing GST note or "Where we stop". Its one unique block — the
+  path a photograph takes — is now the first answer under "Privacy & photos"
+  in the FAQ. Component and content kept.
 - Still needs the founder: expert names + credentials, the missed-session
   (no-show) policy, retention period + grievance officer, a real customer story.
