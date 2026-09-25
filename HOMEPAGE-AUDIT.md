@@ -65,7 +65,11 @@ The Face Map section already lists the Appearance Protocol among its thirteen pa
 
 **Done.** Removed from `page.tsx` on 2026-09-22. The component and the `PROTOCOL` content remain in the repo, commented out at the call site, so it can be restored in one line. Nothing was lost: chapter 13 of the Face Map spread already shows Start / Stop / Continue and First / Next / Later against real example actions rather than abstract chip definitions.
 
-### Merge — _Personalised guidance_ (#13) into the Face Map section (#12)
+### Condensed, not merged — _Personalised guidance_ ✅ done 2026-09-25
+
+**Revised, then done.** The original call here was to merge it into the Face Map and drop it. That was wrong, and the FAQ-readership point is what exposed it: the Face Map shows the chapter *titles* "Skincare, Grooming & Lifestyle" and "Face Yoga", but nowhere else on the page proves the advice is specific rather than generic. The "not just: wear sunscreen" device is the argument, not decoration.
+
+So it was condensed instead, on 2026-09-25. Four cards became four hairline rows; the lede went, because it said "the Map does not stop at use sunscreen or try a different beard", which is cards one and three restated directly above themselves; and each row's text lost its opening throat-clear so it leads with the substance. **1,168px → 722px on a phone, 580px on desktop.** Not the ~320px this document estimated: that assumed one-line rows, but at phone width each row runs to three lines, and shortening the copy further would remove the specificity that is the whole point of the section.
 
 A third telling of "what the recommendations look like", after the Face Map's thirteen sections and the plan's includes list. Its four cards — Skincare, Products, Grooming, Face yoga + lifestyle — are already Face Map chapters.
 

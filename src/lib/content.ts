@@ -2144,28 +2144,36 @@ export const GUIDANCE = {
   eyebrow: 'Personalised guidance',
   title: 'Personalised should',
   muted: 'feel specific.',
-  lede:
-    'The Map does not stop at “use sunscreen” or “try a different beard.” It explains what kind of change fits your plan, why, and when to introduce it.',
-  cards: [
+  /**
+   * Condensed 2026-09-25 from four cards to four rows. The lede is gone: it
+   * said "the Map does not stop at use sunscreen or try a different beard",
+   * which is cards one and three restated a line above themselves.
+   *
+   * Each `text` lost its opening throat-clear — "Your Map can specify…",
+   * "Where useful, your expert can…", "Direction can cover…", "Only relevant
+   * … are included" — so the row leads with the substance. Nothing factual
+   * was removed; the specificity IS the argument this section makes.
+   */
+  rows: [
     {
       label: 'Skincare',
-      notJust: 'Not just: “Wear sunscreen.”',
-      text: 'Your Map can specify SPF direction, texture, formulation, timing, reapplication and suitable options — coordinated with the rest of your routine.',
+      notJust: 'Not just “wear sunscreen.”',
+      text: 'SPF direction, texture, formulation, timing and reapplication, coordinated with the rest of your routine.',
     },
     {
       label: 'Products',
-      notJust: 'Not just: “Add an active.”',
-      text: 'Where useful, your expert can name specific products or give ingredient, strength and formulation guidance that fits what you already use.',
+      notJust: 'Not just “add an active.”',
+      text: 'Specific products where useful, or ingredient, strength and formulation guidance that fits what you already own.',
     },
     {
       label: 'Grooming',
-      notJust: 'Not just: “Change your beard.”',
-      text: 'Direction can cover length, shape, maintenance and presentation based on lower-face structure and the look you want to maintain.',
+      notJust: 'Not just “change your beard.”',
+      text: 'Length, shape, maintenance and presentation, read from your lower-face structure and the look you want to keep.',
     },
     {
       label: 'Face yoga + lifestyle',
       notJust: 'Not generic wellness advice.',
-      text: 'Only relevant movements and lifestyle-related actions are included, with clear frequency or timing where it helps you follow the plan.',
+      text: 'Only the movements and lifestyle actions that are actually relevant, with frequency and timing where that helps.',
     },
   ],
 } as const
