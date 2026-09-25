@@ -12,7 +12,7 @@ import { CONTEXT } from '@/lib/content'
 const INK = '#26313F'
 const NOTE = '#55637A'
 const CARD_W = 292
-const CARD_H = 500
+const CARD_H = 440
 const GAP = 12
 const EASE = 'cubic-bezier(.2,.7,.2,1)'
 const MONO = 'font-mono text-[10px] uppercase tracking-[0.16em]'
@@ -65,17 +65,17 @@ const RIPPLES = [
 // ── The three new conditions, in the same register as the weather ──────────
 // Skin: three translucent layers settle one on top of another, then clear.
 const LAYERS = [
-  { top: 40, side: 52, bg: 'rgba(255,255,255,.55)', delay: '0s' },
-  { top: 58, side: 38, bg: 'rgba(255,255,255,.7)', delay: '0.45s' },
-  { top: 76, side: 24, bg: 'rgba(255,255,255,.85)', delay: '0.9s' },
+  { top: 32, side: 52, bg: 'rgba(255,255,255,.55)', delay: '0s' },
+  { top: 50, side: 38, bg: 'rgba(255,255,255,.7)', delay: '0.45s' },
+  { top: 68, side: 24, bg: 'rgba(255,255,255,.85)', delay: '0.9s' },
 ]
 // Goals: three rings, and twelve points that pull into them and scatter again.
 // Each point's own position IS its gathered position; the keyframes carry it
 // out and back, so nothing has to be measured at runtime.
 const TARGETS = [
-  { left: 66, top: 42 },
-  { left: 136, top: 62 },
-  { left: 204, top: 38 },
+  { left: 66, top: 34 },
+  { left: 136, top: 54 },
+  { left: 204, top: 30 },
 ]
 const GATHER = TARGETS.flatMap((t, ti) =>
   [
@@ -174,7 +174,7 @@ export function ContextFit() {
                   key={c.id}
                   data-card={c.id}
                   onClick={() => go(i)}
-                  className="relative flex shrink-0 cursor-pointer snap-center flex-col overflow-hidden rounded-[26px] p-[22px]"
+                  className="relative flex shrink-0 cursor-pointer snap-center flex-col overflow-hidden rounded-[26px] p-5"
                   style={{
                     width: CARD_W,
                     height: CARD_H,
@@ -300,17 +300,17 @@ export function ContextFit() {
                         <span
                           className="absolute box-border"
                           style={{
-                            left: 68, top: 30, width: 156, height: 78,
+                            left: 68, top: 24, width: 156, height: 66,
                             border: '1px dashed rgba(255,255,255,.95)',
                             borderBottom: 0,
                             borderRadius: '78px 78px 0 0',
                           }}
                         />
-                        <span className="absolute h-px" style={{ left: 36, right: 36, top: 108, background: 'rgba(255,255,255,.85)' }} />
+                        <span className="absolute h-px" style={{ left: 36, right: 36, top: 90, background: 'rgba(255,255,255,.85)' }} />
                         <span
                           className="absolute"
                           style={{
-                            left: 68, top: 108, width: 156, height: 0,
+                            left: 68, top: 90, width: 156, height: 0,
                             transformOrigin: '78px 0',
                             animation: 'ctxArc 7s ease-in-out infinite alternate',
                             animationPlayState: play,
@@ -354,9 +354,9 @@ export function ContextFit() {
                   </span>
 
                   {/* ── the card ────────────────────────────────────────── */}
-                  <span className="block h-[118px] flex-none" />
+                  <span className="block h-[100px] flex-none" />
 
-                  <div className="relative flex flex-col gap-1.5">
+                  <div className="relative flex flex-col gap-1">
                     <span className={MONO} style={{ color: NOTE }}>{c.cat}</span>
                     <span className="text-[1.3rem] leading-[1.15] tracking-[-0.02em]" style={{ fontWeight: 400, textWrap: 'pretty' }}>
                       {title}
@@ -364,13 +364,13 @@ export function ContextFit() {
                     <span className={`${MONO} pt-0.5`} style={{ color: NOTE }}>{cond}</span>
                   </div>
 
-                  <div className="relative mt-4 flex flex-col" style={{ borderTop: '1px solid rgba(38,49,63,.14)' }}>
-                    <span className={MONO} style={{ color: NOTE, padding: '12px 0 2px' }}>What changes</span>
+                  <div className="relative mt-3.5 flex flex-col" style={{ borderTop: '1px solid rgba(38,49,63,.14)' }}>
+                    <span className={MONO} style={{ color: NOTE, padding: '10px 0 2px' }}>What changes</span>
                     {changes.map((x: string) => (
                       <span
                         key={x}
                         className="text-[13.5px] leading-[1.35]"
-                        style={{ padding: '9px 0', borderBottom: '1px solid rgba(38,49,63,.1)' }}
+                        style={{ padding: '7px 0', borderBottom: '1px solid rgba(38,49,63,.1)' }}
                       >
                         {x}
                       </span>
