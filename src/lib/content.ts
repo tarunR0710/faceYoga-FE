@@ -451,7 +451,7 @@ export const BELIEVE = {
   },
   method: {
     leadIn: 'Nine things get assessed.',
-    lede: 'Not an algorithm scoring your face — a structured read, interpreted in context.',
+    lede: 'A structured read, interpreted in context.',
     /** Nine assessment factors, kept as short pairs. */
     factors: [
       ['Facial reference points', 'Where meaningful points sit, and how they relate.'],
@@ -571,8 +571,12 @@ export const JOURNEY = {
   eyebrow: 'How it works',
   title: 'From booking',
   muted: 'to your Face Map.',
+  // Opened with "No automated score." until 2026-09-25. The clause that
+  // follows — built after the session, not generated during it — makes the
+  // same point positively, and the Hero, Difference and Facial Expertise all
+  // make the negative one first.
   denial:
-    'No automated score. A real expert, a real conversation of 45–60 minutes, and a Face Map built after it — not generated during it.',
+    'A real expert, a real conversation of 45–60 minutes, and a Face Map built after it — not generated during it.',
   nodes: [
     {
       id: 'book',

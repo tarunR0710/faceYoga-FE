@@ -98,7 +98,7 @@ _"Prioritised in the right order"_ arrives four sections after Proof says _"bett
 
 ---
 
-## 2 · Claims stated too many times
+## 2 · Claims stated too many times ✅ worked through 2026-09-25
 
 Counted across the content blocks that are actually rendered.
 
@@ -112,6 +112,33 @@ Counted across the content blocks that are actually rendered.
 | First / Next / Later | **3** | How It Works, Face Map, Guidance |
 | No products, no commission | **3** | Built for your context, Money, FAQ |
 | 45–60 minute session | **3** | How It Works ×3, Money ×2, FAQ ×2 |
+
+### Re-counted in the rendered page, 2026-09-25
+
+The table above counts occurrences in `content.ts`. Re-counted against the
+actually-rendered DOM with every tab and accordion opened, the picture is much
+smaller — four sections have been cut since, and several fields (`detail`,
+`quote`, `link` on the journey steps) stopped rendering when How It Works
+became 31a.
+
+**Acted on — two denials removed:**
+
+- How It Works opened with *"No automated score."* The clause right after it —
+  a Face Map *"built after it, not generated during it"* — makes the same point
+  positively, so the negative opener went.
+- The experts **method** tab opened with *"Not an algorithm scoring your face —"*
+  before the same sentence said what it *is*. Now just *"A structured read,
+  interpreted in context."*
+
+**Judged not repetition after all — the medical boundary.** Its four rendered
+instances do three different jobs: the statement in "Where we stop", a direct
+FAQ answer, and two bullets in the closing "this is not for you if"
+disqualifier list. Leaving all of them.
+
+**Blocked by the freeze.** Three of the remaining "not a scan" instances are in
+Hero, Difference and Facial Expertise, and *both* First / Next / Later
+duplicates are in Difference and The plan — the two say it in identical words,
+one section apart. Nothing can be done there without the freeze lifting.
 
 ### What to do about each
 
