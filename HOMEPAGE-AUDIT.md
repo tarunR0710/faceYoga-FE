@@ -47,13 +47,15 @@ _2026-09-22. Read against `src/app/page.tsx`, `src/lib/content.ts` and every sec
 
 ## 1 · Cut or merge
 
-### Cut — _Your plan is shaped by the full picture_ (#6)
+### Cut — _Your plan is shaped by the full picture_ (#6) ✅ done 2026-09-25
 
 Fully absorbed by the 100+ context factors section three sections later.
 
 Its five items are Your face & features · Your skin & routine · Your lifestyle · Your environment · Your goals & preferences. All five are groups inside the newer section, which covers the same ground in far more detail and with a better interaction.
 
-> ⚠️ Sits inside the frozen Hero → Facial Expertise range. Needs the founder to unfreeze.
+**Done 2026-09-25.** Verified first: every one of its five items is covered, most of them far more thoroughly — face and features by What We Map's eight regions; skin and routine by the "Skincare history" group; lifestyle by Daily routine, Sleep & stress and Food & hydration; environment and goals by the 100+ groups *and* the 43a cards, so twice each. The only orphan was its framing sentence, "we don't look at your face in isolation", which now opens the 43a lede in place of a weaker swipe at generic advice. The five illustrations in `public/full-picture` do not transfer to 43a's drawn conditions and stay unused in the repo.
+
+> ⚠️ Sat inside the frozen Hero → Facial Expertise range; cut on the founder's call.
 
 ### Cut — _Your Appearance Protocol_ (#14) ✅ done 2026-09-22
 
@@ -188,7 +190,7 @@ That is worth more than every cut in this document combined, and it is blocked o
 
 | | Before | After |
 |---|---|---|
-| Sections rendered | 22 → **20** | ~16 |
+| Sections rendered | 22 → **18** | ~16 |
 | Sections before the price | 17 | ~12 |
 | Consecutive "what you get" sections | 10 | 6 |
 | Dead content blocks | 16 | 0 |

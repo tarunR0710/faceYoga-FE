@@ -5,7 +5,7 @@ import { Hero } from '@/components/sections/hero'
 import { TrustBar } from '@/components/sections/trust-bar'
 import { Problem } from '@/components/sections/problem'
 import { Difference } from '@/components/sections/difference'
-import { FullPicture } from '@/components/sections/full-picture'
+// import { FullPicture } from '@/components/sections/full-picture' // cut 2026-09-25, see below
 import { Plan } from '@/components/sections/plan'
 import { Proof } from '@/components/sections/proof'
 import { FacialExpertise } from '@/components/sections/facial-expertise'
@@ -26,27 +26,20 @@ import { FAQ } from '@/components/sections/faq'
 import { CTA } from '@/components/sections/cta'
 
 /**
- * Twelve sections, where twenty-three stood.
+ * The homepage, in the buyer's own question sequence rather than the brand
+ * blueprint's chapter order: does it visibly work → do I recognise myself in
+ * this → why is this different → what is the plan → how do you read a face →
+ * what do you assess → what do you ask me → how does it happen → what do I
+ * receive → who are you → does it apply to ME → what does it cost → where
+ * does the money already go → anything unresolved → permission to want this.
  *
- * The order is the buyer's own question sequence, not the brand blueprint's
- * chapter order:
+ * Sections are cut here rather than in their own files, so a cut is one line
+ * and a restore is one line. Commented-out entries below each carry the date
+ * and the reason. Live count is in HOMEPAGE-AUDIT.md, which also holds the
+ * claim-by-claim repetition audit and what is still open.
  *
- *   1 what is this (and what does it cost)   7 in what order
- *   2 does it visibly work            ← PROOF, moved up to lead with results
- *   3 do I recognise myself in this          8 will it apply to ME
- *   4 who are you and why believe you        9 the money
- *   5 how does it actually happen           10 can I trust you with my face
- *   6 what do I actually receive            11 anything unresolved
- *                                           12 permission to want this
- *
- * Nothing from the blueprint was deleted for being long — roughly half of it
- * now sits behind a tab, an accordion, a stepper or a modal, which is what
- * separates a reference document from a list. What WAS deleted was repetition:
- * the add-ons were sold twice, First / Next / Later was stated four times, and
- * the same six territories were re-cut across four sections.
- *
- * Section rhythm alternates ground (white / mist / ink / gradient) and no two
- * adjacent sections share a layout archetype.
+ * Two rules the order keeps: section rhythm alternates ground (white / mist /
+ * gradient), and no two adjacent sections share a layout archetype.
  */
 export default function HomePage() {
   return (
@@ -58,7 +51,16 @@ export default function HomePage() {
         <Proof />
         <Problem />
         <Difference />
-        <FullPicture />
+        {/* "What we take into account" is cut (2026-09-25, homepage audit).
+            Built for your context absorbed it when that section became design
+            43a: the same five dimensions, but each one now a scenario with a
+            consequence attached rather than a flat item. Every one of its five
+            items was already covered in more depth by What We Map and the 100+
+            context factors; the one line it alone carried — that we do not read
+            the face in isolation — now opens the 43a lede. Cutting it also puts
+            The plan back where it was written to sit, directly after Problem
+            and Difference. Component and FULL_PICTURE content stay in place. */}
+        {/* <FullPicture /> */}
         <Plan />
         <FacialExpertise />
         {/* ── Phase 2 (t 22 blueprint) starts here. Everything above is frozen. ── */}

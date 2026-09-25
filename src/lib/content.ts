@@ -1394,8 +1394,14 @@ export const CONTEXT = {
   eyebrow: 'Built for your context',
   title: 'The same face, in a different life,',
   muted: 'needs a different plan.',
+  /**
+   * Opens with the one line that "What we take into account" alone carried —
+   * the face is not read in isolation — now that this section has absorbed it.
+   * The swipe at generic advice that used to open here is made twice already,
+   * in the Problem section and in Difference.
+   */
   lede:
-    'This is the part generic advice cannot do. Where you live, what you already use, how your days run and what you want — each one changes what goes into your plan.',
+    'We don’t look at your face in isolation. Where you live, what you already use, how your days run and what you want — each one changes what goes into your plan.',
   /**
    * Design 43a — four scenarios, one system. The city cards never worked
    * because they were categories; they worked because each was a concrete

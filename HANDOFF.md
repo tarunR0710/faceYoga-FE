@@ -224,5 +224,12 @@ not touched. From `WhatWeMap` down, the page follows the new blueprint:
   deleted, but it sits in the frozen range, so it needs the founder.
   Card copy for the three new cards is written in the canvas's register and
   should be checked against the next handoff export.
+- Cut from the homepage (2026-09-25, see `HOMEPAGE-AUDIT.md`): **What we take
+  into account**. Built for your context absorbed it when that section became
+  43a. All five of its items were already covered in more depth by What We Map
+  and the 100+ factors; the one line it alone carried now opens the 43a lede.
+  Cutting it also returns **The plan** to the position its own comment says it
+  was written for — directly after the Problem. Component, content and the
+  five `public/full-picture` illustrations all stay in the repo.
 - Still needs the founder: expert names + credentials, the missed-session
   (no-show) policy, retention period + grievance officer, a real customer story.
