@@ -231,5 +231,17 @@ not touched. From `WhatWeMap` down, the page follows the new blueprint:
   Cutting it also returns **The plan** to the position its own comment says it
   was written for — directly after the Problem. Component, content and the
   five `public/full-picture` illustrations all stay in the repo.
+- Homepage housekeeping (2026-09-25): **MapMyFace experiences** cut from the
+  page tree — it rendered nothing until a consented story exists; restore the
+  line in `page.tsx` and add Results to `NAV_LINKS` the day there is one.
+  **Built for your context** moved up to sit directly after the 100+ factors,
+  so the three context beats run together: what we assess, what we ask, what
+  changes. Its closing promise did NOT move — "We sell one thing. The Face
+  Map." is now its own small band (`SellOneThing`, exported from
+  `context-fit.tsx`) and still lands immediately before the price.
+  **Sixteen dead content blocks deleted** from `content.ts`: PILLARS, OUTCOME,
+  METHOD, SESSION, CONTEXT_GROUPS, REVIEW, FACE_MAP, FACE_YOGA, METHODOLOGY,
+  AUDIENCE, AFTER_PAYMENT, PRIVACY, FAQ_CONTENT, CLOSING, TRANSFORMATIONS,
+  EVIDENCE — 570 lines, and the confusing near-duplicate pairs with it.
 - Still needs the founder: expert names + credentials, the missed-session
   (no-show) policy, retention period + grievance officer, a real customer story.

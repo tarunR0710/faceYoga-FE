@@ -75,13 +75,13 @@ A third telling of "what the recommendations look like", after the Face Map's th
 
 **Keep the framing, drop the section.** The _"Not just: wear sunscreen"_ / _"Not just: change your beard"_ device is the best writing in this part of the page. Fold it into the Face Map section as one or two lines.
 
-### Remove from the page — _MapMyFace experiences_ (#17)
+### Remove from the page — _MapMyFace experiences_ (#17) ✅ done 2026-09-25
 
 Renders nothing. `EXPERIENCES.stories` is an empty array and the component returns null until a real consented story exists. Take it out of the page tree and put it back the day you have a story.
 
-### Merge — _Built for your context_ (#16) beside the 100+ factors (#10) ✅ half done 2026-09-25
+### Merge — _Built for your context_ (#16) beside the 100+ factors (#10) ✅ done 2026-09-25
 
-**Done, one half.** The section was rebuilt to design 43a on 2026-09-25 and now carries four scenario cards instead of three cities: Environment (all three cities behind a switch), Skin & routine, Lifestyle, Goals & preferences. Every card keeps the "what changes" payload, so it stays distinct from the 100+ section. **Still to do:** delete "What we take into account", whose five items this section now absorbs, and move this section up beside the 100+ factors. Both need the freeze lifted.
+**Done, one half.** The section was rebuilt to design 43a on 2026-09-25 and now carries four scenario cards instead of three cities: Environment (all three cities behind a switch), Skin & routine, Lifestyle, Goals & preferences. Every card keeps the "what changes" payload, so it stays distinct from the 100+ section. **Both halves done.** "What we take into account" was cut on 2026-09-25, and this section moved up to sit directly after the 100+ factors so the three context beats run together. Its closing promise stayed behind as its own band immediately before the price.
 
 Both make the argument that context changes the plan, six sections apart.
 
@@ -150,7 +150,7 @@ It also sits immediately above a FAQ that has a category called **Privacy & phot
 
 ## 4 · Housekeeping
 
-### Sixteen dead content blocks
+### Sixteen dead content blocks ✅ deleted 2026-09-25
 
 Defined in `src/lib/content.ts`, imported by nothing:
 
@@ -160,7 +160,7 @@ FACE_MAP · FACE_YOGA · METHODOLOGY · AUDIENCE · AFTER_PAYMENT
 PRIVACY · FAQ_CONTENT · CLOSING · TRANSFORMATIONS · EVIDENCE
 ```
 
-Roughly a third of the file. Not user-facing, but it is why `content.ts` is hard to edit safely — `FACE_MAP` and `FACE_MAP_REPORT`, `PRIVACY` and `PRIVACY_PATH`, `FAQ_CONTENT` and `FAQ_V2` all sit side by side with only one of each pair live.
+**Deleted 2026-09-25**, 570 lines. Verified unused outside `content.ts` first. Roughly a third of the file. Not user-facing, but it was why `content.ts` was hard to edit safely — `FACE_MAP` and `FACE_MAP_REPORT`, `PRIVACY` and `PRIVACY_PATH`, `FAQ_CONTENT` and `FAQ_V2` all sit side by side with only one of each pair live.
 
 ### Other notes
 

@@ -425,18 +425,34 @@ export function ContextFit() {
           ))}
         </Reveal>
 
-        {/* ── The anti-upsell promise, immediately before the price ──────── */}
-        <Reveal
-          index={3}
-          className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-3.5 border-t pt-[26px] text-center"
-          style={{ borderColor: 'rgba(38,49,63,.12)' }}
-        >
-          <h3 className="text-[1.6rem] leading-[1.15] tracking-[-0.03em] text-ink md:text-[1.75rem]" style={{ fontWeight: 300 }}>
+      </div>
+    </section>
+  )
+}
+
+/**
+ * "We sell one thing. The Face Map."
+ *
+ * Written to land in the last moment before the price, so it stays there even
+ * though the cards it used to close moved up beside the 100+ context factors.
+ * It is the anti-upsell promise: the reason a buyer can trust that a named
+ * product is a recommendation and not a sale.
+ */
+export function SellOneThing() {
+  return (
+    <section className="section-sm bg-white">
+      <div className="container-main">
+        <div className="mx-auto flex max-w-xl flex-col items-center gap-3.5 text-center">
+          <Reveal index={0} as="h2" className="text-[1.6rem] leading-[1.15] tracking-[-0.03em] text-ink md:text-[1.75rem]" style={{ fontWeight: 300 }}>
             {CONTEXT.antiUpsell.title} <span className="text-ink/40">{CONTEXT.antiUpsell.accent}</span>
-          </h3>
-          <p className="max-w-[330px] text-[14px] leading-relaxed text-ink-muted">{CONTEXT.antiUpsell.body}</p>
-          <p className="max-w-[330px] text-[14px] leading-relaxed text-ink/75">{CONTEXT.antiUpsell.closing}</p>
-        </Reveal>
+          </Reveal>
+          <Reveal index={1} className="max-w-[340px] text-[14px] leading-relaxed text-ink-muted md:max-w-[460px]">
+            <p>{CONTEXT.antiUpsell.body}</p>
+          </Reveal>
+          <Reveal index={2} className="max-w-[340px] text-[14px] leading-relaxed text-ink/75 md:max-w-[460px]">
+            <p>{CONTEXT.antiUpsell.closing}</p>
+          </Reveal>
+        </div>
       </div>
     </section>
   )

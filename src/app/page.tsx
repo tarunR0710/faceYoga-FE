@@ -15,10 +15,10 @@ import { ContextFactors } from '@/components/sections/context-factors'
 import { Journey } from '@/components/sections/journey'
 // import { VisualDirection } from '@/components/sections/visual-direction' // hidden 2026-09-20, see below
 import { Guidance } from '@/components/sections/guidance'
-import { Experiences } from '@/components/sections/experiences'
+// import { Experiences } from '@/components/sections/experiences' // cut 2026-09-25, see below
 import { FaceMapSection } from '@/components/sections/face-map'
 // import { Protocol } from '@/components/sections/protocol' // cut 2026-09-22, see below
-import { ContextFit } from '@/components/sections/context-fit'
+import { ContextFit, SellOneThing } from '@/components/sections/context-fit'
 import { PricingPreview } from '@/components/sections/pricing-preview'
 import { Money } from '@/components/sections/money'
 // import { PrivacyTrust } from '@/components/sections/privacy-trust' // cut 2026-09-24, see below
@@ -66,6 +66,12 @@ export default function HomePage() {
         {/* ── Phase 2 (t 22 blueprint) starts here. Everything above is frozen. ── */}
         <WhatWeMap />
         <ContextFactors />
+        {/* The three context beats run together: what we assess about your
+            face, what we ask about your life, then what changes in the plan
+            because of the answers. Built for your context sat four sections
+            further down until 2026-09-25; its closing promise did not move
+            with it, and still lands immediately before the price. */}
+        <ContextFit />
         <Journey />
         <FaceMapSection />
         {/* Visual Direction is hidden for now (founder call, 2026-09-20). The
@@ -80,8 +86,13 @@ export default function HomePage() {
             The component and PROTOCOL content stay in place. */}
         {/* <Protocol /> */}
         <Believe />
-        <ContextFit />
-        <Experiences />
+        {/* MapMyFace experiences is cut (2026-09-25, homepage audit). It
+            rendered nothing at all: EXPERIENCES.stories is empty and the
+            component returns null until a real, consented customer story
+            exists. Restore this line the day there is one, and add Results
+            to NAV_LINKS with it. */}
+        {/* <Experiences /> */}
+        <SellOneThing />
         <PricingPreview />
         <Money />
         {/* "Built around something personal" is cut (2026-09-24, homepage
