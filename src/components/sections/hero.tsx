@@ -27,21 +27,38 @@ export function Hero() {
       <section className="relative h-[calc(100svh-64px)] w-full overflow-hidden md:h-screen">
         {/* Background Video */}
         <div className="absolute inset-0">
+          {/* Poster, per screen: the video carries no `poster` because a poster
+              can't switch by media query. This sits under the video and is
+              the LCP; the video paints over it once its first frame decodes. */}
+          <picture>
+            <source media="(min-width: 768px)" srcSet={`${ASSET_BASE_URL}/faceyoga-poster.jpg`} />
+            <img
+              src="/hero/hero-mobile-poster.jpg"
+              alt=""
+              fetchPriority="high"
+              className="absolute inset-0 h-full w-full"
+              style={{ objectFit: 'cover', objectPosition: 'center top' }}
+            />
+          </picture>
           <video
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
-            poster={`${ASSET_BASE_URL}/faceyoga-poster.jpg`}
             className="absolute inset-0 h-full w-full"
             style={{ objectFit: 'cover', objectPosition: 'center top' }}
           >
-            {/* Single 1080p source so it stays crisp on high-DPR phones (the 640/720
-                encodes looked soft scaled to full screen). The 57 KB poster is the
-                LCP; the video streams in via faststart. */}
-            <source src={`${ASSET_BASE_URL}/faceyoga-1920.mp4`} type="video/mp4" />
+            {/* Desktop keeps the 1080p landscape encode. Phones and small
+                tablets get the portrait transformation clip (2026-09-26):
+                720×1280, no audio track, faststart, ~1 MB. A portrait clip
+                cover-cropped to a wide screen would show a thin, 3× upscaled
+                band, so it stays below md. The browser picks the first
+                <source> whose media matches, once, at load. */}
+            <source src={`${ASSET_BASE_URL}/faceyoga-1920.mp4`} type="video/mp4" media="(min-width: 768px)" />
+            <source src="/hero/hero-mobile.mp4" type="video/mp4" />
           </video>
+
 
           {/* Readability gradient — heavier at the base than the old pass, because
               the headline now sits over two lines plus a lede. */}

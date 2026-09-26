@@ -181,7 +181,9 @@ export function ContextFit() {
                     background: SKY[weather],
                     color: INK,
                     transform: on ? 'scale(1)' : 'scale(.965)',
-                    boxShadow: on ? '0 22px 40px -22px rgba(30,41,58,.55)' : '0 10px 24px -18px rgba(30,41,58,.4)',
+                    // Kept faint: at .55 alpha the focused card cast a dark smudge onto
+                    // the white below the rail.
+                    boxShadow: on ? '0 16px 32px -24px rgba(30,41,58,.16)' : '0 8px 20px -18px rgba(30,41,58,.1)',
                     transition: reduce ? 'none' : `transform 500ms ${EASE}, box-shadow 500ms ${EASE}, background 600ms ease`,
                   }}
                 >
@@ -444,7 +446,7 @@ export function SellOneThing() {
       <div className="container-main">
         <div className="mx-auto flex max-w-xl flex-col items-center gap-3.5 text-center">
           <Reveal index={0} as="h2" className="text-[1.6rem] leading-[1.15] tracking-[-0.03em] text-ink md:text-[1.75rem]" style={{ fontWeight: 300 }}>
-            {CONTEXT.antiUpsell.title} <span className="text-ink/40">{CONTEXT.antiUpsell.accent}</span>
+            {CONTEXT.antiUpsell.title} <span className="muted-tail">{CONTEXT.antiUpsell.accent}</span>
           </Reveal>
           <Reveal index={1} className="max-w-[340px] text-[14px] leading-relaxed text-ink-muted md:max-w-[460px]">
             <p>{CONTEXT.antiUpsell.body}</p>

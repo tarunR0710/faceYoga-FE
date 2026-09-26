@@ -44,10 +44,10 @@ export function FAQ() {
             <SectionTag>{FAQ_V2.eyebrow}</SectionTag>
           </div>
           <h2
-            className="text-[1.75rem] leading-[1.12] tracking-[-0.02em] text-ink md:text-[2.1rem]"
+            className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
             style={{ fontWeight: 300 }}
           >
-            {FAQ_V2.title} <span className="text-ink/40">{FAQ_V2.muted}</span>
+            {FAQ_V2.title} <span className="muted-tail">{FAQ_V2.muted}</span>
           </h2>
         </motion.div>
 

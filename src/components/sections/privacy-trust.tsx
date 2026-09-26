@@ -43,7 +43,7 @@ export function PrivacyTrust() {
             style={{ fontWeight: 300 }}
           >
             {PRIVACY_PATH.title}{' '}
-            <span className="text-ink/40">{PRIVACY_PATH.muted}</span>
+            <span className="muted-tail">{PRIVACY_PATH.muted}</span>
           </h2>
           <p className="mt-5 text-[14px] leading-relaxed text-ink-muted md:text-[16px]">
             {PRIVACY_PATH.lede}

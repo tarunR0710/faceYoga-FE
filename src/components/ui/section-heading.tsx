@@ -13,7 +13,7 @@ type SectionHeadingProps = {
   eyebrow: string
   /** First sentence of the headline — full-strength ink. */
   title: ReactNode
-  /** Second sentence — rendered at 40% ink, the house two-tone headline. */
+  /** Second sentence — `.muted-tail` (#8C9096, DM Sans 300), the same on every section. */
   muted?: ReactNode
   /** Supporting paragraph under the headline. */
   lede?: ReactNode
@@ -23,6 +23,8 @@ type SectionHeadingProps = {
   className?: string
   /** Tightens the bottom margin for sections whose first row sits close. */
   tight?: boolean
+  /** Explicit colours for headline / muted tail / lede, replacing the ink tones. */
+  palette?: { title: string; muted: string; lede: string }
 }
 
 /**
@@ -40,6 +42,7 @@ export function SectionHeading({
   align = 'center',
   className = '',
   tight = false,
+  palette,
 }: SectionHeadingProps) {
   const reduce = useReducedMotion()
   const centered = align === 'center'
@@ -56,14 +59,24 @@ export function SectionHeading({
         <SectionTag>{eyebrow}</SectionTag>
       </div>
       <h2
-        className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
-        style={{ fontWeight: 300 }}
+        className={`text-[1.75rem] leading-[1.14] tracking-[-0.02em] md:text-[2.25rem] lg:text-[2.5rem] ${palette ? '' : 'text-ink'}`}
+        style={{ fontWeight: 300, color: palette?.title }}
       >
         {title}
-        {muted ? <span className="text-ink/55"> {muted}</span> : null}
+        {muted ? (
+          <span className="muted-tail" style={{ color: palette?.muted }}>
+            {' '}
+            {muted}
+          </span>
+        ) : null}
       </h2>
       {lede ? (
-        <p className="mt-5 text-[14px] leading-relaxed text-ink-muted md:text-[16px]">{lede}</p>
+        <p
+          className={`mt-5 text-[14px] leading-relaxed md:text-[16px] ${palette ? '' : 'text-ink-muted'}`}
+          style={{ color: palette?.lede }}
+        >
+          {lede}
+        </p>
       ) : null}
     </motion.div>
   )

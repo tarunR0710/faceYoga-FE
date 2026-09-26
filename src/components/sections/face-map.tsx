@@ -48,10 +48,10 @@ export function FaceMapSection() {
             <SectionTag>{FACE_MAP_REPORT.eyebrow}</SectionTag>
           </div>
           <h2
-            className="text-[1.75rem] leading-[1.12] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
+            className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
             style={{ fontWeight: 300 }}
           >
-            {FACE_MAP_REPORT.title} <span className="text-ink/40">{FACE_MAP_REPORT.muted}</span>
+            {FACE_MAP_REPORT.title} <span className="muted-tail">{FACE_MAP_REPORT.muted}</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-[14px] leading-relaxed text-ink-muted md:text-[16px]">
             {FACE_MAP_REPORT.lede}
@@ -80,7 +80,7 @@ export function FaceMapSection() {
                 >
                   <span className="font-mono text-[10px] tabular-nums tracking-[0.1em] text-ink/30">{q.n}</span>
                   <span className="flex flex-wrap items-baseline gap-x-2">
-                    <span className="text-[14.5px] text-ink">{q.title}</span>
+                    <span className="text-[14.5px] text-ink/80">{q.title}</span>
                     <span className="text-[12.5px] text-ink-muted">{q.text}</span>
                   </span>
                 </motion.li>
@@ -105,7 +105,7 @@ export function FaceMapSection() {
                     {b.range}
                   </span>
                   <span>
-                    <span className="block text-[14.5px] text-ink">{b.label}</span>
+                    <span className="block text-[14.5px] text-ink/80">{b.label}</span>
                     <span className="mt-0.5 block text-[13px] leading-relaxed text-ink-muted">
                       {b.summary}
                     </span>

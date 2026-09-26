@@ -19,13 +19,18 @@ const ROWS = DIFFERENCE.rows.filter((r) =>
  */
 export function Difference() {
   return (
-    <section className="section bg-white">
+    <section
+      // Extra bottom padding: the comparison needs room to land before The
+      // plan starts, otherwise the two read as one block.
+      className="section bg-white pb-24 md:pb-28 lg:pb-32"
+    >
       <div className="container-main">
         <SectionHeading
           eyebrow={DIFFERENCE.eyebrow}
           title={DIFFERENCE.title}
           muted={DIFFERENCE.muted}
           lede={DIFFERENCE.lede}
+          palette={{ title: '#2E3033', muted: '#8C9096', lede: '#55585D' }}
         />
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -66,13 +71,22 @@ export function Difference() {
             transition={{ delay: 0.1 }}
             className="rounded-2xl p-4 relative overflow-hidden"
             style={{
+              // Brushed metal: the band sweeps up to a near-white highlight at
+              // the 50% line and falls back to steel on both sides, so the
+              // plate catches light across the diagonal instead of fading one
+              // way into the page.
               background:
-                'linear-gradient(180deg, rgba(255, 212, 185, 0.5) 0%, rgba(255, 255, 255, 0.9) 45%, #ffffff 100%)',
-              border: '1px solid rgba(255, 195, 165, 0.35)',
+                'linear-gradient(150deg, #C4CCD3 0%, #E1E6EA 45%, #EDF0F2 55%, #D6DCE1 100%)',
+              // No dark hairline: an ink border cuts a sharp line across a
+              // plate this light. A white inner edge plus a soft drop keeps
+              // the card defined against the page without the hard edge.
+              border: '1px solid rgba(255,255,255,.6)',
+              boxShadow:
+                'inset 0 1px 0 rgba(255,255,255,.85), 0 14px 30px -24px rgba(90,102,114,.5)',
             }}
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-100 to-pink-100 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
                 <Image src="/logo-mark.png" alt="" width={38} height={38} className="h-[38px] w-[38px]" />
               </div>
               <h3 className="text-[1.15rem] md:text-[1.3rem] tracking-[-0.02em] text-ink" style={{ fontWeight: 300 }}>

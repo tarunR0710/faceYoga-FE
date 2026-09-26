@@ -53,12 +53,12 @@ function CardShell({ visual, title, text }: { visual: React.ReactNode; title: st
       </div>
       <div className="relative flex flex-col gap-2 bg-white" style={{ padding: '18px 22px 22px' }}>
         {/* Same voice as every other card title on the page (Full Picture,
-            How It Works): light weight, ink, tight tracking — not a bold
+            How It Works): light weight, slate 600, tight tracking — not a bold
             dark heading. */}
-        <h3 className="text-[19px] leading-[1.15] tracking-[-0.02em] text-ink" style={{ fontWeight: 300 }}>
+        <h3 className="text-[18px] leading-[1.15] tracking-[-0.02em] text-slate-600" style={{ fontWeight: 300 }}>
           {title}
         </h3>
-        <p className="m-0 text-[14px] leading-[1.5] text-ink-muted">{text}</p>
+        <p className="m-0 text-[14px] leading-[1.5] text-slate-500">{text}</p>
       </div>
     </div>
   )

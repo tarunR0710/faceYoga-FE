@@ -25,6 +25,20 @@ const addonIcons: Record<AddOnId, typeof Scissors> = {
   style_colour_map: Palette,
 }
 
+// The plan card's ground (2026-09-26), reused on an add-on card once it is
+// added, so a selected add-on visibly joins the plan: mist from the top-left,
+// lavender from the top-right, sand rising from below, over a cool off-white.
+const PLAN_GRADIENT = [
+  'radial-gradient(80% 90% at 0% 0%, #CFE0E8 0%, rgba(207,224,232,0) 60%)',
+  'radial-gradient(70% 80% at 100% 10%, #E3DDF0 0%, rgba(227,221,240,0) 60%)',
+  'radial-gradient(90% 80% at 50% 110%, #F1E3D3 0%, rgba(241,227,211,0) 65%)',
+  '#F6F7F9',
+].join(', ')
+
+// Add-on card text, softened from ink (2026-09-26): the near-black price,
+// Add pill and body drew the eye away from the plan card.
+const ADDON_TEXT = '#55585D'
+
 export function PricingPreview() {
   const reduce = useReducedMotion()
   const [selected, setSelected] = useState<AddOnId[]>([])
@@ -69,12 +83,11 @@ export function PricingPreview() {
               <div
                 className="relative overflow-hidden rounded-[18px] p-6 md:p-8"
                 style={{
-                  // The one accent kept off the achromatic system on purpose —
-                  // this is the card that takes the money, and it should not
-                  // read as grey. Sky/cyan, not warm. Inline and scoped here,
-                  // not promoted to a token.
-                  background:
-                    'linear-gradient(135deg, rgba(147,213,242,0.21) 0%, rgba(56,189,248,0.22) 50%, rgba(191,219,254,0.20) 100%)',
+                  // The card that takes the money, so it should not read as
+                  // grey (2026-09-26): mist from the top-left, lavender from
+                  // the top-right and sand rising from below, over a cool
+                  // off-white. Inline and scoped here, not promoted to a token.
+                  background: PLAN_GRADIENT,
                 }}
               >
                 {/* Decorative rings */}
@@ -97,7 +110,7 @@ export function PricingPreview() {
                     Main plan · {FACE_MAP_CORE.label}
                   </span>
                   <h3
-                    className="mt-2 text-[1.35rem] leading-tight tracking-[-0.02em] text-ink md:text-[1.6rem]"
+                    className="mt-2 text-[1.35rem] leading-tight tracking-[-0.02em] text-ink/80 md:text-[1.6rem]"
                     style={{ fontWeight: 300 }}
                   >
                     {FACE_MAP_CORE.name}
@@ -153,11 +166,14 @@ export function PricingPreview() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={VIEWPORT}
                   transition={{ ...REVEAL, delay: 0.08 + i * 0.08 }}
+                  // Added state: a teal edge on the plan card's own gradient, so
+                  // the add-on reads as joining the plan. Unselected stays white.
                   className={`flex flex-col rounded-[22px] border p-5 transition-all duration-300 ${
                     on
-                      ? 'border-brand/40 bg-brand-soft/35 shadow-[0_16px_36px_-22px_rgb(var(--c-brand)/0.5)]'
+                      ? 'border-brand shadow-[0_16px_36px_-26px_rgb(var(--c-brand)/0.45)]'
                       : 'border-border/50 bg-white'
                   }`}
+                  style={on ? { background: PLAN_GRADIENT } : undefined}
                 >
                   <div className="mb-3 flex items-center gap-2.5">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-border-soft bg-white text-brand">
@@ -167,17 +183,17 @@ export function PricingPreview() {
                       {addon.kind === 'delivery' ? 'Optional' : 'Optional specialist Map'}
                     </span>
                     <span
-                      className="ml-auto text-[15px] tabular-nums text-ink"
-                      style={{ fontWeight: 500 }}
+                      className="ml-auto text-[15px] tabular-nums"
+                      style={{ fontWeight: 500, color: ADDON_TEXT }}
                     >
                       +{addon.priceDisplay}
                     </span>
                   </div>
 
-                  <h3 className="text-[15.5px] font-normal tracking-[-0.01em] text-ink">
+                  <h3 className="text-[15.5px] font-normal tracking-[-0.01em] text-ink/80">
                     {addon.name}
                   </h3>
-                  <p className="mt-1.5 flex-1 text-[12.5px] leading-relaxed text-ink/[0.7]">
+                  <p className="mt-1.5 flex-1 text-[12.5px] leading-relaxed" style={{ color: ADDON_TEXT }}>
                     {addon.description}
                   </p>
 
@@ -203,8 +219,9 @@ export function PricingPreview() {
                       className={`inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 text-[13px] font-medium transition-colors duration-200 sm:self-end lg:self-auto ${
                         on
                           ? 'bg-brand text-white hover:bg-brand-ink'
-                          : 'border border-border bg-white text-ink hover:bg-mist'
+                          : 'border border-border bg-white hover:bg-mist'
                       }`}
+                      style={on ? undefined : { color: ADDON_TEXT }}
                     >
                       {on ? (
                         <>

@@ -1,13 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Instrument_Serif } from 'next/font/google'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Leaf, Sparkles, Sun } from 'lucide-react'
 import { SectionTag } from '@/components/ui/section-tag'
 import { PROBLEM } from '@/lib/content'
+import { QuizCard } from '@/components/sections/quiz'
 
 // Same italic-serif flourish the static version used for its one soft line —
 // reused here for both "random advice." and the answer card's quote.
@@ -36,20 +36,20 @@ const [faceTile, skinTile, climateTile] = PROBLEM.answer.grid
  * own Geist Sans rather than the handoff's DM Sans.
  */
 export function Problem() {
-  const router = useRouter()
   const reduce = useReducedMotion()
   const [dismissed, setDismissed] = useState<Set<string>>(new Set())
 
   const remaining = PROBLEM.bubbles.length - dismissed.size
   const allCleared = remaining === 0
 
+  // The CTA clears whatever noise is left and opens the quiz in place of the
+  // answer card (2026-09-25). The quiz's own back button returns the card.
+  const [quizOpen, setQuizOpen] = useState(false)
+
   const dismiss = (id: string) => setDismissed((prev) => new Set(prev).add(id))
   const onCta = () => {
-    if (allCleared) {
-      router.push('/form')
-    } else {
-      setDismissed(new Set(PROBLEM.bubbles.map((b) => b.id)))
-    }
+    setDismissed(new Set(PROBLEM.bubbles.map((b) => b.id)))
+    setQuizOpen(true)
   }
 
   return (
@@ -219,9 +219,19 @@ export function Problem() {
         </div>
 
         {/* ── Answer card — glass, matches the design's updated 2a ──────── */}
+        {/* Design 44a: the quiz is a sheet over the page, so the answer card
+            stays where it is rather than being swapped out under the reader. */}
+        <AnimatePresence>{quizOpen && <QuizCard onClose={() => setQuizOpen(false)} />}</AnimatePresence>
+
+        <AnimatePresence mode="wait" initial={false}>
+        {(
         <motion.div
+          key="answer"
+          initial={{ opacity: 0 }}
+          exit={{ opacity: 0 }}
           className="mx-4 flex flex-col gap-4 rounded-[22px] border px-5 py-[22px] backdrop-blur-[18px]"
           animate={{
+            opacity: 1,
             backgroundColor: allCleared ? 'rgba(173,199,206,.14)' : 'rgba(255,255,255,.6)',
             borderColor: allCleared ? 'rgba(173,199,206,.4)' : 'rgba(61,107,118,.14)',
           }}
@@ -347,10 +357,12 @@ export function Problem() {
             className="flex h-[50px] w-full items-center justify-center gap-1.5 rounded-full bg-ink text-[15px] text-white transition-all duration-200 hover:bg-ink/90 active:scale-[0.98]"
             style={{ fontWeight: 600 }}
           >
-            {allCleared ? PROBLEM.answer.ctaCleared : PROBLEM.answer.ctaDefault}
+            {PROBLEM.answer.cta}
             <ArrowRight className="h-4 w-4" strokeWidth={2} />
           </button>
         </motion.div>
+        )}
+        </AnimatePresence>
       </div>
     </section>
   )

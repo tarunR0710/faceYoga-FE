@@ -10,6 +10,8 @@ import { Plan } from '@/components/sections/plan'
 import { Proof } from '@/components/sections/proof'
 import { FacialExpertise } from '@/components/sections/facial-expertise'
 import { Believe } from '@/components/sections/believe'
+import { BeforeAfter } from '@/components/sections/before-after'
+import { Voices } from '@/components/sections/voices'
 import { WhatWeMap } from '@/components/sections/what-we-map'
 import { ContextFactors } from '@/components/sections/context-factors'
 import { Journey } from '@/components/sections/journey'
@@ -29,9 +31,11 @@ import { CTA } from '@/components/sections/cta'
  * The homepage, in the buyer's own question sequence rather than the brand
  * blueprint's chapter order: does it visibly work → do I recognise myself in
  * this → why is this different → what is the plan → how do you read a face →
- * what do you assess → what do you ask me → how does it happen → what do I
- * receive → who are you → does it apply to ME → what does it cost → where
- * does the money already go → anything unresolved → permission to want this.
+ * who are you → what do you assess → what do you ask me → will it fit my
+ * life → how does it happen → what do I receive → show me again that it
+ * works → are others doing it → will you upsell me → what does it cost →
+ * where does the money already go → anything unresolved → permission to
+ * want this.
  *
  * Sections are cut here rather than in their own files, so a cut is one line
  * and a restore is one line. Commented-out entries below each carry the date
@@ -64,6 +68,12 @@ export default function HomePage() {
         <Plan />
         <FacialExpertise />
         {/* ── Phase 2 (t 22 blueprint) starts here. Everything above is frozen. ── */}
+        {/* The people come straight after Facial Expertise (moved up from
+            after Guidance, 2026-09-26 audit). "Who are you?" is an early
+            question, and Facial Expertise ends on a person reading your face,
+            so the people who do it are the natural next beat. It also breaks
+            up what was four "what we analyse" sections in a row. */}
+        <Believe />
         <WhatWeMap />
         <ContextFactors />
         {/* The three context beats run together: what we assess about your
@@ -85,7 +95,17 @@ export default function HomePage() {
             Later, against real example actions rather than chip definitions.
             The component and PROTOCOL content stay in place. */}
         {/* <Protocol /> */}
-        <Believe />
+        {/* Before / after proof (design 54a desktop, 55a mobile). Sits after
+            what you receive and before the offer: the method is explained,
+            then shown, then priced. Photographs are pending — the cards render the
+            design's silver plate until they land. */}
+        <BeforeAfter />
+        {/* Community video ("Expert Video Story" handoff). Sits between the
+            proof and the offer: the photographs show the change, the reviews
+            say what it felt like, and the CTA hands straight to #pricing
+            below. Reviews are the handoff's placeholders — replace before
+            production. */}
+        <Voices />
         {/* MapMyFace experiences is cut (2026-09-25, homepage audit). It
             rendered nothing at all: EXPERIENCES.stories is empty and the
             component returns null until a real, consented customer story

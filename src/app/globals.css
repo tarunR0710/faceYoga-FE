@@ -593,6 +593,16 @@
   box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(var(--c-ink));
 }
 
+/* The muted second sentence of every section headline ("More than a
+   consultation.", "Hundreds of things to understand." …). One colour and one
+   face everywhere. Size, tracking and line-height are inherited from the h2. */
+.muted-tail {
+  color: #8C9096;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
 /* Journey ("How it works") card fill. Registering the property makes the number
    interpolate, so the gradient alpha it feeds in journey.tsx can transition —
    a paint-only cross-fade with no compositing layer, which is what keeps the
@@ -604,6 +614,9 @@
   inherits: false;
   initial-value: 0;
 }
+
+/* "Where we stop" note crosshair (design 45c). Opacity only. */
+@keyframes notePulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
 
 /* ── Built for your context — weather cards (design 36a) ─────────────────────
    Transform / opacity only, so each streak, drop and ripple animates on the
@@ -625,3 +638,8 @@
 @keyframes ctxG2 { 0%, 100% { transform: translate(62px, -26px); opacity: .3; } 50%, 78% { transform: translate(0, 0); opacity: 1; } }
 @keyframes ctxG3 { 0%, 100% { transform: translate(-44px, -34px); opacity: .3; } 50%, 78% { transform: translate(0, 0); opacity: 1; } }
 @keyframes ctxG4 { 0%, 100% { transform: translate(80px, 36px); opacity: .3; } 50%, 78% { transform: translate(0, 0); opacity: 1; } }
+
+/* ── Community video — the auto-advance ring on the active reviewer chip ────
+   132 is the circumference of the r=21 track, so the stroke unwinds exactly
+   once per slide. Restarted by remounting the circle on every index change. */
+@keyframes voicesRing { from { stroke-dashoffset: 132; } to { stroke-dashoffset: 0; } }

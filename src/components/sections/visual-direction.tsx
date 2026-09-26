@@ -25,7 +25,7 @@ export function VisualDirection() {
             className="text-[1.75rem] leading-[1.12] tracking-[-0.02em] text-ink md:text-[2.25rem]"
             style={{ fontWeight: 300 }}
           >
-            {VISUAL_DIRECTION.title} <span className="text-ink/40">{VISUAL_DIRECTION.muted}</span>
+            {VISUAL_DIRECTION.title} <span className="muted-tail">{VISUAL_DIRECTION.muted}</span>
           </Reveal>
           <Reveal index={2} className="mx-auto mt-5 max-w-xl text-[14px] leading-relaxed text-ink-muted md:text-[16px]">
             <p>{VISUAL_DIRECTION.lede}</p>

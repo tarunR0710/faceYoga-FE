@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
+import { DM_Sans } from 'next/font/google'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { MetaPixel } from '@/components/analytics/meta-pixel'
 import { LocatorUI } from '@/components/analytics/locator-ui'
@@ -12,6 +13,10 @@ import './globals.css'
 // 450 used across our headings render exactly rather than snapping to a cut.
 // The package registers it via next/font/local, so it stays self-hosted with
 // automatic preload and size-adjusted fallback metrics.
+
+// DM Sans Light — only for the muted second sentence of section headlines
+// (`.muted-tail` in globals.css). One weight, so one small file.
+const dmSans = DM_Sans({ subsets: ['latin'], weight: '300', style: 'normal', variable: '--font-dm-sans', display: 'swap' })
 
 export const metadata: Metadata = {
   title: {
@@ -50,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} ${dmSans.variable}`}>
       <body className="font-sans antialiased">
         <LocatorUI />
         <MetaPixel />

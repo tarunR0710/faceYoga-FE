@@ -5,11 +5,9 @@ import { useReducedMotion } from 'framer-motion'
 import { Reveal } from '@/components/ui/reveal'
 import { SectionTag } from '@/components/ui/section-tag'
 import { WHAT_WE_MAP } from '@/lib/content'
-import { glow } from '@/lib/glow'
 
 type Region = { id: string; title: string; summary: string; intro: string; items: readonly string[] }
 
-const WASH = 'linear-gradient(160deg, rgba(173,199,206,0.22) 0%, rgba(247,244,239,0.55) 45%, #ffffff 100%)'
 
 // Design 28a — "flat ledger, one tint per region". The colour budget: teal is
 // spent nowhere in the list; each region owns one quiet tint (row order),
@@ -31,10 +29,6 @@ const GREY = '#7E959B'
 const INK = '#1E353B'
 const EASE = 'cubic-bezier(0.16,1,0.3,1)'
 
-// The design's mist disc (288px at .4, top-right, blur 64px) as a plain
-// gradient — see glow.ts. The sand one below the list was dropped for a
-// cleaner exit into the next section.
-const GLOW_MIST = glow('173 199 206', 0.4)
 
 /**
  * What We Map — the blueprint's 400+ facial assessments across eight regions.
@@ -50,12 +44,9 @@ const GLOW_MIST = glow('173 199 206', 0.4)
 export function WhatWeMap() {
   const c = WHAT_WE_MAP
   return (
-    <section id="what-we-map" className="section relative overflow-hidden" style={{ background: WASH }}>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-[286px] -top-[96px] h-[720px] w-[720px]"
-        style={{ background: GLOW_MIST }}
-      />
+    <section id="what-we-map" className="section relative overflow-hidden bg-white">
+      {/* Plain white (2026-09-26): the people section above now carries the
+          tint, so the wash and the mist glow that sat here are gone. */}
 
       <div className="container-main relative">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
@@ -66,10 +57,10 @@ export function WhatWeMap() {
             <Reveal
               index={1}
               as="h2"
-              className="text-[1.75rem] leading-[1.12] tracking-[-0.02em] text-ink md:text-[2.25rem]"
+              className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
               style={{ fontWeight: 300 }}
             >
-              {c.title} <span className="text-ink/40">{c.muted}</span>
+              {c.title} <span className="muted-tail">{c.muted}</span>
             </Reveal>
             <Reveal index={2} className="text-[15px] leading-relaxed text-ink-muted">
               <p>{c.lede}</p>
@@ -126,7 +117,7 @@ function Ledger({ regions, ariaLabel }: { regions: readonly Region[]; ariaLabel:
                     />
                   </span>
                   <span className="flex min-w-0 flex-col gap-0.5">
-                    <span className="text-[15.5px] leading-tight tracking-[-0.02em]" style={{ fontWeight: 400, color: INK }}>
+                    <span className="text-[15.5px] leading-tight tracking-[-0.02em]" style={{ fontWeight: 400, color: 'rgba(30,53,59,.8)' }}>
                       {r.title}
                     </span>
                     <span
@@ -153,7 +144,7 @@ function Ledger({ regions, ariaLabel }: { regions: readonly Region[]; ariaLabel:
                 >
                   <div className="overflow-hidden">
                     <div className="flex flex-col gap-3" style={{ padding: '0 12px 18px 46px' }}>
-                      <p className="text-[14.5px] leading-relaxed" style={{ color: INK, ...enter(on, 0, t) }}>
+                      <p className="text-[14px] leading-[1.5]" style={{ color: '#5C7278', ...enter(on, 0, t) }}>
                         {r.intro}
                       </p>
                       <ul className="flex flex-wrap gap-1.5">

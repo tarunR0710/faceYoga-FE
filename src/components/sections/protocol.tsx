@@ -41,7 +41,7 @@ export function Protocol() {
             className="text-[1.75rem] leading-[1.12] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.4rem]"
             style={{ fontWeight: 300 }}
           >
-            {PROTOCOL.title} <span className="text-ink/40">{PROTOCOL.muted}</span>
+            {PROTOCOL.title} <span className="muted-tail">{PROTOCOL.muted}</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-[14px] leading-relaxed text-ink-muted md:text-[16px]">
             {PROTOCOL.lede}

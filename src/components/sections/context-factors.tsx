@@ -129,10 +129,10 @@ export function ContextFactors() {
           <Reveal
             index={1}
             as="h2"
-            className="text-[1.75rem] leading-[1.12] tracking-[-0.02em] text-ink md:text-[2.25rem]"
+            className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
             style={{ fontWeight: 300 }}
           >
-            {c.title} <span className="text-ink/40">{c.muted}</span>
+            {c.title} <span className="muted-tail">{c.muted}</span>
           </Reveal>
           <Reveal index={2} className="text-[15px] leading-relaxed text-ink-muted">
             <p>{c.lede}</p>
@@ -191,14 +191,18 @@ export function ContextFactors() {
 
                     <div className="flex flex-col gap-3" style={{ padding: '16px 18px 8px' }}>
                       <div className="flex flex-col gap-1">
-                        <span className="text-[21px] leading-[1.15] tracking-[-0.02em]" style={{ fontWeight: 400, color: INK }}>
+                        <span className="text-[21px] leading-[1.15] tracking-[-0.02em]" style={{ fontWeight: 400, color: 'rgba(30,53,59,.8)' }}>
                           {r.title}
                         </span>
                         <span className="text-[13px] leading-[1.4]" style={{ color: GREY }}>
                           {r.summary}
                         </span>
                       </div>
-                      <p className="text-[15px] leading-relaxed" style={{ color: INK }}>
+                      {/* The site's body grey, not ink: in full ink at 15px
+                          this out-shouted the title above it. 1.5 leading,
+                          not `relaxed` (1.625), so the two lines read as one
+                          sentence rather than two spaced rows. */}
+                      <p className="text-[14px] leading-[1.5]" style={{ color: '#5C7278', textWrap: 'pretty' }}>
                         {r.intro}
                       </p>
 
@@ -206,7 +210,10 @@ export function ContextFactors() {
                         className="grid"
                         style={{
                           gridTemplateRows: on ? '1fr' : '0fr',
-                          transition: t(`grid-template-rows 520ms ${EASE}`),
+                          // Closed, the empty row would still add the column's
+                          // 12px gap above the toggle; cancel it.
+                          marginTop: on ? 0 : -12,
+                          transition: t(`grid-template-rows 520ms ${EASE}, margin-top 520ms ${EASE}`),
                         }}
                       >
                         <div className="overflow-hidden">
@@ -234,9 +241,10 @@ export function ContextFactors() {
                         onClick={() => setOpen(on ? null : r.id)}
                         aria-expanded={on}
                         className="flex w-full items-center justify-between gap-2.5 text-left font-mono text-[10px] uppercase tracking-[0.08em]"
-                        style={{ padding: '6px 0 10px', color: INK }}
+                        style={{ padding: '6px 0 10px', color: '#5C7278' }}
                       >
-                        <span>{on ? 'Show less' : 'Things we ask about in this group'}</span>
+                        {/* Short enough to stay on one line in a 300px card. */}
+                        <span>{on ? 'Show less' : 'What we ask about'}</span>
                         <span
                           className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full"
                           style={{
@@ -255,9 +263,6 @@ export function ContextFactors() {
             </ul>
           </Reveal>
 
-          <Reveal index={5} className="text-[12.5px] leading-[1.5]" style={{ color: GREY }}>
-            <p>{c.figureNote}</p>
-          </Reveal>
         </div>
       </div>
     </section>

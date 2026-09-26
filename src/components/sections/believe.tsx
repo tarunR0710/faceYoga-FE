@@ -28,7 +28,9 @@ export function Believe() {
   const [tab, setTab] = useState<string>(BELIEVE.tabs[0].id)
 
   return (
-    <section id="experts" className="section bg-white">
+    <section id="experts" className="section" style={{ background: '#F4F7F8' }}>
+      {/* A light cool tint (2026-09-26): this section now follows Facial
+          Expertise, which is white, and the page alternates grounds. */}
       <div className="container-main">
         <SectionHeading eyebrow={BELIEVE.eyebrow} title={BELIEVE.title} muted={BELIEVE.muted} />
 
@@ -266,7 +268,7 @@ function People() {
       </ul>
 
       <div className="mt-7 flex max-w-xl flex-col gap-1.5">
-        <h3 className="text-[1.05rem] leading-snug tracking-[-0.02em] text-ink md:text-[1.2rem]" style={{ fontWeight: 400 }}>
+        <h3 className="text-[1.05rem] leading-snug tracking-[-0.02em] text-ink/80 md:text-[1.2rem]" style={{ fontWeight: 400 }}>
           {people.closing.title}
         </h3>
         <p className="text-[13.5px] leading-relaxed text-ink-muted md:text-[14px]">{people.closing.body}</p>
@@ -281,8 +283,8 @@ function Philosophy() {
   return (
     <div>
       <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink/45">{philosophy.eyebrow}</p>
-      <h3 className="mb-4 text-[1.35rem] leading-tight tracking-[-0.02em] text-ink md:text-[1.6rem]" style={{ fontWeight: 300 }}>
-        {philosophy.title} <span className="text-ink/40">{philosophy.muted}</span>
+      <h3 className="mb-4 text-[1.35rem] leading-tight tracking-[-0.02em] text-ink/80 md:text-[1.6rem]" style={{ fontWeight: 300 }}>
+        {philosophy.title} <span className="muted-tail">{philosophy.muted}</span>
       </h3>
       <PanelLede>{philosophy.lede}</PanelLede>
 
@@ -297,7 +299,7 @@ function Philosophy() {
             className="grid grid-cols-[32px_1fr] content-start gap-x-3 gap-y-1 border-t border-border-soft pt-3.5 md:pb-1"
           >
             <span className="row-span-2 font-mono text-[11.5px] tabular-nums text-ink/40">{String(i + 1).padStart(2, '0')}</span>
-            <span className="text-[14.5px] leading-snug tracking-[-0.01em] text-ink">{title}</span>
+            <span className="text-[14.5px] leading-snug tracking-[-0.01em] text-ink/80">{title}</span>
             <span className="text-[13px] leading-relaxed text-ink-muted">{text}</span>
           </motion.li>
         ))}
@@ -328,14 +330,14 @@ function Method() {
             className="grid grid-cols-[32px_1fr] content-start gap-x-3 gap-y-0.5 border-b border-border-soft py-3"
           >
             <dt className="row-span-2 font-mono text-[11px] tabular-nums text-ink/40">{String(i + 1).padStart(2, '0')}</dt>
-            <dd className="text-[14px] leading-snug tracking-[-0.01em] text-ink">{title}</dd>
+            <dd className="text-[14px] leading-snug tracking-[-0.01em] text-ink/80">{title}</dd>
             <dd className="text-[12.5px] leading-relaxed text-ink-muted">{text}</dd>
           </motion.div>
         ))}
       </dl>
 
       <div className="mt-7 flex max-w-xl flex-col gap-1.5">
-        <h3 className="text-[1.05rem] leading-snug tracking-[-0.02em] text-ink md:text-[1.2rem]" style={{ fontWeight: 400 }}>
+        <h3 className="text-[1.05rem] leading-snug tracking-[-0.02em] text-ink/80 md:text-[1.2rem]" style={{ fontWeight: 400 }}>
           {method.closing.title}
         </h3>
         <p className="text-[13.5px] leading-relaxed text-ink-muted md:text-[14px]">{method.closing.body}</p>
@@ -365,7 +367,7 @@ function Evidence() {
               <span className="font-mono text-[15px] tabular-nums text-ink">{st.year}</span>
               <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/45">{st.scope}</span>
             </span>
-            <h3 className="text-[15.5px] leading-snug tracking-[-0.01em] text-ink" style={{ fontWeight: 400 }}>
+            <h3 className="text-[15.5px] leading-snug tracking-[-0.01em] text-ink/80" style={{ fontWeight: 400 }}>
               {st.claim}
             </h3>
             <p className="text-[13px] leading-relaxed text-ink-muted">{st.detail}</p>
@@ -374,8 +376,8 @@ function Evidence() {
         ))}
       </ol>
 
-      <div className="mt-8 flex max-w-2xl flex-col gap-2 rounded-[20px] bg-mist p-5 md:p-6">
-        <h3 className="text-[1.05rem] leading-snug tracking-[-0.02em] text-ink md:text-[1.2rem]" style={{ fontWeight: 400 }}>
+      <div className="mt-8 flex max-w-2xl flex-col gap-2 rounded-[20px] bg-white p-5 md:p-6">
+        <h3 className="text-[1.05rem] leading-snug tracking-[-0.02em] text-ink/80 md:text-[1.2rem]" style={{ fontWeight: 400 }}>
           {evidence.turn.title}
         </h3>
         <p className="text-[13.5px] leading-relaxed text-ink-muted md:text-[14px]">{evidence.turn.body}</p>

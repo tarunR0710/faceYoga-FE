@@ -49,8 +49,8 @@ export function Money() {
       <div className="container-main flex flex-col gap-8 md:gap-10">
         <Reveal index={0} className="flex max-w-[640px] flex-col items-start gap-4">
           <SectionTag>{ANCHOR.eyebrow}</SectionTag>
-          <h2 className="text-[1.75rem] leading-[1.12] tracking-[-0.02em] text-ink md:text-[2.25rem]" style={{ fontWeight: 300 }}>
-            {ANCHOR.title} <span className="text-ink/40">{ANCHOR.muted}</span>
+          <h2 className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]" style={{ fontWeight: 300 }}>
+            {ANCHOR.title} <span className="muted-tail">{ANCHOR.muted}</span>
           </h2>
         </Reveal>
 
@@ -98,7 +98,15 @@ export function Money() {
 
           <div
             className="flex flex-col gap-5 rounded-[22px] px-6 pb-7 pt-6 text-white"
-            style={{ background: 'linear-gradient(155deg,#37606B 0%,#274A54 60%,#1E3B44 100%)', boxShadow: '0 18px 34px -22px rgba(30,59,68,.85)' }}
+            style={{
+              // A white top-down sheen over the teal ramp, not instead of it:
+              // the card carries white text throughout, so the ground has to
+              // stay dark. Layered background — sheen first, ramp behind.
+              background:
+                'linear-gradient(180deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 100%), ' +
+                'linear-gradient(155deg,#37606B 0%,#274A54 60%,#1E3B44 100%)',
+              boxShadow: '0 18px 34px -22px rgba(30,59,68,.85)',
+            }}
           >
             <div className="flex items-center justify-between">
               <span className={MONO} style={{ color: 'rgba(255,255,255,.7)' }}>{ANCHOR.plan.ourWay}</span>
@@ -122,7 +130,7 @@ export function Money() {
           </div>
 
           <div className="flex flex-col gap-5 rounded-[22px] border px-5 py-6" style={{ borderColor: HAIRLINE }}>
-            <h3 className="text-[1.05rem] leading-snug tracking-[-0.01em] text-ink" style={{ fontWeight: 400, textWrap: 'pretty' }}>
+            <h3 className="text-[1.05rem] leading-snug tracking-[-0.01em] text-ink/80" style={{ fontWeight: 400, textWrap: 'pretty' }}>
               {REFUND_POLICY.headline}
             </h3>
             <div className="flex flex-col gap-4">
@@ -163,7 +171,7 @@ export function Money() {
                   <span className="row-span-2 flex h-11 w-11 items-center justify-center rounded-[14px]" style={{ background: look.tint, border: `1px solid ${look.ring}` }}>
                     <Glyph d={look.icon} stroke={look.ink} size="h-[19px] w-[19px]" width={1.5} />
                   </span>
-                  <span className="text-[16.5px] leading-tight tracking-[-0.02em] text-ink" style={{ fontWeight: 400 }}>{row.label}</span>
+                  <span className="text-[16.5px] leading-tight tracking-[-0.02em] text-ink/80" style={{ fontWeight: 400 }}>{row.label}</span>
                   <span className="flex flex-col items-end gap-2">
                     <span className="whitespace-nowrap font-mono text-[13px] tabular-nums text-ink">{row.value}</span>
                     <span className={`${MONO} whitespace-nowrap rounded-full`} style={{ color: look.ink, background: look.tint, padding: '4px 9px' }}>
@@ -178,7 +186,7 @@ export function Money() {
               <span className="row-span-2 flex h-11 w-11 items-center justify-center rounded-[14px]" style={{ background: '#1E353B' }}>
                 <Check className="h-[19px] w-[19px] text-white" strokeWidth={1.6} />
               </span>
-              <span className="text-[17.5px] leading-tight tracking-[-0.02em] text-ink" style={{ fontWeight: 400 }}>{ANCHOR.plan.label}</span>
+              <span className="text-[17.5px] leading-tight tracking-[-0.02em] text-ink/80" style={{ fontWeight: 400 }}>{ANCHOR.plan.label}</span>
               <span className="flex flex-col items-end gap-2">
                 <span className="whitespace-nowrap text-[1.85rem] leading-none tracking-[-0.03em] tabular-nums text-ink" style={{ fontWeight: 300 }}>{ANCHOR.plan.value}</span>
                 <span className={`${MONO} whitespace-nowrap rounded-full text-white`} style={{ background: '#1E353B', padding: '4px 9px' }}>
@@ -192,7 +200,7 @@ export function Money() {
           <div className="flex flex-col gap-5 rounded-[22px] border px-7 py-7" style={{ borderColor: HAIRLINE }}>
             <div className="flex flex-col gap-2.5">
               <p className={MONO} style={{ color: NOTE }}>If you change your mind</p>
-              <h3 className="text-[1.2rem] leading-snug tracking-[-0.01em] text-ink" style={{ fontWeight: 400, textWrap: 'pretty' }}>{REFUND_POLICY.headline}</h3>
+              <h3 className="text-[1.2rem] leading-snug tracking-[-0.01em] text-ink/80" style={{ fontWeight: 400, textWrap: 'pretty' }}>{REFUND_POLICY.headline}</h3>
             </div>
             <div className="flex flex-col gap-4">
               {REFUND_POLICY.moments.map((m, i) => {

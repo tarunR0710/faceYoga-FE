@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight, Minus } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { EASE_OUT, REVEAL, VIEWPORT, stagger } from '@/lib/motion'
 import { SectionTag } from '@/components/ui/section-tag'
 import { BlurReveal } from '@/components/ui/blur-reveal'
@@ -43,7 +43,14 @@ export function CTA() {
           // panel is defined entirely by its border and shadow — and the close
           // gets its emphasis from the dark button, not from its ground.
           className="relative overflow-hidden rounded-[28px] border border-border-soft bg-white px-7 py-14 md:px-14 md:py-20"
-          style={{ boxShadow: 'var(--shadow-card)' }}
+          style={{
+            // Scoped, not the shared --shadow-card: this panel is the widest
+            // surface on the page, so the same shadow that reads as a lift on
+            // a small card reads as a heavy drop here. Roughly half strength
+            // and pulled tighter. Six other surfaces still use the token.
+            boxShadow:
+              '0 1px 1px rgba(0,0,0,.02), 0 2px 5px rgba(0,0,0,.025), 0 8px 18px -14px rgba(0,0,0,.06)',
+          }}
         >
           <div className="relative mx-auto max-w-4xl text-center">
             <SectionTag>
@@ -52,12 +59,15 @@ export function CTA() {
             </SectionTag>
 
             <h2
-              className="mt-6 text-[1.85rem] leading-[1.1] tracking-[-0.025em] text-ink md:text-[2.5rem]"
-              style={{ fontWeight: 250 }}
+              // Matched to SectionHeading rather than kept as the page's one
+              // bespoke headline: it was 1.85rem / 250 / -0.025em against
+              // 1.75 / 300 / -0.02 everywhere else.
+              className="mt-6 text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
+              style={{ fontWeight: 300 }}
             >
               {CLOSE.title}
               <br />
-              <span className="text-ink/40">{CLOSE.muted}</span>
+              <span className="muted-tail">{CLOSE.muted}</span>
             </h2>
 
             <InlineChips
@@ -97,37 +107,13 @@ export function CTA() {
             <p className="mt-5 text-[12.5px] text-ink/50">{REFUND_POLICY.short}</p>
           </div>
 
-          {/* ── Who this is not for ────────────────────────────────────────── */}
-          <motion.div
-            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={VIEWPORT}
-            transition={{ ...REVEAL, delay: 0.12 }}
-            className="mx-auto mt-14 max-w-2xl border-t border-ink/10 pt-8"
-          >
-            <p className="mb-4 text-center font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/40">
-              {CLOSE.notFor.title}
-            </p>
-            <ul className="flex flex-col items-center gap-2.5 sm:flex-row sm:justify-center sm:gap-7">
-              {CLOSE.notFor.items.map((item, i) => (
-                <motion.li
-                  key={item}
-                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={VIEWPORT}
-                  transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.2 + stagger(i, 0.07) }}
-                  className="flex items-start gap-2 text-[12.5px] leading-snug text-ink-muted"
-                >
-                  <Minus
-                    aria-hidden="true"
-                    className="mt-[5px] h-3 w-3 shrink-0 text-ink/30"
-                    strokeWidth={2.2}
-                  />
-                  {item}
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+          {/* "This is not for you if" is cut (2026-09-26). Two of its three
+              lines were already carried by the "Where we stop" note in the How
+              it works timeline, which sits far earlier and is read; the third
+              — no beauty score — has been folded into that same note. Stating
+              the boundary twice on one page, the second time in the last
+              breath before the button, reintroduced the doubt the close had
+              just resolved. CLOSE.notFor stays in content.ts. */}
         </motion.div>
       </div>
     </section>

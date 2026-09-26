@@ -49,12 +49,12 @@ export function Plan() {
           <Reveal
             index={1}
             as="h2"
-            className="mt-5 text-[1.75rem] leading-[1.12] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
+            className="mt-5 text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]"
             style={{ fontWeight: 300 }}
           >
             {PLAN.title}
             <br />
-            <span className="text-ink/40">{PLAN.muted}</span>
+            <span className="muted-tail">{PLAN.muted}</span>
           </Reveal>
 
           <Reveal index={2} className="mt-5 max-w-md text-[14px] leading-relaxed text-ink-muted md:text-[16px]">

@@ -21,8 +21,8 @@ export function Guidance() {
       <div className="container-main">
         <Reveal index={0} className="flex max-w-[640px] flex-col items-start gap-4">
           <SectionTag>{GUIDANCE.eyebrow}</SectionTag>
-          <h2 className="text-[1.75rem] leading-[1.12] tracking-[-0.02em] text-ink md:text-[2.25rem]" style={{ fontWeight: 300 }}>
-            {GUIDANCE.title} <span className="text-ink/40">{GUIDANCE.muted}</span>
+          <h2 className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]" style={{ fontWeight: 300 }}>
+            {GUIDANCE.title} <span className="muted-tail">{GUIDANCE.muted}</span>
           </h2>
         </Reveal>
 

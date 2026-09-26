@@ -33,10 +33,10 @@ export function Proof() {
         />
 
         {/* One column, one pair per scroll beat. Each portrait is capped at
-            480px rather than filling the container: at 3:4, a full-width image
+            375px rather than filling the container: at 3:4, a full-width image
             would stand 1,600px tall and the pair would never be visible at once.
-            Capped and centred, each is bigger than it was three-across while the
-            whole run still reads as one sequence.
+            375 is the width at which the 3:4 box tops out at the 500px height
+            ceiling, and centring keeps the run reading as one sequence.
 
             No stagger here — the pairs arrive one at a time as you scroll to
             them, so a shared delay ladder would just make the later ones late. */}
@@ -48,7 +48,11 @@ export function Proof() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEWPORT}
               transition={REVEAL}
-              className="w-full max-w-[480px]"
+              // Width, not height: the slider is a fixed 3:4 box, so capping
+              // the width at 375 is what puts its ceiling at 500px tall.
+              // Constraining max-height instead would leave the width at 480
+              // and crop the pair out of frame.
+              className="w-full max-w-[375px]"
             >
               <CompareSlider before={pair.before} after={pair.after} />
             </motion.div>

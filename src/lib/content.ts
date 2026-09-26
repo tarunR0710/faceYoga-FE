@@ -104,8 +104,8 @@ export const PROBLEM = {
       { title: 'Skin', text: 'type, sensitivity, routine' },
       { title: 'Climate', text: 'humidity, water, pollution' },
     ],
-    ctaDefault: 'Clear the noise',
-    ctaCleared: 'Map my face · 2 min',
+    // Clears the noise and opens the quiz in place of this card (2026-09-25).
+    cta: 'Take the quiz · 1 min',
   },
   // Annotation badges that appear around the portrait once cleared. Same
   // honesty rule as the grid above — categories considered, not invented
@@ -116,6 +116,93 @@ export const PROBLEM = {
     { text: 'Your climate', sub: 'humidity, pollution', left: '62%', top: '78%', delay: 0.45 },
     { text: 'Practical fit', sub: 'budget, upkeep', left: '4%', top: '72%', delay: 0.6 },
   ],
+} as const
+
+// ── Take the quiz — opened from the Problem section's CTA ───────────────────
+// Six taps, then a result; "Book my Face Map" goes to the /form page. The result only
+// ever names what the Face Map would LOOK AT, picked from the visitor's own
+// answers — never a finding about their face, which nobody has seen yet.
+// Same honesty rule as PROBLEM.answer.grid.
+export const QUIZ = {
+  questions: [
+    {
+      id: 'concern',
+      q: 'What do you notice first in the mirror?',
+      hint: 'Pick the one that bothers you most.',
+      options: [
+        { id: 'skin', label: 'Dull skin, breakouts or texture', focus: { title: 'Skin & tone', text: 'What your skin needs, and which products to keep or drop' } },
+        { id: 'tired', label: 'A tired, puffy look', focus: { title: 'Tiredness & puffiness', text: 'Routine, sleep and face-yoga direction for how your face holds tension' } },
+        { id: 'definition', label: 'Less defined than before', focus: { title: 'Definition & balance', text: 'Structure and proportions, read by a person' } },
+        { id: 'unsure', label: 'Not sure — something’s off', focus: { title: 'Overall balance', text: 'How your features work together, and what suits them' } },
+      ],
+    },
+    {
+      id: 'skin',
+      q: 'By the afternoon, your skin usually feels…',
+      hint: 'Be honest — nothing here is a judgement.',
+      options: [
+        { id: 'oily', label: 'Oily, at least in places', focus: { title: 'Oil & shine', text: 'Steps that control shine without stripping your skin' } },
+        { id: 'dry', label: 'Tight or dry', focus: { title: 'Dryness', text: 'Hydration and barrier care that lasts the day' } },
+        { id: 'sensitive', label: 'Easily irritated or red', focus: { title: 'Sensitivity', text: 'What to pause, and gentler swaps for what you use' } },
+        { id: 'fine', label: 'Mostly fine', focus: { title: 'Keeping what works', text: 'What in your routine already works, and what to add carefully' } },
+      ],
+    },
+    {
+      id: 'tried',
+      q: 'How much advice have you already tried?',
+      hint: 'No wrong answer. Most people have tried a lot.',
+      options: [
+        { id: 'lots', label: 'Lots — reels, salon, home remedies', focus: { title: 'Cut the noise', text: 'What to stop, what to continue, what to start' } },
+        { id: 'some', label: 'A few products that didn’t stick', focus: { title: 'A routine that sticks', text: 'Fewer steps, in an order you can keep' } },
+        { id: 'same', label: 'The same routine for years', focus: { title: 'A routine worth re-checking', text: 'Whether what you have always done still suits your face' } },
+        { id: 'none', label: 'Almost nothing yet', focus: { title: 'A clear first step', text: 'What to do First, Next and Later' } },
+      ],
+    },
+    {
+      id: 'climate',
+      q: 'Where you live, the weather is mostly…',
+      hint: 'Your weather changes what your skin needs.',
+      options: [
+        { id: 'humid', label: 'Humid', focus: { title: 'Humid climate', text: 'A routine that holds up in sweat and humidity' } },
+        { id: 'dry', label: 'Dry or hot', focus: { title: 'Dry heat', text: 'Protection and hydration for sun and dry air' } },
+        { id: 'polluted', label: 'City pollution', focus: { title: 'City air', text: 'Cleansing and barrier care for pollution and dust' } },
+        { id: 'mixed', label: 'It changes a lot', focus: { title: 'Changing seasons', text: 'What to adjust when the weather turns' } },
+      ],
+    },
+    {
+      id: 'goal',
+      q: 'What would you most like from this?',
+      hint: 'One thing. The plan can carry the rest.',
+      options: [
+        { id: 'fresher', label: 'To look fresher, day to day', note: 'looking fresher day to day' },
+        { id: 'money', label: 'To stop wasting money on products', note: 'spending only on what works for you' },
+        { id: 'suits', label: 'To know what suits my face', note: 'knowing what suits your face' },
+        { id: 'event', label: 'To look my best for an event', note: 'looking your best for an event' },
+      ],
+    },
+    {
+      id: 'time',
+      q: 'How much time can you give your face each day?',
+      hint: 'A plan you’ll keep beats a perfect one.',
+      options: [
+        { id: 'short', label: 'Under 5 minutes', note: 'under 5 minutes a day' },
+        { id: 'mid', label: '5–15 minutes', note: '5–15 minutes a day' },
+        { id: 'long', label: 'More than 15 minutes', note: '15+ minutes a day' },
+        { id: 'varies', label: 'It depends on the day', note: 'a routine that survives a bad week' },
+      ],
+    },
+  ],
+  result: {
+    label: 'Your Face Map would start here',
+    title: 'Where your Face Map would start.',
+    // Stated plainly, because the result is built from four taps.
+    note: 'Starting points from your answers, not a diagnosis. Your expert reads your face on a live 45–60 minute call.',
+    // "Aimed at {goal}, planned around {time}."
+    aim: 'Aimed at',
+    fit: 'planned around',
+    cta: 'Book my Face Map',
+    retake: 'Retake the quiz',
+  },
 } as const
 
 // ── The full picture — what actually feeds the plan, right before it ────────
@@ -392,9 +479,11 @@ export const BELIEVE = {
      * the full role sits on the portrait once the card opens.
      *
      * TODO(founder): these are ROLES, not people. The photographs in
-     * `public/team` are licensed Pexels stock standing in for the real
-     * practitioners — swap them, and add approved names, qualifications and
-     * experience, before this page is advertised.
+     * `public/team` were supplied 2026-09-26 and are still stand-ins for the
+     * real practitioners — confirm the rights to each one, then add approved
+     * names, qualifications and experience before this page is advertised.
+     * `analysis.webp` in particular carries another clinic's logo and a
+     * legible name badge; it cannot ship as-is.
      */
     cards: [
       {
@@ -670,7 +759,19 @@ export const JOURNEY = {
     },
   ],
   boundary:
-    'MapMyFace stays inside appearance guidance. Dental, surgical or medical concerns that require diagnosis or treatment are directed to the appropriate qualified professional.',
+    'MapMyFace stays inside appearance guidance. Anything that needs diagnosis or treatment is directed to the appropriate qualified professional.',
+  /**
+   * The close's old "This is not for you if" list, moved here 2026-09-26.
+   * It was three pale items ragged across three columns in the last breath
+   * before the buy button; under this note it is the specific half of a
+   * boundary the section already sets, and it is read where scope is the
+   * subject rather than where price is.
+   */
+  outOfScope: [
+    'A dental, surgical or injectable recommendation',
+    'A diagnosis or treatment for a medical skin condition',
+    'A beauty score rather than a plan',
+  ],
 } as const
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -1370,7 +1471,6 @@ export const CONTEXT_FACTORS = {
     'The same face can need a different plan in a different climate, routine, budget or lifestyle. Your session gives the analysis the context a photograph cannot.',
   figure: '100+',
   figureLabel: 'Context factors considered',
-  figureNote: 'The framework is broad. The conversation follows what actually matters to you.',
   hint: 'Tap a group to see what we ask about.',
   regions: [
     {
@@ -1655,4 +1755,103 @@ export const EXPERIENCES = {
     imageDirection: 'Visual Direction',
   },
   stories: [] as readonly ExperienceStory[],
+} as const
+
+/**
+ * Before / after proof — design 54a (desktop) / 55a (mobile).
+ *
+ * Eight cases on a swipe rail, one combined before-after image each. The
+ * design keeps the caption to two facts and nothing else: the area the Map
+ * addressed, and how long it took. No names, no quotes, no claims — the
+ * qualifier lines carry the honesty and the photographs carry the argument.
+ *
+ * TODO(perf): move to Cloudinary along with the rest of the site media.
+ *
+ * `image` is empty until the real photographs land. The card falls back to
+ * the silver plate the design already draws behind each slot, so the section
+ * ships and the pictures drop in without touching the component.
+ */
+export const BEFORE_AFTER = {
+  eyebrow: 'Real Maps, real people',
+  title: 'Same face.',
+  muted: 'A clearer direction.',
+  note: 'Shared with permission. Unretouched, in the same light.',
+  footnote: 'Your results depend on what your Map recommends and what you keep up.',
+  cases: [
+    { key: 'skin1', area: 'Skin & routine', time: '4 weeks', image: '/proof/skin1.webp' },
+    { key: 'hair1', area: 'Hair Map', time: '1 week', image: '/proof/hair1.webp' },
+    { key: 'style1', area: 'Style & Colour', time: '3 weeks', image: '/proof/style1.webp' },
+    // "3 months", not the design's "6 weeks": this photograph has AFTER 3
+    // MONTHS printed into it, and a caption that disagrees with the picture
+    // costs more than the shorter number buys.
+    { key: 'skin2', area: 'Skin & routine', time: '3 months', image: '/proof/skin2.webp' },
+    { key: 'hair2', area: 'Hair Map', time: '2 weeks', image: '/proof/hair2.webp' },
+    { key: 'skin3', area: 'Skin & routine', time: '8 weeks', image: '/proof/skin3.webp' },
+    { key: 'style2', area: 'Style & Colour', time: '2 weeks', image: '/proof/style2.webp' },
+    { key: 'hair3', area: 'Hair Map', time: '3 weeks', image: '/proof/hair3.webp' },
+  ],
+} as const
+
+/**
+ * Community video section — the "Expert Video Story" handoff.
+ *
+ * Looping muted footage of an expert reviewing a client's face, with client
+ * reviews rotating over it. The handoff ships the reviews as PLACEHOLDERS and
+ * says so: every one of these has to be replaced with a real, consented
+ * review before this goes anywhere near production. Same for the headline
+ * count — the handoff flags "500+ influencers" as unverified.
+ */
+export const VOICES = {
+  eyebrow: 'Join the community',
+  title: 'Join 500+ influencers',
+  muted: 'and people like you.',
+  cta: { label: 'Start my plan', href: '#pricing' },
+  /**
+   * TODO(perf): move to Cloudinary. These two cuts are 5.2 MB committed into
+   * the repo; they should be served from a CDN, not from `public/`.
+   *
+   * Two cuts, not one crop. The landscape footage loses the expert entirely
+   * once a phone-width frame crops it, so mobile gets its own portrait clip
+   * at 720w — smaller file and the right subject in frame.
+   */
+  video: {
+    wide: {
+      mp4: '/voices/expert-review.mp4',
+      webm: '/voices/expert-review.webm',
+      poster: '/voices/expert-review-poster.webp',
+    },
+    tall: {
+      mp4: '/voices/expert-review-mobile.mp4',
+      webm: '/voices/expert-review-mobile.webm',
+      poster: '/voices/expert-review-mobile-poster.webp',
+    },
+  },
+  /** PLACEHOLDER reviews from the handoff — not real people. Replace. */
+  reviews: [
+    {
+      quote: 'For the first time, someone told me what not to buy.',
+      detail: 'My shelf is half the size and my skin is calmer. The report explained why, not just what.',
+      name: 'Aditi R.', ini: 'AR', city: 'Bengaluru', map: 'Face Map',
+    },
+    {
+      quote: 'It felt like a conversation, not a scan.',
+      detail: 'The expert noticed things I had never connected, then the Map put them in an order I could actually follow.',
+      name: 'Karan M.', ini: 'KM', city: 'Delhi', map: 'Face + Hair Map',
+    },
+    {
+      quote: 'First, Next, Later made it doable.',
+      detail: 'I stopped trying to fix everything at once. Three months in, I am still following it.',
+      name: 'Sneha P.', ini: 'SP', city: 'Pune', map: 'Face Map',
+    },
+    {
+      quote: 'They said my routine was mostly fine.',
+      detail: 'They changed two things. That honesty is exactly why I trust the rest of it.',
+      name: 'Meera K.', ini: 'MK', city: 'Chennai', map: 'Face Map',
+    },
+    {
+      quote: 'I finally know which colours are mine.',
+      detail: 'Fewer clothes, and every one of them works. The Visual Direction made it click.',
+      name: 'Ishita V.', ini: 'IV', city: 'Hyderabad', map: 'Style & Colour Map',
+    },
+  ],
 } as const
