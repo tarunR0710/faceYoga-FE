@@ -7,6 +7,14 @@ import { Check } from 'lucide-react'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { FACIAL_EXPERTISE } from '@/lib/content'
 
+// Text inside the card animations sits on the slate scale, not on ink or the
+// dark teal. Those two read as hard black against a pale wash and made every
+// illustration feel heavier than the card around it. Same values as the How
+// it works timeline. Teal is kept for FILLS — dots, rings, gradients — just
+// not for type.
+const SLATE_600 = '#475569'
+const SLATE_500 = '#64748B'
+
 const VISUAL_WASH = 'linear-gradient(160deg,rgba(173,199,206,.4) 0%,rgba(247,244,239,.6) 55%,#ffffff 100%)'
 
 /**
@@ -53,9 +61,11 @@ function CardShell({ visual, title, text }: { visual: React.ReactNode; title: st
       </div>
       <div className="relative flex flex-col gap-2 bg-white" style={{ padding: '18px 22px 22px' }}>
         {/* Same voice as every other card title on the page (Full Picture,
-            How It Works): light weight, slate 600, tight tracking — not a bold
-            dark heading. */}
-        <h3 className="text-[18px] leading-[1.15] tracking-[-0.02em] text-slate-600" style={{ fontWeight: 300 }}>
+            How It Works): light weight, tight tracking — not a bold dark
+            heading. 16px and slate 700, one step down in size and one step
+            up in weight of colour, so the title separates from the body
+            line under it without shouting. */}
+        <h3 className="text-[16px] leading-[1.15] tracking-[-0.02em] text-slate-700" style={{ fontWeight: 300 }}>
           {title}
         </h3>
         <p className="m-0 text-[14px] leading-[1.5] text-slate-500">{text}</p>
@@ -107,7 +117,7 @@ function LiveSessionCard() {
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
               fontWeight: 600,
-              color: '#2C4F58',
+              color: SLATE_500,
               whiteSpace: 'nowrap',
             }}
           >
@@ -175,7 +185,7 @@ function OrbitCard() {
                           boxShadow: '0 10px 24px -14px rgba(44,79,88,.4)',
                           fontSize: '12px',
                           fontWeight: 500,
-                          color: '#2C4F58',
+                          color: SLATE_500,
                           letterSpacing: '-0.01em',
                         }}
                       >
@@ -290,7 +300,7 @@ function AnalysisCard() {
                     />
                     <span
                       className="flex-1 truncate text-[14px] tracking-[-0.01em]"
-                      style={{ fontWeight: isActive ? 500 : 400, color: isActive ? '#1E353B' : '#7E959B' }}
+                      style={{ fontWeight: isActive ? 500 : 400, color: isActive ? SLATE_600 : '#7E959B' }}
                     >
                       {label}
                     </span>
@@ -344,7 +354,7 @@ function ReviewedCard() {
               <span style={{ fontSize: '14px', fontWeight: 600, letterSpacing: '-0.01em' }}>
                 Where you sit <span style={{ fontWeight: 400, color: '#7E959B' }}>today</span>
               </span>
-              <span style={{ fontSize: '13px', fontWeight: 600, color: '#2C4F58' }}>{rangeValue}</span>
+              <span style={{ fontSize: '13px', fontWeight: 600, color: SLATE_500 }}>{rangeValue}</span>
               <div className="relative" style={{ height: 18 }}>
                 <div className="absolute inset-x-0 rounded-full" style={{ top: 8, height: 2, background: 'rgba(61,107,118,.25)' }} />
                 <div className="absolute rounded-full" style={{ left: '30%', right: '30%', top: 8, height: 2, background: 'rgba(61,107,118,.6)' }} />
@@ -411,7 +421,7 @@ function ReviewedCard() {
                 border: '1px solid rgba(61,107,118,.16)',
                 backdropFilter: 'blur(8px)',
                 fontSize: '11.5px',
-                color: '#2C4F58',
+                color: SLATE_500,
               }}
             >
               <span className="h-5 w-5 rounded-full" style={{ background: 'linear-gradient(135deg,#E6C9AF,#C9A98A)' }} />
@@ -428,7 +438,9 @@ function ReportPanel({ children }: { children: React.ReactNode }) {
   return (
     <div
       className="flex flex-col gap-2.5 rounded-[14px] backdrop-blur-[10px]"
-      style={{ background: 'rgba(255,255,255,.72)', border: '1px solid rgba(61,107,118,.12)', padding: 12 }}
+      // color here, not per-span: the headings inside set no colour of their
+      // own and were inheriting page ink.
+      style={{ background: 'rgba(255,255,255,.72)', border: '1px solid rgba(61,107,118,.12)', padding: 12, color: SLATE_600 }}
     >
       {children}
     </div>
@@ -465,7 +477,7 @@ function ReportTile({
       >
         {label}
       </span>
-      <span style={{ fontSize: '13px', fontWeight: 500, color: strong ? '#1E353B' : '#2C4F58' }}>{value}</span>
+      <span style={{ fontSize: '13px', fontWeight: 500, color: strong ? SLATE_600 : SLATE_500 }}>{value}</span>
     </div>
   )
 }

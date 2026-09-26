@@ -71,18 +71,18 @@ export function Difference() {
             transition={{ delay: 0.1 }}
             className="rounded-2xl p-4 relative overflow-hidden"
             style={{
-              // Brushed metal: the band sweeps up to a near-white highlight at
-              // the 50% line and falls back to steel on both sides, so the
-              // plate catches light across the diagonal instead of fading one
-              // way into the page.
+              // Brushed metal: the 150deg band sweeps up to a near-white
+              // highlight at the 50% line and falls back to steel on both
+              // sides, and a 115deg specular streak crosses it so the plate
+              // catches light rather than just grading. Streak first, plate
+              // behind it.
               background:
-                'linear-gradient(150deg, #C4CCD3 0%, #E1E6EA 45%, #EDF0F2 55%, #D6DCE1 100%)',
+                'linear-gradient(115deg, rgba(255,255,255,0) 25%, rgba(255,255,255,.45) 45%, rgba(255,255,255,0) 68%), ' +
+                'linear-gradient(150deg, #D9E3EA 0%, #EEF2F6 45%, #F7F6FA 58%, #E6E3EF 100%)',
               // No dark hairline: an ink border cuts a sharp line across a
-              // plate this light. A white inner edge plus a soft drop keeps
-              // the card defined against the page without the hard edge.
+              // plate this light. The edge is a white top lip instead.
               border: '1px solid rgba(255,255,255,.6)',
-              boxShadow:
-                'inset 0 1px 0 rgba(255,255,255,.85), 0 14px 30px -24px rgba(90,102,114,.5)',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,.7)',
             }}
           >
             <div className="flex items-center gap-3 mb-6">
