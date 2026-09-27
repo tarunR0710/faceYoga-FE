@@ -150,7 +150,7 @@ export const QUIZ = {
     {
       id: 'tried',
       q: 'How much advice have you already tried?',
-      hint: 'No wrong answer. Most people have tried a lot.',
+      hint: 'No wrong answer. Many people have tried a lot.',
       options: [
         { id: 'lots', label: 'Lots — reels, salon, home remedies', focus: { title: 'Cut the noise', text: 'What to stop, what to continue, what to start' } },
         { id: 'some', label: 'A few products that didn’t stick', focus: { title: 'A routine that sticks', text: 'Fewer steps, in an order you can keep' } },
@@ -192,15 +192,85 @@ export const QUIZ = {
       ],
     },
   ],
+  // The result gives something back before it asks for anything (2026-09-27).
+  // Order: a named profile from Q5 + Q3 → their skin × climate read back to them →
+  // what is already working in their favour → how much of the picture they
+  // have already given → why a person → one button to proceed. Kept clean on
+  // purpose (founder, 2026-09-27): no price, no fine print, no focus cards.
+  //
+  // Honesty rules, same as the rest of the file: every line is built from the
+  // visitor's own taps; nothing is a finding about a face nobody has seen; no
+  // invented percentages ("ahead of 30% of people") — the encouragement comes
+  // from what they actually told us.
   result: {
-    label: 'Your Face Map would start here',
-    title: 'Where your Face Map would start.',
-    // Stated plainly, because the result is built from four taps.
-    note: 'Starting points from your answers, not a diagnosis. Your expert reads your face on a live 45–60 minute call.',
+    kicker: 'Your result',
+    // The headline reacts to two answers (2026-09-27): the NAME comes from
+    // Q5 (what they want), the LINE under it from Q3 (where they are in the
+    // journey). Keyed on Q3 alone it read the same for most combinations.
+    names: {
+      fresher: 'The Everyday Refresher',
+      money: 'The Smart Spender',
+      suits: 'The Style Seeker',
+      event: 'The Occasion Planner',
+    },
+    stages: {
+      lots: 'You’ve done the homework. What’s missing is the right order.',
+      some: 'You’ve tested things. Now you need fewer, better ones.',
+      same: 'You have consistency — the hardest part. Now check it still fits.',
+      none: 'No bad habits to undo. You get to start in the right order.',
+    },
+    // "What's already working for you", keyed by Q3 and Q6.
+    strengthLabel: 'Already working for you',
+    strengths: {
+      lots: 'You already know generic advice isn’t the answer — the hardest thing to learn.',
+      some: 'You noticed what didn’t stick. That’s information a plan can use.',
+      same: 'You’ve kept a routine going for years — the part most plans lose.',
+      none: 'Nothing to unlearn, no products to undo.',
+    },
+    timeStrengths: {
+      short: 'Under 5 minutes is enough when the steps are the right ones.',
+      mid: '5–15 minutes is room for a real routine.',
+      long: '15+ minutes leaves room for face-yoga work too, where it fits.',
+      varies: 'A routine that bends on busy days is one you’ll keep.',
+    },
+    // Q2 skin × Q4 climate. Specific lines for the pairs that genuinely
+    // interact; everything else falls back to the template below.
+    pairs: {
+      'oily:humid': 'Oily skin in humid weather needs a routine that holds up in sweat, not one that adds to it.',
+      'oily:polluted': 'Oily skin in city air holds on to more of the day, so cleansing matters as much as what you put on.',
+      'dry:dry': 'Skin that feels tight in dry heat points to protection and hydration that last past the morning.',
+      'sensitive:polluted': 'Reactive skin in city air usually does better with fewer products and gentler cleansing.',
+      'sensitive:mixed': 'Reactive skin in changing weather does best with a small routine you adjust by season.',
+    } as Record<string, string>,
+    skinPhrase: {
+      oily: 'Skin that turns oily by afternoon',
+      dry: 'Skin that feels tight by afternoon',
+      sensitive: 'Skin that reacts easily',
+      fine: 'Skin that is mostly fine',
+    } as Record<string, string>,
+    climatePhrase: {
+      humid: 'humid weather',
+      dry: 'dry heat',
+      polluted: 'city air',
+      mixed: 'weather that keeps changing',
+    } as Record<string, string>,
+    // "{skin}, in {climate} — …"
+    pairTail: 'each changes what the other needs.',
+    // Endowed progress, but real: the quiz genuinely covers four of the five
+    // inputs FULL_PICTURE lists. The fifth needs a person.
+    progress: {
+      title: 'You’ve covered 4 of the 5 things your expert looks at.',
+      items: ['Skin & routine', 'Where you live', 'Your lifestyle', 'Your goals'],
+      missingNote: 'The fifth — your face — needs a person to see it.',
+    },
     // "Aimed at {goal}, planned around {time}."
     aim: 'Aimed at',
     fit: 'planned around',
-    cta: 'Book my Face Map',
+    // One line does both jobs: says plainly this is not a diagnosis (it is
+    // built from six taps), and says why a person is the next step.
+    bridge: 'These are starting points, not a diagnosis. Only someone who sees your face can say what to do.',
+    ask: 'Want someone to read the rest?',
+    cta: 'Start my Face Map',
     retake: 'Retake the quiz',
   },
 } as const

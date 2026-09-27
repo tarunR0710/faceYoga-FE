@@ -65,7 +65,7 @@ function CardShell({ visual, title, text }: { visual: React.ReactNode; title: st
             heading. 16px and slate 700, one step down in size and one step
             up in weight of colour, so the title separates from the body
             line under it without shouting. */}
-        <h3 className="text-[16px] leading-[1.15] tracking-[-0.02em] text-slate-700" style={{ fontWeight: 300 }}>
+        <h3 className="text-[16px] leading-[1.15] tracking-[-0.02em] text-slate-700" style={{ fontWeight: 400 }}>
           {title}
         </h3>
         <p className="m-0 text-[14px] leading-[1.5] text-slate-500">{text}</p>

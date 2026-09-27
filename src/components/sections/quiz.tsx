@@ -6,7 +6,6 @@ import { createPortal } from 'react-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Check, Clock, RotateCcw, X } from 'lucide-react'
 import { QUIZ } from '@/lib/content'
-import { FACE_MAP_CORE } from '@/lib/constants'
 import { EASE_OUT } from '@/lib/motion'
 
 const TEAL = '#3D6B76'
@@ -330,79 +329,121 @@ function ResultView({
   onBook: () => void
   onRetake: () => void
 }) {
-  const chosen = QUESTIONS.map((q) => q.options.find((o) => o.id === answers[q.id]))
-  const focus = chosen.flatMap((o) => (o && 'focus' in o ? [o.focus] : []))
-  const noteFor = (id: string) => {
-    const o = QUESTIONS.find((q) => q.id === id)?.options.find((x) => x.id === answers[id])
+  const R = QUIZ.result
+  const pick = (id: string) => QUESTIONS.find((q) => q.id === id)?.options.find((o) => o.id === answers[id])
+  const noteOf = (id: string) => {
+    const o = pick(id)
     return o && 'note' in o ? o.note : null
   }
-  const goalNote = noteFor('goal')
-  const timeNote = noteFor('time')
+
+
+  const tried = (answers.tried ?? 'none') as keyof typeof R.stages
+  const goal = (answers.goal ?? 'suits') as keyof typeof R.names
+  const profile = { name: R.names[goal] ?? R.names.suits, line: R.stages[tried] ?? R.stages.none }
+  const strength = R.strengths[tried] ?? R.strengths.none
+  const timeStrength = R.timeStrengths[(answers.time ?? 'mid') as keyof typeof R.timeStrengths]
+
+  // Their skin and their weather, read back as one sentence.
+  const skin = answers.skin ?? 'fine'
+  const climate = answers.climate ?? 'mixed'
+  const combo =
+    R.pairs[`${skin}:${climate}`] ??
+    `${R.skinPhrase[skin]}, in ${R.climatePhrase[climate]} — ${R.pairTail}`
+
+  const goalNote = noteOf('goal')
+  const timeNote = noteOf('time')
+
+  const card = { background: '#FFFFFF', border: '1px solid rgba(46,48,51,.07)' }
+  const label = 'font-mono text-[10.5px] uppercase tracking-[0.12em]'
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-6">
+      {/* 1 · Who they are, in one name and one line. */}
       <div className="flex flex-col gap-2">
-        <p className="font-mono text-[10.5px] uppercase tracking-[0.12em]" style={{ color: R_MUTED }}>
-          {QUIZ.result.label}
+        <p className={label} style={{ color: R_MUTED }}>
+          {R.kicker}
         </p>
-        <h3 className="text-[26px] leading-[1.15] tracking-[-0.025em]" style={{ fontWeight: 400, color: R_HEAD }}>
-          {QUIZ.result.title}
+        <h3 className="text-[28px] leading-[1.1] tracking-[-0.025em]" style={{ fontWeight: 400, color: R_HEAD }}>
+          {profile.name}
         </h3>
+        <p className="text-[15px] leading-[1.5]" style={{ color: R_TEXT, textWrap: 'pretty' }}>
+          {profile.line}
+        </p>
       </div>
 
-      <ol className="flex flex-col gap-2">
-        {focus.map((f, i) => (
-          <li
-            key={f.title}
-            className="grid grid-cols-[28px_1fr] gap-x-2.5 gap-y-[3px] rounded-[16px] p-3.5"
-            // Flat and quiet: a near-white fill and a hairline, no shadow.
-            style={{ background: '#FFFFFF', border: '1px solid rgba(46,48,51,.07)' }}
-          >
-            <span className="row-span-2 pt-0.5 text-[12px] tabular-nums" style={{ color: R_MUTED }}>
-              0{i + 1}
-            </span>
-            <span className="text-[15.5px] leading-[1.25]" style={{ fontWeight: 500, color: R_HEAD }}>
-              {f.title}
-            </span>
-            <span className="text-[13px] leading-[1.5]" style={{ color: R_TEXT }}>
-              {f.text}
-            </span>
-          </li>
-        ))}
-      </ol>
-
-      {goalNote && timeNote && (
-        <p className="flex items-start gap-2.5 text-[13.5px] leading-[1.45]" style={{ color: R_TEXT, textWrap: 'pretty' }}>
-          <Clock className="mt-[2px] h-[15px] w-[15px] shrink-0" strokeWidth={1.6} style={{ color: R_MUTED }} />
-          <span>
-            {QUIZ.result.aim} <span style={{ color: R_HEAD }}>{goalNote}</span>, {QUIZ.result.fit}{' '}
-            <span style={{ color: R_HEAD }}>{timeNote}</span>.
-          </span>
+      {/* 2 · Their own combination, read back. */}
+      <div className="flex flex-col gap-2.5">
+        <p className="text-[14px] leading-[1.6]" style={{ color: R_TEXT, textWrap: 'pretty' }}>
+          {combo}
         </p>
-      )}
+        {goalNote && timeNote && (
+          <p className="flex items-start gap-2.5 text-[13.5px] leading-[1.45]" style={{ color: R_TEXT, textWrap: 'pretty' }}>
+            <Clock className="mt-[2px] h-[15px] w-[15px] shrink-0" strokeWidth={1.6} style={{ color: R_MUTED }} />
+            <span>
+              {R.aim} <span style={{ color: R_HEAD }}>{goalNote}</span>, {R.fit}{' '}
+              <span style={{ color: R_HEAD }}>{timeNote}</span>.
+            </span>
+          </p>
+        )}
+      </div>
 
-      <p className="text-[12.5px] leading-[1.55]" style={{ color: R_MUTED, textWrap: 'pretty' }}>
-        {QUIZ.result.note}
-      </p>
+      {/* 3 · What is already in their favour. */}
+      <div className="flex flex-col gap-3 rounded-[16px] p-4" style={card}>
+        <p className={label} style={{ color: R_MUTED }}>
+          {R.strengthLabel}
+        </p>
+        {[strength, timeStrength].map((line) => (
+          <p key={line} className="flex gap-2.5 text-[13.5px] leading-[1.5]" style={{ color: R_HEAD, textWrap: 'pretty' }}>
+            <Check className="mt-[3px] h-3.5 w-3.5 shrink-0" strokeWidth={2} style={{ color: TEAL }} />
+            <span>{line}</span>
+          </p>
+        ))}
+      </div>
+
+      {/* 4 · How much of the picture they have already given. */}
+      <div className="flex flex-col gap-3">
+        <p className="text-[15px] leading-[1.4] tracking-[-0.01em]" style={{ color: R_HEAD, textWrap: 'pretty' }}>
+          {R.progress.title}
+        </p>
+        <div className="flex gap-1.5" aria-hidden="true">
+          {R.progress.items.map((it) => (
+            <span key={it} className="h-[4px] flex-1 rounded-full" style={{ background: TEAL }} />
+          ))}
+          <span className="h-[4px] flex-1 rounded-full" style={{ background: 'rgba(46,48,51,.12)' }} />
+        </div>
+        <p className="text-[12.5px] leading-[1.5]" style={{ color: R_MUTED }}>
+          {R.progress.missingNote}
+        </p>
+      </div>
+
+      {/* 6 · Why a person, then the ask. */}
+      <div className="flex flex-col gap-1.5 pt-5" style={{ borderTop: '1px solid rgba(46,48,51,.08)' }}>
+        <p className="text-[14px] leading-[1.55]" style={{ color: R_TEXT, textWrap: 'pretty' }}>
+          {R.bridge}
+        </p>
+      </div>
 
       <div className="flex flex-col gap-3">
+        <p className="text-center text-[16px] tracking-[-0.01em]" style={{ color: R_HEAD }}>
+          {R.ask}
+        </p>
         <button
           type="button"
           onClick={onBook}
           className="flex h-[52px] w-full items-center justify-center gap-1.5 rounded-full bg-ink text-[15px] text-white transition-all duration-200 hover:bg-ink/90 active:translate-y-px"
           style={{ fontWeight: 500 }}
         >
-          {QUIZ.result.cta} · {FACE_MAP_CORE.priceDisplay}
+          {R.cta}
           <ArrowRight className="h-4 w-4" strokeWidth={2} />
         </button>
         <button
           type="button"
           onClick={onRetake}
-          className="mx-auto flex items-center gap-1.5 text-[13.5px] underline decoration-ink/15 underline-offset-4 transition-colors hover:text-ink"
+          className="mx-auto mt-1 flex items-center gap-1.5 text-[13px] underline decoration-ink/15 underline-offset-4 transition-colors hover:text-ink"
           style={{ color: R_TEXT }}
         >
           <RotateCcw className="h-3.5 w-3.5" strokeWidth={1.8} />
-          {QUIZ.result.retake}
+          {R.retake}
         </button>
       </div>
     </div>

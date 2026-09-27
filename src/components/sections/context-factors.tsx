@@ -66,36 +66,56 @@ export function ContextFactors() {
   useEffect(() => {
     const rail = railRef.current
     if (!rail) return
-    const cards = Array.from(rail.querySelectorAll<HTMLElement>('[data-card]'))
-    // 0.9, not 0.95: a snapped card sits exactly on the root's content edge,
-    // and Safari reports that as fractionally short of 1.
-    const LIT = 0.9
-    const io = new IntersectionObserver(
-      (entries) => {
-        setInView((prev) => {
-          const next = new Set(prev ?? [])
-          for (const e of entries) {
-            const id = (e.target as HTMLElement).dataset.card
-            if (!id) continue
-            if (e.intersectionRatio >= LIT) next.add(id)
-            else next.delete(id)
-          }
-          return next
-        })
-      },
-      { root: rail, threshold: [LIT] },
-    )
-    cards.forEach((el) => io.observe(el))
 
-    // Any scroll — ours or a swipe — resets the pending target once it stops.
-    const onScroll = () => {
-      if (settle.current) clearTimeout(settle.current)
-      settle.current = setTimeout(() => { pending.current = null }, 160)
+    // Measured on scroll, not by IntersectionObserver. The observer version
+    // used a single threshold at 0.9, and an observer only fires when a ratio
+    // CROSSES a threshold — so a card that came to rest at 0.89 (sub-pixel
+    // rounding, the rail's scroll-padding, or iOS coalescing the last frames
+    // of a momentum scroll) never got a callback and stayed dimmed for good.
+    // Reading geometry every frame has no such edge: whatever the rail is
+    // doing, the answer is recomputed from where the cards actually are.
+    const LIT = 0.78
+    let frame = 0
+
+    const measure = () => {
+      frame = 0
+      const box = rail.getBoundingClientRect()
+      const next = new Set<string>()
+      for (const el of rail.querySelectorAll<HTMLElement>('[data-card]')) {
+        const id = el.dataset.card
+        if (!id) continue
+        const r = el.getBoundingClientRect()
+        const shown = Math.max(0, Math.min(r.right, box.right) - Math.max(r.left, box.left))
+        if (r.width > 0 && shown / r.width >= LIT) next.add(id)
+      }
+      setInView((prev) => {
+        if (prev && prev.size === next.size && [...next].every((id) => prev.has(id))) return prev
+        return next
+      })
     }
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(measure)
+    }
+
+    // Any scroll — ours or a swipe — resets the pending target once it stops,
+    // and measures one final time after the momentum has died.
+    const onScroll = () => {
+      schedule()
+      if (settle.current) clearTimeout(settle.current)
+      settle.current = setTimeout(() => {
+        pending.current = null
+        measure()
+      }, 160)
+    }
+
+    measure()
     rail.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', schedule)
     return () => {
-      io.disconnect()
+      if (frame) cancelAnimationFrame(frame)
       rail.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', schedule)
       if (settle.current) clearTimeout(settle.current)
     }
   }, [])

@@ -145,7 +145,7 @@ export function Voices() {
 
         {/* ── Quote block ────────────────────────────────────────────────── */}
         <div
-          className="relative flex max-w-[640px] flex-col gap-7 pt-16 md:pt-[120px]"
+          className="relative flex max-w-[640px] flex-col gap-4 pt-16 md:gap-7 md:pt-[120px]"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocusCapture={() => setPaused(true)}
@@ -159,7 +159,7 @@ export function Voices() {
               over playing video, which is the other reason it is 5 and not
               12. */}
           <div
-            className="relative flex w-full max-w-[400px] flex-col gap-3 rounded-[18px] border p-3.5 md:gap-3.5 md:p-4"
+            className="relative flex w-full max-w-[400px] flex-col gap-2.5 rounded-[18px] border px-3.5 pb-3 pt-3 md:gap-3.5 md:p-4"
             style={{
               background: 'rgba(255,255,255,.035)',
               borderColor: 'rgba(255,255,255,.16)',
@@ -206,7 +206,7 @@ export function Voices() {
                   }}
                 >
                   <p
-                    className="text-[clamp(19px,2.1vw,25px)] leading-[1.28] tracking-[-0.02em] text-white"
+                    className="text-[clamp(17px,2.1vw,25px)] leading-[1.3] tracking-[-0.02em] text-white"
                     style={{ fontWeight: 300, textWrap: 'pretty' }}
                   >
                     {r.quote}
@@ -249,7 +249,7 @@ export function Voices() {
               text still advances on its own; the arrows only let you get
               ahead of it, and the ring stays — now around Next, where it
               says how long until the slide turns itself. */}
-          <div className="flex flex-wrap items-center justify-between gap-5">
+          <div className="flex flex-nowrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <button
                 type="button"
@@ -304,7 +304,7 @@ export function Voices() {
               {/* The chips also said where you were in the run; without them
                   the counter has to. */}
               <span
-                className="ml-1 font-mono text-[10px] uppercase tracking-[0.12em] tabular-nums"
+                className="ml-1 hidden font-mono text-[10px] uppercase tracking-[0.12em] tabular-nums sm:inline"
                 style={{ color: 'rgba(255,255,255,.85)' }}
               >
                 {String(i + 1).padStart(2, '0')} / {String(VOICES.reviews.length).padStart(2, '0')}
@@ -316,7 +316,7 @@ export function Voices() {
               // Glass, not the handoff's silver fill: on footage this dark a
               // solid pill reads as a sticker. Same material as the chips
               // beside it, one step brighter so it still leads.
-              className="group inline-flex h-12 items-center gap-2.5 rounded-full border px-5 text-[15px] text-white transition-colors duration-300"
+              className="group inline-flex h-11 shrink-0 items-center gap-2 rounded-full border px-4 text-[14px] text-white transition-colors duration-300 md:h-12 md:gap-2.5 md:px-5 md:text-[15px]"
               style={{
                 background: 'rgba(255,255,255,.10)',
                 borderColor: 'rgba(255,255,255,.34)',
