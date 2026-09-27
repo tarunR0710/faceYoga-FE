@@ -62,6 +62,18 @@
     --c-band-bg: 239 244 245;     /* #EFF4F5 — brand-soft lightened ~80% toward white; the pillar
                                       band above the hero, at near-grayscale strength so it reads
                                       as a light neutral shelf rather than a teal block */
+    /* One hairline. Four sections each declared their own — rgba(30,53,59,.1),
+       .14, and rgba(61,107,118,.1) — teal-black against two blue-blacks, for
+       the same 1px edge. Full colour, not a channel triple, because these are
+       consumed from inline styles. */
+    --c-hairline: rgba(30, 53, 59, 0.1);
+
+    --c-panel-bg: 246 248 249;    /* #F6F8F9 — one step lighter than the band, for FLAT card
+                                      panels sitting on white. Added 2026-09-27 to retire six
+                                      per-file near-whites (#F7F9F9, #fafafa, #F4F5F6, #F4F6F6,
+                                      #F6F8F9, #F4F7F8) that were each invented locally for this
+                                      one job. Accent GRADIENTS keep their own stops — those are
+                                      designs, not surfaces. */
 
     /* Gradient bands. Mid greys, not light ones: these are consumed at
        0.2–0.55 alpha over white, and light greys at that alpha disappear. */

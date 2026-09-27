@@ -8,7 +8,7 @@ import { Reveal } from '@/components/ui/reveal'
 import { SectionTag } from '@/components/ui/section-tag'
 import { CONTEXT_FACTORS } from '@/lib/content'
 
-const HAIRLINE = 'rgba(30,53,59,.1)'
+const HAIRLINE = 'var(--c-hairline)'
 const GREY = '#5C7278'
 const GHOST = '#5C7278'
 const INK = '#1E353B'

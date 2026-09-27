@@ -42,7 +42,7 @@ export function Experiences() {
                           <span className="relative aspect-[4/5] overflow-hidden rounded-[14px] border border-border-soft">
                             <Image src={src} alt={`${label}: ${s.who}`} fill sizes="200px" className="object-cover" />
                           </span>
-                          <figcaption className="font-mono text-[9px] uppercase tracking-[0.16em] text-ink/65">{label}</figcaption>
+                          <figcaption className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/65">{label}</figcaption>
                         </figure>
                       ))}
                     </div>
@@ -78,7 +78,7 @@ export function Experiences() {
 function Block({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="border-t border-border-soft pt-3">
-      <dt className="mb-1 font-mono text-[9.5px] uppercase tracking-[0.16em] text-ink/65">{label}</dt>
+      <dt className="mb-1 font-mono text-[10px] uppercase tracking-[0.16em] text-ink/65">{label}</dt>
       <dd className="text-[13.5px] leading-relaxed text-ink/80">{children}</dd>
     </div>
   )

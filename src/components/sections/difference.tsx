@@ -39,11 +39,11 @@ export function Difference() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="rounded-2xl p-4 bg-[#fafafa] border border-[#f0f0f0]"
+            className="rounded-2xl border border-border-soft bg-[rgb(var(--c-panel-bg))] p-4"
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 rounded-full bg-ink/5 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-ink/20" />
+              <div className="w-10 h-10 rounded-full bg-ink/5 flex items-center justify-center">
+                <div className="w-3.5 h-3.5 rounded-full bg-ink/20" />
               </div>
               <h3 className="text-[1.15rem] md:text-[1.3rem] tracking-[-0.02em] text-ink" style={{ fontWeight: 300 }}>
                 {DIFFERENCE.colGeneric}

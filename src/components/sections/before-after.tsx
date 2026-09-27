@@ -87,7 +87,7 @@ export function BeforeAfter() {
                 ) : (
                   // Until the photographs land: the slot names itself rather
                   // than sitting blank, quietly enough not to read as an error.
-                  <span className="absolute inset-0 flex items-center justify-center font-mono text-[9.5px] uppercase tracking-[0.14em] text-ink/65">
+                  <span className="absolute inset-0 flex items-center justify-center font-mono text-[10px] uppercase tracking-[0.14em] text-ink/65">
                     Before · After
                   </span>
                 )}

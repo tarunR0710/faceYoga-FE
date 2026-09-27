@@ -72,7 +72,7 @@ export function SectionHeading({
       </h2>
       {lede ? (
         <p
-          className={`mt-5 text-[14px] leading-relaxed md:text-[16px] ${palette ? '' : 'text-ink-muted'}`}
+          className={`mx-auto mt-5 max-w-[62ch] text-[14px] leading-relaxed md:text-[16px] ${palette ? '' : 'text-ink-muted'}`}
           style={{ color: palette?.lede }}
         >
           {lede}

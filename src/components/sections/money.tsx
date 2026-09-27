@@ -10,8 +10,8 @@ import { ANCHOR } from '@/lib/content'
 // the icon paths. Type is the site's own: Geist, nothing heavier than 400 on
 // this page, mono labels at the house tracking, ink and ink-muted for text.
 const NOTE = '#5C7278'
-const PANEL = '#F7F9F9'
-const HAIRLINE = 'rgba(30,53,59,.1)'
+const PANEL = 'rgb(var(--c-panel-bg))'
+const HAIRLINE = 'var(--c-hairline)'
 const MONO = 'font-mono text-[10px] uppercase tracking-[0.16em]'
 
 /** Per spend row, in ANCHOR.rows order. */
@@ -171,7 +171,7 @@ export function Money() {
                   <span className="row-span-2 flex h-11 w-11 items-center justify-center rounded-[14px]" style={{ background: look.tint, border: `1px solid ${look.ring}` }}>
                     <Glyph d={look.icon} stroke={look.ink} size="h-[19px] w-[19px]" width={1.5} />
                   </span>
-                  <span className="text-[16.5px] leading-tight tracking-[-0.02em] text-ink/80" style={{ fontWeight: 400 }}>{row.label}</span>
+                  <span className="text-[16px] leading-tight tracking-[-0.02em] text-ink/80" style={{ fontWeight: 400 }}>{row.label}</span>
                   <span className="flex flex-col items-end gap-2">
                     <span className="whitespace-nowrap font-mono text-[13px] tabular-nums text-ink">{row.value}</span>
                     <span className={`${MONO} whitespace-nowrap rounded-full`} style={{ color: look.ink, background: look.tint, padding: '4px 9px' }}>
@@ -186,7 +186,7 @@ export function Money() {
               <span className="row-span-2 flex h-11 w-11 items-center justify-center rounded-[14px]" style={{ background: '#1E353B' }}>
                 <Check className="h-[19px] w-[19px] text-white" strokeWidth={1.6} />
               </span>
-              <span className="text-[17.5px] leading-tight tracking-[-0.02em] text-ink/80" style={{ fontWeight: 400 }}>{ANCHOR.plan.label}</span>
+              <span className="text-[17px] leading-tight tracking-[-0.02em] text-ink/80" style={{ fontWeight: 400 }}>{ANCHOR.plan.label}</span>
               <span className="flex flex-col items-end gap-2">
                 <span className="whitespace-nowrap text-[1.85rem] leading-none tracking-[-0.03em] tabular-nums text-ink" style={{ fontWeight: 300 }}>{ANCHOR.plan.value}</span>
                 <span className={`${MONO} whitespace-nowrap rounded-full text-white`} style={{ background: '#1E353B', padding: '4px 9px' }}>

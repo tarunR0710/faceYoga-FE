@@ -81,7 +81,7 @@ export function Footer() {
 
           {columns.map((col) => (
             <div key={col.title}>
-              <p className="mb-4 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
+              <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink/65">
                 {col.title}
               </p>
               <ul className="space-y-2.5">
@@ -101,7 +101,7 @@ export function Footer() {
 
           {/* Connect */}
           <div>
-            <p className="mb-4 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
+            <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink/65">
               Connect
             </p>
             <div className="flex items-center gap-3">

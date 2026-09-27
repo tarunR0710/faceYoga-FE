@@ -28,7 +28,7 @@ export function TrustBar() {
     <section
       aria-label="What every plan includes"
       className="h-16 overflow-hidden"
-      style={{ background: '#F6F8F9' }}
+      style={{ background: 'rgb(var(--c-band-bg))' }}
     >
       <ul className="animate-marquee-band flex h-full w-max items-center will-change-transform hover:[animation-play-state:paused]">
         {loop.map((p, i) => (

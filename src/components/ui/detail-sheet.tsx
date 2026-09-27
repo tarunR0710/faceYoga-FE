@@ -90,7 +90,7 @@ export function DetailSheet({
                   <div className="flex items-start gap-4">
                     <div className="min-w-0 flex-1">
                       {eyebrow ? (
-                        <p className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
+                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/65">
                           {eyebrow}
                         </p>
                       ) : null}

@@ -65,7 +65,7 @@ export function VisualDirection() {
                     ) : (
                       panel.tags.map(([tag, text]) => (
                         <div key={tag} className="rounded-[12px] px-3.5 py-2.5" style={{ background: 'rgba(255,255,255,.14)', border: '1px solid rgba(255,255,255,.22)' }}>
-                          <p className="font-mono text-[9.5px] uppercase tracking-[0.16em]" style={{ color: 'rgba(255,255,255,.75)' }}>
+                          <p className="font-mono text-[10px] uppercase tracking-[0.16em]" style={{ color: 'rgba(255,255,255,.75)' }}>
                             {tag}
                           </p>
                           <p className="mt-0.5 text-[13px] text-white">{text}</p>

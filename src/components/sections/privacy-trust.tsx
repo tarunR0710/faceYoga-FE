@@ -62,7 +62,7 @@ export function PrivacyTrust() {
               className="relative lg:pr-8"
             >
               <div className="flex items-center gap-3">
-                <span className="font-mono text-[9.5px] tabular-nums text-ink/65">
+                <span className="font-mono text-[10px] tabular-nums text-ink/65">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className="h-px flex-1 bg-ink/10" />
@@ -84,7 +84,7 @@ export function PrivacyTrust() {
         {/* ── Who opens it ───────────────────────────────────────────────── */}
         <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-16">
           <div>
-            <p className="mb-5 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
+            <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.2em] text-ink/65">
               Who sees your session and images
             </p>
             <ul className="border-t border-ink/10">
@@ -117,7 +117,7 @@ export function PrivacyTrust() {
           </div>
 
           <div>
-            <p className="mb-5 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
+            <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.2em] text-ink/65">
               What you can hold us to
             </p>
             <ul className="space-y-3">

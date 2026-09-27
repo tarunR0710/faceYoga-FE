@@ -54,7 +54,7 @@ function CardShell({ visual, title, text }: { visual: React.ReactNode; title: st
   return (
     <div
       className="relative overflow-hidden rounded-[22px] bg-white"
-      style={{ border: '1px solid rgba(61,107,118,.1)', boxShadow: '0 18px 48px -30px rgba(44,79,88,.14)', isolation: 'isolate' }}
+      style={{ border: '1px solid var(--c-hairline)', boxShadow: '0 18px 48px -30px rgba(44,79,88,.14)', isolation: 'isolate' }}
     >
       <div className="relative overflow-hidden" style={{ height: 260, background: VISUAL_WASH }}>
         {visual}
@@ -362,8 +362,8 @@ function ReviewedCard() {
                   className="animate-range-marker absolute rounded-[3px]"
                   style={{ top: 1, width: 8, height: 16, background: '#3D6B76', boxShadow: '0 2px 6px rgba(44,79,88,.35)' }}
                 />
-                <span className="absolute left-0" style={{ top: 14, fontSize: '8.5px', color: '#5C7278' }}>{rangeFrom}</span>
-                <span className="absolute right-0" style={{ top: 14, fontSize: '8.5px', color: '#5C7278' }}>{rangeTo}</span>
+                <span className="absolute left-0" style={{ top: 14, fontSize: '10px', color: SLATE_600 }}>{rangeFrom}</span>
+                <span className="absolute right-0" style={{ top: 14, fontSize: '10px', color: SLATE_600 }}>{rangeTo}</span>
               </div>
             </ReportPanel>
 

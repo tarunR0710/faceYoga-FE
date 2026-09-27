@@ -151,7 +151,7 @@ export function QuizCard({ onClose, className = '' }: { onClose: () => void; cla
           // just off white. The canvas ramp is cool blue-grey; this is the
           // same move in the site's neutral.
           padding: '12px 20px 40px',
-          background: 'linear-gradient(175deg, #FDFDFD 0%, #F4F5F6 100%)',
+          background: 'linear-gradient(175deg, #FFFFFF 0%, rgb(var(--c-panel-bg)) 100%)',
           boxShadow: '0 -24px 60px -20px rgba(15,22,36,.55)',
         }}
         initial={reduce ? { opacity: 0 } : { y: 60, opacity: 0 }}
@@ -293,7 +293,7 @@ function QuestionView({
                 // teal, the same ramp the plan card and the CTA already use.
                 background: on
                   ? 'linear-gradient(135deg,#5E8E9A 0%,#3D6B76 60%,#2C4F58 100%)'
-                  : 'linear-gradient(180deg,#FFFFFF 0%,#F4F6F6 100%)',
+                  : 'linear-gradient(180deg,#FFFFFF 0%,rgb(var(--c-panel-bg)) 100%)',
                 borderColor: on ? 'transparent' : 'rgba(30,53,59,.10)',
                 color: on ? '#FFFFFF' : 'rgba(30,53,59,.85)',
                 boxShadow: on

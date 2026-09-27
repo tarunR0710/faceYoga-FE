@@ -80,7 +80,7 @@ export function Protocol() {
             viewport={VIEWPORT}
             transition={REVEAL}
           >
-            <p className="border-l-2 border-brand pl-5 text-[15px] leading-snug text-ink/80 md:text-[16.5px]">
+            <p className="border-l-2 border-brand pl-5 text-[15px] leading-snug text-ink/80 md:text-[16px]">
               A Face Map is also the only thing here that will tell you what to{' '}
               <span className="text-ink" style={{ fontWeight: 500 }}>
                 stop

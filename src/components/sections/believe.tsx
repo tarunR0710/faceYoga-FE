@@ -28,7 +28,7 @@ export function Believe() {
   const [tab, setTab] = useState<string>(BELIEVE.tabs[0].id)
 
   return (
-    <section id="experts" className="section" style={{ background: '#F4F7F8' }}>
+    <section id="experts" className="section" style={{ background: 'rgb(var(--c-band-bg))' }}>
       {/* A light cool tint (2026-09-26): this section now follows Facial
           Expertise, which is white, and the page alternates grounds. */}
       <div className="container-main">
@@ -232,7 +232,7 @@ function People() {
                         transition: t(`transform 480ms ${EASE_SOFT} 200ms`),
                       }}
                     >
-                      <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/60">{c.spine}</span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/70">{c.spine}</span>
                       <span className="text-[1.05rem] leading-snug tracking-[-0.02em] text-white md:text-[1.2rem]" style={{ fontWeight: 400 }}>
                         {c.name}
                       </span>

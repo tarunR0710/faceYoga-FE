@@ -1,12 +1,26 @@
 # Typography, contrast and spacing audit
 **2026-09-27 · homepage, measured at 360 / 390 / 1280 / 1440px**
 
-> **Status 2026-09-27: Tier 1 and Tier 2 applied.** Measured contrast failures
+> **Status 2026-09-27: Tiers 1, 2 and 3 applied.** Measured contrast failures
 > went **38 → 5 at mobile** and **34 → 6 at desktop**, with the six remaining
 > sitting at 4.33–4.50 against a 4.5 bar. Tier 3 (the 21 near-whites, the
 > hairline and shadow tokens, the half-pixel sizes) and Tier 4 (touch targets)
-> are **not** done. Two notes on what was deliberately left alone are at the
-> foot of the Recommended order.
+> are partly done — see below. Tier 4 (touch targets) is **not** done.
+> Notes on what was deliberately left alone are at the foot of the
+> Recommended order.
+>
+> **Tier 3 as executed, and where it differs from what this document
+> originally proposed.** The "21 near-whites → 2 tokens" figure was too blunt:
+> most of those values are stops inside deliberate accent gradients (the
+> context-fit scenario cards, the before/after plate, the difference plate,
+> the pricing ramp), and collapsing them would have destroyed real designs.
+> What actually collapsed was the six **flat** panel and band grounds, onto
+> `--c-band-bg` and a new `--c-panel-bg`. Likewise the shadows: most are
+> per-interaction glows and active-state lifts, not card surfaces, so only the
+> pricing card's sky-blue haze moved to `--shadow-card`. And the half-pixel
+> collapse was limited to a 10px floor plus two off-scale one-offs — 13.5,
+> 12.5 and 14.5px are 55 uses of legitimate steps, and rewriting them would
+> churn line-wrapping across the page for no legibility gain.
 
 ## How this was produced
 

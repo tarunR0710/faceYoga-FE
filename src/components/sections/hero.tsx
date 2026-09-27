@@ -72,24 +72,26 @@ export function Hero() {
         </div>
 
         {/* Copy sits at the base of the frame, out of the subject's face */}
-        <div className="relative flex h-full flex-col justify-end px-6 pb-8 md:px-12 lg:px-20">
-          <div className="max-w-2xl">
+        <div className="relative flex h-full flex-col justify-end md:px-12 lg:px-20">
+          {/* The copy block carries its own padding, separate from the
+              frame's gutters: 32 top / 16 sides / 24 bottom. */}
+          <div className="max-w-2xl px-4 pb-6 pt-8">
             <motion.p
               {...rise(0.15)}
-              className="mb-4 font-mono text-[10px] uppercase leading-none tracking-[0.2em] text-white/70 md:text-[11px]"
+              className="mb-3 font-mono text-[10px] uppercase leading-none tracking-[0.1em] text-white/70 md:text-[11px]"
             >
               {HERO.eyebrow}
             </motion.p>
 
             <motion.h1
               {...rise(0.25)}
-              className="mb-5 text-[34px] leading-[1.05] tracking-[-0.03em] text-white md:text-[44px] lg:text-[56px]"
+              className="mb-5 text-[32px] leading-[1.05] tracking-[-0.03em] text-white md:text-[44px] lg:text-[56px]"
               style={{ fontWeight: 300 }}
             >
               {HERO.title}
               {/* Own block so `text-wrap: balance` acts on this line alone —
                   on a 430px phone it otherwise wraps to leave "you." orphaned. */}
-              <span className="block text-balance text-white/65">{HERO.muted}</span>
+              <span className="block text-balance text-white/75">{HERO.muted}</span>
             </motion.h1>
 
             <motion.p

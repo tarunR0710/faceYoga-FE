@@ -12,7 +12,7 @@ const GLOW_TEAL = glow('173 199 206', 0.2) // half of what it was; the wash unde
 
 const TEAL = '#3D6B76'
 const GREY = '#5C7278'
-const HAIRLINE = 'rgba(30,53,59,.14)'
+const HAIRLINE = 'var(--c-hairline)'
 
 // "Where we stop" note (design 45c): Tailwind slate 400 / 500 / 600.
 const SLATE_400 = '#94A3B8'

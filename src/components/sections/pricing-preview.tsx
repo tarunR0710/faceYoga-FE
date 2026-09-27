@@ -77,7 +77,8 @@ export function PricingPreview() {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={VIEWPORT}
             transition={REVEAL}
-            className="rounded-[24px] border border-border-soft bg-white shadow-lg shadow-[rgba(56,189,248,0.12)] lg:self-start"
+            className="rounded-[24px] border border-border-soft bg-white lg:self-start"
+            style={{ boxShadow: 'var(--shadow-card)' }}
           >
             <div className="p-3 md:p-4">
               <div
@@ -179,7 +180,7 @@ export function PricingPreview() {
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-border-soft bg-white text-brand">
                       <Icon className="h-4 w-4" strokeWidth={1.6} />
                     </span>
-                    <span className="text-[9.5px] font-medium uppercase tracking-[0.16em] text-ink-muted">
+                    <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-ink-muted">
                       {addon.kind === 'delivery' ? 'Optional' : 'Optional specialist Map'}
                     </span>
                     <span
@@ -371,7 +372,7 @@ export function PricingPreview() {
           >
             <p className="text-[14px] leading-relaxed text-ink-muted">{item.text}</p>
 
-            <p className="mb-4 mt-7 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
+            <p className="mb-4 mt-7 font-mono text-[10px] uppercase tracking-[0.2em] text-ink/65">
               What you receive
             </p>
             <ul className="grid grid-cols-1 gap-x-8 sm:grid-cols-2">

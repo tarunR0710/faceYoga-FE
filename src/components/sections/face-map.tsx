@@ -87,7 +87,7 @@ export function FaceMapSection() {
               ))}
             </ol>
 
-            <p className="mb-3 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-ink/65">
               {FACE_MAP_REPORT.chapterCount} sections, in four parts
             </p>
             {/* Thirteen sections as four buckets. */}
@@ -165,7 +165,7 @@ export function FaceMapSection() {
               </svg>
 
               <div className="relative">
-                <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-ink/65">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink/65">
                   MapMyFace
                 </p>
                 <p
@@ -248,7 +248,7 @@ function Spread({ spread }: { spread: SpreadData }) {
   return (
     <div className="rounded-[16px] border border-border-soft bg-mist p-5 md:p-6">
       {chapter ? (
-        <p className="mb-4 font-mono text-[9.5px] uppercase tracking-[0.18em] text-ink/65">
+        <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/65">
           {chapter}
         </p>
       ) : null}
@@ -312,7 +312,7 @@ function Spread({ spread }: { spread: SpreadData }) {
                   }}
                 >
                   <span
-                    className="font-mono text-[9px] uppercase tracking-[0.16em]"
+                    className="font-mono text-[10px] uppercase tracking-[0.16em]"
                     style={{ color: direction ? '#E6C9AF' : '#3D6B76', fontWeight: 600 }}
                   >
                     {panel.label}
@@ -340,7 +340,7 @@ function Spread({ spread }: { spread: SpreadData }) {
             if (!rows.length) return null
             return (
               <div key={phase}>
-                <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.2em] text-ink/65">
+                <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink/65">
                   {phase}
                 </p>
                 <ul className="space-y-1.5">
@@ -354,7 +354,7 @@ function Spread({ spread }: { spread: SpreadData }) {
                         {/* Start / Stop / Continue as a chip ON the action, so
                             both axes of the Protocol live in one object. */}
                         <span
-                          className={`mt-[1px] shrink-0 rounded-full border px-2 py-[3px] font-mono text-[8.5px] uppercase tracking-[0.12em] ${st.cls}`}
+                          className={`mt-[1px] shrink-0 rounded-full border px-2 py-[3px] font-mono text-[10px] uppercase tracking-[0.12em] ${st.cls}`}
                         >
                           {st.label}
                         </span>
