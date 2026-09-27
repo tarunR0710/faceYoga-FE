@@ -86,7 +86,7 @@ export function TabRail({
           move(-1)
         }
       }}
-      className={`no-scrollbar -mx-5 flex gap-1.5 overflow-x-auto px-5 md:mx-0 md:flex-wrap md:overflow-visible md:px-0 ${className}`}
+      className={`no-scrollbar -mx-5 flex gap-1.5 overflow-x-auto px-5 py-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0 ${className}`}
     >
       {items.map((t) => {
         const on = t.id === active
@@ -105,6 +105,9 @@ export function TabRail({
             onFocus={() => setFocusFrom(t.id)}
             className={[
               'relative shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-[13px] outline-none transition-colors duration-200',
+              // 36px tall on its own; the transparent ::before takes the tap
+              // target to 44 without moving the pill.
+              "before:absolute before:-inset-y-1 before:inset-x-0 before:content-['']",
               variant === 'pill'
                 ? on
                   ? dark

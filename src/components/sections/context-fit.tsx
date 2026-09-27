@@ -410,20 +410,24 @@ export function ContextFit() {
           </ul>
         </Reveal>
 
-        <Reveal index={2} from="none" className="flex justify-center gap-1.5 xl:hidden">
+        <Reveal index={2} from="none" className="flex justify-center xl:hidden">
           {cards.map((c, i) => (
             <button
               key={c.id}
               type="button"
               aria-label={`Show ${c.cat}`}
               onClick={() => go(i)}
-              className="h-1.5 rounded-full"
-              style={{
-                width: i === focus ? 18 : 6,
-                background: i === focus ? INK : 'rgba(38,49,63,.22)',
-                transition: reduce ? 'none' : 'all 350ms ease',
-              } as CSSProperties}
-            />
+              className="flex h-11 items-center px-[3px]"
+            >
+              <span
+                className="block h-1.5 rounded-full"
+                style={{
+                  width: i === focus ? 18 : 6,
+                  background: i === focus ? INK : 'rgba(38,49,63,.22)',
+                  transition: reduce ? 'none' : 'all 350ms ease',
+                } as CSSProperties}
+              />
+            </button>
           ))}
         </Reveal>
 

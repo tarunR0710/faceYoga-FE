@@ -275,7 +275,7 @@ function RailButton({ label, onClick, children }: { label: string; onClick: () =
       type="button"
       aria-label={label}
       onClick={onClick}
-      className="flex h-8 w-8 items-center justify-center rounded-full active:translate-y-px"
+      className="relative flex h-8 w-8 items-center justify-center rounded-full active:translate-y-px before:absolute before:-inset-[6px] before:content-['']"
       style={{ border: '1px solid rgba(30,53,59,.12)', color: INK }}
     >
       {children}

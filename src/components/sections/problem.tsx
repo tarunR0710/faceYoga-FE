@@ -185,7 +185,7 @@ export function Problem() {
                   aria-label={`Dismiss: ${b.text}`}
                   exit={reduce ? { opacity: 0 } : { scale: 0.6, opacity: 0 }}
                   transition={{ duration: 0.35, ease: DISMISS_EASE }}
-                  className="absolute whitespace-nowrap rounded-full px-[10px] py-[6px] text-[11px] font-medium shadow-[0_10px_30px_-12px_rgba(44,79,88,0.4)]"
+                  className="absolute whitespace-nowrap rounded-full px-[10px] py-[6px] text-[11px] font-medium shadow-[0_10px_30px_-12px_rgba(44,79,88,0.4)] before:absolute before:-inset-y-[9px] before:-inset-x-[4px] before:content-['']"
                   style={{
                     left: b.left,
                     top: b.top,

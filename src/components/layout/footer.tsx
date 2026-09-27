@@ -73,7 +73,7 @@ export function Footer() {
             </p>
             <a
               href={`mailto:${SITE_CONFIG.email}`}
-              className="mt-4 inline-block text-[12.5px] text-ink/70 transition-colors hover:text-ink"
+              className="relative mt-4 inline-block text-[12.5px] text-ink/70 transition-colors before:absolute before:-inset-y-[10px] before:inset-x-0 before:content-[''] hover:text-ink"
             >
               {SITE_CONFIG.email}
             </a>
@@ -84,12 +84,12 @@ export function Footer() {
               <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink/65">
                 {col.title}
               </p>
-              <ul className="space-y-2.5">
+              <ul className="space-y-4">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-[13px] text-ink-muted transition-colors duration-150 hover:text-ink"
+                      className="relative text-[13px] text-ink-muted transition-colors duration-150 before:absolute before:-inset-y-[8px] before:inset-x-0 before:content-[''] hover:text-ink"
                     >
                       {link.label}
                     </Link>
@@ -112,7 +112,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex h-8 w-8 items-center justify-center rounded-full bg-ink/[0.055] text-ink/55 transition-all duration-150 hover:bg-ink/10 hover:text-ink"
+                  className="relative flex h-8 w-8 items-center justify-center rounded-full bg-ink/[0.055] text-ink/55 transition-all duration-150 before:absolute before:-inset-[6px] before:content-[''] hover:bg-ink/10 hover:text-ink"
                 >
                   <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                     {social.icon}

@@ -217,7 +217,7 @@ export function PricingPreview() {
                       type="button"
                       onClick={() => toggle(addon.id)}
                       aria-pressed={on}
-                      className={`inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 text-[13px] font-medium transition-colors duration-200 sm:self-end lg:self-auto ${
+                      className={`inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 text-[13px] font-medium transition-colors duration-200 sm:self-end lg:self-auto ${
                         on
                           ? 'bg-brand text-white hover:bg-brand-ink'
                           : 'border border-border bg-white hover:bg-mist'

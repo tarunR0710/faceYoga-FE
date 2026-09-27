@@ -127,7 +127,7 @@ export function Header() {
               {/* CTA Button */}
               <Link
                 href="/form"
-                className="inline-flex items-center bg-white text-ink text-[12px] font-medium rounded-full hover:bg-white/90 transition-colors duration-200"
+                className="relative inline-flex items-center bg-white text-ink text-[12px] font-medium rounded-full hover:bg-white/90 transition-colors duration-200 before:absolute before:-inset-y-[5px] before:inset-x-0 before:content-['']"
                 style={{ padding: '8px 16px' }}
               >
                 Start My Plan
@@ -138,7 +138,7 @@ export function Header() {
             <div className="flex md:hidden items-center gap-2">
               <Link
                 href="/form"
-                className="inline-flex items-center bg-white text-ink text-[12px] font-medium rounded-full hover:bg-white/90 transition-colors duration-200"
+                className="relative inline-flex items-center bg-white text-ink text-[12px] font-medium rounded-full hover:bg-white/90 transition-colors duration-200 before:absolute before:-inset-y-[5px] before:inset-x-0 before:content-['']"
                 style={{ padding: '8px 16px' }}
               >
                 Start My Plan

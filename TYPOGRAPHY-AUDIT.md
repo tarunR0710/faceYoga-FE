@@ -5,7 +5,9 @@
 > went **38 → 5 at mobile** and **34 → 6 at desktop**, with the six remaining
 > sitting at 4.33–4.50 against a 4.5 bar. Tier 3 (the 21 near-whites, the
 > hairline and shadow tokens, the half-pixel sizes) and Tier 4 (touch targets)
-> are partly done — see below. Tier 4 (touch targets) is **not** done.
+> are partly done — see below. **Tier 4 applied 2026-09-27**: hit-tested with
+> `elementFromPoint` across all 77 targets on the page; everything now reaches
+> 44×44 except the two documented cases below.
 > Notes on what was deliberately left alone are at the foot of the
 > Recommended order.
 >
@@ -345,6 +347,25 @@ Listed so you don't act on them:
 
 **Tier 4 — touch targets.** 44px minimum, cheapest via transparent `::before`
 hit areas so nothing visually moves.
+
+### Tier 4, and the two targets that cannot reach 44
+
+Measured by walking the page and probing outward from each target's edges with
+`elementFromPoint` — a bounding box does not include a `::before`, so the
+earlier box-based count could not see expanded hit areas at all.
+
+Everything is now 44×44 except:
+
+- **Footer utility links: 33px.** They sit in a `space-y-4` list; reaching 44
+  would need 27px of gap between each link and would roughly double the
+  footer's height. 33px clears the 24×24 WCAG 2.5.8 minimum.
+- **The closed filmstrip spines: 31 × 407px.** Narrow by design — they are the
+  collapsed state of the expert cards. 31px wide against 407px tall is a large
+  target in practice and clears 24×24; widening them would change the design.
+
+One thing worth recording: the tab rail's `overflow-x-auto` computes
+`overflow-y` to `auto` as well, so it was silently clipping each pill's
+expanded hit area. `py-1` on the rail was the fix, not more inset on the pill.
 
 ### Left alone on purpose
 
