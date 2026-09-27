@@ -75,7 +75,7 @@ export function FaceMapSection() {
                   viewport={VIEWPORT}
                   transition={{ duration: 0.5, ease: EASE_OUT, delay: stagger(i, 0.06) }}
                   className={`grid grid-cols-[46px_minmax(0,1fr)] items-baseline gap-x-3 border-t border-border-soft py-2.5 last:border-b ${
-                    i === 4 ? 'text-ink/60' : ''
+                    ''
                   }`}
                 >
                   <span className="font-mono text-[10px] tabular-nums tracking-[0.1em] text-ink/65">{q.n}</span>

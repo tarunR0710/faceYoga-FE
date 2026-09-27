@@ -85,7 +85,7 @@ export function Voices() {
         // site header is fixed, and a frame this tall always ends up with its
         // own top edge at the viewport top, putting the eyebrow pill under
         // the navbar. Below md the header is the taller of the two.
-        className="relative flex min-h-[min(100vh,860px)] flex-col justify-between overflow-hidden p-7 pt-20 md:p-10 md:pt-20 lg:p-16 lg:pt-20"
+        className="relative flex min-h-[min(100svh,860px)] flex-col justify-between overflow-hidden p-7 pt-20 md:p-10 md:pt-20 lg:p-16 lg:pt-20"
         style={{ background: '#3A3F45' }}
       >
         {armed ? (

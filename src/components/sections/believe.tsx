@@ -288,7 +288,7 @@ function Philosophy() {
       </h3>
       <PanelLede>{philosophy.lede}</PanelLede>
 
-      <ol className="grid grid-cols-1 gap-x-10 md:grid-cols-3">
+      <ol className="grid grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-3 md:gap-y-0">
         {philosophy.principles.map(([title, text], i) => (
           <motion.li
             key={title}
@@ -330,8 +330,8 @@ function Method() {
             className="grid grid-cols-[32px_1fr] content-start gap-x-3 gap-y-0.5 border-b border-border-soft py-3"
           >
             <dt className="row-span-2 font-mono text-[11px] tabular-nums text-ink/65">{String(i + 1).padStart(2, '0')}</dt>
-            <dd className="text-[14px] leading-snug tracking-[-0.01em] text-ink/80">{title}</dd>
-            <dd className="text-[12.5px] leading-relaxed text-ink-muted">{text}</dd>
+            <dd className="text-[14.5px] leading-snug tracking-[-0.01em] text-ink/80">{title}</dd>
+            <dd className="text-[13px] leading-relaxed text-ink-muted">{text}</dd>
           </motion.div>
         ))}
       </dl>
@@ -353,7 +353,7 @@ function Evidence() {
     <div>
       <PanelLede leadIn={evidence.leadIn}>{evidence.lede}</PanelLede>
 
-      <ol className="grid grid-cols-1 gap-x-10 lg:grid-cols-3">
+      <ol className="grid grid-cols-1 gap-x-10 gap-y-6 lg:grid-cols-3 lg:gap-y-0">
         {evidence.studies.map((st, i) => (
           <motion.li
             key={st.year}
@@ -367,7 +367,7 @@ function Evidence() {
               <span className="font-mono text-[15px] tabular-nums text-ink">{st.year}</span>
               <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/65">{st.scope}</span>
             </span>
-            <h3 className="text-[15.5px] leading-snug tracking-[-0.01em] text-ink/80" style={{ fontWeight: 400 }}>
+            <h3 className="text-[14.5px] leading-snug tracking-[-0.01em] text-ink/80" style={{ fontWeight: 400 }}>
               {st.claim}
             </h3>
             <p className="text-[13px] leading-relaxed text-ink-muted">{st.detail}</p>

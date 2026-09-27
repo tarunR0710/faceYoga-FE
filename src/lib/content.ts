@@ -1294,6 +1294,10 @@ export const WHAT_WE_MAP = {
   figure: '400+',
   figureLabel: 'Facial assessments',
   figureNote: 'Structure / features / proportions / soft tissue / skin / symmetry / profile / expression / relationships',
+  // Never rendered — WhatWeMap has no element for it (verified 2026-09-27).
+  // Kept, not deleted: the rail has `no-scrollbar` and its arrows sit
+  // top-right, so a phone gets no signal that more cards exist, and this is
+  // the line that would say so. Wire it up under the rail to use it.
   hint: 'Tap a region to see what sits underneath the label.',
   regions: [
     {
@@ -1471,6 +1475,9 @@ export const CONTEXT_FACTORS = {
     'The same face can need a different plan in a different climate, routine, budget or lifestyle. Your session gives the analysis the context a photograph cannot.',
   figure: '100+',
   figureLabel: 'Context factors considered',
+  // Never rendered — same as WHAT_WE_MAP.hint above (verified 2026-09-27).
+  // The component's own doc comment claims this "becomes the closing hint
+  // line"; it does not. Kept for the same reason.
   hint: 'Tap a group to see what we ask about.',
   regions: [
     {
