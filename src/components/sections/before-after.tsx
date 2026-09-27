@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import { SectionTag } from '@/components/ui/section-tag'
-import { REVEAL, VIEWPORT, stagger } from '@/lib/motion'
+import { REVEAL, VIEWPORT } from '@/lib/motion'
 import { BEFORE_AFTER } from '@/lib/content'
 
 /**
@@ -62,14 +62,23 @@ export function BeforeAfter() {
         {/* The rail bleeds to the container edges and scroll-pads back to
             them, so a snapped card lands on the text column rather than
             arriving out of a gutter. */}
-        <ul className="no-scrollbar -mx-5 flex snap-x snap-mandatory items-start gap-3 overflow-x-auto px-5 pb-1 scroll-px-5 md:-mx-8 md:gap-5 md:px-8 md:scroll-px-8">
-          {BEFORE_AFTER.cases.map((c, i) => (
-            <motion.li
+        {/* The reveal belongs to the RAIL, not to each card. whileInView
+            watches the viewport, so on a horizontal rail every card that
+            slides in from the right fired its own y:18 -> 0 rise — the cards
+            visibly bobbed while swiping, and because `stagger` delayed each
+            one differently they drifted out of line with each other even
+            when the rail was still. One reveal for the row; the cards are
+            static and stay on a shared baseline. */}
+        <motion.ul
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEWPORT}
+          transition={REVEAL}
+          className="no-scrollbar -mx-5 flex snap-x snap-mandatory items-start gap-3 overflow-x-auto px-5 pb-1 scroll-px-5 md:-mx-8 md:gap-5 md:px-8 md:scroll-px-8"
+        >
+          {BEFORE_AFTER.cases.map((c) => (
+            <li
               key={c.key}
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={VIEWPORT}
-              transition={{ ...REVEAL, delay: stagger(i) }}
               className="flex w-[212px] shrink-0 snap-start flex-col gap-3.5 md:w-[232px] md:gap-4"
             >
               <div
@@ -98,9 +107,9 @@ export function BeforeAfter() {
                   {c.time}
                 </span>
               </div>
-            </motion.li>
+            </li>
           ))}
-        </ul>
+        </motion.ul>
 
         <p className="mt-6 text-[12.5px] leading-relaxed text-ink-muted md:mt-8">
           {BEFORE_AFTER.footnote}
