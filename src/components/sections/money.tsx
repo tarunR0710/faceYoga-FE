@@ -14,18 +14,26 @@ const PANEL = 'rgb(var(--c-panel-bg))'
 const HAIRLINE = 'var(--c-hairline)'
 const MONO = 'font-mono text-[10px] uppercase tracking-[0.16em]'
 
-/** Per spend row, in ANCHOR.rows order. */
+// One quiet ground for every icon tile and cadence chip (2026-09-27). Each
+// row and refund moment used to carry its own tint — teal, rose, straw, sage —
+// which made the section read as a colour chart. The icons alone now tell
+// the rows apart.
+// White with a hairline, so it reads on the grey mobile panel and on the
+// white desktop cards alike.
+const CHIP = { tint: '#FFFFFF', ring: 'rgba(30,53,59,.10)', ink: '#55585D' } as const
+
+/** Icon per spend row, in ANCHOR.rows order. */
 const ROW_LOOK = [
-  { tint: 'rgba(173,199,206,.35)', ring: 'rgba(61,107,118,.22)', ink: '#2B4F58', icon: 'M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z M12 6v6l4 2' },
-  { tint: 'rgba(228,200,191,.42)', ring: 'rgba(150,90,80,.22)', ink: '#6B3A32', icon: 'M9 2h6v3l3 6v9a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-9l3-6z M6 13h12' },
-  { tint: 'rgba(226,214,178,.45)', ring: 'rgba(150,125,60,.22)', ink: '#5E4A16', icon: 'M6 3v7a3 3 0 0 0 3 3h6 M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M9 13 18 4' },
+  { ...CHIP, icon: 'M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z M12 6v6l4 2' },
+  { ...CHIP, icon: 'M9 2h6v3l3 6v9a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-9l3-6z M6 13h12' },
+  { ...CHIP, icon: 'M6 3v7a3 3 0 0 0 3 3h6 M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M9 13 18 4' },
 ] as const
 
-/** Per refund moment, in REFUND_POLICY.moments order. */
+/** Icon per refund moment, in REFUND_POLICY.moments order. */
 const MOMENT_LOOK = [
-  { tint: 'rgba(191,205,182,.45)', ring: 'rgba(90,120,70,.25)', icon: 'M20 6 9 17l-5-5' },
-  { tint: 'rgba(226,214,178,.42)', ring: 'rgba(150,125,60,.22)', icon: 'M12 8v5l3 2 M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z' },
-  { tint: 'rgba(173,199,206,.4)', ring: 'rgba(61,107,118,.22)', icon: 'M3 12a9 9 0 1 0 3-6.7L3 8 M3 3v5h5' },
+  { ...CHIP, icon: 'M20 6 9 17l-5-5' },
+  { ...CHIP, icon: 'M12 8v5l3 2 M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z' },
+  { ...CHIP, icon: 'M3 12a9 9 0 1 0 3-6.7L3 8 M3 3v5h5' },
 ] as const
 
 function Glyph({ d, stroke, size, width }: { d: string; stroke: string; size: string; width: number }) {
@@ -46,18 +54,18 @@ function Glyph({ d, stroke, size, width }: { d: string; stroke: string; size: st
 export function Money() {
   return (
     <section id="money" className="section bg-white">
-      <div className="container-main flex flex-col gap-8 md:gap-10">
+      <div className="container-main flex flex-col gap-6 md:gap-10">
         <Reveal index={0} className="flex max-w-[640px] flex-col items-start gap-4">
           <SectionTag>{ANCHOR.eyebrow}</SectionTag>
-          <h2 className="text-[1.75rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]" style={{ fontWeight: 300 }}>
+          <h2 className="text-[1.5rem] leading-[1.14] tracking-[-0.02em] text-ink md:text-[2.25rem] lg:text-[2.5rem]" style={{ fontWeight: 300 }}>
             {ANCHOR.title} <span className="muted-tail">{ANCHOR.muted}</span>
           </h2>
         </Reveal>
 
         {/* ── mobile · 37b ─────────────────────────────────────────────── */}
-        <Reveal index={1} from="none" className="flex flex-col gap-5 lg:hidden">
-          <div className="flex flex-col rounded-[22px] px-5" style={{ background: PANEL }}>
-            <p className={`${MONO} pb-3 pt-[18px]`} style={{ color: NOTE }}>
+        <Reveal index={1} from="none" className="flex flex-col gap-3 lg:hidden">
+          <div className="flex flex-col rounded-[22px] px-2" style={{ background: PANEL }}>
+            <p className={`${MONO} pb-2 pt-3.5`} style={{ color: NOTE }}>
               {ANCHOR.usual.label}
             </p>
             {ANCHOR.rows.map((row, i) => {
@@ -66,22 +74,22 @@ export function Money() {
               return (
                 <div
                   key={row.label}
-                  className="grid grid-cols-[34px_1fr_auto] items-center gap-x-3.5 gap-y-1.5 py-[18px]"
+                  className="grid grid-cols-[34px_1fr_auto] items-center gap-x-3 gap-y-1.5 py-[18px]"
                   style={{ borderBottom: last ? 'none' : '1px solid rgba(30,53,59,.08)' }}
                 >
-                  <span className="row-span-2 flex h-[34px] w-[34px] items-center justify-center rounded-[11px]" style={{ background: look.tint }}>
+                  <span className="row-span-2 flex h-[34px] w-[34px] items-center justify-center rounded-sm" style={{ background: look.tint, border: `1px solid ${look.ring}` }}>
                     <Glyph d={look.icon} stroke={look.ink} size="h-4 w-4" width={1.5} />
                   </span>
-                  <span className="text-[15.5px] leading-tight tracking-[-0.02em] text-ink" style={{ fontWeight: 400, textWrap: 'pretty' }}>
+                  <span className="text-[14px] leading-tight tracking-[-0.02em] text-ink" style={{ fontWeight: 400, textWrap: 'pretty' }}>
                     {row.label}
                   </span>
                   <span
-                    className={`${MONO} row-span-2 whitespace-nowrap rounded-full`}
-                    style={{ color: look.ink, background: look.tint, padding: '5px 10px' }}
+                    className={`${MONO} row-span-2 whitespace-nowrap rounded-md`}
+                    style={{ color: look.ink, background: look.tint, border: `1px solid ${look.ring}`, padding: '5px 10px' }}
                   >
                     {row.cadence}
                   </span>
-                  <span className="text-[12.5px] leading-relaxed" style={{ color: NOTE }}>
+                  <span className="text-[12px] leading-relaxed" style={{ color: NOTE }}>
                     {row.value} · {row.short}
                   </span>
                 </div>
@@ -97,7 +105,7 @@ export function Money() {
           </div>
 
           <div
-            className="flex flex-col gap-5 rounded-[22px] px-6 pb-7 pt-6 text-white"
+            className="flex flex-col gap-5 rounded-[22px] px-4 pb-7 pt-6 text-white"
             style={{
               // A white top-down sheen over the teal ramp, not instead of it:
               // the card carries white text throughout, so the ground has to
@@ -138,8 +146,8 @@ export function Money() {
                 const look = MOMENT_LOOK[i]
                 return (
                   <div key={m.when} className="grid grid-cols-[30px_1fr] items-center gap-x-3.5 gap-y-1">
-                    <span className="row-span-2 flex h-[30px] w-[30px] items-center justify-center rounded-[10px]" style={{ background: look.tint }}>
-                      <Glyph d={look.icon} stroke="#3A5A63" size="h-3.5 w-3.5" width={1.6} />
+                    <span className="row-span-2 flex h-[30px] w-[30px] items-center justify-center rounded-[10px]" style={{ background: look.tint, border: `1px solid ${look.ring}` }}>
+                      <Glyph d={look.icon} stroke={look.ink} size="h-3.5 w-3.5" width={1.6} />
                     </span>
                     <span className="text-[14.5px] leading-tight tracking-[-0.01em] text-ink" style={{ fontWeight: 400 }}>{m.head}</span>
                     <span className={MONO} style={{ color: NOTE }}>{m.when}</span>
@@ -174,7 +182,7 @@ export function Money() {
                   <span className="text-[16px] leading-tight tracking-[-0.02em] text-ink/80" style={{ fontWeight: 400 }}>{row.label}</span>
                   <span className="flex flex-col items-end gap-2">
                     <span className="whitespace-nowrap font-mono text-[13px] tabular-nums text-ink">{row.value}</span>
-                    <span className={`${MONO} whitespace-nowrap rounded-full`} style={{ color: look.ink, background: look.tint, padding: '4px 9px' }}>
+                    <span className={`${MONO} whitespace-nowrap rounded-full`} style={{ color: look.ink, background: look.tint, border: `1px solid ${look.ring}`, padding: '4px 9px' }}>
                       {row.cadence}
                     </span>
                   </span>
@@ -208,7 +216,7 @@ export function Money() {
                 return (
                   <div key={m.when} className="grid grid-cols-[36px_1fr] items-start gap-x-3.5 gap-y-1.5">
                     <span className="row-span-3 flex h-9 w-9 items-center justify-center rounded-[12px]" style={{ background: look.tint, border: `1px solid ${look.ring}` }}>
-                      <Glyph d={look.icon} stroke="#1E353B" size="h-4 w-4" width={1.6} />
+                      <Glyph d={look.icon} stroke={look.ink} size="h-4 w-4" width={1.6} />
                     </span>
                     <span className={MONO} style={{ color: NOTE }}>{m.when}</span>
                     <span className="text-[14.5px] leading-tight tracking-[-0.01em] text-ink" style={{ fontWeight: 400 }}>{m.head}</span>

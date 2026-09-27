@@ -151,23 +151,49 @@ export function Voices() {
           onFocusCapture={() => setPaused(true)}
           onBlurCapture={() => setPaused(false)}
         >
-          <svg width="30" height="23" viewBox="0 0 34 26" fill="none" aria-hidden>
-            <path
-              d="M0 26V15C0 6.7 4.6 1.6 12.4 0l1.5 3.4C9.4 5 7.3 8 7 12h6.2v14H0zm20.1 0V15c0-8.3 4.6-13.4 12.4-15L34 3.4C29.5 5 27.4 8 27.1 12h6.2v14H20.1z"
-              fill="rgba(255,255,255,.55)"
-            />
-          </svg>
+          {/* Glass panel. Deliberately thin — a .035 fill and a 5px blur, so
+              the footage still reads through it and the type only gets an
+              edge and a faint wash. Measured against the real frames at the
+              brightest patch under the panel: quote 4.59:1 desktop / 4.92:1
+              mobile, detail 4.69 / 4.99. The blur is also the expensive part
+              over playing video, which is the other reason it is 5 and not
+              12. */}
+          <div
+            className="relative flex w-full max-w-[400px] flex-col gap-3 rounded-[18px] border p-3.5 md:gap-3.5 md:p-4"
+            style={{
+              background: 'rgba(255,255,255,.035)',
+              borderColor: 'rgba(255,255,255,.16)',
+              backdropFilter: 'blur(5px) saturate(1.04)',
+              WebkitBackdropFilter: 'blur(5px) saturate(1.04)',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,.14)',
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <svg width="22" height="17" viewBox="0 0 34 26" fill="none" aria-hidden>
+                <path
+                  d="M0 26V15C0 6.7 4.6 1.6 12.4 0l1.5 3.4C9.4 5 7.3 8 7 12h6.2v14H0zm20.1 0V15c0-8.3 4.6-13.4 12.4-15L34 3.4C29.5 5 27.4 8 27.1 12h6.2v14H20.1z"
+                  fill="rgba(255,255,255,.55)"
+                />
+              </svg>
+              <span
+                className="font-mono text-[10px] uppercase tracking-[0.14em]"
+                style={{ color: 'rgba(255,255,255,.72)' }}
+              >
+                {VOICES.reviewsLabel}
+              </span>
+            </div>
 
-          {/* Every review occupies the same grid cell, so the block is as tall
-              as the longest one and nothing below it shifts on a swap. */}
-          <div className="relative grid" aria-live="polite">
+            {/* Every review occupies the same grid cell, so the block is as
+                tall as the longest one and nothing below it shifts on a
+                swap. */}
+            <div className="relative grid" aria-live="polite">
             {VOICES.reviews.map((r, k) => {
               const on = k === i
               return (
                 <div
                   key={r.ini}
                   aria-hidden={!on}
-                  className="flex flex-col gap-4"
+                  className="flex flex-col gap-2.5"
                   style={{
                     gridArea: '1/1',
                     opacity: on ? 1 : 0,
@@ -180,14 +206,14 @@ export function Voices() {
                   }}
                 >
                   <p
-                    className="text-[clamp(21px,2.9vw,34px)] leading-[1.24] tracking-[-0.025em] text-white"
+                    className="text-[clamp(19px,2.1vw,25px)] leading-[1.28] tracking-[-0.02em] text-white"
                     style={{ fontWeight: 300, textWrap: 'pretty' }}
                   >
                     {r.quote}
                   </p>
                   <p
-                    className="max-w-[460px] text-[14px] leading-[1.55]"
-                    style={{ color: 'rgba(255,255,255,.82)', textWrap: 'pretty' }}
+                    className="text-[13.5px] leading-[1.55]"
+                    style={{ color: 'rgba(255,255,255,.92)', textWrap: 'pretty' }}
                   >
                     {r.detail}
                   </p>
@@ -213,6 +239,7 @@ export function Voices() {
                 </div>
               )
             })}
+            </div>
           </div>
 
           {/* ── Arrows + CTA ─────────────────────────────────────────────

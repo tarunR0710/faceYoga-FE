@@ -1810,6 +1810,7 @@ export const BEFORE_AFTER = {
  */
 export const VOICES = {
   eyebrow: 'Join the community',
+  reviewsLabel: 'Top reviews',
   title: 'Join 500+ influencers',
   muted: 'and people like you.',
   cta: { label: 'Start my plan', href: '#pricing' },

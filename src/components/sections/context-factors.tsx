@@ -174,7 +174,7 @@ export function ContextFactors() {
                       transition: t('opacity 400ms ease'),
                     }}
                   >
-                    <div className="relative h-[130px]" style={{ background: 'linear-gradient(160deg,#F4F1EC,#EEF2F3)' }}>
+                    <div className="relative h-[168px]" style={{ background: 'linear-gradient(160deg,#F4F1EC,#EEF2F3)' }}>
                       {img && <Image src={img} alt="" fill sizes={`${CARD_W}px`} className="object-cover" />}
                       <div
                         aria-hidden="true"
@@ -191,7 +191,7 @@ export function ContextFactors() {
 
                     <div className="flex flex-col gap-3" style={{ padding: '16px 18px 8px' }}>
                       <div className="flex flex-col gap-1">
-                        <span className="text-[21px] leading-[1.15] tracking-[-0.02em]" style={{ fontWeight: 400, color: 'rgba(30,53,59,.8)' }}>
+                        <span className="text-[18px] leading-[1.2] tracking-[-0.02em]" style={{ fontWeight: 400, color: 'rgba(30,53,59,.8)' }}>
                           {r.title}
                         </span>
                         <span className="text-[13px] leading-[1.4]" style={{ color: GREY }}>

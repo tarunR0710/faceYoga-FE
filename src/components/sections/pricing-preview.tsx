@@ -35,9 +35,16 @@ const PLAN_GRADIENT = [
   '#F6F7F9',
 ].join(', ')
 
-// Add-on card text, softened from ink (2026-09-26): the near-black price,
-// Add pill and body drew the eye away from the plan card.
-const ADDON_TEXT = '#55585D'
+// Add-on card text (2026-09-27): a clear three-step ladder so the name leads
+// and nothing else competes with it. Name and price in the headline grey,
+// description and the Add pill a step lighter.
+const ADDON_HEAD = '#2E3033'
+const ADDON_TEXT = '#6B6F75'
+
+const ADDONS_INTRO = {
+  label: 'Optional add-ons',
+  text: 'We highly recommend these alongside your plan. Add any, all or none — you can also choose them on the next step.',
+} as const
 
 export function PricingPreview() {
   const reduce = useReducedMotion()
@@ -156,6 +163,18 @@ export function PricingPreview() {
           </motion.div>
 
           {/* ── Add-ons ──────────────────────────────────────────────────── */}
+          {/* One heading for the group (2026-09-27) instead of an "Optional"
+              label repeated on every card, so each card is just its icon and
+              name side by side. */}
+          <div className="flex flex-col gap-4">
+          <div className="mt-4 flex flex-col gap-1.5 px-1 lg:mt-0">
+            <p className="font-mono text-[10px] uppercase tracking-[0.16em]" style={{ color: '#8C9096' }}>
+              {ADDONS_INTRO.label}
+            </p>
+            <p className="text-[13.5px] leading-[1.5]" style={{ color: ADDON_TEXT, textWrap: 'pretty' }}>
+              {ADDONS_INTRO.text}
+            </p>
+          </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-1">
             {FACE_MAP_ADDONS.map((addon, i) => {
               const Icon = addonIcons[addon.id]
@@ -176,25 +195,22 @@ export function PricingPreview() {
                   }`}
                   style={on ? { background: PLAN_GRADIENT } : undefined}
                 >
-                  <div className="mb-3 flex items-center gap-2.5">
+                  <div className="flex items-center gap-3">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-border-soft bg-white text-brand">
                       <Icon className="h-4 w-4" strokeWidth={1.6} />
                     </span>
-                    <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-ink-muted">
-                      {addon.kind === 'delivery' ? 'Optional' : 'Optional specialist Map'}
-                    </span>
+                    <h3 className="min-w-0 text-[15.5px] font-normal leading-tight tracking-[-0.01em]" style={{ color: ADDON_HEAD }}>
+                      {addon.name}
+                    </h3>
                     <span
-                      className="ml-auto text-[15px] tabular-nums"
-                      style={{ fontWeight: 500, color: ADDON_TEXT }}
+                      className="ml-auto shrink-0 text-[15px] tabular-nums"
+                      style={{ fontWeight: 500, color: ADDON_HEAD }}
                     >
                       +{addon.priceDisplay}
                     </span>
                   </div>
 
-                  <h3 className="text-[15.5px] font-normal tracking-[-0.01em] text-ink/80">
-                    {addon.name}
-                  </h3>
-                  <p className="mt-1.5 flex-1 text-[12.5px] leading-relaxed" style={{ color: ADDON_TEXT }}>
+                  <p className="mt-3 flex-1 text-[12.5px] leading-relaxed" style={{ color: ADDON_TEXT }}>
                     {addon.description}
                   </p>
 
@@ -240,6 +256,7 @@ export function PricingPreview() {
                 </motion.div>
               )
             })}
+          </div>
           </div>
         </div>
 
