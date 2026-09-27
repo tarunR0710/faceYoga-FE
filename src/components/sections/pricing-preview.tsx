@@ -91,13 +91,13 @@ export function PricingPreview() {
                 }}
               >
                 {/* Decorative rings */}
-                <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 -translate-y-1/3 translate-x-1/3">
+                <div className="pointer-events-none absolute right-0 top-0 hidden h-28 w-28 -translate-y-1/3 translate-x-1/3 md:block">
                   <svg viewBox="0 0 100 100" fill="none" className="h-full w-full">
                     <circle cx="50" cy="50" r="45" stroke="#38BDF8" strokeWidth="1" opacity="0.3" />
                     <circle cx="50" cy="50" r="28" stroke="#7DD3FC" strokeWidth="1" opacity="0.35" />
                   </svg>
                 </div>
-                <div className="pointer-events-none absolute bottom-0 left-0 h-20 w-20 -translate-x-1/3 translate-y-1/3">
+                <div className="pointer-events-none absolute bottom-0 left-0 hidden h-20 w-20 -translate-x-1/3 translate-y-1/3 md:block">
                   <svg viewBox="0 0 100 100" fill="none" className="h-full w-full">
                     <circle cx="50" cy="50" r="40" stroke="#38BDF8" strokeWidth="1" opacity="0.25" />
                   </svg>
@@ -106,7 +106,7 @@ export function PricingPreview() {
                 <div className="pointer-events-none absolute bottom-6 right-10 h-1.5 w-1.5 rounded-full bg-[#BFDBFE]/55" />
 
                 <div className="relative z-10">
-                  <span className="text-[9.5px] font-medium uppercase tracking-[0.16em] text-ink/55">
+                  <span className="text-[10.5px] font-medium uppercase tracking-[0.16em] text-ink/75">
                     Main plan · {FACE_MAP_CORE.label}
                   </span>
                   <h3
@@ -253,7 +253,7 @@ export function PricingPreview() {
         >
           <div className="grid grid-cols-1 gap-6 p-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:p-7">
             <div>
-              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.16em] text-brand/70">
+              <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.16em] text-brand">
                 Your Map so far
               </p>
               <dl className="space-y-2.5">
@@ -310,10 +310,10 @@ export function PricingPreview() {
               {/* Risk reversal sits ON the money moment. With no testimonials
                   to lean on, a refund a buyer can actually compute is the
                   strongest proof substitute available. */}
-              <p className="text-center text-[11.5px] leading-relaxed text-ink/60">
+              <p className="text-center text-[11.5px] leading-relaxed text-ink/70">
                 {REFUND_POLICY.short}
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[10.5px] text-ink/45">
+              <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[10.5px] text-ink/65">
                 {PAYMENT_METHODS.map((m, i) => (
                   <span key={m} className="flex items-center gap-2">
                     {i > 0 ? (
@@ -371,7 +371,7 @@ export function PricingPreview() {
           >
             <p className="text-[14px] leading-relaxed text-ink-muted">{item.text}</p>
 
-            <p className="mb-4 mt-7 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/40">
+            <p className="mb-4 mt-7 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
               What you receive
             </p>
             <ul className="grid grid-cols-1 gap-x-8 sm:grid-cols-2">
@@ -389,7 +389,7 @@ export function PricingPreview() {
               ))}
             </ul>
 
-            <p className="mt-6 text-[12.5px] leading-relaxed text-ink/45">
+            <p className="mt-6 text-[12.5px] leading-relaxed text-ink/65">
               Reviewed as part of the same case as your Face Map — not delivered as a
               separate service.
             </p>

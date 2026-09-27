@@ -37,7 +37,7 @@ export function TrustBar() {
             // Repeats are decorative — a screen reader hears the four once.
             aria-hidden={i >= HERO.pillars.length}
             className="whitespace-nowrap px-[30px] uppercase"
-            style={{ fontSize: '10.5px', lineHeight: 1, fontWeight: 600, letterSpacing: '0.14em', color: '#98A6AB' }}
+            style={{ fontSize: '10.5px', lineHeight: 1, fontWeight: 600, letterSpacing: '0.14em', color: '#5C6B70' }}
           >
             {p.label}
           </li>

@@ -112,14 +112,14 @@ export function TabRail({
                     : 'text-white'
                   : dark
                     ? 'text-white/55 hover:text-white/85'
-                    : 'text-ink/55 hover:text-ink'
+                    : 'text-ink/70 hover:text-ink'
                 : on
                   ? dark
                     ? 'text-white'
                     : 'text-ink'
                   : dark
                     ? 'text-white/50 hover:text-white/80'
-                    : 'text-ink/50 hover:text-ink/80',
+                    : 'text-ink/70 hover:text-ink',
               focusFrom === t.id ? 'focus-visible:ring-2 focus-visible:ring-brand/50' : '',
             ].join(' ')}
           >

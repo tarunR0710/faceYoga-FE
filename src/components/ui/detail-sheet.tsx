@@ -90,7 +90,7 @@ export function DetailSheet({
                   <div className="flex items-start gap-4">
                     <div className="min-w-0 flex-1">
                       {eyebrow ? (
-                        <p className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/45">
+                        <p className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
                           {eyebrow}
                         </p>
                       ) : null}
@@ -119,7 +119,7 @@ export function DetailSheet({
 
                   <Dialog.Close
                     aria-label="Close"
-                    className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/70 text-ink/50 transition-colors hover:bg-white hover:text-ink sm:right-5 sm:top-5"
+                    className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/70 text-ink/70 transition-colors hover:bg-white hover:text-ink sm:right-5 sm:top-5"
                   >
                     <X className="h-4 w-4" strokeWidth={1.8} />
                   </Dialog.Close>

@@ -25,7 +25,7 @@ const TINTS = [
 ]
 
 const HAIRLINE = 'rgba(30,53,59,.08)'
-const GREY = '#7E959B'
+const GREY = '#5C7278'
 const INK = '#1E353B'
 const EASE = 'cubic-bezier(0.16,1,0.3,1)'
 
@@ -62,8 +62,8 @@ export function WhatWeMap() {
             >
               {c.title} <span className="muted-tail">{c.muted}</span>
             </Reveal>
-            <Reveal index={2} className="text-[15px] leading-relaxed text-ink-muted">
-              <p>{c.lede}</p>
+            <Reveal index={2}>
+              <p className="text-[14px] leading-relaxed text-ink-muted md:text-[16px]">{c.lede}</p>
             </Reveal>
           </div>
 

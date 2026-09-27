@@ -77,11 +77,11 @@ export function FAQ() {
                         className={`relative w-full border-l-2 py-2 pl-4 text-left text-[13.5px] transition-colors duration-200 ${
                           on
                             ? 'border-brand text-ink'
-                            : 'border-border-soft text-ink/50 hover:border-ink/25 hover:text-ink/80'
+                            : 'border-border-soft text-ink/70 hover:border-ink/25 hover:text-ink/80'
                         }`}
                       >
                         {c.label}
-                        <span className="ml-2 font-mono text-[10px] tabular-nums text-ink/25">
+                        <span className="ml-2 font-mono text-[10px] tabular-nums text-ink/65">
                           {c.items.length}
                         </span>
                       </button>
@@ -127,7 +127,7 @@ export function FAQ() {
                 transition={{ duration: 0.28, ease: EASE_OUT }}
               >
                 <TabPanel id={cat} railId={railId}>
-                  <div className="border-t border-ink/12">
+                  <div className="border-t border-ink/10">
                     {category.items.map((item, i) => {
                       const key = `${cat}-${i}`
                       const isOpen = open === key

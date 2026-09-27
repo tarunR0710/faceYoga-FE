@@ -73,7 +73,7 @@ export function Footer() {
             </p>
             <a
               href={`mailto:${SITE_CONFIG.email}`}
-              className="mt-4 inline-block text-[12.5px] text-ink/50 transition-colors hover:text-ink"
+              className="mt-4 inline-block text-[12.5px] text-ink/70 transition-colors hover:text-ink"
             >
               {SITE_CONFIG.email}
             </a>
@@ -81,7 +81,7 @@ export function Footer() {
 
           {columns.map((col) => (
             <div key={col.title}>
-              <p className="mb-4 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/40">
+              <p className="mb-4 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
                 {col.title}
               </p>
               <ul className="space-y-2.5">
@@ -101,7 +101,7 @@ export function Footer() {
 
           {/* Connect */}
           <div>
-            <p className="mb-4 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/40">
+            <p className="mb-4 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
               Connect
             </p>
             <div className="flex items-center gap-3">
@@ -126,10 +126,10 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-12 border-t border-border-soft pt-6">
           <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-            <p className="text-[12px] text-ink/40">
+            <p className="text-[12px] text-ink/65">
               &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
             </p>
-            <p className="max-w-xl text-[11.5px] leading-relaxed text-ink/40 md:text-right">
+            <p className="max-w-xl text-[11.5px] leading-relaxed text-ink/65 md:text-right">
               MapMyFace stays inside appearance guidance. Dental, surgical or medical concerns that need
               diagnosis or treatment are directed to a qualified professional. Visual Direction is
               illustrative, not a guarantee. Payments secured by Razorpay.

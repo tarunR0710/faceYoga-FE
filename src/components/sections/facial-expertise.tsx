@@ -300,7 +300,7 @@ function AnalysisCard() {
                     />
                     <span
                       className="flex-1 truncate text-[14px] tracking-[-0.01em]"
-                      style={{ fontWeight: isActive ? 500 : 400, color: isActive ? SLATE_600 : '#7E959B' }}
+                      style={{ fontWeight: isActive ? 500 : 400, color: isActive ? SLATE_600 : '#5C7278' }}
                     >
                       {label}
                     </span>
@@ -341,7 +341,7 @@ function ReviewedCard() {
           >
             <ReportPanel>
               <span style={{ fontSize: '14px', fontWeight: 600, letterSpacing: '-0.01em' }}>
-                Summary of <span style={{ fontWeight: 400, color: '#7E959B' }}>your jaw</span>
+                Summary of <span style={{ fontWeight: 400, color: '#5C7278' }}>your jaw</span>
               </span>
               <div className="mt-2.5 grid grid-cols-2 gap-1.5">
                 {tiles.map(([label, value], i) => (
@@ -352,7 +352,7 @@ function ReviewedCard() {
 
             <ReportPanel>
               <span style={{ fontSize: '14px', fontWeight: 600, letterSpacing: '-0.01em' }}>
-                Where you sit <span style={{ fontWeight: 400, color: '#7E959B' }}>today</span>
+                Where you sit <span style={{ fontWeight: 400, color: '#5C7278' }}>today</span>
               </span>
               <span style={{ fontSize: '13px', fontWeight: 600, color: SLATE_500 }}>{rangeValue}</span>
               <div className="relative" style={{ height: 18 }}>
@@ -369,7 +369,7 @@ function ReviewedCard() {
 
             <ReportPanel>
               <span style={{ fontSize: '14px', fontWeight: 600, letterSpacing: '-0.01em' }}>
-                Analysis of your <span style={{ fontWeight: 400, color: '#7E959B' }}>forehead</span>
+                Analysis of your <span style={{ fontWeight: 400, color: '#5C7278' }}>forehead</span>
               </span>
               <div className="mt-2.5 grid grid-cols-3 gap-1.5">
                 {forehead.tiles.map(([label, value], i) => (
@@ -473,11 +473,11 @@ function ReportTile({
     >
       <span
         className="truncate"
-        style={{ fontSize: small ? '9px' : '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#7E959B' }}
+        style={{ fontSize: small ? '10px' : '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: SLATE_600 }}
       >
         {label}
       </span>
-      <span style={{ fontSize: '13px', fontWeight: 500, color: strong ? SLATE_600 : SLATE_500 }}>{value}</span>
+      <span style={{ fontSize: '13px', fontWeight: 500, color: SLATE_600, opacity: strong ? 1 : 0.86 }}>{value}</span>
     </div>
   )
 }

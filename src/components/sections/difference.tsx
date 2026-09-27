@@ -54,7 +54,7 @@ export function Difference() {
                 <div key={row.label} className="flex items-start gap-4">
                   {/* shrink-0: items are full sentences, which squeezes the
                       rail and breaks "STEP 2" onto two lines otherwise. */}
-                  <span className="font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-ink/45 mt-1 shrink-0">
+                  <span className="font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-ink/65 mt-1 shrink-0">
                     STEP {index + 1}
                   </span>
                   <span className="text-[14px] leading-relaxed text-ink-muted">{row.generic}</span>
@@ -96,7 +96,7 @@ export function Difference() {
             <div className="space-y-4">
               {ROWS.map((row, index) => (
                 <div key={row.label} className="flex items-start gap-4">
-                  <span className="font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-ink/45 mt-1 shrink-0">
+                  <span className="font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-ink/65 mt-1 shrink-0">
                     STEP {index + 1}
                   </span>
                   <span className="text-[14px] leading-relaxed text-ink-muted">{row.ours}</span>

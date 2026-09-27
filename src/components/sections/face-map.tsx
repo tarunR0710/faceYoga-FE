@@ -78,7 +78,7 @@ export function FaceMapSection() {
                     i === 4 ? 'text-ink/60' : ''
                   }`}
                 >
-                  <span className="font-mono text-[10px] tabular-nums tracking-[0.1em] text-ink/30">{q.n}</span>
+                  <span className="font-mono text-[10px] tabular-nums tracking-[0.1em] text-ink/65">{q.n}</span>
                   <span className="flex flex-wrap items-baseline gap-x-2">
                     <span className="text-[14.5px] text-ink/80">{q.title}</span>
                     <span className="text-[12.5px] text-ink-muted">{q.text}</span>
@@ -87,7 +87,7 @@ export function FaceMapSection() {
               ))}
             </ol>
 
-            <p className="mb-3 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/45">
+            <p className="mb-3 font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink/65">
               {FACE_MAP_REPORT.chapterCount} sections, in four parts
             </p>
             {/* Thirteen sections as four buckets. */}
@@ -101,7 +101,7 @@ export function FaceMapSection() {
                   transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.12 + stagger(i, 0.06) }}
                   className="grid grid-cols-[46px_minmax(0,1fr)] items-baseline gap-x-3 border-t border-border-soft py-3 last:border-b"
                 >
-                  <span className="font-mono text-[10px] tabular-nums tracking-[0.1em] text-ink/30">
+                  <span className="font-mono text-[10px] tabular-nums tracking-[0.1em] text-ink/65">
                     {b.range}
                   </span>
                   <span>
@@ -165,7 +165,7 @@ export function FaceMapSection() {
               </svg>
 
               <div className="relative">
-                <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-ink/45">
+                <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-ink/65">
                   MapMyFace
                 </p>
                 <p
@@ -174,13 +174,13 @@ export function FaceMapSection() {
                 >
                   Your Face Map
                 </p>
-                <p className="mt-1.5 text-[13px] text-ink/55">Made around one person: you.</p>
+                <p className="mt-1.5 text-[13px] text-ink/70">Made around one person: you.</p>
 
                 <div className="mt-10 flex items-baseline justify-between border-t border-ink/[0.09] pt-4">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/45">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/65">
                     {FACE_MAP_REPORT.chapterCount} sections · Visual Direction
                   </span>
-                  <span className="text-[12px] text-ink/55 underline decoration-ink/20 underline-offset-2 transition-colors group-hover:decoration-ink/60">
+                  <span className="text-[12px] text-ink/70 underline decoration-ink/20 underline-offset-2 transition-colors group-hover:decoration-ink/60">
                     Look inside
                   </span>
                 </div>
@@ -248,7 +248,7 @@ function Spread({ spread }: { spread: SpreadData }) {
   return (
     <div className="rounded-[16px] border border-border-soft bg-mist p-5 md:p-6">
       {chapter ? (
-        <p className="mb-4 font-mono text-[9.5px] uppercase tracking-[0.18em] text-ink/45">
+        <p className="mb-4 font-mono text-[9.5px] uppercase tracking-[0.18em] text-ink/65">
           {chapter}
         </p>
       ) : null}
@@ -261,14 +261,14 @@ function Spread({ spread }: { spread: SpreadData }) {
           >
             {spread.title}
           </p>
-          <p className="mt-1.5 text-[13.5px] text-ink/55">{spread.subtitle}</p>
+          <p className="mt-1.5 text-[13.5px] text-ink/70">{spread.subtitle}</p>
           <dl className="mt-7 space-y-0">
             {spread.fields.map(([k, v]) => (
               <div
                 key={k}
                 className="flex items-baseline justify-between gap-4 border-t border-ink/[0.09] py-2.5"
               >
-                <dt className="text-[12.5px] text-ink/50">{k}</dt>
+                <dt className="text-[12.5px] text-ink/70">{k}</dt>
                 <dd className="text-[13px] text-ink/75">{v}</dd>
               </div>
             ))}
@@ -288,12 +288,12 @@ function Spread({ spread }: { spread: SpreadData }) {
                 transition={{ duration: 0.4, ease: EASE_OUT, delay: stagger(i, 0.05) }}
                 className="grid grid-cols-[92px_minmax(0,1fr)] items-baseline gap-x-4 border-t border-ink/[0.09] py-3"
               >
-                <span className="text-[12.5px] text-ink/50">{area}</span>
+                <span className="text-[12.5px] text-ink/70">{area}</span>
                 <span className="text-[13px] leading-relaxed text-ink/80">{finding}</span>
               </motion.li>
             ))}
           </ul>
-          <p className="mt-5 text-[12px] leading-relaxed text-ink/45">{spread.note}</p>
+          <p className="mt-5 text-[12px] leading-relaxed text-ink/65">{spread.note}</p>
         </div>
       )}
 
@@ -329,7 +329,7 @@ function Spread({ spread }: { spread: SpreadData }) {
               )
             })}
           </div>
-          <p className="mt-5 text-[12px] leading-relaxed text-ink/45">{spread.note}</p>
+          <p className="mt-5 text-[12px] leading-relaxed text-ink/65">{spread.note}</p>
         </div>
       )}
 
@@ -340,7 +340,7 @@ function Spread({ spread }: { spread: SpreadData }) {
             if (!rows.length) return null
             return (
               <div key={phase}>
-                <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.2em] text-ink/40">
+                <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.2em] text-ink/65">
                   {phase}
                 </p>
                 <ul className="space-y-1.5">
@@ -383,7 +383,7 @@ function Spread({ spread }: { spread: SpreadData }) {
         </div>
       )}
 
-      <p className="mt-6 border-t border-ink/[0.09] pt-3 text-[11px] text-ink/40">
+      <p className="mt-6 border-t border-ink/[0.09] pt-3 text-[11px] text-ink/65">
         {FACE_MAP_REPORT.sampleNotice}
       </p>
     </div>

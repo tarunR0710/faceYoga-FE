@@ -33,9 +33,9 @@ export function Guidance() {
               index={Math.min(i + 1, 5)}
               className="grid grid-cols-1 gap-x-8 gap-y-1 border-t border-border-soft py-4 md:grid-cols-[168px_minmax(0,1fr)]"
             >
-              <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/55 md:pt-[3px]">{r.label}</dt>
+              <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/70 md:pt-[3px]">{r.label}</dt>
               <dd className="text-[14px] leading-relaxed">
-                <span className="text-ink/40">{r.notJust}</span>{' '}
+                <span className="text-ink/65">{r.notJust}</span>{' '}
                 <span className="text-ink-muted">{r.text}</span>
               </dd>
             </Reveal>

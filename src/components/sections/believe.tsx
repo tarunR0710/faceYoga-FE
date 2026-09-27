@@ -179,17 +179,17 @@ function People() {
                     transition: t(`opacity ${on ? 180 : 300}ms ease ${on ? '0ms' : '220ms'}`),
                   }}
                 >
-                  <span className="font-mono text-[10px] tabular-nums tracking-[0.16em] text-ink/25">
+                  <span className="font-mono text-[10px] tabular-nums tracking-[0.16em] text-ink/65">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span
-                    className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/45"
+                    className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/65"
                     style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
                   >
                     {c.spine}
                   </span>
                   <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full border border-ink/[0.08]">
-                    <ChevronRight className="h-3 w-3 text-ink/30" strokeWidth={1.8} />
+                    <ChevronRight className="h-3 w-3 text-ink/55" strokeWidth={1.8} />
                   </span>
                 </span>
 
@@ -208,7 +208,7 @@ function People() {
                 >
                   {/* Full-bleed, and flexible so the card can never clip its
                       own text on a narrow phone — the photo absorbs the slack. */}
-                  <span className="relative block min-h-[132px] flex-1 overflow-hidden bg-mist">
+                  <span className="relative block min-h-[104px] flex-1 overflow-hidden bg-mist">
                     <Image
                       src={c.photo}
                       alt=""
@@ -251,7 +251,7 @@ function People() {
                     <span className="mt-4 flex flex-col">
                       {/* The label carries the block, so it is set a step up
                           from the items rather than a step down. */}
-                      <span className="pb-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink/55">Expertise</span>
+                      <span className="pb-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink/70">Expertise</span>
                       {c.tags.map((tag) => (
                         <span key={tag} className="flex items-center gap-2.5 border-t border-border-soft py-[9px] text-[13px] leading-snug text-ink/75">
                           <Check className="h-3.5 w-3.5 flex-none text-ink/25" strokeWidth={1.9} />
@@ -282,7 +282,7 @@ function Philosophy() {
   const { philosophy } = BELIEVE
   return (
     <div>
-      <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink/45">{philosophy.eyebrow}</p>
+      <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink/65">{philosophy.eyebrow}</p>
       <h3 className="mb-4 text-[1.35rem] leading-tight tracking-[-0.02em] text-ink/80 md:text-[1.6rem]" style={{ fontWeight: 300 }}>
         {philosophy.title} <span className="muted-tail">{philosophy.muted}</span>
       </h3>
@@ -298,7 +298,7 @@ function Philosophy() {
             transition={{ duration: 0.45, ease: EASE_OUT, delay: stagger(i, 0.06) }}
             className="grid grid-cols-[32px_1fr] content-start gap-x-3 gap-y-1 border-t border-border-soft pt-3.5 md:pb-1"
           >
-            <span className="row-span-2 font-mono text-[11.5px] tabular-nums text-ink/40">{String(i + 1).padStart(2, '0')}</span>
+            <span className="row-span-2 font-mono text-[11.5px] tabular-nums text-ink/65">{String(i + 1).padStart(2, '0')}</span>
             <span className="text-[14.5px] leading-snug tracking-[-0.01em] text-ink/80">{title}</span>
             <span className="text-[13px] leading-relaxed text-ink-muted">{text}</span>
           </motion.li>
@@ -329,7 +329,7 @@ function Method() {
             transition={{ duration: 0.45, ease: EASE_OUT, delay: stagger(i, 0.04) }}
             className="grid grid-cols-[32px_1fr] content-start gap-x-3 gap-y-0.5 border-b border-border-soft py-3"
           >
-            <dt className="row-span-2 font-mono text-[11px] tabular-nums text-ink/40">{String(i + 1).padStart(2, '0')}</dt>
+            <dt className="row-span-2 font-mono text-[11px] tabular-nums text-ink/65">{String(i + 1).padStart(2, '0')}</dt>
             <dd className="text-[14px] leading-snug tracking-[-0.01em] text-ink/80">{title}</dd>
             <dd className="text-[12.5px] leading-relaxed text-ink-muted">{text}</dd>
           </motion.div>
@@ -365,13 +365,13 @@ function Evidence() {
           >
             <span className="flex items-baseline gap-2.5">
               <span className="font-mono text-[15px] tabular-nums text-ink">{st.year}</span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/45">{st.scope}</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/65">{st.scope}</span>
             </span>
             <h3 className="text-[15.5px] leading-snug tracking-[-0.01em] text-ink/80" style={{ fontWeight: 400 }}>
               {st.claim}
             </h3>
             <p className="text-[13px] leading-relaxed text-ink-muted">{st.detail}</p>
-            <p className="font-mono text-[10.5px] leading-relaxed text-ink/45">{st.source}</p>
+            <p className="font-mono text-[10.5px] leading-relaxed text-ink/65">{st.source}</p>
           </motion.li>
         ))}
       </ol>

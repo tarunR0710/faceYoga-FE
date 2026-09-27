@@ -61,7 +61,7 @@ export function VisualDirection() {
                   </span>
                   <div className="relative flex flex-col gap-2">
                     {panel.tags.length === 0 ? (
-                      <p className="text-[13px] leading-relaxed text-ink/55">How your face presents today, as your expert saw it in the session.</p>
+                      <p className="text-[13px] leading-relaxed text-ink/70">How your face presents today, as your expert saw it in the session.</p>
                     ) : (
                       panel.tags.map(([tag, text]) => (
                         <div key={tag} className="rounded-[12px] px-3.5 py-2.5" style={{ background: 'rgba(255,255,255,.14)', border: '1px solid rgba(255,255,255,.22)' }}>
@@ -79,7 +79,7 @@ export function VisualDirection() {
           })}
         </div>
 
-        <Reveal index={6} className="mx-auto mt-6 max-w-3xl text-center text-[12px] leading-relaxed text-ink/45">
+        <Reveal index={6} className="mx-auto mt-6 max-w-3xl text-center text-[12px] leading-relaxed text-ink/65">
           <p>{VISUAL_DIRECTION.disclaimer}</p>
         </Reveal>
       </div>

@@ -62,7 +62,7 @@ export function Proof() {
         <Reveal
           as="p"
           delay={0.1}
-          className="mt-5 text-[11.5px] leading-relaxed text-ink/40 md:text-center"
+          className="mt-5 text-[11.5px] leading-relaxed text-ink/65 md:text-center"
         >
           {PROOF.disclaimer}
         </Reveal>
@@ -103,10 +103,10 @@ function CompareSlider({ before, after }: { before: string; after: string }) {
         />
       </div>
 
-      <span className="absolute left-3 top-3 font-mono text-[12px] font-medium tracking-[0.15em] text-white/85 drop-shadow">
+      <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2 py-0.5 font-mono text-[11px] font-medium tracking-[0.12em] text-white backdrop-blur-[2px]">
         BEFORE
       </span>
-      <span className="absolute right-3 top-3 font-mono text-[12px] font-medium tracking-[0.15em] text-white/85 drop-shadow">
+      <span className="absolute right-3 top-3 rounded-full bg-black/55 px-2 py-0.5 font-mono text-[11px] font-medium tracking-[0.12em] text-white backdrop-blur-[2px]">
         AFTER
       </span>
 

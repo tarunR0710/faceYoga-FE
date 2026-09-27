@@ -9,8 +9,8 @@ import { SectionTag } from '@/components/ui/section-tag'
 import { CONTEXT_FACTORS } from '@/lib/content'
 
 const HAIRLINE = 'rgba(30,53,59,.1)'
-const GREY = '#7E959B'
-const GHOST = '#98A6AB'
+const GREY = '#5C7278'
+const GHOST = '#5C7278'
 const INK = '#1E353B'
 const EASE = 'cubic-bezier(0.16,1,0.3,1)'
 const CARD_W = 300

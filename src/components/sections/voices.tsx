@@ -112,7 +112,7 @@ export function Voices() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'linear-gradient(180deg,rgba(34,37,41,.42) 0%,rgba(34,37,41,.08) 32%,rgba(34,37,41,.2) 55%,rgba(34,37,41,.78) 100%)',
+              'linear-gradient(180deg,rgba(34,37,41,.48) 0%,rgba(34,37,41,.30) 32%,rgba(34,37,41,.45) 55%,rgba(34,37,41,.82) 100%)',
           }}
         />
         <div
@@ -139,7 +139,7 @@ export function Voices() {
             className="text-[clamp(27px,4.4vw,40px)] leading-[1.08] tracking-[-0.03em] text-white"
             style={{ fontWeight: 300, textWrap: 'balance' }}
           >
-            {VOICES.title} <span style={{ color: 'rgba(255,255,255,.62)' }}>{VOICES.muted}</span>
+            {VOICES.title} <span style={{ color: 'rgba(255,255,255,.78)' }}>{VOICES.muted}</span>
           </h2>
         </div>
 
@@ -199,7 +199,7 @@ export function Voices() {
                     />
                     <span
                       className="font-mono text-[10px] uppercase tracking-[0.1em]"
-                      style={{ color: 'rgba(255,255,255,.72)' }}
+                      style={{ color: 'rgba(255,255,255,.85)' }}
                     >
                       {r.city}
                     </span>
@@ -278,7 +278,7 @@ export function Voices() {
                   the counter has to. */}
               <span
                 className="ml-1 font-mono text-[10px] uppercase tracking-[0.12em] tabular-nums"
-                style={{ color: 'rgba(255,255,255,.72)' }}
+                style={{ color: 'rgba(255,255,255,.85)' }}
               >
                 {String(i + 1).padStart(2, '0')} / {String(VOICES.reviews.length).padStart(2, '0')}
               </span>

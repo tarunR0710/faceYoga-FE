@@ -55,7 +55,7 @@ export function SectionTag({
   if (variant === 'default') {
     return (
       <span className="inline-flex rounded-full" style={{ padding: '1px', background: HAIRLINE_GRADIENT }}>
-        <span className={`${SHELL} rounded-full bg-white text-[#999999] ${className}`} style={SHELL_STYLE}>
+        <span className={`${SHELL} rounded-full bg-white text-ink-muted ${className}`} style={SHELL_STYLE}>
           {children}
         </span>
       </span>

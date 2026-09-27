@@ -10,7 +10,7 @@ import { CONTEXT } from '@/lib/content'
 // token — every card and the closing block are set in it, and it has to hold
 // against four tinted skies.
 const INK = '#26313F'
-const NOTE = '#55637A'
+const NOTE = '#465369'
 const CARD_W = 292
 const CARD_H = 440
 const GAP = 12
@@ -448,11 +448,11 @@ export function SellOneThing() {
           <Reveal index={0} as="h2" className="text-[1.6rem] leading-[1.15] tracking-[-0.03em] text-ink md:text-[1.75rem]" style={{ fontWeight: 300 }}>
             {CONTEXT.antiUpsell.title} <span className="muted-tail">{CONTEXT.antiUpsell.accent}</span>
           </Reveal>
-          <Reveal index={1} className="max-w-[340px] text-[14px] leading-relaxed text-ink-muted md:max-w-[460px]">
-            <p>{CONTEXT.antiUpsell.body}</p>
+          <Reveal index={1} className="max-w-[340px] md:max-w-[460px]">
+            <p className="text-[14px] leading-relaxed text-ink-muted">{CONTEXT.antiUpsell.body}</p>
           </Reveal>
-          <Reveal index={2} className="max-w-[340px] text-[14px] leading-relaxed text-ink/75 md:max-w-[460px]">
-            <p>{CONTEXT.antiUpsell.closing}</p>
+          <Reveal index={2} className="max-w-[340px] md:max-w-[460px]">
+            <p className="text-[14px] leading-relaxed text-ink/75">{CONTEXT.antiUpsell.closing}</p>
           </Reveal>
         </div>
       </div>

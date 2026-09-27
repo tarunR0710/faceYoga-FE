@@ -387,7 +387,7 @@ export function Journey() {
             <div className="flex flex-col gap-2" style={{ paddingRight: 28 }}>
               <p
                 className="text-[10px] uppercase tracking-[0.18em]"
-                style={{ color: SLATE_400, fontWeight: 500 }}
+                style={{ color: SLATE_600, fontWeight: 500 }}
               >
                 Where we stop
               </p>
@@ -405,7 +405,7 @@ export function Journey() {
                     className="flex gap-2 text-[12.5px] leading-[1.5]"
                     style={{ color: SLATE_600 }}
                   >
-                    <span aria-hidden="true" style={{ color: SLATE_400 }}>
+                    <span aria-hidden="true" style={{ color: SLATE_500 }}>
                       &ndash;
                     </span>
                     <span style={{ textWrap: 'pretty' }}>{item}</span>

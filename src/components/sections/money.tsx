@@ -103,21 +103,21 @@ export function Money() {
               // the card carries white text throughout, so the ground has to
               // stay dark. Layered background — sheen first, ramp behind.
               background:
-                'linear-gradient(180deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 100%), ' +
+                'linear-gradient(180deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 100%), ' +
                 'linear-gradient(155deg,#37606B 0%,#274A54 60%,#1E3B44 100%)',
               boxShadow: '0 18px 34px -22px rgba(30,59,68,.85)',
             }}
           >
             <div className="flex items-center justify-between">
-              <span className={MONO} style={{ color: 'rgba(255,255,255,.7)' }}>{ANCHOR.plan.ourWay}</span>
-              <span className={`${MONO} rounded-full`} style={{ background: 'rgba(255,255,255,.14)', padding: '5px 11px' }}>
+              <span className={MONO} style={{ color: 'rgba(255,255,255,.85)' }}>{ANCHOR.plan.ourWay}</span>
+              <span className={`${MONO} rounded-full`} style={{ background: 'rgba(255,255,255,.22)', padding: '5px 11px' }}>
                 {ANCHOR.plan.paidOnce}
               </span>
             </div>
             <div className="flex flex-col gap-2">
               <span className="text-[17px] leading-tight tracking-[-0.01em]" style={{ fontWeight: 400 }}>{ANCHOR.plan.label}</span>
               <span className="text-[3.25rem] leading-none tracking-[-0.03em] tabular-nums" style={{ fontWeight: 200 }}>{ANCHOR.plan.value}</span>
-              <span className="text-[12.5px] leading-relaxed" style={{ color: 'rgba(255,255,255,.7)' }}>{ANCHOR.plan.gst}</span>
+              <span className="text-[12.5px] leading-relaxed" style={{ color: 'rgba(255,255,255,.85)' }}>{ANCHOR.plan.gst}</span>
             </div>
             <ul className="flex flex-col gap-3 pt-5" style={{ borderTop: '1px solid rgba(255,255,255,.18)' }}>
               {ANCHOR.plan.includes.map((line) => (

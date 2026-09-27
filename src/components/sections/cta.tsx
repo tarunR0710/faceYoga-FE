@@ -104,7 +104,7 @@ export function CTA() {
               </Link>
             </div>
 
-            <p className="mt-5 text-[12.5px] text-ink/50">{REFUND_POLICY.short}</p>
+            <p className="mt-5 text-[12.5px] text-ink/70">{REFUND_POLICY.short}</p>
           </div>
 
           {/* "This is not for you if" is cut (2026-09-26). Two of its three

@@ -97,7 +97,7 @@ export function SectionHeading({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
           transition={{ ...REVEAL, delay: 0.1 }}
-          className="mx-auto mt-6 max-w-lg text-center text-[13px] leading-relaxed text-ink/55 md:text-[14px]"
+          className="mx-auto mt-6 max-w-lg text-center text-[13px] leading-relaxed text-ink/70 md:text-[14px]"
         >
           {note}
         </motion.p>

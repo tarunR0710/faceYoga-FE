@@ -170,7 +170,7 @@ export function ProtocolSequence({ className = '' }: { className?: string }) {
       <figcaption className="mt-5 space-y-1.5">
         {BANDS.map((b) => (
           <p key={b.label} className="text-[12.5px] leading-snug text-ink-muted">
-            <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-ink/50">
+            <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-ink/70">
               {b.label}
             </span>
             <span className="mx-2 text-ink/25">·</span>
@@ -178,7 +178,7 @@ export function ProtocolSequence({ className = '' }: { className?: string }) {
           </p>
         ))}
         <p className="text-[12.5px] leading-snug text-ink-muted">
-          <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-ink/50">
+          <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-ink/70">
             Continue
           </span>
           <span className="mx-2 text-ink/25">·</span>
